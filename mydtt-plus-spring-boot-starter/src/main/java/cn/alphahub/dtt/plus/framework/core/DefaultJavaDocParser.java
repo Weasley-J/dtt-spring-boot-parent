@@ -17,12 +17,11 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.framework.core.reflect.ReflectionUtil.methodToProperty;
 
 /**
  * 解析Java doc注释
@@ -119,45 +118,50 @@ public class DefaultJavaDocParser implements CommentParser<ModelEntity> {
                 printMethodJavadoc(methodDoc);
             }
 
-            List<Method> publicMethods = ClassUtil.getPublicMethods(clazz, method -> method.getName().startsWith(GET));
+            List<Method> publicMethods = getPublicGetterMethods(clazz);
 
-            // METHODS
-            List<ModelEntity.Detail> details = classDoc.getMethods().stream()
-                    .filter(methodJavadoc -> {
-                                String camelFiledName = StringUtils.firstToLowerCase(methodJavadoc.getName().substring(GET.length()));
-                                Field field = ClassUtil.getDeclaredField(clazz, camelFiledName);
-                                return methodJavadoc.getName().startsWith(GET)
-                                        && !field.getType().isInterface()
-                                        && !field.getType().isArray();
-                            }
-                    )
-                    .map(methodJavadoc -> {
+            // Methods
+            List<ModelEntity.Detail> details = new ArrayList<>();
+            if (CollectionUtils.isNotEmpty(publicMethods)) {
+                for (Method method : publicMethods) {
+                    String fieldName = StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                    String fieldNameToUnderline = StringUtils.camelToUnderline(fieldName);
+                    Field field = ClassUtil.getDeclaredField(clazz, fieldName);
+                    String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
 
-                        String underlineFiledName = StringUtils.camelToUnderline(methodJavadoc.getName().substring(GET.length()));
-                        String camelFiledName = StringUtils.firstToLowerCase(methodJavadoc.getName().substring(GET.length()));
-                        Field field = ClassUtil.getDeclaredField(clazz, camelFiledName);
-                        String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
+                    // 过滤掉不符合命名规范的列
+                    if (field.getType().isInterface() || field.getType().isArray()) {
+                        logger.warn("Java数据模型'{}'的私有成员变量'{}'属性是'{}'类型不符合规范，创建表结构中不会包含对应的列.", fullyQualifiedClassName, fieldName, field.getType().getName());
+                        continue;
+                    }
 
-                        Object invoke = null;
-                        for (Method method : publicMethods) {
-                            if (Objects.equals(methodToProperty(method.getName()), field.getName())) {
-                                invoke = ClassUtil.invoke(fullyQualifiedClassName, method.getName(), new Object[0]);
-                                break;
-                            }
+                    Object invokeValue = null;
+                    if (Objects.equals(fieldName, field.getName())) {
+                        invokeValue = ClassUtil.invoke(fullyQualifiedClassName, method.getName(), new Object[0]);
+                    }
+
+                    String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
+                    String realDbDataType = parseDbDataType(field, originalDbDataType);
+
+                    FieldJavadoc fieldJavadoc = null;
+                    for (FieldJavadoc javadoc : classDoc.getFields()) {
+                        if (fieldName.equals(javadoc.getName())) {
+                            fieldJavadoc = javadoc;
+                            break;
                         }
+                    }
 
-                        String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
-                        String realDbDataType = parseDbDataType(field, originalDbDataType);
+                    ModelEntity.Detail detail = new ModelEntity.Detail()
+                            .setIsPrimaryKey(PRIMARY_KEY.equals(fieldNameToUnderline))
+                            .setJavaDataType(javaDataType)
+                            .setDatabaseDataType(realDbDataType)
+                            .setFiledName(fieldNameToUnderline)
+                            .setFiledComment(getFiledComment(fieldJavadoc))
+                            .setInitialValue(null != invokeValue ? String.valueOf(invokeValue) : "NULL");
 
-                        return new ModelEntity.Detail().setIsPrimaryKey(PRIMARY_KEY.equals(underlineFiledName))
-                                .setJavaDataType(javaDataType)
-                                .setDatabaseDataType(realDbDataType)
-                                .setFiledName(underlineFiledName)
-                                .setFiledComment(getFiledComment(methodJavadoc))
-                                .setInitialValue(null != invoke ? String.valueOf(invoke) : "NULL");
-
-                    }).collect(Collectors.toList());
-
+                    details.add(detail);
+                }
+            }
 
             //处理不加java注释的模型, 所有字段将缺失表描述信息
             if (CollectionUtils.isEmpty(details)) {
@@ -175,8 +179,11 @@ public class DefaultJavaDocParser implements CommentParser<ModelEntity> {
     /**
      * @return filed comment
      */
-    private String getFiledComment(MethodJavadoc methodJavadoc) {
-        String filedComment = format(methodJavadoc.getComment());
+    private String getFiledComment(FieldJavadoc fieldJavadoc) {
+        if (null == fieldJavadoc) {
+            return "";
+        }
+        String filedComment = format(fieldJavadoc.getComment());
         if (StringUtils.isNotBlank(filedComment)) {
             if (filedComment.startsWith("'")) {
                 filedComment = filedComment.substring(1);

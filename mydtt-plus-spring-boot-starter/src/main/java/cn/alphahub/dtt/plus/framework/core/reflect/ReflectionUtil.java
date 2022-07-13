@@ -65,7 +65,7 @@ public class ReflectionUtil {
             String implMethodName = serializedLambda.getImplMethodName();
             // 传入方法类
             String lambdaImplClass = serializedLambda.getImplClass();
-            return methodToProperty(Objects.requireNonNull(implMethodName));
+            return methodNameToProperty(Objects.requireNonNull(implMethodName));
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             logger.error("Failed to get Java Bean property name {}", e.getLocalizedMessage(), e);
             throw new ParseException("Failed to get Java Bean property name", e);
@@ -161,12 +161,30 @@ public class ReflectionUtil {
     }
 
     /**
+     * 方法名转下划线
+     * <b>使用示例:</b>
+     * <pre>
+     * ReflectionUtil.methodNameToUnderline("getAccessToken") = access_token
+     * ReflectionUtil.methodNameToUnderline("getExpiresIn")   = expires_in
+     * ReflectionUtil.methodNameToUnderline("getUid")         = uid
+     * ReflectionUtil.methodNameToUnderline("getIsRealName")  = is_real_name
+     * </pre>
+     *
+     * @param methodName method name
+     * @return Underline
+     */
+    public static String methodNameToUnderline(String methodName) {
+        String property = methodNameToProperty(methodName);
+        return translate(property);
+    }
+
+    /**
      * Java方法名转属性名
      *
      * @param methodName Java Bean某个属性的getter或者setter方法
      * @return 返回属性值名称
      */
-    public static String methodToProperty(String methodName) {
+    public static String methodNameToProperty(String methodName) {
         if (methodName.startsWith(IS)) {
             methodName = methodName.substring(2);
         } else {

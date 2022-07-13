@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.framework.core.reflect.ReflectionUtil.methodToProperty;
+import static cn.alphahub.dtt.plus.framework.core.reflect.ReflectionUtil.methodNameToProperty;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -101,7 +101,7 @@ public interface CommentParser<T> extends DttContext<T> {
 
             Object invoke = null;
             for (Method method : getPublicGetterMethods(aClass)) {
-                if (Objects.equals(methodToProperty(method.getName()), field.getName())) {
+                if (Objects.equals(methodNameToProperty(method.getName()), field.getName())) {
                     invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
                     break;
                 }
@@ -126,7 +126,7 @@ public interface CommentParser<T> extends DttContext<T> {
      * @return all public getter methods
      */
     default List<Method> getPublicGetterMethods(Class<?> aClass) {
-        return ClassUtil.getPublicMethods(aClass, method -> method.getName().startsWith(GET));
+        return ClassUtil.getPublicMethods(aClass, method -> method.getName().startsWith(GET) && !method.getName().equals("getClass"));
     }
 
     /**

@@ -54,7 +54,7 @@ public class DttMember implements Serializable {
     /**
      * 用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常
      */
-    private Integer status = 0;
+    private Integer status = 3;
     /**
      * 账户注销状态；0 未注销（默认），1 已销户
      */
