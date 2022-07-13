@@ -1,0 +1,97 @@
+#
+# Java数据类型 - 数据库数据类型
+#  db properties mapping
+#
+alphahub:
+  dtt:
+    is-enable: on
+    data-type-mapping:
+      mysql:
+        String: varchar
+        Boolean: tinyint
+        Float: float
+        Double: double
+        Integer: int
+        Long: bigint
+        BigDecimal: decimal
+        Date: datetime
+        LocalTime: time
+        LocalDate: date
+        Timestamp: timestamp
+        LocalDateTime: datetime
+        Enum: enum
+
+      oracle:
+        String: VARCHAR
+        Boolean: NUMBER(1)
+        Float: FLOAT
+        Double: DOUBLE
+        Integer: INTEGER
+        Long: NUMBER
+        BigDecimal: DECIMAL
+        Date: DATETIME
+        LocalDate: DATETIME
+        LocalTime: DATETIME
+        Timestamp: TIMESTAMP
+        LocalDateTime: DATETIME
+        Enum: VARCHAR
+
+      db2:
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
+
+      sqlserver:
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
+
+      mariadb:
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
+
+      postgresql:
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''

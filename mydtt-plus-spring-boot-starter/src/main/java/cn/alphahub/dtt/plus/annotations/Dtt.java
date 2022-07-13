@@ -1,0 +1,44 @@
+package cn.alphahub.dtt.plus.annotations;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * 域模型、元数据的描述信息
+ *
+ * @author weasley
+ * @version 1.0.0
+ */
+@Inherited
+@Documented
+@Target({ElementType.TYPE, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Dtt {
+    /**
+     * 模型描述信息
+     *
+     * @return 描述信息
+     */
+    String value() default "";
+
+    /**
+     * @return 是否主键
+     */
+    boolean isPrimaryKey() default false;
+
+    /**
+     * Data types mapped to the database，For example:  varchar(64)
+     *
+     * @return data types mapped to the database
+     */
+    String dbDataType() default "";
+
+    /**
+     * @return 默认值
+     */
+    String defaultValue() default "";
+}

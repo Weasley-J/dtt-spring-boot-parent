@@ -1,0 +1,46 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Weasley J DIY ###
+/README.assets
+/webapp/*.jar
+/springboot-webapp/*.jar
+/resources/nacos-server/nacos/**/logs/
+/resources/nacos-config/**/nacos/**/logs/
+/resources/nacos-server/nacos/data
+
+### 自定义配置文件，防止账号泄露 ###
+!**/src/main/resources/*-lwj.yml
+!**/src/main/resources/*-*lwj.yml
+!**/src/main/resources/*-lwj*.yml
