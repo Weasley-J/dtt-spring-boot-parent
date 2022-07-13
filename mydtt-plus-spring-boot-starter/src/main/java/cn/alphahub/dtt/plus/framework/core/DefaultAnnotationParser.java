@@ -21,7 +21,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.framework.core.reflect.ReflectionUtil.methodNameToProperty;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -84,7 +83,8 @@ public class DefaultAnnotationParser implements CommentParser<ModelEntity> {
                 String realDbDataType = parseDbDataType(field, originalDbDataType);
                 Object invoke = null;
                 for (Method method : getPublicGetterMethods(aClass)) {
-                    if (Objects.equals(methodNameToProperty(method.getName()), field.getName())) {
+                    String fieldProps = com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                    if (Objects.equals(fieldProps, field.getName())) {
                         invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
                         break;
                     }

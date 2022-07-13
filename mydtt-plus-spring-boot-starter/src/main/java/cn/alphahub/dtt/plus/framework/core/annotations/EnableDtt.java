@@ -69,7 +69,7 @@ public @interface EnableDtt {
      * @return 是否使用Comment注解解析表结构，有代码侵入性，默认使用Java Doc注释
      * @see ParseType
      */
-    ParseType parseCommentType() default ParseType.JAVA_DOC;
+    ParseType parseType() default ParseType.JAVA_DOC;
 
     /**
      * 创建前删除表

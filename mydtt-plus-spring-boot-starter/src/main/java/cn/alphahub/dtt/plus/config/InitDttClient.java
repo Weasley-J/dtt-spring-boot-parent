@@ -41,10 +41,10 @@ public class InitDttClient {
         Map<ParseType, CommentParser<ModelEntity>> client = new ConcurrentHashMap<>(1);
         Map<String, CommentParser> commentParserMap = SpringUtil.getApplicationContext().getBeansOfType(CommentParser.class);
         if (CollectionUtils.isNotEmpty(commentParserMap)) {
-            if (ParseType.ANNO_TYPE == InitDttHandler.enableDttHandler().parseCommentType()) {
+            if (ParseType.ANNO_TYPE == InitDttHandler.enableDttHandler().parseType()) {
                 client.put(ParseType.ANNO_TYPE, commentParserMap.get(DefaultAnnotationParser.class.getName()));
             }
-            if (ParseType.JAVA_DOC == InitDttHandler.enableDttHandler().parseCommentType()) {
+            if (ParseType.JAVA_DOC == InitDttHandler.enableDttHandler().parseType()) {
                 client.put(ParseType.JAVA_DOC, commentParserMap.get(DefaultJavaDocParser.class.getName()));
             }
         }

@@ -12,11 +12,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @EnableDtt(
         scanBasePackages = {
-               // "com.example.domain.dtt",
-                //"com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
-               // "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
+                //"com.example.domain.dtt",
+                "com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
+                "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
-        parseCommentType = ParseType.JAVA_DOC,
+        parseType = ParseType.JAVA_DOC,
         dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //DttMember.class

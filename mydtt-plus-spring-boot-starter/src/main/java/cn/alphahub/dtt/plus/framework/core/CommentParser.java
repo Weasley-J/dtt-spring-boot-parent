@@ -5,9 +5,12 @@ import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,7 +20,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.framework.core.reflect.ReflectionUtil.methodNameToProperty;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -30,6 +32,7 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
  */
 @FunctionalInterface
 public interface CommentParser<T> extends DttContext<T> {
+    Logger logger = LoggerFactory.getLogger(CommentParser.class);
     /**
      * get method prefix
      */
@@ -93,30 +96,34 @@ public interface CommentParser<T> extends DttContext<T> {
      * @return 域模型信息集合
      */
     default List<ModelEntity.Detail> handleTableWithoutComment(Class<?> aClass) {
-        return Arrays.stream(aClass.getDeclaredFields()).filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName())).map(field -> {
+        return Arrays.stream(aClass.getDeclaredFields())
+                .filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName()))
+                .filter(field -> !field.getType().isInterface())
+                .filter(field -> !field.getType().isArray())
+                .map(field -> {
+                    String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
+                    String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
+                    String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
-            String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-            String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
-            String realDbDataType = this.parseDbDataType(field, originalDbDataType);
+                    Object invoke = null;
+                    for (Method method : getPublicGetterMethods(aClass)) {
+                        String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                        if (Objects.equals(fieldProps, field.getName())) {
+                            invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
+                            break;
+                        }
+                    }
 
-            Object invoke = null;
-            for (Method method : getPublicGetterMethods(aClass)) {
-                if (Objects.equals(methodNameToProperty(method.getName()), field.getName())) {
-                    invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
-                    break;
-                }
-            }
+                    ModelEntity.Detail detail = new ModelEntity.Detail();
+                    detail.setIsPrimaryKey(PRIMARY_KEY.equals(camelToUnderline(field.getName())));
+                    detail.setDatabaseDataType(realDbDataType);
+                    detail.setJavaDataType(javaDataType);
+                    detail.setFiledName(camelToUnderline(field.getName()));
+                    detail.setInitialValue(null != invoke ? String.valueOf(invoke) : "NULL");
+                    detail.setFiledComment("");
 
-            ModelEntity.Detail detail = new ModelEntity.Detail();
-            detail.setIsPrimaryKey(PRIMARY_KEY.equals(camelToUnderline(field.getName())));
-            detail.setDatabaseDataType(realDbDataType);
-            detail.setJavaDataType(javaDataType);
-            detail.setFiledName(camelToUnderline(field.getName()));
-            detail.setInitialValue(null != invoke ? String.valueOf(invoke) : "NULL");
-            detail.setFiledComment("");
-
-            return detail;
-        }).collect(Collectors.toList());
+                    return detail;
+                }).collect(Collectors.toList());
     }
 
     /**

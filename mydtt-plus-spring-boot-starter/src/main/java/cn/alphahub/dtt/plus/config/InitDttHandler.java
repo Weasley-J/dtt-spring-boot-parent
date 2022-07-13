@@ -113,7 +113,7 @@ public class InitDttHandler implements ApplicationRunner {
      */
     public void resolveAnnotationsClass(EnableDtt dttHandler) {
         // 解析注释, 自动推断实现
-        CommentParser<ModelEntity> commentParser = commentParserClient.get(dttHandler.parseCommentType());
+        CommentParser<ModelEntity> commentParser = commentParserClient.get(dttHandler.parseType());
 
         Consumer<Class<?>> classConsumer = aClass -> MODEL_ENTITIES.add(commentParser.parse(aClass.getName()));
 
