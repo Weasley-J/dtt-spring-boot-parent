@@ -21,12 +21,11 @@ import java.lang.annotation.Target;
  * 启用 Dtt 处理程
  * <p>
  * <b>What is DTT?</b>
- *     <ul>
- *         <li>It's means  `Domain-to-Table`，As we know，The Object of Java is `Domain`，Database's is `Table` yet.</li>
- *         <li>You can easily use the '@EnableDtt' annotation to prevent JAVA objects from automatically creating data tables into your database with minimal configuration</li>
- *         <li>DTT can easily preserve comments on database from 'java doc' to database table comments</li>
- *     </ul>
- * </p>
+ * <ul>
+ *     <li>It's means  `Domain-to-Table`，As we know，The Object of Java is `Domain`，Database's is `Table` yet.</li>
+ *     <li>You can easily use the '@EnableDtt' annotation to prevent JAVA objects from automatically creating data tables into your database with minimal configuration</li>
+ *     <li>DTT can easily preserve comments on database from 'java doc' to database table comments</li>
+ * </ul>
  *
  * @author weasley
  * @version 1.0.0

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
 
-    <groupId>cn.alphahub</groupId>
+    <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter-test</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>mydtt-plus-spring-boot-starter-test</name>
     <description>mydtt-plus-spring-boot-starter-test</description>
 
@@ -23,7 +23,7 @@
     <dependencies>
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
-            <groupId>cn.alphahub</groupId>
+            <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
             <version>${mydtt-plus.version}</version>
         </dependency>

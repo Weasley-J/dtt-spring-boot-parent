@@ -31,6 +31,7 @@ public class DataSourceAutoConfig {
     /**
      * 当注册中心中修改数据库配置动态切换数据库
      *
+     * @param properties 用于配置数据源的基类
      * @return HikariDataSource
      */
     @Primary
@@ -47,6 +48,9 @@ public class DataSourceAutoConfig {
     }
 
     /**
+     * default jdbc template
+     *
+     * @param dataSource default hikari data source
      * @return defaultJdbcTemplate
      */
     @Bean(name = {"defaultJdbcTemplate"})
@@ -56,6 +60,9 @@ public class DataSourceAutoConfig {
     }
 
     /**
+     * default data source transaction manager
+     *
+     * @param dataSource default hikari data source
      * @return defaultDataSourceTransactionManager
      */
     @Bean(name = {"defaultDataSourceTransactionManager"})

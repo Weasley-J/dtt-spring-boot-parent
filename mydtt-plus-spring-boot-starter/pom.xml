@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>cn.alphahub</groupId>
+    <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <name>mydtt-plus-spring-boot-starter</name>
@@ -25,6 +25,11 @@
         <spring-cloud-context.version>3.1.3</spring-cloud-context.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
+        <!-- deploy start -->
+        <nexus-staging.version>1.6.13</nexus-staging.version>
+        <maven-javadoc.version>3.4.0</maven-javadoc.version>
+        <maven-gpg.version>3.0.1</maven-gpg.version>
+        <!-- deploy end -->
     </properties>
 
     <dependencies>
@@ -117,6 +122,21 @@
         <!-- velocity end -->
     </dependencies>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <name>Sonatype Snapshot Repository</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+            <layout>default</layout>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Sonatype Release Repository</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <resources>
@@ -129,6 +149,17 @@
         </resources>
         <plugins>
             <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${nexus-staging.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
@@ -137,6 +168,58 @@
                         <phase>package</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc.version}</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                    <tags>
+                        <tag>
+                            <name>date</name>
+                            <placement>o</placement>
+                            <head>Ignore 'date' tag rule</head>
+                        </tag>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>o</placement>
+                            <head>Ignore 'apiNote' tag rule</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>o</placement>
+                            <head>Ignore 'implNote' tag rule</head>
+                        </tag>
+                    </tags>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>

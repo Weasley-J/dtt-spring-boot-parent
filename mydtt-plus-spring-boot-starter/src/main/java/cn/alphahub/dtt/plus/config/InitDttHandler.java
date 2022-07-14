@@ -77,11 +77,11 @@ public class InitDttHandler implements ApplicationRunner {
     }
 
     /**
-     * javaDataType -> databaseDataType
+     * javaDataType to databaseDataType
      *
      * @param javaDataType java data type
      * @return database data type
-     * @apiNote BigDecimal -> decimal, So on.
+     * @apiNote BigDecimal to decimal, So on.
      */
     public String getDatabaseDataType(String javaDataType) {
         Properties props = dataTypeMapping.getPropsByDbType(DbType.getDbType());

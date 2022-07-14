@@ -86,6 +86,11 @@ public final class JacksonUtil {
 
     /**
      * Method to deserialize JSON content from given JSON content String.
+     *
+     * @param content      json string
+     * @param valueTypeRef type reference
+     * @param <T>          type
+     * @return T
      */
     public static <T> T readValue(String content, TypeReference<T> valueTypeRef) {
         try {
@@ -98,7 +103,12 @@ public final class JacksonUtil {
 
     /**
      * Method to deserialize JSON content from given JSON content String.
-     **/
+     *
+     * @param content   json string
+     * @param valueType value class type
+     * @param <T>       type
+     * @return type
+     */
     public static <T> T readValue(String content, Class<T> valueType) {
         try {
             return mapper.readValue(content, valueType);

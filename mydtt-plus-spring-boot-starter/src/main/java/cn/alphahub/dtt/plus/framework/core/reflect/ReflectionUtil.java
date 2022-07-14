@@ -97,6 +97,9 @@ public class ReflectionUtil {
      * (the first of two underscores was removed)</li>
      * <li>&quot;user__name&quot; is translated to &quot;user__name&quot;
      * (unchanged, with two underscores)</li></ul>
+     *
+     * @param input input string
+     * @return underline string
      */
     private static String translate(String input) {
         // garbage in, garbage out

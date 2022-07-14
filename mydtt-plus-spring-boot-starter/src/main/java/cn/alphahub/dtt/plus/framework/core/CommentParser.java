@@ -41,10 +41,11 @@ public interface CommentParser<T> extends DttContext<T> {
     /**
      * 根绝java枚举类型解析数据库枚举类型
      *
-     * @param field javaField
+     * @param field      javaField
+     * @param dbDataType database data type
      * @return DatabaseDataEnumType
      */
-    default EnumTypeWrapper parseDatabaseEnumTypes(Field field, String databaseDataType) {
+    default EnumTypeWrapper parseDatabaseEnumTypes(Field field, String dbDataType) {
         EnumTypeWrapper wrapper = new EnumTypeWrapper();
         StringBuilder enumStr = new StringBuilder();
         Enum<?>[] enumValues = ClassUtil.invoke(field.getType().getName(), "values", new Object[0]);
@@ -52,7 +53,7 @@ public interface CommentParser<T> extends DttContext<T> {
             enumStr.append("'").append(enumValue.name()).append("',");
         }
         String enumString = enumStr.substring(0, enumStr.length() - 1);
-        String finalDatabaseDataType = databaseDataType + "(" + enumString + ")";
+        String finalDatabaseDataType = dbDataType + "(" + enumString + ")";
         //如果确实的情况下，使用第一个作为枚举类型的默认值
         wrapper.setInitValue(enumValues[0].name());
         wrapper.setDbDtaType(finalDatabaseDataType);
@@ -62,22 +63,24 @@ public interface CommentParser<T> extends DttContext<T> {
     /**
      * 暂且处理varchar类型的长度
      *
+     * @param dbDataType         database data type
+     * @param underlineFiledName underline filed name
      * @return varchar类型
      */
-    default String resolveVarcharTypeLength(String underlineFiledName, String databaseDataType) {
-        if ("varchar".equals(databaseDataType)) {
+    default String resolveVarcharTypeLength(String underlineFiledName, String dbDataType) {
+        if ("varchar".equals(dbDataType)) {
             if (underlineFiledName.contains("phone") || underlineFiledName.contains("tel") || underlineFiledName.contains("telephone") || underlineFiledName.contains("mail"))
-                return databaseDataType + "(16)";
+                return dbDataType + "(16)";
             if (underlineFiledName.contains("id") || underlineFiledName.contains("no") || underlineFiledName.contains("number") || underlineFiledName.contains("name") || underlineFiledName.contains("code"))
-                return databaseDataType + "(64)";
+                return dbDataType + "(64)";
             if (underlineFiledName.contains("url") || underlineFiledName.contains("link"))
-                return databaseDataType + "(128)";
+                return dbDataType + "(128)";
             if (underlineFiledName.contains("body") || underlineFiledName.contains("msg") || underlineFiledName.contains("message") || underlineFiledName.contains("content") || underlineFiledName.contains("text"))
-                return databaseDataType + "(768)";
-            else return databaseDataType + "(256)";
+                return dbDataType + "(768)";
+            else return dbDataType + "(256)";
         }
         // 非varchar类型直接返回
-        return databaseDataType;
+        return dbDataType;
     }
 
     /**

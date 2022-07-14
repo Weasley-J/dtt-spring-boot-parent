@@ -177,6 +177,7 @@ public class DefaultJavaDocParser implements CommentParser<ModelEntity> {
     }
 
     /**
+     * @param fieldJavadoc field java doc
      * @return filed comment
      */
     private String getFiledComment(FieldJavadoc fieldJavadoc) {

@@ -39,8 +39,12 @@ public interface TableHandler<T> extends DttContext<T> {
         }
     }
 
+
     /**
      * 处理主键
+     *
+     * @param entity  model entity
+     * @param context velocity context
      */
     default void handlePrimaryKey(ModelEntity entity, VelocityContext context) {
         for (ModelEntity.Detail detail : entity.getDetails()) {
@@ -50,7 +54,7 @@ public interface TableHandler<T> extends DttContext<T> {
             }
         }
         if (null == context.get(Constants.PRIMARY_KEY_MARK)
-                || StringUtils.isBlank(context.get(Constants.PRIMARY_KEY_MARK).toString()) ) {
+                || StringUtils.isBlank(context.get(Constants.PRIMARY_KEY_MARK).toString())) {
             context.put(Constants.PRIMARY_KEY_MARK, "id");
             entity.getDetails().add(new ModelEntity.Detail().setIsPrimaryKey(true).setDatabaseDataType("bigint").setJavaDataType("Long").setFiledName("id").setFiledComment("自增主键id"));
             //Move the manually added 'id' column to the position of the first column

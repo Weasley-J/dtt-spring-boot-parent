@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.alphahub</groupId>
+    <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>mydtt-plus-spring-boot-parent</name>
-    <description>Java domain to table statement of SQL database</description>
+    <description>DTT is a Java framework to handle Java domain to table statement of SQL database</description>
     <packaging>pom</packaging>
 
     <modules>

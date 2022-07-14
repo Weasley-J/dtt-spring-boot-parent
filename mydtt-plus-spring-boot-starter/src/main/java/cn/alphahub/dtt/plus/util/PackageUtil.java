@@ -40,6 +40,8 @@ public class PackageUtil {
      * 仅返回public方法，如果方法是非public类型的，不会被返回
      * 可以扫描工程下的class文件及jar中的class文件
      *
+     * @param annotation   annotation
+     * @param scanPackages scan packages
      * @return methods
      */
     public static Set<Method> findClassAnnotationMethods(String scanPackages, Class<? extends Annotation> annotation) {
@@ -190,6 +192,7 @@ public class PackageUtil {
      * 如果需要，放入cache中
      *
      * @param fullClassName 全限定类名
+     * @param anno          annotation
      * @return methods
      */
     public static Set<Method> findAnnotationMethods(String fullClassName, Class<? extends Annotation> anno) {

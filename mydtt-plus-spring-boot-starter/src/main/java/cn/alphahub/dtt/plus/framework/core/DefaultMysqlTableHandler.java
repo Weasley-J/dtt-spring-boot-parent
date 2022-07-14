@@ -2,12 +2,10 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.config.InitDttHandler;
 import cn.alphahub.dtt.plus.config.VelocityHandler;
-import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DbType;
 import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -20,8 +18,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Objects;
 
 /**
  * mysql默认建表实现

@@ -32,6 +32,8 @@ public class DttRunner {
 
     /**
      * run create DDL statement
+     *
+     * @param writer DDL statement writer
      */
     @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
     public void execute(StringWriter writer) {

@@ -36,7 +36,7 @@ public class InitDttClient {
      * @return comment parser client map
      */
     @Bean
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({"unchecked"})
     public Map<ParseType, CommentParser<ModelEntity>> commentParserClient() {
         Map<ParseType, CommentParser<ModelEntity>> client = new ConcurrentHashMap<>(1);
         Map<String, CommentParser> commentParserMap = SpringUtil.getApplicationContext().getBeansOfType(CommentParser.class);
@@ -56,7 +56,7 @@ public class InitDttClient {
      */
     @Bean
     @DependsOn({"commentParserClient"})
-    @SuppressWarnings({"all"})
+    @SuppressWarnings({"unchecked"})
     public Map<DbType, TableHandler<ModelEntity>> tableHandlerClient() {
         Map<DbType, TableHandler<ModelEntity>> client = new ConcurrentHashMap<>(16);
         Map<String, TableHandler> tableHandlerMap = SpringUtil.getApplicationContext().getBeansOfType(TableHandler.class);

@@ -4,7 +4,7 @@
 >
 > It's means  `Domain-to-Table`，As we know，The Object of Java is `Domain`，Database's is `Table` yet.
 >
-> 
+>
 >
 > - What can DTT do?
 >
@@ -120,27 +120,20 @@
 >
 > ![image-20220713190051773](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220713190051773.png)
 >
-> 
 >
-> **You can easily integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance them， I first support for MySQL implements，ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL wil be support in the future.  Thanks for you star.** 
 >
-> 
-
-
-
-
-
-
+> **You can easily integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance them， I first support for
+MySQL implements，ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL wil be support in the future. Thanks for you star.**
+>
+>
 
 ## 1 Quick Start
 
-- Clone  this project into your dir.
+- Clone this project into your dir.
 
 ```bash
 git clone https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git
 ```
-
-
 
 - CD to your work dir then you can run this maven command to install DTT and use it in you projects.
 
@@ -150,9 +143,8 @@ Tips: For this step, I mean your JDK and MAVEN environment are set correctly.
 mvn clean install -pl :mydtt-plus-spring-boot-starter -am
 ```
 
-
-
-- Add maven dependencies into your `pom.xml `(The pom's parent must be extends `org.springframework.boot:spring-boot-starter-parent`)
+- Add maven dependencies into your `pom.xml `(The pom's parent must be
+  extends `org.springframework.boot:spring-boot-starter-parent`)
 
 **Tips**: `domain` model must be in the same `src` folder with `pom.xml`
 
@@ -165,7 +157,7 @@ mvn clean install -pl :mydtt-plus-spring-boot-starter -am
 <dependencies>
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
-            <groupId>cn.alphahub</groupId>
+            <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
             <version>${mydtt-plus.version}</version>
         </dependency>
@@ -188,8 +180,6 @@ mvn clean install -pl :mydtt-plus-spring-boot-starter -am
 
 ```
 
-
-
 - Config your projects datasource in `application.yml`, like this:
 
 ```yaml
@@ -201,13 +191,9 @@ spring:
     password: your_password
 ```
 
- 
-
 - Using JAVA annotation `@EnableDtt` to enable DTT to your projects, As follow:
 
 ![image-20220713190839427](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220713190839427.png)
-
-
 
 Read more?
 
@@ -293,39 +279,19 @@ public @interface EnableDtt {
 }
 ```
 
-
-
 You can enable the required functions as needed
-
-
-
-
-
-
 
 ## 2 `UML` architecture diagram
 
 ![image-20220713150846860](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220713150846860.png)
 
-
-
-
-
 ## 3 Contribute your code
-
-
 
 todo
 
-
-
-
-
 ## 4 A&Q
 
- todo
-
-
+todo
 
 ## 5 Credits
 
