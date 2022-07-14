@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter-test</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>mydtt-plus-spring-boot-starter-test</name>
     <description>mydtt-plus-spring-boot-starter-test</description>
 

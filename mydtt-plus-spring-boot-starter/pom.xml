@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>mydtt-plus-spring-boot-starter</name>
     <description>mydtt-plus-spring-boot-starter</description>
 
@@ -141,23 +141,19 @@
     </developers>
 
     <scm>
-        <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</url>
-        <connection>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</connection>
-        <developerConnection>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</developerConnection>
+        <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</url>
+        <connection>scm:git:https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</developerConnection>
     </scm>
 
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
-            <name>Sonatype Snapshot Repository</name>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-            <layout>default</layout>
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <name>Sonatype Release Repository</name>
             <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-            <layout>default</layout>
         </repository>
     </distributionManagement>
 
@@ -180,7 +176,7 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
