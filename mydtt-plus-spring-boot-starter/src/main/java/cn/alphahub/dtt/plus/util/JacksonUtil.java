@@ -62,7 +62,7 @@ public final class JacksonUtil {
             return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             if (logger.isErrorEnabled()) {
-                logger.error("{}; {}", data, e.getMessage(), e);
+                logger.error("{}, {}", data, e.getMessage(), e);
             }
             return null;
         }
@@ -79,7 +79,7 @@ public final class JacksonUtil {
             return writer.writeValueAsString(data);
         } catch (JsonProcessingException e) {
             if (logger.isErrorEnabled()) {
-                logger.error("{}; {}", data, e.getMessage(), e);
+                logger.error("{} {}", data, e.getMessage(), e);
             }
             return null;
         }
