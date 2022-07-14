@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0
  * @date 2022/7/10
  */
+@SuppressWarnings({"unchecked"})
 public final class JacksonUtil {
     public static final String LOCAL_TIME_PATTERN = "HH:mm:ss";
     public static final String LOCAL_DATE_PATTERN = "yyyy-MM-dd";
@@ -44,8 +45,7 @@ public final class JacksonUtil {
         timeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(LOCAL_TIME_PATTERN)));
         timeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_PATTERN)));
         timeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_TIME_PATTERN)));
-        mapper.registerModule(timeModule);
-        mapper.findAndRegisterModules();
+        mapper.registerModule(timeModule).findAndRegisterModules();
         writer = mapper.writerWithDefaultPrettyPrinter();
     }
 
@@ -58,12 +58,13 @@ public final class JacksonUtil {
      * @param data 格式化数据
      * @return json字符串
      */
-    @SuppressWarnings({"ALL"})
     public static String toJson(Object data) {
         try {
             return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            logger.error("{}", e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error("{}; {}", data, e.getMessage(), e);
+            }
             return null;
         }
     }
@@ -74,12 +75,13 @@ public final class JacksonUtil {
      * @param data 格式化数据
      * @return json字符串
      */
-    @SuppressWarnings({"ALL"})
     public static String toPrettyJson(Object data) {
         try {
             return writer.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            logger.error("{}", e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error("{}; {}", data, e.getMessage(), e);
+            }
             return null;
         }
     }
@@ -96,7 +98,9 @@ public final class JacksonUtil {
         try {
             return mapper.readValue(content, valueTypeRef);
         } catch (JsonProcessingException e) {
-            logger.error("{}", e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error("{}; {}", content, e.getMessage(), e);
+            }
             return null;
         }
     }
@@ -113,7 +117,9 @@ public final class JacksonUtil {
         try {
             return mapper.readValue(content, valueType);
         } catch (JsonProcessingException e) {
-            logger.error("{}", e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error("{}; {}", content, e.getMessage(), e);
+            }
             return null;
         }
     }
