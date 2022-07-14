@@ -17,7 +17,6 @@
 
     <properties>
         <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
-        <mydtt-plus.version>1.0.0</mydtt-plus.version>
     </properties>
 
     <dependencies>
@@ -25,7 +24,7 @@
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>${mydtt-plus.version}</version>
+            <version>1.0.1</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <!-- Annotation processor -->
