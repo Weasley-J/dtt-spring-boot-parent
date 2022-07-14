@@ -11,7 +11,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
-
+/**
+ * Yaml to Java Properties
+ */
+@SuppressWarnings({"unchecked"})
 public final class YamlToPropsUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(YamlToPropsUtil.class);
@@ -78,6 +81,7 @@ public final class YamlToPropsUtil {
         }
         return properties;
     }
+
 
     private static String toString(String key, Map<String, Object> map) {
         StringBuilder sb = new StringBuilder();
