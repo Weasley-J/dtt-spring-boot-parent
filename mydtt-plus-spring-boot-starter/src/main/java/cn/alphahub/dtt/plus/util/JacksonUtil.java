@@ -27,7 +27,6 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0
  * @date 2022/7/10
  */
-@SuppressWarnings({"unchecked"})
 public final class JacksonUtil {
     public static final String LOCAL_TIME_PATTERN = "HH:mm:ss";
     public static final String LOCAL_DATE_PATTERN = "yyyy-MM-dd";
