@@ -1,7 +1,9 @@
 package cn.alphahub.dtt.plus.config;
 
-import cn.alphahub.dtt.plus.enums.DbType;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.util.SysUtil;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -21,12 +23,48 @@ public class DttProperties {
      * Whether to enable
      */
     private Boolean isEnable = true;
-
+    /**
+     * 所有建表SQL写入文件
+     */
+    @NestedConfigurationProperty
+    private AllInOneTableProperties allInOneTable;
     /**
      * The properties' relationship of Java data type mapping to database data type
      */
     @NestedConfigurationProperty
     private DataTypeMappingProperties dataTypeMapping;
+
+    /**
+     * 所有建表SQL写入文件配置属性
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.all-in-one-table")
+    public static class AllInOneTableProperties {
+        /**
+         * 是否创建所有建表SQL写入文件
+         */
+        private Boolean create = false;
+        /**
+         * SQL文件名
+         */
+        private String filename = "DTT_AUTO_CREATE.sql";
+        /**
+         * SQL文件写入的绝对路径,未配置则取当前工作路径: "user.dir"
+         */
+        private String fileDir;
+
+        public String getFileDir() {
+            return StringUtils.isNoneBlank(fileDir) ? fileDir : SysUtil.getUserDir();
+        }
+
+        /**
+         * @return Absolute Filename of SQL
+         */
+        public String getAbsoluteFilename() {
+            if (getFileDir().endsWith(SysUtil.getFileSeparator())) return getFileDir() + filename;
+            else return getFileDir() + SysUtil.getFileSeparator() + filename;
+        }
+    }
 
     /**
      * 数据类型映射属性
@@ -62,11 +100,11 @@ public class DttProperties {
         /**
          * 获取数据类型映射对应关系
          *
-         * @param dbType 数据库类型
+         * @param databaseType 数据库类型
          * @return Properties Mapping
          */
-        public Properties getPropsByDbType(DbType dbType) {
-            switch (dbType) {
+        public Properties getPropsByDbType(DatabaseType databaseType) {
+            switch (databaseType) {
                 case DB2:
                     return getDb2();
                 case MYSQL:
@@ -87,11 +125,11 @@ public class DttProperties {
         /**
          * 获取数据类型映射对应关系（JAVA的数据类型格式小写）
          *
-         * @param dbType 数据库类型
+         * @param databaseType 数据库类型
          * @return Properties Mapping
          */
-        public Properties getPropsByDbTypeJavaTypeIsLowerCase(DbType dbType) {
-            switch (dbType) {
+        public Properties getPropsByDbTypeJavaTypeIsLowerCase(DatabaseType databaseType) {
+            switch (databaseType) {
                 case DB2:
                     return convertJavaDataTypeToLowercase(getDb2());
                 case MYSQL:
@@ -120,5 +158,9 @@ public class DttProperties {
             properties.forEach((k, v) -> need.put(k.toString().toLowerCase(), v));
             return need;
         }
+    }
+
+    public static class AllInOneProperties {
+
     }
 }

@@ -11,9 +11,35 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
     <name>mydtt-plus-spring-boot-starter</name>
-    <description>mydtt-plus-spring-boot-starter</description>
+    <description>
+        mydtt-plus is a starter of springboot, Call it DTT，What is DTT?
+        Aims to make it easy for you to quickly create database tables of SQL based on your Java model.
+    </description>
+    <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Weasley J</name>
+            <email>1432689025@qq.com</email>
+            <url>https://github.com/Weasley-J</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</url>
+        <connection>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</connection>
+        <developerConnection>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</developerConnection>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -121,30 +147,6 @@
         </dependency>
         <!-- velocity end -->
     </dependencies>
-
-    <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</url>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://www.opensource.org/licenses/mit-license.php</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>Weasley J</name>
-            <email>1432689025@qq.com</email>
-            <url>https://github.com/Weasley-J</url>
-        </developer>
-    </developers>
-
-    <scm>
-        <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</url>
-        <connection>scm:git:https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git</connection>
-        <developerConnection>scm:git:https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</developerConnection>
-    </scm>
 
     <distributionManagement>
         <snapshotRepository>

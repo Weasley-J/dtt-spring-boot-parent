@@ -1,12 +1,11 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.annotations.Dtt;
-import cn.alphahub.dtt.plus.config.InitDttHandler;
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultAnnotationParser implements CommentParser<ModelEntity> {
+public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultAnnotationParser.class);
 
     @Override
@@ -58,7 +57,7 @@ public class DefaultAnnotationParser implements CommentParser<ModelEntity> {
     private List<ModelEntity.Detail> handleTableWithDttAnnotation(Class<?> aClass) {
         return Arrays.stream(aClass.getDeclaredFields()).filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName())).map(field -> {
             String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-            String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
+            String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
             Dtt[] dttAnnotations = field.getAnnotationsByType(Dtt.class);
             ModelEntity.Detail detail = new ModelEntity.Detail();
             if (ObjectUtils.isNotEmpty(dttAnnotations)) {

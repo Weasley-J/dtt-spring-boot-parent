@@ -1,4 +1,4 @@
-package cn.alphahub.dtt.plus.framework.core.reflect;
+package cn.alphahub.dtt.plus.framework.reflect;
 
 import java.io.Serializable;
 import java.util.function.Function;

@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter-test</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.0</version>
     <name>mydtt-plus-spring-boot-starter-test</name>
     <description>mydtt-plus-spring-boot-starter-test</description>
 
@@ -24,21 +24,14 @@
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </dependency>
         <!-- javadoc-scribe start  -->
-        <!-- Annotation processor -->
         <dependency>
             <groupId>com.github.therapi</groupId>
             <artifactId>therapi-runtime-javadoc-scribe</artifactId>
             <version>${therapi-runtime-javadoc.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- Runtime library -->
-        <dependency>
-            <groupId>com.github.therapi</groupId>
-            <artifactId>therapi-runtime-javadoc</artifactId>
-            <version>${therapi-runtime-javadoc.version}</version>
         </dependency>
         <!-- javadoc-scribe end  -->
 
@@ -60,7 +53,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

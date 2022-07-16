@@ -1,6 +1,6 @@
 package cn.alphahub.dtt.plus.config;
 
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.env.EnvironmentPostProcessor;

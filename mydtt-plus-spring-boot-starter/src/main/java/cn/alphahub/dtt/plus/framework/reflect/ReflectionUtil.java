@@ -1,4 +1,4 @@
-package cn.alphahub.dtt.plus.framework.core.reflect;
+package cn.alphahub.dtt.plus.framework.reflect;
 
 import cn.alphahub.dtt.plus.exception.ParseException;
 import org.slf4j.Logger;

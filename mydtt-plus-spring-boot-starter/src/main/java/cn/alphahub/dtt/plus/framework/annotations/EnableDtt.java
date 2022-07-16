@@ -1,12 +1,12 @@
-package cn.alphahub.dtt.plus.framework.core.annotations;
+package cn.alphahub.dtt.plus.framework.annotations;
 
-import cn.alphahub.dtt.plus.config.DataSourceAutoConfig;
+import cn.alphahub.dtt.plus.config.DataSourceAutoConfigurer;
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
-import cn.alphahub.dtt.plus.config.InitDttClient;
-import cn.alphahub.dtt.plus.config.InitDttHandler;
-import cn.alphahub.dtt.plus.config.VelocityHandler;
-import cn.alphahub.dtt.plus.enums.ParseType;
+import cn.alphahub.dtt.plus.enums.ParserType;
+import cn.alphahub.dtt.plus.framework.InitDttClient;
+import cn.alphahub.dtt.plus.framework.InitDttHandler;
+import cn.alphahub.dtt.plus.framework.VelocityHandler;
 import cn.alphahub.dtt.plus.framework.core.*;
 import org.springframework.context.annotation.Import;
 
@@ -34,10 +34,10 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({DataSourceAutoConfig.class, InitDttHandler.class, DefaultAnnotationParser.class,
+@Import({DataSourceAutoConfigurer.class, InitDttHandler.class, DefaultAnnotationParser.class,
         DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
-        DefaultSqlserverTableHandler.class, VelocityHandler.class, DttRunner.class,
+        DefaultSqlserverTableHandler.class, VelocityHandler.class, DttTableRunner.class,
         DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class, InitDttClient.class
 })
 public @interface EnableDtt {
@@ -66,9 +66,9 @@ public @interface EnableDtt {
      * 解析模型私有属性注释的方式
      *
      * @return 是否使用Comment注解解析表结构，有代码侵入性，默认使用Java Doc注释
-     * @see ParseType
+     * @see ParserType
      */
-    ParseType parseType() default ParseType.JAVA_DOC;
+    ParserType parserType() default ParserType.JAVA_DOC;
 
     /**
      * 创建前删除表

@@ -1,7 +1,7 @@
-package cn.alphahub.dtt.plus.config;
+package cn.alphahub.dtt.plus.framework;
 
-import cn.alphahub.dtt.plus.enums.DbType;
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
@@ -31,11 +31,11 @@ public class VelocityHandler {
     /**
      * 由数据库类型获取对应上午建表模版
      *
-     * @param dbType 数据库类型
+     * @param databaseType 数据库类型
      * @return 返回模版文件, 如: mysql.vm
      */
-    public static String getTemplate(DbType dbType) {
-        String lowerCase = dbType.name().toLowerCase();
+    public static String getTemplate(DatabaseType databaseType) {
+        String lowerCase = databaseType.name().toLowerCase();
         return TEMPLATE_DIR + "/" + lowerCase + TEMPLATE_SUFFIX;
     }
 

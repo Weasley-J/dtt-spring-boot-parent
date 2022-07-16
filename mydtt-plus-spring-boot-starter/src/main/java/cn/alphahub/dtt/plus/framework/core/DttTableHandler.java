@@ -3,12 +3,15 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.util.SysUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 创建数据库建表语句上层接口
@@ -18,15 +21,16 @@ import java.util.Set;
  * @date 2022/7/10
  */
 @FunctionalInterface
-public interface TableHandler<T> extends DttContext<T> {
+public interface DttTableHandler<T> extends DttContext<T> {
 
     /**
      * create table
      *
      * @param parsedModel 数据模型解析结果
+     * @return table statement
      */
     @Override
-    void create(ParsedModel<T> parsedModel);
+    String create(ParsedModel<T> parsedModel);
 
     /**
      * 批量操作
@@ -39,6 +43,18 @@ public interface TableHandler<T> extends DttContext<T> {
         }
     }
 
+    /**
+     * 将所有建表语聚合
+     *
+     * @param modelSet 解析结果
+     * @return all tables (ALl IN ONE)
+     */
+    default String tableAllInOne(Set<ParsedModel<T>> modelSet) {
+        if (CollectionUtils.isEmpty(modelSet))
+            return null;
+        List<String> tables = modelSet.parallelStream().map(this::create).collect(Collectors.toList());
+        return StringUtils.join(tables, SysUtil.getLineSeparator());
+    }
 
     /**
      * 处理主键

@@ -1,6 +1,6 @@
 package cn.alphahub.dtt.plus.config;
 
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DataSourceProperties.class})
-public class DataSourceAutoConfig {
+public class DataSourceAutoConfigurer {
     /**
      * 当注册中心中修改数据库配置动态切换数据库
      *

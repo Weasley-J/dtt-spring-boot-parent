@@ -26,8 +26,10 @@ public interface DttContext<T> {
      * build create table statement
      *
      * @param model Data Model Analysis Results
+     * @return table statement
      */
-    default void create(ParsedModel<T> model) {
+    default String create(ParsedModel<T> model) {
+        return null;
     }
 
     /**

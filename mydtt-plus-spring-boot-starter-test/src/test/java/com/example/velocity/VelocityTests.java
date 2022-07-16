@@ -1,7 +1,7 @@
 package com.example.velocity;
 
-import cn.alphahub.dtt.plus.config.VelocityHandler;
-import cn.alphahub.dtt.plus.enums.DbType;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.VelocityHandler;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import org.apache.velocity.Template;
@@ -47,7 +47,7 @@ class VelocityTests {
         context.put("primaryKey", "id");
         //渲染模板
         StringWriter writer = new StringWriter();
-        Template template = ve.getTemplate(VelocityHandler.getTemplate(DbType.MYSQL), "UTF-8");
+        Template template = ve.getTemplate(VelocityHandler.getTemplate(DatabaseType.MYSQL), "UTF-8");
         template.merge(context, writer);
 
         System.err.println(writer);
@@ -61,7 +61,7 @@ class VelocityTests {
         context.put("primaryKey", "id");
         //渲染模板
         StringWriter writer = new StringWriter();
-        String templateName = VelocityHandler.getTemplate(DbType.MYSQL);
+        String templateName = VelocityHandler.getTemplate(DatabaseType.MYSQL);
         Template template = ve.getTemplate(templateName, "UTF-8");
         template.merge(context, writer);
 
@@ -69,7 +69,7 @@ class VelocityTests {
 
         System.err.println(writer);
 
-        for (DbType value : DbType.values()) {
+        for (DatabaseType value : DatabaseType.values()) {
             String _path = path + VelocityHandler.getTemplate(value);
             System.err.println(_path);
             IoUtil.writeUtf8(FileUtil.getOutputStream(_path), true, writer.toString());

@@ -1,10 +1,10 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import cn.alphahub.dtt.plus.config.InitDttHandler;
-import cn.alphahub.dtt.plus.config.VelocityHandler;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.enums.DbType;
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.InitDttHandler;
+import cn.alphahub.dtt.plus.framework.VelocityHandler;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -18,6 +18,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * mysql默认建表实现
@@ -28,9 +30,12 @@ import java.nio.charset.StandardCharsets;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultMysqlTableHandler extends DttRunner implements TableHandler<ModelEntity> {
+public class DefaultMysqlTableHandler extends DttTableRunner implements DttTableHandler<ModelEntity> {
+    /**
+     * 数据表DDL集合
+     */
+    public static final List<String> TABLES = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
-
     @Autowired
     private VelocityEngine velocityEngine;
 
@@ -40,12 +45,12 @@ public class DefaultMysqlTableHandler extends DttRunner implements TableHandler<
      * @param parsedModel 数据模型解析结果
      */
     @Override
-    public void create(ParsedModel<ModelEntity> parsedModel) {
+    public String create(ParsedModel<ModelEntity> parsedModel) {
         logger.info("使用mysql默认建表实现 {}", JacksonUtil.toJson(parsedModel));
         ModelEntity entity = parsedModel.getModel();
         if (null == entity || CollectionUtils.isEmpty(entity.getDetails())) {
             logger.warn("表结构元数据解析结果不能为空 {}", JacksonUtil.toJson(parsedModel));
-            return;
+            return null;
         }
         if (logger.isInfoEnabled()) {
             logger.info("组建建表语句, 模型: {}", JacksonUtil.toJson(entity));
@@ -54,16 +59,19 @@ public class DefaultMysqlTableHandler extends DttRunner implements TableHandler<
         // 处理主键
         handlePrimaryKey(entity, context);
 
-        context.put("dropTableBeforeCreate", InitDttHandler.enableDttHandler().dropTableBeforeCreate());
+        context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
         context.put("modelName", entity.getModelName());
         context.put("modelComment", entity.getModelComment());
         context.put("details", entity.getDetails());
         // 渲染模型数据
         StringWriter writer = new StringWriter();
-        Template template = velocityEngine.getTemplate(VelocityHandler.getTemplate(DbType.MYSQL), StandardCharsets.UTF_8.name());
+        Template template = velocityEngine.getTemplate(VelocityHandler.getTemplate(DatabaseType.MYSQL), StandardCharsets.UTF_8.name());
         template.merge(context, writer);
+
         // 运行创建 DDL 语句
-        super.execute(writer);
+        super.execute(writer.toString());
+
+        return writer.toString();
     }
 
 }

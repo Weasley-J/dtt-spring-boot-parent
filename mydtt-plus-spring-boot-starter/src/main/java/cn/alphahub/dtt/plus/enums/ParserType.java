@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 @AllArgsConstructor
-public enum ParseType {
+public enum ParserType {
     /**
      * java doc
      */
@@ -33,7 +33,7 @@ public enum ParseType {
     /**
      * @return 解析注释类型
      */
-    public static Set<ParseType> getParseTypes() {
-        return Arrays.stream(ParseType.values()).collect(Collectors.toSet());
+    public static Set<ParserType> getParserTypes() {
+        return Arrays.stream(ParserType.values()).collect(Collectors.toSet());
     }
 }

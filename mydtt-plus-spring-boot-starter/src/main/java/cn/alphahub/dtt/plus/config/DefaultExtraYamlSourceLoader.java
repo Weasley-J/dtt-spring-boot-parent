@@ -1,7 +1,7 @@
 package cn.alphahub.dtt.plus.config;
 
 import cn.alphahub.dtt.plus.constant.Constants;
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;

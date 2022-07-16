@@ -1,12 +1,11 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import cn.alphahub.dtt.plus.config.InitDttHandler;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.exception.ParseException;
-import cn.alphahub.dtt.plus.framework.core.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.SysUtil;
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.therapi.runtimejavadoc.*;
@@ -32,7 +31,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultJavaDocParser implements CommentParser<ModelEntity> {
+public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultJavaDocParser.class);
     /**
      * formatters are reusable and thread-safe
@@ -140,7 +139,7 @@ public class DefaultJavaDocParser implements CommentParser<ModelEntity> {
                         invokeValue = ClassUtil.invoke(fullyQualifiedClassName, method.getName(), new Object[0]);
                     }
 
-                    String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
+                    String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
                     String realDbDataType = parseDbDataType(field, originalDbDataType);
 
                     FieldJavadoc fieldJavadoc = null;

@@ -1,10 +1,9 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import cn.alphahub.dtt.plus.config.InitDttHandler;
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,8 +30,8 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
  * @date 2022/7/10
  */
 @FunctionalInterface
-public interface CommentParser<T> extends DttContext<T> {
-    Logger logger = LoggerFactory.getLogger(CommentParser.class);
+public interface DttCommentParser<T> extends DttContext<T> {
+    Logger logger = LoggerFactory.getLogger(DttCommentParser.class);
     /**
      * get method prefix
      */
@@ -105,7 +104,7 @@ public interface CommentParser<T> extends DttContext<T> {
                 .filter(field -> !field.getType().isArray())
                 .map(field -> {
                     String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-                    String originalDbDataType = SpringUtil.getBean(InitDttHandler.class).getDatabaseDataType(javaDataType);
+                    String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
                     String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
                     Object invoke = null;

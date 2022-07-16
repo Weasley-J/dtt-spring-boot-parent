@@ -1,7 +1,7 @@
 package com.example;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
-import cn.alphahub.dtt.plus.enums.DbType;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import cn.alphahub.dtt.plus.util.YamlToPropsUtil;
 import cn.hutool.extra.spring.SpringUtil;
@@ -19,6 +19,9 @@ class MydttPlusApplicationDemoTests {
     @Resource
     DttProperties dttProperties;
 
+    @Resource
+    DttProperties.AllInOneTableProperties allInOneProperties;
+
     @Test
     void contextLoads() {
     }
@@ -33,8 +36,13 @@ class MydttPlusApplicationDemoTests {
 
     @Test
     void contextLoads3() {
-        DbType dbType = DbType.getDbType(SpringUtil.getBean(DataSourceProperties.class).getUrl());
-        System.out.println(dbType);
+        DatabaseType databaseType = DatabaseType.getDbType(SpringUtil.getBean(DataSourceProperties.class).getUrl());
+        System.out.println(databaseType);
+    }
+
+    @Test
+    void contextLoads3a() {
+        System.out.println(JacksonUtil.toPrettyJson(allInOneProperties));
     }
 
     @Test

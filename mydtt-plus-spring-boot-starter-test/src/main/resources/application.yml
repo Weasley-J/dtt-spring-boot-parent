@@ -6,7 +6,7 @@ spring:
     name: mydtt-plus-application-demo
 
   profiles:
-    active: test
+    active: dev
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
