@@ -21,8 +21,8 @@
 
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
+            <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
