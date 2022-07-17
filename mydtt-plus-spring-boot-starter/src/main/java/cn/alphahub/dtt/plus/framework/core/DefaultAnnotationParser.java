@@ -5,7 +5,7 @@ import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.hutool.core.util.ClassUtil;
+import cn.alphahub.dtt.plus.util.ClassUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static cn.alphahub.dtt.plus.constant.Constants.GET;
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -37,13 +39,19 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
     @Override
     public ParsedModel<ModelEntity> parse(String fullyQualifiedClassName) {
         logger.info("Use the annotation '@Dtt' to parse the data table structure information，class '{}'", fullyQualifiedClassName);
+        Class<?> aClass = ClassUtil.loadClass(fullyQualifiedClassName);
         return () -> {
-            Class<Object> aClass = ClassUtil.loadClass(fullyQualifiedClassName);
             Dtt dtt = aClass.getAnnotation(Dtt.class);
             ModelEntity model = new ModelEntity();
-            model.setModelComment(dtt != null ? dtt.value() : "");
+            if (dtt == null) {
+                model.setModelComment("");
+                model.setModelName(camelToUnderline(aClass.getSimpleName()));
+                model.setDetails(handleTableWithoutComment(aClass));
+                return model;
+            }
+            model.setModelComment(dtt.value());
             model.setModelName(camelToUnderline(aClass.getSimpleName()));
-            model.setDetails(null != dtt ? handleTableWithDttAnnotation(aClass) : handleTableWithoutComment(aClass));
+            model.setDetails(handleTableWithDttAnno(aClass));
             return model;
         };
     }
@@ -54,10 +62,10 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
      * @param aClass class object
      * @return 模型元数据详细信息集合
      */
-    private List<ModelEntity.Detail> handleTableWithDttAnnotation(Class<?> aClass) {
+    private List<ModelEntity.Detail> handleTableWithDttAnno(Class<?> aClass) {
         return Arrays.stream(aClass.getDeclaredFields()).filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName())).map(field -> {
             String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-            String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
+            String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
             Dtt[] dttAnnotations = field.getAnnotationsByType(Dtt.class);
             ModelEntity.Detail detail = new ModelEntity.Detail();
             if (ObjectUtils.isNotEmpty(dttAnnotations)) {
@@ -84,7 +92,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                 for (Method method : getPublicGetterMethods(aClass)) {
                     String fieldProps = com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
                     if (Objects.equals(fieldProps, field.getName())) {
-                        invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
+                        invoke = ClassUtil.invoke(method, aClass);
                         break;
                     }
                 }

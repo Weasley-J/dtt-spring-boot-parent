@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>mydtt-plus-spring-boot-starter</name>
     <description>
         mydtt-plus is a starter of springboot, Call it DTT，What is DTT?
@@ -144,6 +144,10 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <version>${velocity-engine-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!-- velocity end -->
     </dependencies>

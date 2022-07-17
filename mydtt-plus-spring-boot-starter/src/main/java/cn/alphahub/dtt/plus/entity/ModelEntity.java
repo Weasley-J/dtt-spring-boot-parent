@@ -24,6 +24,10 @@ import java.util.List;
 public class ModelEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
+     * 数据库名称
+     */
+    private String databaseName;
+    /**
      * 模型名称
      */
     private String modelName;

@@ -2,10 +2,16 @@ package com.example;
 
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import com.example.domain.dtt.DttMember;
 import com.example.domain.dtt.DttPerson;
+import com.example.domain.dtt.OmsB2bOrder;
+import com.example.domain.shop.ExcelData;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.sql.DatabaseMetaData;
 
 /**
  * mydtt-plus-spring-boot-starter测试验证应用
@@ -20,6 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         parserType = ParserType.JAVA_DOC,
         dropTableBeforeCreate = true,
         scanBaseClasses = {
+                //OmsB2bOrder.class,
                 //DttPerson.class,
                 //DttMember.class,
                 //ExcelData.class

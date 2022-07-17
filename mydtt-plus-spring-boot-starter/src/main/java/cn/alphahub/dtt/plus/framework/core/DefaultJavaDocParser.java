@@ -1,11 +1,12 @@
 package cn.alphahub.dtt.plus.framework.core;
 
+import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.exception.ParseException;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.util.ClassUtil;
 import cn.alphahub.dtt.plus.util.SysUtil;
-import cn.hutool.core.util.ClassUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.therapi.runtimejavadoc.*;
@@ -21,6 +22,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getDeclaredField;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 
 /**
  * 解析Java doc注释
@@ -33,6 +36,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultJavaDocParser.class);
+
     /**
      * formatters are reusable and thread-safe
      */
@@ -123,9 +127,9 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
             List<ModelEntity.Detail> details = new ArrayList<>();
             if (CollectionUtils.isNotEmpty(publicMethods)) {
                 for (Method method : publicMethods) {
-                    String fieldName = StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                    String fieldName = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
                     String fieldNameToUnderline = StringUtils.camelToUnderline(fieldName);
-                    Field field = ClassUtil.getDeclaredField(clazz, fieldName);
+                    Field field = getDeclaredField(clazz, fieldName);
                     String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
 
                     // 过滤掉不符合命名规范的列
@@ -136,10 +140,10 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
 
                     Object invokeValue = null;
                     if (Objects.equals(fieldName, field.getName())) {
-                        invokeValue = ClassUtil.invoke(fullyQualifiedClassName, method.getName(), new Object[0]);
+                        invokeValue = ClassUtil.invoke(method, clazz);
                     }
 
-                    String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
+                    String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
                     String realDbDataType = parseDbDataType(field, originalDbDataType);
 
                     FieldJavadoc fieldJavadoc = null;
@@ -168,7 +172,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
             }
 
             return new ModelEntity()
-                    .setModelName(StringUtils.camelToUnderline(ClassUtil.getClassName(clazz, true)))
+                    .setModelName(StringUtils.camelToUnderline(clazz.getSimpleName()))
                     .setModelComment(format(classDoc.getComment()))
                     .setDetails(details);
 
@@ -194,4 +198,5 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
         }
         return filedComment;
     }
+
 }

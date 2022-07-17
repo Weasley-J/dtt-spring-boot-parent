@@ -10,7 +10,8 @@ package cn.alphahub.dtt.plus.util;
 public class SysUtil extends cn.hutool.system.SystemUtil {
     /**
      * 系统文件路径分隔符
-     * "file.separator": "/",
+     * windows: "\"
+     * linux: "/"
      *
      * @return file.separator
      */

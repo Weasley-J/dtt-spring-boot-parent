@@ -1,8 +1,8 @@
 #if(${dropTableBeforeCreate})
-DROP TABLE IF EXISTS `${modelName}`;
-CREATE TABLE IF NOT EXISTS `${modelName}`
+DROP TABLE IF EXISTS ${databaseName}.`${modelName}`;
+CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
 #elseif(${dropTableBeforeCreate} == 'false')
-CREATE TABLE IF NOT EXISTS `${modelName}`
+CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
 #end
 (
 #foreach(${detail} in ${details})

@@ -27,7 +27,7 @@ public enum ParserType {
      *
      * @see Dtt
      */
-    ANNO_TYPE,
+    ANNOTATION,
     ;
 
     /**

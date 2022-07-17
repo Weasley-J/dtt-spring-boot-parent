@@ -22,7 +22,8 @@ public class DefaultMariadbTableHandler extends DttTableRunner implements DttTab
 
     @Override
     public String create(ParsedModel<ModelEntity> parsedModel) {
-        logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parsedModel));
+        if (logger.isInfoEnabled()) logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parsedModel.getModel()));
+
         // TODO document why this method is empty
         return null;
     }

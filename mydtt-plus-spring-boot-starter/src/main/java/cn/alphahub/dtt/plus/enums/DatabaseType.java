@@ -78,7 +78,7 @@ public enum DatabaseType {
      * @return database data type
      * @apiNote BigDecimal to decimal, So on.
      */
-    public static String getDatabaseDataType(String javaDataType) {
+    public static String getDbDataType(String javaDataType) {
         DttProperties.DataTypeMappingProperties dataTypeMapping = SpringUtil.getBean(DttProperties.DataTypeMappingProperties.class);
         Properties props = dataTypeMapping.getPropsByDbType(DatabaseType.getDbType());
         Object value = props.get(javaDataType);

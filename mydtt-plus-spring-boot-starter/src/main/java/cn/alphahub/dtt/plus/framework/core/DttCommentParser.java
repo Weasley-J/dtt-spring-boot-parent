@@ -3,7 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
-import cn.hutool.core.util.ClassUtil;
+import cn.alphahub.dtt.plus.util.ClassUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -32,10 +33,6 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
 @FunctionalInterface
 public interface DttCommentParser<T> extends DttContext<T> {
     Logger logger = LoggerFactory.getLogger(DttCommentParser.class);
-    /**
-     * get method prefix
-     */
-    String GET = "get";
 
     /**
      * 根绝java枚举类型解析数据库枚举类型
@@ -47,7 +44,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
     default EnumTypeWrapper parseDatabaseEnumTypes(Field field, String dbDataType) {
         EnumTypeWrapper wrapper = new EnumTypeWrapper();
         StringBuilder enumStr = new StringBuilder();
-        Enum<?>[] enumValues = ClassUtil.invoke(field.getType().getName(), "values", new Object[0]);
+        Enum<?>[] enumValues = cn.hutool.core.util.ClassUtil.invoke(field.getType().getName(), "values", new Object[0]);
         for (Enum<?> enumValue : enumValues) {
             enumStr.append("'").append(enumValue.name()).append("',");
         }
@@ -104,14 +101,14 @@ public interface DttCommentParser<T> extends DttContext<T> {
                 .filter(field -> !field.getType().isArray())
                 .map(field -> {
                     String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-                    String originalDbDataType = DatabaseType.getDatabaseDataType(javaDataType);
+                    String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
                     String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
                     Object invoke = null;
                     for (Method method : getPublicGetterMethods(aClass)) {
-                        String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                        String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
                         if (Objects.equals(fieldProps, field.getName())) {
-                            invoke = ClassUtil.invoke(aClass.getName(), method.getName(), new Object[0]);
+                            invoke = ClassUtil.invoke(method, aClass);
                             break;
                         }
                     }
@@ -126,16 +123,6 @@ public interface DttCommentParser<T> extends DttContext<T> {
 
                     return detail;
                 }).collect(Collectors.toList());
-    }
-
-    /**
-     * 获取所有公共GETTER方法
-     *
-     * @param aClass class 对象
-     * @return all public getter methods
-     */
-    default List<Method> getPublicGetterMethods(Class<?> aClass) {
-        return ClassUtil.getPublicMethods(aClass, method -> method.getName().startsWith(GET) && !method.getName().equals("getClass"));
     }
 
     /**

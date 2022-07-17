@@ -26,6 +26,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @Accessors(chain = true)
 public class ContextWrapper implements Serializable {
     /**
+     * 数据库名称
+     */
+    private String databaseName;
+    /**
      * DTT工作线程
      */
     private AtomicReference<Thread> threadReference;
@@ -57,5 +61,9 @@ public class ContextWrapper implements Serializable {
          * 结束时间
          */
         private LocalDateTime dttEndTime;
+
+        public DttRunDetail(LocalDateTime dttStartTime) {
+            this.dttStartTime = dttStartTime;
+        }
     }
 }

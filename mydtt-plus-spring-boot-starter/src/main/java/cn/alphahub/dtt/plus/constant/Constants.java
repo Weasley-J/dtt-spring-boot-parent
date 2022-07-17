@@ -33,4 +33,8 @@ public interface Constants {
      * serialVersionUID
      */
     String SERIAL_VERSION_UID = "serialVersionUID";
+    /**
+     * get method prefix
+     */
+    String GET = "get";
 }

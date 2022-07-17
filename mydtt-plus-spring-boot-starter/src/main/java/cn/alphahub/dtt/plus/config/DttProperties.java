@@ -43,26 +43,26 @@ public class DttProperties {
         /**
          * 是否创建所有建表SQL写入文件
          */
-        private Boolean create = false;
+        private Boolean enable = false;
         /**
          * SQL文件名
          */
-        private String filename = "DTT_AUTO_CREATE.sql";
+        private String filename = "DTT_DB_TABLES.SQL";
         /**
          * SQL文件写入的绝对路径,未配置则取当前工作路径: "user.dir"
          */
-        private String fileDir;
+        private String filepath;
 
-        public String getFileDir() {
-            return StringUtils.isNoneBlank(fileDir) ? fileDir : SysUtil.getUserDir();
+        public String getFilepath() {
+            return StringUtils.isNoneBlank(filepath) ? filepath : SysUtil.getUserDir();
         }
 
         /**
          * @return Absolute Filename of SQL
          */
         public String getAbsoluteFilename() {
-            if (getFileDir().endsWith(SysUtil.getFileSeparator())) return getFileDir() + filename;
-            else return getFileDir() + SysUtil.getFileSeparator() + filename;
+            if (getFilepath().endsWith(SysUtil.getFileSeparator())) return getFilepath() + filename;
+            else return getFilepath() + SysUtil.getFileSeparator() + filename;
         }
     }
 
@@ -160,7 +160,4 @@ public class DttProperties {
         }
     }
 
-    public static class AllInOneProperties {
-
-    }
 }
