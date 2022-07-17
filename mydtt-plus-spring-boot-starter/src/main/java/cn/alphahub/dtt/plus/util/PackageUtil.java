@@ -75,7 +75,7 @@ public class PackageUtil {
             if (StringUtils.isBlank(basePackage)) {
                 continue;
             }
-            String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage)) + SysUtil.getFileSeparator() + DEFAULT_RESOURCE_PATTERN;
+            String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage)) + '/' + DEFAULT_RESOURCE_PATTERN;
             try {
                 Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
                 for (Resource resource : resources) {
@@ -84,7 +84,7 @@ public class PackageUtil {
                     clazzSet.add(clazz);
                 }
             } catch (Exception e) {
-                LOG.error("获取包下面的类信息失败, package: {}" + basePackage, e);
+                LOG.error("获取包下面的类信息失败, package: {}", basePackage, e);
             }
 
         }
@@ -94,12 +94,12 @@ public class PackageUtil {
     /**
      * 根据扫描包的,查询下面的所有类
      *
-     * @param scanPackages 扫描的package路径
+     * @param scanPackages 扫描的package路径,多个用","隔开
      * @return Classes
      */
-    public static Set<Class<?>> scanPackage(String scanPackages) {
+    public static Set<Class<?>> scanPackages(String scanPackages) {
         if (StringUtils.isBlank(scanPackages)) {
-            return new LinkedHashSet<>();
+            return Collections.emptySet();
         }
         //验证及排重包路径,避免父子路径多次扫描
         Set<String> packages = checkPackage(scanPackages);
@@ -110,7 +110,7 @@ public class PackageUtil {
             if (StringUtils.isBlank(basePackage)) {
                 continue;
             }
-            String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage)) + SysUtil.getFileSeparator() + DEFAULT_RESOURCE_PATTERN;
+            String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage)) + '/' + DEFAULT_RESOURCE_PATTERN;
             try {
                 Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
                 for (Resource resource : resources) {
@@ -120,7 +120,7 @@ public class PackageUtil {
                     clazzSet.add(loadClass);
                 }
             } catch (Exception e) {
-                LOG.error("获取包下面的类信息失败, package: {}" + basePackage, e);
+                LOG.error("获取包下面的类信息失败, package: {}", basePackage, e);
             }
 
         }

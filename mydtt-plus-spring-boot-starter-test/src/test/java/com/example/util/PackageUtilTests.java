@@ -20,7 +20,7 @@ class PackageUtilTests {
 
     @Test
     void contextLoads() {
-        Set<Class<?>> classes = PackageUtil.scanPackage("com.example.domain.oms");
+        Set<Class<?>> classes = PackageUtil.scanPackages("com.example.domain.oms");
         int i = 0;
         for (Class<?> aClass : classes) {
             if (!aClass.getSimpleName().endsWith(BUILDER_SUFFIX)) {

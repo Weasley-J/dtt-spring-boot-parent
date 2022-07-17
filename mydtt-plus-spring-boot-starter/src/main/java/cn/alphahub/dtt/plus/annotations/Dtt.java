@@ -9,6 +9,10 @@ import java.lang.annotation.Target;
 
 /**
  * 域模型、元数据的描述信息
+ * <p>
+ * <ul>
+ *     <il>When Dtt is annotated on the class, the actual value of 'value properties' will be used as the description of the model</il>
+ * </ul>
  *
  * @author weasley
  * @version 1.0.0

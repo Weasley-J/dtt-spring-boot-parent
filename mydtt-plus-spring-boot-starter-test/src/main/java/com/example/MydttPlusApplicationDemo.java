@@ -27,7 +27,7 @@ import java.sql.DatabaseMetaData;
         dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //OmsB2bOrder.class,
-                //DttPerson.class,
+                DttPerson.class,
                 //DttMember.class,
                 //ExcelData.class
         }

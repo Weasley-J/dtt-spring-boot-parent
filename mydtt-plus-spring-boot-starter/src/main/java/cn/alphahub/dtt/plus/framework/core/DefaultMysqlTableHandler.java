@@ -55,17 +55,20 @@ public class DefaultMysqlTableHandler extends DttTableRunner implements DttTable
             logger.warn("表结构元数据解析结果不能为空 {}", model);
             return null;
         }
-        if (logger.isInfoEnabled()) {
-            logger.info("组建建表语句, 模型: {}", JacksonUtil.toJson(model));
-        }
+
         // Whether to add database's name
         String databaseName = SpringUtil.getBean(ContextWrapper.class).getDatabaseName();
         if (StringUtils.isNoneBlank(databaseName)) databaseName = "`" + databaseName + "`";
+        model.setDatabaseName(databaseName);
+
+        if (logger.isInfoEnabled()) {
+            logger.info("组建建表语句, 模型: {}", JacksonUtil.toJson(model));
+        }
 
         VelocityContext context = new VelocityContext();
         handlePrimaryKey(model, context); //处理主键
         context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
-        context.put("databaseName", databaseName);
+        context.put("databaseName", model.getDatabaseName());
         context.put("modelName", model.getModelName());
         context.put("modelComment", model.getModelComment());
         context.put("details", model.getDetails());

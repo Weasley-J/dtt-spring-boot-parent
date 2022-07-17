@@ -19,6 +19,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
@@ -44,14 +45,14 @@ public interface DttCommentParser<T> extends DttContext<T> {
     default EnumTypeWrapper parseDatabaseEnumTypes(Field field, String dbDataType) {
         EnumTypeWrapper wrapper = new EnumTypeWrapper();
         StringBuilder enumStr = new StringBuilder();
-        Enum<?>[] enumValues = cn.hutool.core.util.ClassUtil.invoke(field.getType().getName(), "values", new Object[0]);
-        for (Enum<?> enumValue : enumValues) {
-            enumStr.append("'").append(enumValue.name()).append("',");
+        String[] enumTypeStringValues = getEnumTypeStringValues(field);
+        for (String enumType : enumTypeStringValues) {
+            enumStr.append("'").append(enumType).append("',");
         }
         String enumString = enumStr.substring(0, enumStr.length() - 1);
         String finalDatabaseDataType = dbDataType + "(" + enumString + ")";
         //如果确实的情况下，使用第一个作为枚举类型的默认值
-        wrapper.setInitValue(enumValues[0].name());
+        wrapper.setInitValue(enumTypeStringValues[0]);
         wrapper.setDbDtaType(finalDatabaseDataType);
         return wrapper;
     }

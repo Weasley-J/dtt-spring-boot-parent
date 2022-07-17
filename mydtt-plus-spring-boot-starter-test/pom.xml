@@ -13,7 +13,7 @@
     <artifactId>mydtt-plus-spring-boot-starter-test</artifactId>
     <version>1.0.0</version>
     <name>mydtt-plus-spring-boot-starter-test</name>
-    <description>mydtt-plus-spring-boot-starter-test</description>
+    <description>mydtt-plus-spring-boot-starter test below springboot 3.0.0-x</description>
 
     <properties>
         <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>

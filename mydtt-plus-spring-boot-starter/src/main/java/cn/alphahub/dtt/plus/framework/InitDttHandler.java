@@ -1,7 +1,6 @@
 package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
-import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.ParserType;
@@ -9,10 +8,8 @@ import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParsedModel;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import cn.alphahub.dtt.plus.util.PackageUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -26,9 +23,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
-import javax.sql.DataSource;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -44,6 +41,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.AllInOneTableProperties;
 import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
+import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 
 /**
  * 初始表处理
@@ -64,6 +62,9 @@ public class InitDttHandler implements ApplicationRunner {
      */
     private static final Set<ParsedModel<ModelEntity>> MODEL_ENTITIES = new LinkedHashSet<>(512);
     private static final Logger logger = LoggerFactory.getLogger(InitDttHandler.class);
+
+    @Autowired
+    private ClassPathScanningProvider classPathScanningProvider;
 
     @Autowired
     private ContextWrapper contextWrapper;
@@ -102,22 +103,20 @@ public class InitDttHandler implements ApplicationRunner {
         Consumer<Class<?>> classConsumer = aClass -> MODEL_ENTITIES.add(commentParser.parse(aClass.getName()));
 
         if (ObjectUtils.isNotEmpty(dtt.scanBasePackages())) {
-            Arrays.stream(dtt.scanBasePackages()).filter(StringUtils::isNotBlank).forEach(basePackage -> {
-                //Filter out class objects in builder mode
-                Set<Class<?>> classes = PackageUtil.scanPackage(basePackage).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
-                classes.forEach(classConsumer);
-            });
+            Set<Class<?>> fullyClasses = classPathScanningProvider.scanBasePackage(dtt.scanBasePackages());
+            //Filter out class objects in builder mode
+            Set<Class<?>> purelyClasses = fullyClasses.stream().filter(aClass -> !aClass.getSimpleName().endsWith(BUILDER_SUFFIX)).collect(Collectors.toSet());
+            purelyClasses.forEach(classConsumer);
         }
 
         if (ObjectUtils.isNotEmpty(dtt.scanBaseClasses())) {
-            Set<Class<?>> classes = Arrays.stream(dtt.scanBaseClasses()).filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
+            Set<Class<?>> classes = Arrays.stream(dtt.scanBaseClasses()).filter(aClass -> !aClass.getSimpleName().endsWith(BUILDER_SUFFIX)).collect(Collectors.toSet());
             classes.forEach(classConsumer);
         }
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
             if (logger.isErrorEnabled()) {
@@ -125,9 +124,13 @@ public class InitDttHandler implements ApplicationRunner {
             }
             throw new UnsupportedOperationException("You application run with type: '" + location + "',ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.");
         }
-
         this.resolveAnnotationsClass(getEnableDtt());
-
+        if (CollectionUtils.isEmpty(MODEL_ENTITIES)) {
+            if (logger.isErrorEnabled()) {
+                logger.warn("MODEL_ENTITIES is empty. DTT cannot parse.");
+            }
+            return;
+        }
         if (allInOneProperties.getEnable().equals(true)) {
             String allInOneTables = contextWrapper.getTableHandler().tableAllInOne(MODEL_ENTITIES);
             try (FileOutputStream fos = new FileOutputStream(allInOneProperties.getAbsoluteFilename(), false)) {

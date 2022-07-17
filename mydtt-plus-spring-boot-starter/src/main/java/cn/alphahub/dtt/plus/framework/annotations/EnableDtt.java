@@ -4,6 +4,7 @@ import cn.alphahub.dtt.plus.config.DataSourceAutoConfigurer;
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
 import cn.alphahub.dtt.plus.enums.ParserType;
+import cn.alphahub.dtt.plus.framework.ClassPathScanningProvider;
 import cn.alphahub.dtt.plus.framework.InitDttClient;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.VelocityHandler;
@@ -38,7 +39,8 @@ import java.lang.annotation.Target;
         DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
         DefaultSqlserverTableHandler.class, VelocityHandler.class, DttTableRunner.class,
-        DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class, InitDttClient.class
+        DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class, InitDttClient.class,
+        ClassPathScanningProvider.class,
 })
 public @interface EnableDtt {
     /**
