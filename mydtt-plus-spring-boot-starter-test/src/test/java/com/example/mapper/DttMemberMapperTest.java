@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,4 +49,19 @@ class DttMemberMapperTest {
         System.out.println(JacksonUtil.toJson(entity));
     }
 
+
+    @Test
+    @Transactional
+    void insertTransactional() {
+        DttMember entity = new DttMember();
+        entity.setIsEnable(true)
+                .setOpenId("12313233243")
+                .setDeleted(0)
+                .setBalance(new BigDecimal(1))
+                .setMemberType(MemberType.GUNMETAL)
+                .setStatus(1);
+        memberMapper.insert(entity);
+        System.out.println(JacksonUtil.toJson(entity));
+        int i =1/0;
+    }
 }
