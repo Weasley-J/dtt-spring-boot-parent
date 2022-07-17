@@ -1,1 +1,0 @@
-- mydtt-plus-spring-boot-starter test on version of `spring-boot` <= `3.0.0-x`

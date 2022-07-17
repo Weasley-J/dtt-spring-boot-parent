@@ -24,8 +24,8 @@ import java.lang.annotation.Target;
  * <p>
  * <b>What is DTT?</b>
  * <ul>
- *     <li>It's means  `Domain-to-Table`，As we know，The Object of Java is `Domain`，Database's is `Table` yet.</li>
- *     <li>You can easily use the '@EnableDtt' annotation to prevent JAVA objects from automatically creating data tables into your database with minimal configuration</li>
+ *     <li>It's means  `Domain-to-Table`</li>
+ *     <li>Aims to make it easy for you to automatically create DB tables based on your Java model</li>
  *     <li>DTT can easily preserve comments on database from 'java doc' to database table comments</li>
  * </ul>
  *
@@ -56,7 +56,7 @@ public @interface EnableDtt {
      * Type-safe alternative to {@link #scanBasePackages} for specifying the classes to
      * scan,each class specified will be scanned.
      * <p>
-     * JAVA model classes to scan
+     * The Java model classes be given
      * <p>
      * <strong>Note:</strong> Applicable to incremental table creation, when {@link #scanBasePackages} is specified,
      * it will scan all classes in the package specified by {@link #scanBasePackages}

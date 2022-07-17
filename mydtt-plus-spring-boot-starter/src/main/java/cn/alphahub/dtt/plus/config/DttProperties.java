@@ -47,7 +47,7 @@ public class DttProperties {
         /**
          * SQL文件名
          */
-        private String filename = "DTT_DB_TABLES.SQL";
+        private String filename = "ALL_IN_ONE.SQL";
         /**
          * SQL文件写入的绝对路径,未配置则取当前工作路径: "user.dir"
          */

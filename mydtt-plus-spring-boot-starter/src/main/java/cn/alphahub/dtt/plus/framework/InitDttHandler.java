@@ -122,7 +122,7 @@ public class InitDttHandler implements ApplicationRunner {
             if (logger.isErrorEnabled()) {
                 logger.error("You application run with type: '{}',ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
             }
-            throw new UnsupportedOperationException("You application run with type: '" + location + "',ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.");
+            return;
         }
         this.resolveAnnotationsClass(getEnableDtt());
         if (CollectionUtils.isEmpty(MODEL_ENTITIES)) {

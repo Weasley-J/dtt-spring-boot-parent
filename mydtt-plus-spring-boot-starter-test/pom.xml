@@ -6,6 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.1</version>
+        <!--<version>3.0.0-M3</version>-->
         <relativePath/>
     </parent>
 
@@ -24,7 +25,7 @@
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
