@@ -458,9 +458,24 @@ alphahub:
         # ...
 ```
 
-
+[Or refere to src](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-type-mapping.yml)
 
 Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `all-in-one` type table DDL statements to the destination you set in your `application.yml` file.
+
+
+
+
+
+## Develop Environment
+
+### 1. Requirments
+
+| items      | requirments                           | remark |
+| ---------- | ------------------------------------- | ------ |
+| JDK        | JDK1.8 or latest                      |        |
+| SpringBoot | 2.2.0.RELEASE  <= version <= 3.0.0-M3 |        |
+| IDE        | IDEA、Eclipse...                      |        |
+| Maven      | v3.6.5 or latest                      |        |
 
 
 
