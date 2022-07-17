@@ -11,7 +11,6 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -28,13 +27,7 @@ import javax.sql.DataSource;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DataSourceProperties.class})
 public class DttDataSourceAutoConfigurer {
-    /**
-     * 当注册中心中修改数据库配置动态切换数据库
-     *
-     * @param properties 用于配置数据源的基类
-     * @return HikariDataSource
-     */
-    @Primary
+
     @RefreshScope
     @ConditionalOnClass(DataSourceProperties.class)
     @Bean(name = {"defaultHikariDataSource"})

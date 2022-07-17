@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
                 "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
-        parserType = ParserType.JAVA_DOC,
+        parserType = ParserType.ANNOTATION,
         dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //OmsB2bOrder.class,

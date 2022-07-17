@@ -29,7 +29,6 @@ class MemberMapperTests {
 
     @Test
     void insert() {
-
     }
 
     @Test
