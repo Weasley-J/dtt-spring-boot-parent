@@ -402,6 +402,68 @@ Which can annotate on you Java modle class or property of modle，Usually used i
 
 
 
+### Yaml file configuration
+
+You can easily  use in prefix of `alphahub.tt` in your porject，Here the  fully yaml property with default maybe you can reference it.  you can override in you `application.yml` if you don't need one of them. i.e:
+
+```yaml
+alphahub:
+  dtt:
+    is-enable: true
+    all-in-one-table:
+      enable: true
+      filename: ALL_IN_ONE.SQL
+      filepath: /Users/weasley/Downloads
+    data-type-mapping:
+      mysql:
+        String: varchar
+        Boolean: tinyint
+        Float: float
+        Double: double
+        Integer: int
+        Long: bigint
+        BigDecimal: decimal
+        Date: datetime
+        LocalTime: time
+        LocalDate: date
+        Timestamp: timestamp
+        LocalDateTime: datetime
+        Enum: enum
+
+      oracle:
+        String: VARCHAR
+        Boolean: NUMBER(1)
+        Float: FLOAT
+        Double: DOUBLE
+        Integer: INTEGER
+        Long: NUMBER
+        BigDecimal: DECIMAL
+        Date: DATETIME
+        LocalDate: DATETIME
+        LocalTime: DATETIME
+        Timestamp: TIMESTAMP
+        LocalDateTime: DATETIME
+        Enum: VARCHAR
+
+      db2:
+        # ...
+
+      sqlserver:
+        # ...
+
+      mariadb:
+        # ...
+
+      postgresql:
+        # ...
+```
+
+
+
+Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `all-in-one` type table DDL statements to the destination you set in your `application.yml` file.
+
+
+
 
 
 
