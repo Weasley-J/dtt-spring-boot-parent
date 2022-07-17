@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
-public class DataSourceAutoConfigurerTests {
+public class DttDataSourceAutoConfigurerTests {
 
     @Autowired
     private JdbcTemplate defaultJdbcTemplate;

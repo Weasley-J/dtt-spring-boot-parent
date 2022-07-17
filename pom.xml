@@ -13,6 +13,7 @@
     <modules>
         <module>mydtt-plus-spring-boot-starter</module>
         <module>mydtt-plus-spring-boot-starter-test</module>
+        <module>mydtt-plus-spring-boot-starter-test-m3</module>
     </modules>
 
 </project>

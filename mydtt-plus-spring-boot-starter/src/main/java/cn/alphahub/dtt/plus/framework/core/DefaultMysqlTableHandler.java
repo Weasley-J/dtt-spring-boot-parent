@@ -21,8 +21,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * mysql默认建表实现
@@ -34,10 +32,7 @@ import java.util.List;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultMysqlTableHandler extends DttTableRunner implements DttTableHandler<ModelEntity> {
-    /**
-     * 数据表DDL集合
-     */
-    public static final List<String> TABLES = new ArrayList<>();
+
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
     @Autowired
     private VelocityEngine velocityEngine;
@@ -49,7 +44,7 @@ public class DefaultMysqlTableHandler extends DttTableRunner implements DttTable
      */
     @Override
     public String create(ParsedModel<ModelEntity> parsedModel) {
-        if (logger.isInfoEnabled()) logger.info("使用mysql默认建表实现 {}", JacksonUtil.toJson(parsedModel.getModel()));
+        if (logger.isDebugEnabled()) logger.debug("使用mysql默认建表实现 {}", JacksonUtil.toJson(parsedModel.getModel()));
         ModelEntity model = parsedModel.getModel();
         if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("表结构元数据解析结果不能为空 {}", model);

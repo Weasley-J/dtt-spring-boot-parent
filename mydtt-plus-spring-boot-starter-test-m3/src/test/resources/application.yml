@@ -6,7 +6,7 @@ spring:
     name: mydtt-plus-application-springboot-3.0.0-M3
 
   profiles:
-    active: dev
+    active: lwj
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -14,12 +14,9 @@ spring:
     username: root
     password: 123456
 
-mybatis-plus:
+mybatis:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
   type-aliases-package: com.example.springboot.m3.domain.dtt,com.example.springboot.m3.domain.order
-  global-config:
-    db-config:
-      id-type: auto
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

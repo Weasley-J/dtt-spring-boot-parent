@@ -1,7 +1,7 @@
-package com.example.mappper;
+package com.example.mapper;
 
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import com.example.domain.order.OrderItem;
+import com.example.domain.order.OrderRefund;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,11 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-class OrderItemMapperTest {
+class OrderRefundMapperTest {
 
     @Autowired
-    private OrderItemMapper orderItemMapper;
-
+    OrderRefundMapper orderRefundMapper;
 
     @BeforeEach
     void setUp() {
@@ -28,9 +27,13 @@ class OrderItemMapperTest {
 
     @Test
     void selectList() {
-        List<OrderItem> dttMemberList = orderItemMapper.selectList(null);
-        dttMemberList.forEach(dttMember -> {
-            System.out.println(JacksonUtil.toJson(dttMember));
-        });
+        List<OrderRefund> refunds = orderRefundMapper.selectList(null);
+        refunds.forEach(c -> System.out.println(JacksonUtil.toJson(c)));
     }
+
+    @Test
+    void insert() {
+
+    }
+
 }

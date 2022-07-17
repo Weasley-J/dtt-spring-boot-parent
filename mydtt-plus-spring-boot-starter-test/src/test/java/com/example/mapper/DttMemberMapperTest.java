@@ -1,4 +1,4 @@
-package com.example.mappper;
+package com.example.mapper;
 
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import com.example.domain.dtt.DttMember;

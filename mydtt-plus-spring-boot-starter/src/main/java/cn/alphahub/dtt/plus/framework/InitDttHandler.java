@@ -64,7 +64,7 @@ public class InitDttHandler implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(InitDttHandler.class);
 
     @Autowired
-    private ClassPathScanningProvider classPathScanningProvider;
+    private ClassScanningProvider classScanningProvider;
 
     @Autowired
     private ContextWrapper contextWrapper;
@@ -103,7 +103,7 @@ public class InitDttHandler implements ApplicationRunner {
         Consumer<Class<?>> classConsumer = aClass -> MODEL_ENTITIES.add(commentParser.parse(aClass.getName()));
 
         if (ObjectUtils.isNotEmpty(dtt.scanBasePackages())) {
-            Set<Class<?>> fullyClasses = classPathScanningProvider.scanBasePackage(dtt.scanBasePackages());
+            Set<Class<?>> fullyClasses = classScanningProvider.scanBasePackage(dtt.scanBasePackages());
             //Filter out class objects in builder mode
             Set<Class<?>> purelyClasses = fullyClasses.stream().filter(aClass -> !aClass.getSimpleName().endsWith(BUILDER_SUFFIX)).collect(Collectors.toSet());
             purelyClasses.forEach(classConsumer);

@@ -1,7 +1,7 @@
-package com.example.mappper;
+package com.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.domain.order.OrderItem;
+import com.example.domain.dtt.DttMember;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,5 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2022/7/12
  */
 @Mapper
-public interface OrderItemMapper extends BaseMapper<OrderItem> {
+public interface MemberMapper extends BaseMapper<DttMember> {
 }

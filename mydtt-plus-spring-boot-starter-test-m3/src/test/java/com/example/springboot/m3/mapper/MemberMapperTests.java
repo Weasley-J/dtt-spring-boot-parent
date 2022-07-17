@@ -1,20 +1,17 @@
-package com.example.mappper;
+package com.example.springboot.m3.mapper;
 
-import cn.alphahub.dtt.plus.util.JacksonUtil;
-import com.example.domain.order.OrderRefund;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 @SpringBootTest
-class OrderRefundMapperTest {
+class MemberMapperTests {
+
 
     @Autowired
-    OrderRefundMapper orderRefundMapper;
+    MemberMapper memberMapper;
 
     @BeforeEach
     void setUp() {
@@ -26,9 +23,8 @@ class OrderRefundMapperTest {
 
 
     @Test
-    void selectList() {
-        List<OrderRefund> refunds = orderRefundMapper.selectList(null);
-        refunds.forEach(c -> System.out.println(JacksonUtil.toJson(c)));
+    void contextLoads() {
+
     }
 
     @Test
@@ -36,4 +32,8 @@ class OrderRefundMapperTest {
 
     }
 
+    @Test
+    void insertTx() {
+
+    }
 }

@@ -2,10 +2,12 @@ package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.exception.ParseException;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.Resource;
@@ -33,18 +35,17 @@ import java.util.stream.Collectors;
  * @date 2022/7/17
  * @since 1.0.4
  */
+@Data
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class ClassPathScanningProvider {
+public class ClassScanningProvider {
     static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
 
     protected final Log logger = LogFactory.getLog(getClass());
 
     private Environment environment;
-
-    public ClassPathScanningProvider(Environment environment) {
-        this.environment = environment;
-    }
 
     /**
      * The classes base package
@@ -129,17 +130,5 @@ public class ClassPathScanningProvider {
             this.environment = new StandardEnvironment();
         }
         return this.environment;
-    }
-
-    /**
-     * Set the Environment to use when resolving placeholders and evaluating
-     * {@link Conditional @Conditional}-annotated component classes.
-     * <p>The default is a {@link StandardEnvironment}.
-     *
-     * @param environment the Environment to use
-     */
-    public void setEnvironment(Environment environment) {
-        Assert.notNull(environment, "Environment must not be null");
-        this.environment = environment;
     }
 }

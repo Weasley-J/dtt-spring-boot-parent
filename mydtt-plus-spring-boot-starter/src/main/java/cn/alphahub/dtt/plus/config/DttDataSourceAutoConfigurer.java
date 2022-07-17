@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DataSourceProperties.class})
-public class DataSourceAutoConfigurer {
+public class DttDataSourceAutoConfigurer {
     /**
      * 当注册中心中修改数据库配置动态切换数据库
      *
