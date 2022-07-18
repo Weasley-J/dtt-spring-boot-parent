@@ -493,6 +493,21 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 
 
 
+## Database adaptation
+
+| database     | version | adaptation |
+| ------------ | ------- | ---------- |
+| `mysql`      | 5.7+    | adapted    |
+| `oracle`     |         |            |
+| `db2`        |         |            |
+| `sqlserver`  |         |            |
+| `mariadb`    |         |            |
+| `postgresql` |         |            |
+
+
+
+
+
 
 
 ## `UML` architecture diagram

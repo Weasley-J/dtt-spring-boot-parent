@@ -39,8 +39,8 @@ public class DttTableRunner {
     public void execute(StringWriter writer) {
         final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
         boolean debugEnabled = jdbcLogger.isDebugEnabled();
-        if (logger.isInfoEnabled() && !debugEnabled) {
-            logger.info("数据库建表语句:{}{}", SysUtil.getLineSeparator(), writer);
+        if (logger.isDebugEnabled() && !debugEnabled) {
+            logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), writer);
         }
         defaultJdbcTemplate.execute(writer.toString());
     }
@@ -54,8 +54,8 @@ public class DttTableRunner {
     public void execute(String table) {
         final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
         boolean debugEnabled = jdbcLogger.isDebugEnabled();
-        if (logger.isInfoEnabled() && !debugEnabled) {
-            logger.info("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);
+        if (logger.isDebugEnabled() && !debugEnabled) {
+            logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);
         }
         defaultJdbcTemplate.execute(table);
     }

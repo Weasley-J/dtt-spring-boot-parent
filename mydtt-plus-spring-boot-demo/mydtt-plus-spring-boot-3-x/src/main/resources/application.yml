@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mydtt-plus-application-demo
+
+  profiles:
+    active: mybatis
