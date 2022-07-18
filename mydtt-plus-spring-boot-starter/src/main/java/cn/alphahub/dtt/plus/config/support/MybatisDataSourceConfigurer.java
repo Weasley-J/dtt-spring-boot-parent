@@ -116,7 +116,7 @@ public class MybatisDataSourceConfigurer {
     }
 
     /**
-     * Spring version number prefix >= 3 will be autowired
+     * Spring version number prefix greater or equal 3 will be autowired
      */
     public static class MybatisSupportCondition implements Condition {
         @Override

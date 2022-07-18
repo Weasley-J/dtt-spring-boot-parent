@@ -26,7 +26,6 @@ public class ClassUtil {
     private static final Logger LOG = LoggerFactory.getLogger(ClassUtil.class);
 
     private ClassUtil() {
-
     }
 
     /**
@@ -36,7 +35,6 @@ public class ClassUtil {
      * @param aClass which Class be invoked
      * @return value of the given method，default value
      */
-    @SuppressWarnings("all")
     public static <T> T invoke(Method method, Class<?> aClass) {
         method.setAccessible(true);
         try {
