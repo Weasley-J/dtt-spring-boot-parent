@@ -106,7 +106,8 @@ public class ClassScanningProvider {
         Arrays.stream(basePackages).filter(StringUtils::hasText).collect(Collectors.toList())
                 .forEach(basePackage -> {
                     Set<Class<?>> purelyClasses = scanBasePackage(basePackage).stream()
-                            .filter(aClass -> aClass.getAnnotation(annotation) != null).collect(Collectors.toSet());
+                            .filter(aClass -> aClass.getAnnotation(annotation) != null)
+                            .collect(Collectors.toSet());
                     candidates.addAll(purelyClasses);
                 });
         return candidates;
