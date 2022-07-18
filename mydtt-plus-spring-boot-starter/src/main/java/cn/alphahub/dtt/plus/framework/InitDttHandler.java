@@ -119,14 +119,14 @@ public class InitDttHandler implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
-            if (logger.isErrorEnabled()) {
-                logger.error("Your application run with type of '{}', ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
+            if (logger.isWarnEnabled()) {
+                logger.warn("Your application run with type of '{}', ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
             }
             return;
         }
         this.resolveAnnotationsClass(getEnableDtt());
         if (CollectionUtils.isEmpty(MODEL_ENTITIES)) {
-            if (logger.isErrorEnabled()) {
+            if (logger.isWarnEnabled()) {
                 logger.warn("MODEL_ENTITIES is empty. DTT cannot parse.");
             }
             return;

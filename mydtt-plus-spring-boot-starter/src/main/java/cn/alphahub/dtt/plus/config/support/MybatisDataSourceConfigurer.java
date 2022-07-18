@@ -124,7 +124,6 @@ public class MybatisDataSourceConfigurer {
             String springVersionPrefix = SpringApplication.class.getPackage().getImplementationVersion().split("\\.")[0];
             if (StringUtils.hasText(springVersionPrefix)) {
                 return Integer.parseInt(springVersionPrefix) >= 3;
-
             }
             return false;
         }
