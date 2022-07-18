@@ -32,13 +32,14 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 /**
- * Configuration for MyBatis,
+ * Configuration for MyBatis, If missing Mybatis autoconfiguration Bean.
  *
- * @author weasley
- * @since 1.0.4
+ * @author Weasley
+ * @since 1.0.6
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(annotation = {EnableDtt.class})
+@ConditionalOnMissingBean(value = {SqlSessionFactory.class, SqlSessionTemplate.class})
 @ConditionalOnProperty(prefix = "mybatis", name = {"mapper-locations", "type-aliases-package"})
 @EnableConfigurationProperties({MybatisDataSourceConfigurer.MybatisProperties.class})
 public class MybatisDataSourceConfigurer {

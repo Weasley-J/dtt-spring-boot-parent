@@ -120,7 +120,7 @@ public class InitDttHandler implements ApplicationRunner {
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
             if (logger.isErrorEnabled()) {
-                logger.error("You application run with type: '{}',ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
+                logger.error("Your application run with type of '{}', ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
             }
             return;
         }

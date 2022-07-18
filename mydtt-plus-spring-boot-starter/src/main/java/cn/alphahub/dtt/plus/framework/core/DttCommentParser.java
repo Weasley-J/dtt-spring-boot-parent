@@ -24,7 +24,7 @@ import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
- * 解析注释、模型描述
+ * 解析模型注释、模型描述
  *
  * @param <T> 解析类型
  * @author weasley
@@ -51,7 +51,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
         }
         String enumString = enumStr.substring(0, enumStr.length() - 1);
         String finalDatabaseDataType = dbDataType + "(" + enumString + ")";
-        //如果确实的情况下，使用第一个作为枚举类型的默认值
+        //If missing, use the first as the default value of the enumeration type
         wrapper.setInitValue(enumTypeStringValues[0]);
         wrapper.setDbDtaType(finalDatabaseDataType);
         return wrapper;
@@ -64,7 +64,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
      * @param underlineFiledName underline filed name
      * @return varchar类型
      */
-    default String resolveVarcharTypeLength(String underlineFiledName, String dbDataType) {
+    default String resolveVarcharLength(String underlineFiledName, String dbDataType) {
         if ("varchar".equals(dbDataType)) {
             if (underlineFiledName.contains("phone") || underlineFiledName.contains("tel") || underlineFiledName.contains("telephone") || underlineFiledName.contains("mail"))
                 return dbDataType + "(16)";
@@ -136,7 +136,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
     default String parseDbDataType(Field field, String originalDbDataType) {
         if (field.getType().isEnum())
             return parseDatabaseEnumTypes(field, originalDbDataType).getDbDtaType();
-        else return resolveVarcharTypeLength(camelToUnderline(field.getName()), originalDbDataType);
+        else return resolveVarcharLength(camelToUnderline(field.getName()), originalDbDataType);
     }
 
 

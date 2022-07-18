@@ -87,7 +87,7 @@ public enum DatabaseType {
             value = lowerCaseProps.get(javaDataType);
             final Logger logger = LoggerFactory.getLogger(DatabaseType.class);
             if (null == value && logger.isErrorEnabled()) {
-                logger.error("Java数据类型映射至数据库数据类型出错，数据类型映射类型: {}, javaDataType = {}", JacksonUtil.toJson(props), javaDataType);
+                logger.error("Java数据类型映射至数据库数据类型出错，数据类型映射类型: {}, Java-data-type = {}", JacksonUtil.toJson(props), javaDataType);
             }
         }
         return Objects.nonNull(value) ? value.toString() : "";

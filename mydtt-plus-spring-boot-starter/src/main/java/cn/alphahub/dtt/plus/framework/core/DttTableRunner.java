@@ -26,7 +26,7 @@ import java.io.StringWriter;
 public class DttTableRunner {
     private static final Logger logger = LoggerFactory.getLogger(DttTableRunner.class);
 
-    @Autowired(required = false)
+    @Autowired
     @Qualifier("defaultJdbcTemplate")
     private JdbcTemplate defaultJdbcTemplate;
 
@@ -38,7 +38,8 @@ public class DttTableRunner {
     @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
     public void execute(StringWriter writer) {
         final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
-        if (logger.isInfoEnabled() && !jdbcLogger.isDebugEnabled()) {
+        boolean debugEnabled = jdbcLogger.isDebugEnabled();
+        if (logger.isInfoEnabled() && !debugEnabled) {
             logger.info("数据库建表语句:{}{}", SysUtil.getLineSeparator(), writer);
         }
         defaultJdbcTemplate.execute(writer.toString());
@@ -52,7 +53,8 @@ public class DttTableRunner {
     @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
     public void execute(String table) {
         final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
-        if (logger.isInfoEnabled() && !jdbcLogger.isDebugEnabled()) {
+        boolean debugEnabled = jdbcLogger.isDebugEnabled();
+        if (logger.isInfoEnabled() && !debugEnabled) {
             logger.info("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);
         }
         defaultJdbcTemplate.execute(table);
