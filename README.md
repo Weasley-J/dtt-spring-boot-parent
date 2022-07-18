@@ -1,8 +1,6 @@
 # mydtt-plus-spring-boot-starter
 
-DTT has deploied to maven  central repo,  you can get latest version from [maven central repository](https://search.maven.org/search?q=mydtt-plus-spring-boot-starter).
-
-
+Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter) 
 
 > - What is DTT?
 >
