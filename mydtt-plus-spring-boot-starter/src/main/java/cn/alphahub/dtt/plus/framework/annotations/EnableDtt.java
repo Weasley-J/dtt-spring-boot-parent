@@ -3,7 +3,7 @@ package cn.alphahub.dtt.plus.framework.annotations;
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
 import cn.alphahub.dtt.plus.config.DttDataSourceAutoConfigurer;
-import cn.alphahub.dtt.plus.config.mybatis.MybatisDataSourceConfigurer;
+import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.InitDttClient;

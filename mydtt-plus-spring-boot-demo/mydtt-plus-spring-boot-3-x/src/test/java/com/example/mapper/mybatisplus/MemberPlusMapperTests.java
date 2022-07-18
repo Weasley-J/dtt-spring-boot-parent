@@ -1,21 +1,19 @@
 package com.example.mapper.mybatisplus;
 
-import cn.alphahub.dtt.plus.util.JacksonUtil;
-import com.example.domain.order.OrderRefund;
-import com.example.mapper.OrderRefundMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.example.domain.dtt.DttMember;
+import com.example.mapper.dtt.MemberPlusMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 @SpringBootTest
-class OrderRefundMapperTest {
+class MemberPlusMapperTests {
 
     @Autowired
-    OrderRefundMapper orderRefundMapper;
+    MemberPlusMapper memberPlusMapper;
 
     @BeforeEach
     void setUp() {
@@ -27,9 +25,8 @@ class OrderRefundMapperTest {
 
 
     @Test
-    void selectList() {
-        List<OrderRefund> refunds = orderRefundMapper.selectList(null);
-        refunds.forEach(c -> System.out.println(JacksonUtil.toJson(c)));
+    void selectOne() {
+        DttMember member = memberPlusMapper.selectOne(Wrappers.lambdaQuery(DttMember.class).eq(DttMember::getId, 1));
     }
 
     @Test

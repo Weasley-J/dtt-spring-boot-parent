@@ -1,15 +1,17 @@
 package com.example;
 
+import cn.alphahub.dtt.plus.enums.ParserType;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import com.example.domain.dtt.DttMember;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
-
  * mydtt-plus-spring-boot-starter test below springboot 2.0.0-x
  */
 @SpringBootApplication
-/*@EnableDtt(
+@EnableDtt(
         scanBasePackages = {
                 //"com.example.i18n.korean",
                 //"com.example.domain.dtt",
@@ -22,11 +24,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 //DttPerson.class,
                 DttMember.class,
         }
-)*/
+)
 @MapperScan(basePackages = {"com.example.mapper"})
-@tk.mybatis.spring.annotation.MapperScan(basePackages = {"com.example.mapper"})
-public class MydttPlusTestsApplication {
+public class MydttPlus2xApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MydttPlusTestsApplication.class, args);
+        SpringApplication.run(MydttPlus2xApplication.class, args);
     }
 }

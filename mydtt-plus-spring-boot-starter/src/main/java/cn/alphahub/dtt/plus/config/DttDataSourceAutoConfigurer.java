@@ -1,18 +1,19 @@
 package cn.alphahub.dtt.plus.config;
 
+import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 
@@ -24,12 +25,15 @@ import javax.sql.DataSource;
  * @date 2022/7/10
  */
 @Configuration(proxyBeanMethods = false)
+@ConditionalOnMissingBean({MybatisDataSourceConfigurer.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DataSourceProperties.class})
 public class DttDataSourceAutoConfigurer {
 
-    @RefreshScope
-    @ConditionalOnClass(DataSourceProperties.class)
+    /**
+     * @param properties data source properties
+     * @return hikari data source
+     */
     @Bean(name = {"defaultHikariDataSource"})
     public HikariDataSource defaultHikariDataSource(DataSourceProperties properties) {
         HikariDataSource dataSource = new HikariDataSource();
@@ -37,6 +41,9 @@ public class DttDataSourceAutoConfigurer {
         dataSource.setJdbcUrl(properties.getUrl());
         dataSource.setUsername(properties.getUsername());
         dataSource.setPassword(properties.getPassword());
+        if (StringUtils.hasText(properties.getName())) {
+            dataSource.setPoolName(properties.getName());
+        }
         return dataSource;
     }
 

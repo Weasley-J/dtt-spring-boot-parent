@@ -10,7 +10,7 @@ spring:
     username: root
     password: 123456
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
   type-aliases-package: com.example.domain.dtt,com.example.domain.order
   global-config:
@@ -21,7 +21,7 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-#mybatis-plus:
+#support-plus:
 #  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
 #  type-aliases-package: com.example.domain.dtt,com.example.domain.order
 #  global-config:

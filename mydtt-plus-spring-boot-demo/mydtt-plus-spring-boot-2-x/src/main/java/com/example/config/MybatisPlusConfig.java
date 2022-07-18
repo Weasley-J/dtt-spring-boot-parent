@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * mybatis plus 分页插件配置
+ * support plus 分页插件配置
  *
  * @author Weasley J
  * @link https://mp.baomidou.com/guide/page.html
@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class MybatisPlusConfig {
 
     /**
-     * mybatis plus 支持的数据库类型,主要用于分页方言
+     * support plus 支持的数据库类型,主要用于分页方言
      */
     private final DbType dbType = DbType.MYSQL;
 

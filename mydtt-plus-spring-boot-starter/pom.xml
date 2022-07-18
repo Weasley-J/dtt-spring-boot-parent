@@ -110,7 +110,7 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <!-- mybatis-plus -->
+        <!-- support-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
@@ -153,7 +153,7 @@
             <version>${velocity-engine-core.version}</version>
         </dependency>
         <!-- velocity end -->
-        <!-- mybatis start-->
+        <!-- support start-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -171,7 +171,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- mybatis end-->
+        <!-- support end-->
 
     </dependencies>
 

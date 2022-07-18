@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,7 +26,6 @@ public class DttMember implements Serializable {
     /**
      * 主键id
      */
-    @Id
     private Long id;
     /**
      * 用户openId

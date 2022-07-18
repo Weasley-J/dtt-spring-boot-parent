@@ -1,4 +1,4 @@
-package cn.alphahub.dtt.plus.config.mybatis;
+package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
@@ -18,20 +18,28 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.system.JavaVersion;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.util.StringUtils;
 
@@ -41,8 +49,9 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import static cn.alphahub.dtt.plus.config.mybatis.MybatisDataSourceConfigurer.MybatisPlusProperties;
-import static cn.alphahub.dtt.plus.config.mybatis.MybatisDataSourceConfigurer.MybatisProperties;
+import static cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer.MybatisPlusProperties;
+import static cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer.MybatisProperties;
+import static cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer.MybatisSupportCondition;
 
 
 /**
@@ -54,9 +63,11 @@ import static cn.alphahub.dtt.plus.config.mybatis.MybatisDataSourceConfigurer.My
  * @since 1.0.6
  */
 @Configuration(proxyBeanMethods = false)
+@Conditional({MybatisSupportCondition.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
 @ConditionalOnMissingBean({SqlSessionFactory.class, SqlSessionTemplate.class})
+@ConditionalOnJava(value = JavaVersion.SEVENTEEN, range = ConditionalOnJava.Range.EQUAL_OR_NEWER)
 @EnableConfigurationProperties({DataSourceProperties.class, MybatisProperties.class, MybatisPlusProperties.class})
 public class MybatisDataSourceConfigurer {
 
@@ -66,6 +77,7 @@ public class MybatisDataSourceConfigurer {
     }
 
     @Bean
+    @ConditionalOnSingleCandidate(value = DataSource.class)
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public DataSource dataSource(DataSourceProperties properties) {
         HikariDataSource dataSource = createDataSource(properties, HikariDataSource.class);
@@ -79,10 +91,7 @@ public class MybatisDataSourceConfigurer {
     @DependsOn({"dataSource"})
     @ConditionalOnMissingBean(value = {SqlSessionFactory.class})
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource, MybatisProperties mybatis, MybatisPlusProperties mybatisPlus) {
-        org.apache.ibatis.session.Configuration configuration;
-        if (ObjectUtils.allNotNull(mybatis.getConfiguration(), mybatisPlus.getConfiguration()))
-            configuration = mybatisPlus.getConfiguration();
-        else configuration = ObjectUtils.defaultIfNull(mybatis.getConfiguration(), mybatisPlus.getConfiguration());
+        org.apache.ibatis.session.Configuration configuration = ObjectUtils.defaultIfNull(mybatis.getConfiguration(), mybatisPlus.getConfiguration());
         Environment environment = new Environment
                 .Builder(RandomStringUtils.randomNumeric(10))
                 .dataSource(dataSource)
@@ -107,6 +116,21 @@ public class MybatisDataSourceConfigurer {
     }
 
     /**
+     * Spring version number prefix >= 3 will be autowired
+     */
+    public static class MybatisSupportCondition implements Condition {
+        @Override
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            String springVersionPrefix = SpringApplication.class.getPackage().getImplementationVersion().split("\\.")[0];
+            if (StringUtils.hasText(springVersionPrefix)) {
+                return Integer.parseInt(springVersionPrefix) >= 3;
+
+            }
+            return false;
+        }
+    }
+
+    /**
      * Configuration properties for MyBatis.
      *
      * @author Eddú Meléndez
@@ -115,7 +139,7 @@ public class MybatisDataSourceConfigurer {
     @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
     public static class MybatisProperties {
 
-        public static final String MYBATIS_PREFIX = "mybatis";
+        public static final String MYBATIS_PREFIX = "support";
 
         private static final ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 
@@ -156,7 +180,7 @@ public class MybatisDataSourceConfigurer {
         private ExecutorType executorType;
 
         /**
-         * The default scripting language driver class. (Available when use together with mybatis-spring 2.0.2+)
+         * The default scripting language driver class. (Available when use together with support-spring 2.0.2+)
          */
         private Class<? extends LanguageDriver> defaultScriptingLanguageDriver;
 
@@ -344,7 +368,7 @@ public class MybatisDataSourceConfigurer {
         private ExecutorType executorType;
 
         /**
-         * The default scripting language driver class. (Available when use together with mybatis-spring 2.0.2+)
+         * The default scripting language driver class. (Available when use together with support-spring 2.0.2+)
          * <p>
          * 如果设置了这个,你会至少失去几乎所有 mp 提供的功能
          */
