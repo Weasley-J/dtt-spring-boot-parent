@@ -28,12 +28,13 @@ import static cn.alphahub.dtt.plus.constant.Constants.PROPERTIES_FILES;
 public class DefaultExtraPropertiesLoader implements EnvironmentPostProcessor {
 
     @Override
+    @SuppressWarnings({"all"})
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         for (String propertiesFile : PROPERTIES_FILES) {
             Resource resource = new ClassPathResource(propertiesFile);
             Properties properties = new Properties();
             if (!resource.exists()) {
-                throw new IllegalArgumentException("资源" + resource + "不存在");
+                throw new IllegalArgumentException("资源'" + resource + "'不存在");
             }
             try {
                 properties.load(resource.getInputStream());
