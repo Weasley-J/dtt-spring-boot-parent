@@ -1,7 +1,9 @@
 package cn.alphahub.dtt.plus.framework;
 
+import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +46,7 @@ import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureBefore({InitDttHandler.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
+@EnableConfigurationProperties({DttProperties.class})
 public class InitDttClient {
 
     @Autowired
@@ -97,7 +101,9 @@ public class InitDttClient {
     @DependsOn({"commentParserClient", "commentParserClient"})
     public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
                                          @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
-                                         DataSource dataSource) throws SQLException {
+                                         DataSource dataSource,
+                                         DttProperties dttProperties
+    ) throws SQLException {
         String databaseName = "";
         DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
         ResultSet result = metaData.getCatalogs();
@@ -109,6 +115,9 @@ public class InitDttClient {
                 databaseName = databaseNameTemp;
             }
         }
+
+        if (dttProperties.getBannerMode() == BannerMode.ON)
+            DttBanner.getInstance().printBanner();
 
         return ContextWrapper.builder()
                 .databaseName(databaseName)

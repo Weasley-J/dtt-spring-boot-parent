@@ -1,5 +1,6 @@
 package cn.alphahub.dtt.plus.config;
 
+import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.SysUtil;
 import lombok.Data;
@@ -8,6 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.Properties;
+
+import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
 
 /**
  * Java与数据库类型映射
@@ -23,6 +26,10 @@ public class DttProperties {
      * Whether to enable
      */
     private Boolean isEnable = true;
+    /**
+     * Banner mode
+     */
+    private BannerMode bannerMode = ON;
     /**
      * 所有建表SQL写入文件
      */
@@ -159,5 +166,4 @@ public class DttProperties {
             return need;
         }
     }
-
 }
