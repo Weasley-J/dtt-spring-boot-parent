@@ -14,6 +14,7 @@ import cn.alphahub.dtt.plus.framework.core.DttTableHandler;
 import cn.alphahub.dtt.plus.util.ClassUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -29,11 +30,15 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
+import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper;
+import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper.LengthProperties;
 import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
 
 /**
@@ -119,12 +124,37 @@ public class InitDttClient {
         if (dttProperties.getBannerMode() == BannerMode.ON)
             DttBanner.getInstance().printBanner();
 
-        return ContextWrapper.builder()
+        ContextWrapper contextWrapper = ContextWrapper.builder()
                 .databaseName(databaseName)
                 .threadReference(new AtomicReference<>(Thread.currentThread()))
                 .commentParser(commentParserClient.get(getEnableDtt().parserType()))
                 .tableHandler(tableHandlerClient.get(DatabaseType.getDbType()))
                 .dttRunDetail(new ContextWrapper.DttRunDetail(LocalDateTime.now()))
                 .build();
+
+        List<StringLengthMapper> lengthMappers = dttProperties.getStringLengthMapper();
+        if (ObjectUtils.isNotEmpty(lengthMappers)) {
+            Map<DatabaseType, StringLengthMapper> mapperMap = lengthMappers.stream().collect(Collectors.toMap(StringLengthMapper::getDatabaseType, v -> v));
+            if (ObjectUtils.isNotEmpty(mapperMap)) {
+                StringLengthMapper stringLengthMapper = mapperMap.get(DatabaseType.getDbType());
+                if (null != stringLengthMapper) {
+                    String defaultTextType = stringLengthMapper.getDefaultTextType();
+                    Integer defaultTextLength = stringLengthMapper.getDefaultTextLength();
+                    List<LengthProperties> lengthConfigs = stringLengthMapper.getLengthConfigs();
+                    if (ObjectUtils.isNotEmpty(lengthConfigs)) {
+                        Map<String, Integer> textLengthPropertiesMap = lengthConfigs.stream().collect(Collectors.toMap(LengthProperties::getText, LengthProperties::getLength));
+                        if (ObjectUtils.isNotEmpty(textLengthPropertiesMap)) {
+                            // Get the length of the 'String' type configured by the user
+                            ContextWrapper.TextLengthHandler handler = new ContextWrapper.TextLengthHandler();
+                            handler.setStringLengthMapper(stringLengthMapper);
+                            handler.setTextLengthProperties(textLengthPropertiesMap);
+                            contextWrapper.setTextLengthHandler(handler);
+                        }
+                    }
+                }
+            }
+        }
+
+        return contextWrapper;
     }
 }

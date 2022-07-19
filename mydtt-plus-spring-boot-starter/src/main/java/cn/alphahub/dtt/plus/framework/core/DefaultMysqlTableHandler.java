@@ -61,7 +61,7 @@ public class DefaultMysqlTableHandler extends DttTableRunner implements DttTable
         }
 
         VelocityContext context = new VelocityContext();
-        handlePrimaryKey(model, context); //处理主键
+        handlePrimaryKey(model, context);
         context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
         context.put("databaseName", model.getDatabaseName());
         context.put("modelName", model.getModelName());

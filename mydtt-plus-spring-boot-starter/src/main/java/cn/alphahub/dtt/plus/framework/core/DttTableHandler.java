@@ -3,13 +3,13 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.SysUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,27 +33,16 @@ public interface DttTableHandler<T> extends DttContext<T> {
     String create(ParsedModel<T> parsedModel);
 
     /**
-     * 批量操作
-     *
-     * @param modelSet 解析结果
-     */
-    default void bulkOps(Set<ParsedModel<T>> modelSet) {
-        if (!CollectionUtils.isEmpty(modelSet)) {
-            modelSet.parallelStream().forEach(this::create);
-        }
-    }
-
-    /**
-     * 将所有建表语聚合
+     * 批量操作所有建表语语句聚合
      *
      * @param modelSet 解析结果
      * @return all tables (ALl IN ONE)
      */
-    default String tableAllInOne(Set<ParsedModel<T>> modelSet) {
-        if (CollectionUtils.isEmpty(modelSet))
+    default String bulkOps(Set<ParsedModel<T>> modelSet) {
+        if (CollectionUtils.isEmpty(modelSet)) {
             return null;
-        List<String> tables = modelSet.parallelStream().map(this::create).collect(Collectors.toList());
-        return StringUtils.join(tables, SysUtil.getLineSeparator());
+        }
+        return StringUtils.join(modelSet.parallelStream().map(this::create).collect(Collectors.toList()), SysUtil.getLineSeparator());
     }
 
     /**
@@ -72,7 +61,39 @@ public interface DttTableHandler<T> extends DttContext<T> {
         if (null == context.get(Constants.PRIMARY_KEY_MARK)
                 || StringUtils.isBlank(context.get(Constants.PRIMARY_KEY_MARK).toString())) {
             context.put(Constants.PRIMARY_KEY_MARK, "id");
-            entity.getDetails().add(new ModelEntity.Detail().setIsPrimaryKey(true).setDatabaseDataType("bigint").setJavaDataType("Long").setFiledName("id").setFiledComment("自增主键id"));
+            ModelEntity.Detail filedComment = new ModelEntity.Detail()
+                    .setFiledName("id")
+                    .setIsPrimaryKey(true)
+                    .setFiledComment("自增主键id")
+                    .setJavaDataType("Long");
+            switch (DatabaseType.getDbType()) {
+                case MYSQL:
+                    filedComment.setDatabaseDataType("bigint");
+                    break;
+                //TODO 调整主键类型
+                case ORACLE:
+                    filedComment.setDatabaseDataType("ORACLE");
+                    break;
+                //TODO 调整主键类型
+                case DB2:
+                    filedComment.setDatabaseDataType("DB2");
+                    break;
+                //TODO 调整主键类型
+                case SQLSERVER:
+                    filedComment.setDatabaseDataType("SQLSERVER");
+                    break;
+                //TODO 调整主键类型
+                case MARIADB:
+                    filedComment.setDatabaseDataType("MARIADB");
+                    break;
+                //TODO 调整主键类型
+                case POSTGRESQL:
+                    filedComment.setDatabaseDataType("POSTGRESQL");
+                    break;
+                default:
+                    break;
+            }
+            entity.getDetails().add(filedComment);
             //Move the manually added 'id' column to the position of the first column
             Collections.swap(entity.getDetails(), 0, entity.getDetails().size() - 1);
         }

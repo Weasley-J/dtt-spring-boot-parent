@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.StringWriter;
-
 /**
  * 执行数据库建表语句
  *
@@ -31,22 +29,9 @@ public class DttTableRunner {
     /**
      * run create DDL statement
      *
-     * @param writer DDL statement writer
-     */
-    @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
-    public void execute(StringWriter writer) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), writer);
-        }
-        jdbcTemplate.execute(writer.toString());
-    }
-
-    /**
-     * run create DDL statement
-     *
      * @param table 数据表
      */
-    @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
+    @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void execute(String table) {
         if (logger.isDebugEnabled()) {
             logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);

@@ -8,12 +8,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import java.util.List;
 import java.util.Properties;
 
 import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
 
 /**
- * Java与数据库类型映射
+ * The data type mapping between Java and Database
  *
  * @author weasley
  * @version 1.0
@@ -39,7 +40,16 @@ public class DttProperties {
      * The properties' relationship of Java data type mapping to database data type
      */
     @NestedConfigurationProperty
-    private DataTypeMappingProperties dataTypeMapping;
+    private DataTypeMappingProperties dataTypeMapper;
+    /**
+     * Model attribute If the Java type is 'java.lang.String' type,
+     * when the attribute contains text content such as: "text", "content", "message", "phone", "id", "tel", etc.,
+     * you can specify their length from 'string-length-mapping' property; Take MySQL as an example:
+     * if there is a column whose name is "user_tel", and "user_tel" contains "tel" text,
+     * you can specify the data length of "user_tel" attribute like this: varchar(12)
+     */
+    @NestedConfigurationProperty
+    private List<StringLengthMapper> stringLengthMapper;
 
     /**
      * 所有建表SQL写入文件配置属性
@@ -77,7 +87,7 @@ public class DttProperties {
      * 数据类型映射属性
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapping")
+    @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper")
     public static class DataTypeMappingProperties {
         /**
          * key: java type; value: mysql type
@@ -164,6 +174,55 @@ public class DttProperties {
             Properties need = new Properties();
             properties.forEach((k, v) -> need.put(k.toString().toLowerCase(), v));
             return need;
+        }
+    }
+
+    /**
+     * Model attribute If the Java type is 'java.lang.String' type,
+     * when the attribute contains text content,
+     * Examples: "text", "content", "message", "phone", "id", "tel", etc.,
+     * you can specify their length from 'string-length-mapping' property; Take MySQL as an example:
+     * if there is a column whose name is "user_tel", and "user_tel" contains "tel" text,
+     * you can specify the data length of "user_tel" attribute like this: varchar(12)
+     * <p>
+     * Note: The length of 'java.lang.String' type preferably power of 2.
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.string-length-mapper")
+    public static class StringLengthMapper {
+        /**
+         * database type, Must be not null.
+         */
+        private DatabaseType databaseType;
+        /**
+         * Data type of DB,the character text type of your database, Usually the data type that maps Java is character(String) type, i.e: varchar
+         */
+        private String defaultTextType;
+        /**
+         * Text length oof default if missing
+         */
+        private Integer defaultTextLength = 256;
+        /**
+         * text length configurations properties
+         */
+        @NestedConfigurationProperty
+        private List<LengthProperties> lengthConfigs;
+
+        /**
+         * Text  length configuration properties
+         */
+        @Data
+        @ConfigurationProperties(prefix = "alphahub.dtt.string-length-mapper.length-configs")
+        public static class LengthProperties {
+            /**
+             * Text property is the content you want the current column contained,
+             * Multiple 'text' be separated by commas(","). i.e: phone,tel,telephone,mail,email
+             */
+            private String text;
+            /**
+             * the data length of type
+             */
+            private Integer length;
         }
     }
 }

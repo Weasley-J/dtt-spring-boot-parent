@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.AllInOneTableProperties;
 import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
+import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper.LengthProperties;
 import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 
 /**
@@ -54,7 +55,10 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @Component
 @AutoConfigureAfter({InitDttClient.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
-@EnableConfigurationProperties({DttProperties.class, DataTypeMappingProperties.class, AllInOneTableProperties.class})
+@EnableConfigurationProperties({
+        DttProperties.class, DataTypeMappingProperties.class,
+        AllInOneTableProperties.class, LengthProperties.class,
+})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class InitDttHandler implements ApplicationRunner {
     /**
@@ -64,11 +68,9 @@ public class InitDttHandler implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(InitDttHandler.class);
 
     @Autowired
-    private ClassScanningProvider classScanningProvider;
-
-    @Autowired
     private ContextWrapper contextWrapper;
-
+    @Autowired
+    private ClassScanningProvider classScanningProvider;
     @Autowired
     private AllInOneTableProperties allInOneProperties;
 
@@ -131,12 +133,13 @@ public class InitDttHandler implements ApplicationRunner {
             }
             return;
         }
+
+        String tables = contextWrapper.getTableHandler().bulkOps(MODEL_ENTITIES);
         if (allInOneProperties.getEnable().equals(true)) {
-            String allInOneTables = contextWrapper.getTableHandler().tableAllInOne(MODEL_ENTITIES);
             try (FileOutputStream fos = new FileOutputStream(allInOneProperties.getAbsoluteFilename(), false)) {
-                fos.write(allInOneTables.getBytes());
+                fos.write(tables.getBytes());
             }
-        } else contextWrapper.getTableHandler().bulkOps(MODEL_ENTITIES);
+        }
 
         contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
         if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(true))

@@ -1,20 +1,24 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.constant.Constants;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.ClassUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -38,7 +42,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
     /**
      * 根绝java枚举类型解析数据库枚举类型
      *
-     * @param field      javaField
+     * @param field      Java field
      * @param dbDataType database data type
      * @return DatabaseDataEnumType
      */
@@ -58,25 +62,41 @@ public interface DttCommentParser<T> extends DttContext<T> {
     }
 
     /**
-     * 暂且处理varchar类型的长度
+     * Deduce the length of given underline filed name,
+     * Java type of given 'underlineFiledName' must be 'java.lang.String'
      *
-     * @param dbDataType         database data type
-     * @param underlineFiledName underline filed name
-     * @return varchar类型
+     * @param dbDataType database data type
+     * @param field      Java field
+     * @return The length of given underline filed name, i.e: varchar(64)
      */
-    default String resolveVarcharLength(String underlineFiledName, String dbDataType) {
-        if ("varchar".equals(dbDataType)) {
-            if (underlineFiledName.contains("phone") || underlineFiledName.contains("tel") || underlineFiledName.contains("telephone") || underlineFiledName.contains("mail"))
-                return dbDataType + "(16)";
-            if (underlineFiledName.contains("id") || underlineFiledName.contains("no") || underlineFiledName.contains("number") || underlineFiledName.contains("name") || underlineFiledName.contains("code"))
-                return dbDataType + "(64)";
-            if (underlineFiledName.contains("url") || underlineFiledName.contains("link"))
-                return dbDataType + "(128)";
-            if (underlineFiledName.contains("body") || underlineFiledName.contains("msg") || underlineFiledName.contains("message") || underlineFiledName.contains("content") || underlineFiledName.contains("text"))
-                return dbDataType + "(768)";
-            else return dbDataType + "(256)";
+    default String deduceLengthOfStringType(Field field, String dbDataType) {
+        //Only handle 'java.lang.String'
+        if (!field.getType().isAssignableFrom(String.class)) {
+            return dbDataType;
         }
-        // 非varchar类型直接返回
+
+        String underlineFiledName = camelToUnderline(field.getName());
+        ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
+        String defaultTextType = wrapper.getTextLengthHandler().getStringLengthMapper().getDefaultTextType();
+        Integer defaultTextLength = wrapper.getTextLengthHandler().getStringLengthMapper().getDefaultTextLength();
+        dbDataType = defaultTextType + "(" + defaultTextLength + ")";
+
+        Map<String, Integer> textLengthProperties = wrapper.getTextLengthHandler().getTextLengthProperties();
+        if (CollectionUtils.isEmpty(textLengthProperties)) {
+            return dbDataType;
+        }
+
+        // Get the length of the 'String' type configured by the user
+        for (Map.Entry<String, Integer> entry : textLengthProperties.entrySet()) {
+            String[] texts = entry.getKey().split(",");
+            for (String text : texts) {
+                if (underlineFiledName.contains(text)) {
+                    return defaultTextType + "(" + entry.getValue() + ")";
+                }
+            }
+        }
+
+        // Non-string type returns directly
         return dbDataType;
     }
 
@@ -136,7 +156,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
     default String parseDbDataType(Field field, String originalDbDataType) {
         if (field.getType().isEnum())
             return parseDatabaseEnumTypes(field, originalDbDataType).getDbDtaType();
-        else return resolveVarcharLength(camelToUnderline(field.getName()), originalDbDataType);
+        else return deduceLengthOfStringType(field, originalDbDataType);
     }
 
 

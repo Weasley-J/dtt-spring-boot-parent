@@ -407,12 +407,9 @@ You can easily  use in prefix of `alphahub.tt` in your porject，Here the  fully
 ```yaml
 alphahub:
   dtt:
-    is-enable: true
-    all-in-one-table:
-      enable: true
-      filename: ALL_IN_ONE.SQL
-      filepath: /Users/weasley/Downloads
-    data-type-mapping:
+    is-enable: on
+    #The properties' relationship of Java data type mapping to database.
+    data-type-mapper:
       mysql:
         String: varchar
         Boolean: tinyint
@@ -444,16 +441,94 @@ alphahub:
         Enum: VARCHAR
 
       db2:
-        # ...
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
 
       sqlserver:
-        # ...
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
 
       mariadb:
-        # ...
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
 
       postgresql:
-        # ...
+        String: ''
+        Boolean: ''
+        Float: ''
+        Double: ''
+        Integer: ''
+        Long: ''
+        BigDecimal: ''
+        Date: ''
+        LocalTime: ''
+        LocalDate: ''
+        Timestamp: ''
+        LocalDateTime: ''
+        Enum: ''
+    # Mapping configuration to automatically infer text length
+    string-length-mapper:
+      - database-type: MYSQL
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: ORACLE
+        default-text-type: VARCHAR
+        default-text-length: 256
+        length-configs:
+          - text: phone,tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: url,link
+            length: 128
+          - text: _msg,message,remark,
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
 ```
 
 [Or refere to src](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-type-mapping.yml)

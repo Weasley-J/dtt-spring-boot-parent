@@ -1,7 +1,5 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import java.io.StringWriter;
-
 /**
  * DTT Context
  *
@@ -35,9 +33,9 @@ public interface DttContext<T> {
     /**
      * execute table statement
      *
-     * @param writer table statement string writer
+     * @param table table statement
      */
-    default void execute(StringWriter writer) {
+    default void execute(String table) {
 
     }
 }

@@ -52,7 +52,7 @@ class MydttPlusTestsApplicationTests {
 
     @Test
     void contextLoads5() {
-        System.out.println(dttProperties.getDataTypeMapping().getMysql().get("LocalDateTime"));
+        System.out.println(dttProperties.getDataTypeMapper().getMysql().get("LocalDateTime"));
     }
 
 }
