@@ -5,7 +5,6 @@ import cn.alphahub.dtt.plus.util.SysUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -27,8 +26,7 @@ public class DttTableRunner {
     private static final Logger logger = LoggerFactory.getLogger(DttTableRunner.class);
 
     @Autowired
-    @Qualifier("defaultJdbcTemplate")
-    private JdbcTemplate defaultJdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     /**
      * run create DDL statement
@@ -37,12 +35,10 @@ public class DttTableRunner {
      */
     @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
     public void execute(StringWriter writer) {
-        final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
-        boolean debugEnabled = jdbcLogger.isDebugEnabled();
-        if (logger.isDebugEnabled() && !debugEnabled) {
+        if (logger.isDebugEnabled()) {
             logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), writer);
         }
-        defaultJdbcTemplate.execute(writer.toString());
+        jdbcTemplate.execute(writer.toString());
     }
 
     /**
@@ -52,11 +48,9 @@ public class DttTableRunner {
      */
     @Transactional(rollbackFor = {Exception.class}, transactionManager = "defaultDataSourceTransactionManager", propagation = Propagation.REQUIRES_NEW)
     public void execute(String table) {
-        final Logger jdbcLogger = LoggerFactory.getLogger(JdbcTemplate.class);
-        boolean debugEnabled = jdbcLogger.isDebugEnabled();
-        if (logger.isDebugEnabled() && !debugEnabled) {
+        if (logger.isDebugEnabled()) {
             logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);
         }
-        defaultJdbcTemplate.execute(table);
+        jdbcTemplate.execute(table);
     }
 }

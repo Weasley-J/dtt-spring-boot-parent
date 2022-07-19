@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.util.SysUtil;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -20,7 +21,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -28,8 +28,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.system.JavaVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -67,7 +65,6 @@ import static cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer.My
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
 @ConditionalOnMissingBean({SqlSessionFactory.class, SqlSessionTemplate.class})
-@ConditionalOnJava(value = JavaVersion.SEVENTEEN, range = ConditionalOnJava.Range.EQUAL_OR_NEWER)
 @EnableConfigurationProperties({DataSourceProperties.class, MybatisProperties.class, MybatisPlusProperties.class})
 public class MybatisDataSourceConfigurer {
 
@@ -84,7 +81,7 @@ public class MybatisDataSourceConfigurer {
         if (StringUtils.hasText(properties.getName())) {
             dataSource.setPoolName(properties.getName());
         }
-        return DataSourceBuilder.derivedFrom(dataSource).build();
+        return dataSource;
     }
 
     @Bean
@@ -123,7 +120,8 @@ public class MybatisDataSourceConfigurer {
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             String springVersionPrefix = SpringApplication.class.getPackage().getImplementationVersion().split("\\.")[0];
             if (StringUtils.hasText(springVersionPrefix)) {
-                return Integer.parseInt(springVersionPrefix) >= 3;
+                int javaVersion = SysUtil.getJavaInfo().getVersionInt();
+                return Integer.parseInt(springVersionPrefix) >= 3 && javaVersion >= 1700;
             }
             return false;
         }

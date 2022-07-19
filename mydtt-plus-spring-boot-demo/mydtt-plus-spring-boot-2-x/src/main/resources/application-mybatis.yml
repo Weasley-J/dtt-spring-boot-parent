@@ -1,6 +1,6 @@
 logging:
   level:
-    org.springframework.jdbc.core.JdbcTemplate: info
+    org.springframework.jdbc.core.JdbcTemplate: debug
     jdbc.sqltiming: debug
 
 spring:

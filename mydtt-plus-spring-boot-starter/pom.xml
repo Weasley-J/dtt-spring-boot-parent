@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <name>mydtt-plus-spring-boot-starter</name>
     <description>MyDtt-Plus is a starter of SpringBoot，I named it DTT,It's an object-oriented Java framework，
         The design concept of DTT is "Domain Driven Table", Makes you more focused on your Java domain.
@@ -54,7 +54,6 @@
         <hutool.version>5.8.4</hutool.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
-        <spring-cloud-context.version>3.1.3</spring-cloud-context.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <mybatis.version>3.5.10</mybatis.version>
@@ -136,11 +135,6 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <!-- end jackson -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-context</artifactId>
-            <version>${spring-cloud-context.version}</version>
-        </dependency>
         <!-- jdbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

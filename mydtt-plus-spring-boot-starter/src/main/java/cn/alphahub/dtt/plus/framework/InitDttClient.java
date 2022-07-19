@@ -94,10 +94,10 @@ public class InitDttClient {
      */
     @Bean
     @SuppressWarnings({"all"})
-    @DependsOn({"commentParserClient", "commentParserClient", "defaultHikariDataSource"})
+    @DependsOn({"commentParserClient", "commentParserClient"})
     public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
                                          @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
-                                         @Qualifier("defaultHikariDataSource") DataSource dataSource) throws SQLException {
+                                         DataSource dataSource) throws SQLException {
         String databaseName = "";
         DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
         ResultSet result = metaData.getCatalogs();

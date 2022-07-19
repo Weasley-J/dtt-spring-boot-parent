@@ -2,7 +2,6 @@ package cn.alphahub.dtt.plus.framework.annotations;
 
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
-import cn.alphahub.dtt.plus.config.DttDataSourceAutoConfigurer;
 import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
@@ -36,12 +35,11 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import({
-        DttDataSourceAutoConfigurer.class, InitDttHandler.class, DefaultAnnotationParser.class,
+@Import({InitDttHandler.class, InitDttClient.class, DefaultAnnotationParser.class,
         DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
         DefaultSqlserverTableHandler.class, VelocityHandler.class, DttTableRunner.class,
-        DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class, InitDttClient.class,
+        DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         ClassScanningProvider.class, MybatisDataSourceConfigurer.class,
 })
 public @interface EnableDtt {
