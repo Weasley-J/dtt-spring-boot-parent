@@ -68,6 +68,8 @@ public class InitDttHandler implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(InitDttHandler.class);
 
     @Autowired
+    private DttProperties dttProperties;
+    @Autowired
     private ContextWrapper contextWrapper;
     @Autowired
     private ClassScanningProvider classScanningProvider;
@@ -119,6 +121,12 @@ public class InitDttHandler implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        if (dttProperties.getIsEnable().equals(false)) {
+            if (logger.isWarnEnabled()) {
+                logger.warn("Dtt is disabled，Please check the configuration property of 'alphahub.dtt.is-enable' in your yaml file.");
+            }
+            return;
+        }
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
             if (logger.isWarnEnabled()) {

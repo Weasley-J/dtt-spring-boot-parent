@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
@@ -46,6 +47,14 @@ public class DttProperties {
      */
     @NestedConfigurationProperty
     private AllInOneTableProperties allInOneTable;
+    /**
+     * The primary key data type mappings，If missing.
+     * <ul>
+     *     <li>key: database type</li>
+     *     <li>value: The data type of primary key</li>
+     * </ul>
+     */
+    private Map<DatabaseType, String> primaryKeyMapper;
     /**
      * The properties' relationship of Java data type mapping to database data type
      */

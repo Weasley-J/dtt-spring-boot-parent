@@ -8,6 +8,14 @@ alphahub:
     template:
       path: META-INF/sql-templates
       suffix: .vm
+    #The primary key data type mappings，If missing.
+    primary-key-mapper:
+      MYSQL: bigint
+      ORACLE: NUMBER
+      DB2: BIGINT
+      SQLSERVER: bigint
+      MARIADB: BIGINT
+      POSTGRESQL: bigint
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       mysql:

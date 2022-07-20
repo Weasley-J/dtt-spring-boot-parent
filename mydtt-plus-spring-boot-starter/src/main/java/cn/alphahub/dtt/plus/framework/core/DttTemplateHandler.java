@@ -1,11 +1,14 @@
 package cn.alphahub.dtt.plus.framework.core;
 
+import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 
 import java.util.Collections;
+import java.util.Map;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY_MARK;
 import static cn.alphahub.dtt.plus.entity.ModelEntity.Detail;
@@ -59,28 +62,13 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
         if (null == context.get(PRIMARY_KEY_MARK) || StringUtils.isBlank(context.get(PRIMARY_KEY_MARK).toString())) {
             context.put(PRIMARY_KEY_MARK, "id");
             Detail detail = new Detail().setFiledName("id").setIsPrimaryKey(true).setFiledComment("自增主键id").setJavaDataType("Long");
-            switch (DatabaseType.getDbType()) {
-                case MYSQL:
-                    detail.setDatabaseDataType("bigint");
-                    break;
-                case ORACLE:
-                    detail.setDatabaseDataType("ORACLE");
-                    break;
-                case DB2:
-                    detail.setDatabaseDataType("DB2");
-                    break;
-                case SQLSERVER:
-                    detail.setDatabaseDataType("SQLSERVER");
-                    break;
-                case MARIADB:
-                    detail.setDatabaseDataType("MARIADB");
-                    break;
-                case POSTGRESQL:
-                    detail.setDatabaseDataType("POSTGRESQL");
-                    break;
-                default:
-                    break;
-            }
+            DatabaseType inferDatabaseType = DatabaseType.getDbType();
+            Map<DatabaseType, String> primaryKeyMapper = SpringUtil.getBean(DttProperties.class).getPrimaryKeyMapper();
+            primaryKeyMapper.forEach((dbType, dataType) -> {
+                if (inferDatabaseType == dbType) {
+                    detail.setDatabaseDataType(dataType);
+                }
+            });
             model.getDetails().add(detail);
             //Move the manually added 'id' column to the position of the first column
             Collections.swap(model.getDetails(), 0, model.getDetails().size() - 1);
