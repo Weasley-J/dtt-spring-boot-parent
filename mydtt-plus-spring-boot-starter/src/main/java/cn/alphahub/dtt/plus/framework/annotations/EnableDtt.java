@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
         DefaultSqlserverTableHandler.class, VelocityHandler.class, ClassScanningProvider.class,
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
-        DefaultTemplateExecutor.class, DefaultTemplateResolver.class,
+        DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttRunner.class
 })
 public @interface EnableDtt {
     /**

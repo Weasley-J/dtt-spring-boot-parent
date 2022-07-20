@@ -6,7 +6,6 @@ import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -20,13 +19,8 @@ import org.springframework.util.CollectionUtils;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultMysqlTableHandler implements DttTableHandler<ModelEntity> {
+public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
-
-    @Autowired
-    private DefaultTemplateExecutor tableExecutor;
-    @Autowired
-    private DefaultTemplateResolver templateResolver;
 
     /**
      * Create table
@@ -50,8 +44,8 @@ public class DefaultMysqlTableHandler implements DttTableHandler<ModelEntity> {
         if (StringUtils.isNoneBlank(databaseName)) databaseName = "`" + databaseName + "`";
         model.setDatabaseName(databaseName);
 
-        String template = templateResolver.resolve(() -> model);
-        tableExecutor.execute(template);
+        String template = resolve(() -> model);
+        execute(template);
         return template;
     }
 }

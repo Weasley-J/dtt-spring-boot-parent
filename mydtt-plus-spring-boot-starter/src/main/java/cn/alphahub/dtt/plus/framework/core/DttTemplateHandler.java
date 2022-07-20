@@ -34,6 +34,8 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
 
     /**
      * Execute table statement
+     *
+     * @param table table statement
      */
     default void execute(String table) {
     }

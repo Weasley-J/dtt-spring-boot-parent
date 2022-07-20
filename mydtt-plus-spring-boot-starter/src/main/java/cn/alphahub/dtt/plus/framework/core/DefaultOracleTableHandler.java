@@ -5,7 +5,6 @@ import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +17,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultOracleTableHandler implements DttTableHandler<ModelEntity> {
+public class DefaultOracleTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultOracleTableHandler.class);
-
-    @Autowired
-    private DefaultTemplateExecutor defaultTemplateExecutor;
-    @Autowired
-    private DefaultTemplateResolver defaultTemplateResolver;
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {

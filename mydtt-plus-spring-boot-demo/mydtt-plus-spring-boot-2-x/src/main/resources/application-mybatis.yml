@@ -20,22 +20,11 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
-#support-plus:
-#  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
-#  type-aliases-package: com.example.domain.dtt,com.example.domain.order
-#  global-config:
-#    db-config:
-#      id-type: auto
-#  configuration:
-#    map-underscore-to-camel-case: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-
 alphahub:
   dtt:
     is-enable: true
+    show-sql: false
     all-in-one-table:
       enable: true
-      filename: ALL_IN_ONE.SQL
+      filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
