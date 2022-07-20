@@ -184,6 +184,8 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
     }
 
     /**
+     * Get Filed Comment
+     *
      * @param fieldJavadoc field java doc
      * @return filed comment
      */
