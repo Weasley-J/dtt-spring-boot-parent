@@ -28,7 +28,7 @@ public class DefaultExtraYamlSourceLoader {
      * @return dttPropertySourcesPlaceholderConfigurer
      */
     @Bean
-    public PropertySourcesPlaceholderConfigurer dttPropertySourcesPlaceholderConfigurer() {
+    public PropertySourcesPlaceholderConfigurer dttYamlPropertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         YamlPropertiesFactoryBean factoryBean = new YamlPropertiesFactoryBean();
         factoryBean.setResources(new ClassPathResource(Constants.DDT_DATA_TYPE_MAPPER));

@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
  * <p>
  * <b>What is DTT?</b>
  * <ul>
- *     <li>It's means  `Domain-to-Table`</li>
+ *     <li>It's means  `Domain-to-Table`,  Domain driven table</li>
  *     <li>Aims to make it easy for you to automatically create DB tables based on your Java model</li>
  *     <li>DTT can easily preserve comments on database from 'java doc' to database table comments</li>
  * </ul>
@@ -38,9 +38,9 @@ import java.lang.annotation.Target;
 @Import({InitDttHandler.class, InitDttClient.class, DefaultAnnotationParser.class,
         DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
-        DefaultSqlserverTableHandler.class, VelocityHandler.class, DttTableRunner.class,
-        DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
-        ClassScanningProvider.class, MybatisDataSourceConfigurer.class,
+        DefaultSqlserverTableHandler.class, VelocityHandler.class, ClassScanningProvider.class,
+        MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
+        DefaultTemplateExecutor.class, DefaultTemplateResolver.class,
 })
 public @interface EnableDtt {
     /**

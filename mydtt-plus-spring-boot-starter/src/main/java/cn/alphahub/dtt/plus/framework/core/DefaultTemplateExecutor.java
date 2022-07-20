@@ -1,7 +1,7 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.alphahub.dtt.plus.util.SysUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +12,26 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 执行数据库建表语句
+ * Dtt Executor
+ * <p>
+ * To execute table DDL statement
  *
  * @author weasley
  * @version 1.0
- * @date 2022/7/11
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DttTableRunner {
-    private static final Logger logger = LoggerFactory.getLogger(DttTableRunner.class);
+public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultTemplateExecutor.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * run create DDL statement
-     *
-     * @param table 数据表
-     */
+    @Override
     @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void execute(String table) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("数据库建表语句:{}{}", SysUtil.getLineSeparator(), table);
+        if (StringUtils.isBlank(table)) {
+            logger.warn("Database table creation statement must be not null");
         }
         jdbcTemplate.execute(table);
     }

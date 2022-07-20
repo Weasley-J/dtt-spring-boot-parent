@@ -32,6 +32,16 @@ public class DttProperties {
      */
     private BannerMode bannerMode = ON;
     /**
+     * Whether to print the parsed SQL in the terminal
+     */
+    private Boolean showSql = true;
+    /**
+     * Template property configuration, This is the default configuration,
+     * don't modify it if you don't need it
+     */
+    @NestedConfigurationProperty
+    private TemplateProperties template;
+    /**
      * 所有建表SQL写入文件
      */
     @NestedConfigurationProperty
@@ -52,7 +62,23 @@ public class DttProperties {
     private List<StringLengthMapper> stringLengthMapper;
 
     /**
-     * 所有建表SQL写入文件配置属性
+     * Template property configuration
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.template")
+    public static class TemplateProperties {
+        /**
+         * SQL template file path
+         */
+        private String path = "META-INF/sql-templates";
+        /**
+         * SQL template file name suffix
+         */
+        private String suffix = ".vm";
+    }
+
+    /**
+     * All table creation SQL writes to local file configuration properties
      */
     @Data
     @ConfigurationProperties(prefix = "alphahub.dtt.all-in-one-table")

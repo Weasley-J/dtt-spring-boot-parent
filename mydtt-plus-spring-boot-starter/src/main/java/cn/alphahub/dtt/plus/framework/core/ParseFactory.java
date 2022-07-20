@@ -1,7 +1,7 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 /**
- * Parse Result
+ * Parse result
  *
  * @param <T> Result
  * @author weasley
@@ -9,7 +9,7 @@ package cn.alphahub.dtt.plus.framework.core;
  * @date 2022/7/10
  */
 @FunctionalInterface
-public interface ParsedModel<T> {
+public interface ParseFactory<T> {
     /**
      * 获取表结构元数据解析结果
      *

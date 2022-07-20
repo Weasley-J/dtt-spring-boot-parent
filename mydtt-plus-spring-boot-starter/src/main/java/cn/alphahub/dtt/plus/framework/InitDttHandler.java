@@ -6,7 +6,7 @@ import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
-import cn.alphahub.dtt.plus.framework.core.ParsedModel;
+import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.extra.spring.SpringUtil;
@@ -57,14 +57,14 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
 @EnableConfigurationProperties({
         DttProperties.class, DataTypeMappingProperties.class,
-        AllInOneTableProperties.class, LengthProperties.class,
+        AllInOneTableProperties.class, LengthProperties.class
 })
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class InitDttHandler implements ApplicationRunner {
     /**
      * 域模型集合, 默认大小：512
      */
-    private static final Set<ParsedModel<ModelEntity>> MODEL_ENTITIES = new LinkedHashSet<>(512);
+    private static final Set<ParseFactory<ModelEntity>> FACTORIES = new LinkedHashSet<>(512);
     private static final Logger logger = LoggerFactory.getLogger(InitDttHandler.class);
 
     @Autowired
@@ -102,7 +102,7 @@ public class InitDttHandler implements ApplicationRunner {
         // 解析注释, 自动推断实现
         DttCommentParser<ModelEntity> commentParser = contextWrapper.getCommentParser();
 
-        Consumer<Class<?>> classConsumer = aClass -> MODEL_ENTITIES.add(commentParser.parse(aClass.getName()));
+        Consumer<Class<?>> classConsumer = aClass -> FACTORIES.add(commentParser.parse(aClass.getName()));
 
         if (ObjectUtils.isNotEmpty(dtt.scanBasePackages())) {
             Set<Class<?>> fullyClasses = classScanningProvider.scanBasePackage(dtt.scanBasePackages());
@@ -127,14 +127,14 @@ public class InitDttHandler implements ApplicationRunner {
             return;
         }
         this.resolveAnnotationsClass(getEnableDtt());
-        if (CollectionUtils.isEmpty(MODEL_ENTITIES)) {
+        if (CollectionUtils.isEmpty(FACTORIES)) {
             if (logger.isWarnEnabled()) {
-                logger.warn("MODEL_ENTITIES is empty. DTT cannot parse.");
+                logger.warn("Data model is empty. DTT cannot parse.");
             }
             return;
         }
 
-        String tables = contextWrapper.getTableHandler().bulkOps(MODEL_ENTITIES);
+        String tables = contextWrapper.getTableHandler().bulkOps(FACTORIES);
         if (allInOneProperties.getEnable().equals(true)) {
             try (FileOutputStream fos = new FileOutputStream(allInOneProperties.getAbsoluteFilename(), false)) {
                 fos.write(tables.getBytes());
@@ -143,8 +143,8 @@ public class InitDttHandler implements ApplicationRunner {
 
         contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
         if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(true))
-            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}, location: {}", MODEL_ENTITIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
+            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}, location: {}", FACTORIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
         else if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(false))
-            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}", MODEL_ENTITIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
+            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}", FACTORIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
     }
 }

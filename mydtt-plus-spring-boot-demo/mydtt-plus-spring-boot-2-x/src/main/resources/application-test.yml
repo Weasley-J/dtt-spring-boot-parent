@@ -24,7 +24,7 @@ mybatis:
 
 alphahub:
   dtt:
-    is-enable: true
+    show-sql: false
     all-in-one-table:
       enable: true
       filename: ALL_IN_ONE.SQL

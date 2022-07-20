@@ -96,7 +96,6 @@ public interface DttCommentParser<T> extends DttContext<T> {
             }
         }
 
-        // Non-string type returns directly
         return dbDataType;
     }
 
@@ -106,8 +105,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
      * @param fullyQualifiedClassName fully qualified class name of model
      * @return 数据表结构模型
      */
-    @Override
-    ParsedModel<T> parse(String fullyQualifiedClassName);
+    ParseFactory<T> parse(String fullyQualifiedClassName);
 
     /**
      * 处理没有不加注释、不加注解的

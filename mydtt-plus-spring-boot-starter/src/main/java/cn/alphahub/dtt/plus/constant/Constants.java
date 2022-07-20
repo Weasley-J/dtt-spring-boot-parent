@@ -16,11 +16,10 @@ public interface Constants {
      * 内部 'properties' 元数据配置文件
      */
     String[] PROPERTIES_FILES = {"META-INF/dtt-extra.properties",};
-
     /**
-     * 内部 'ddt-data-type-mapping.yml' 元数据配置文件
+     * 内部 'ddt-data-mapper.yml' 元数据配置文件
      */
-    String DDT_DATA_TYPE_MAPPER = "META-INF/ddt-data-type-mapping.yml";
+    String DDT_DATA_TYPE_MAPPER = "META-INF/ddt-data-mapper.yml";
     /**
      * vm模版主键标识字段
      */

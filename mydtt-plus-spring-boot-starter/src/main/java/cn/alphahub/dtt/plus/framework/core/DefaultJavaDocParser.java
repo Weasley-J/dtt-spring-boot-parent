@@ -1,12 +1,14 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.constant.Constants;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.exception.ParseException;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.ClassUtil;
 import cn.alphahub.dtt.plus.util.SysUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.therapi.runtimejavadoc.*;
@@ -85,8 +87,9 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
     }
 
     @Override
-    public ParsedModel<ModelEntity> parse(String fullyQualifiedClassName) {
+    public ParseFactory<ModelEntity> parse(String fullyQualifiedClassName) {
         logger.info("Parse Java Doc comments for data table structure information，class '{}'", fullyQualifiedClassName);
+        String databaseName = SpringUtil.getBean(ContextWrapper.class).getDatabaseName();
         return () -> {
             ClassJavadoc classDoc = RuntimeJavadoc.getJavadoc(fullyQualifiedClassName);
             if (classDoc.isEmpty()) {
@@ -172,6 +175,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
             }
 
             return new ModelEntity()
+                    .setDatabaseName(databaseName)
                     .setModelName(StringUtils.camelToUnderline(clazz.getSimpleName()))
                     .setModelComment(format(classDoc.getComment()))
                     .setDetails(details);

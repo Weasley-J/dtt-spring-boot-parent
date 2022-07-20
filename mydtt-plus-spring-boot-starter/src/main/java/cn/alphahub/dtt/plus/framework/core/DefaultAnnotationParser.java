@@ -2,10 +2,12 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.annotations.Dtt;
 import cn.alphahub.dtt.plus.constant.Constants;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.ClassUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,18 +39,21 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultAnnotationParser.class);
 
     @Override
-    public ParsedModel<ModelEntity> parse(String fullyQualifiedClassName) {
+    public ParseFactory<ModelEntity> parse(String fullyQualifiedClassName) {
         logger.info("Use the annotation '@Dtt' to parse the data table structure information，class '{}'", fullyQualifiedClassName);
+        String databaseName = SpringUtil.getBean(ContextWrapper.class).getDatabaseName();
         Class<?> aClass = ClassUtil.loadClass(fullyQualifiedClassName);
         return () -> {
             Dtt dtt = aClass.getAnnotation(Dtt.class);
             ModelEntity model = new ModelEntity();
             if (dtt == null) {
-                model.setModelComment("");
+                model.setDatabaseName(databaseName);
                 model.setModelName(camelToUnderline(aClass.getSimpleName()));
+                model.setModelComment("");
                 model.setDetails(handleTableWithoutComment(aClass));
                 return model;
             }
+            model.setDatabaseName(databaseName);
             model.setModelComment(dtt.value());
             model.setModelName(camelToUnderline(aClass.getSimpleName()));
             model.setDetails(handleTableWithDttAnno(aClass));

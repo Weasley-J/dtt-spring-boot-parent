@@ -1,10 +1,13 @@
 #
-# Java数据类型 - 数据库数据类型
-#  db properties mapping
+#  DB properties mapping
 #
 alphahub:
   dtt:
     is-enable: on
+    show-sql: on
+    template:
+      path: META-INF/sql-templates
+      suffix: .vm
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       mysql:

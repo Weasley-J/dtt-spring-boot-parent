@@ -20,17 +20,6 @@ public class DttCommentParserTests {
 
     @Test
     void contextLoads() {
-        //String ofStringType = commentParser.deduceLengthOfStringType("user_tel", "varchar");
-        //System.err.println("ofStringType = " + ofStringType);
-
-        //ofStringType = commentParser.deduceLengthOfStringType("user_msg", "varchar");
-        //System.err.println("ofStringType = " + ofStringType);
-
-        //ofStringType = commentParser.deduceLengthOfStringType("user_request", "varchar");
-        //System.err.println("ofStringType = " + ofStringType);
-
-        String ofStringType2 = commentParser.deduceLengthOfStringType("deduce_data_type_of_database", "varchar");
-        System.err.println("ofStringType2 = " + ofStringType2);
     }
 
 }

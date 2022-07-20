@@ -5,14 +5,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.ResourcePropertySource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Properties;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PROPERTIES_FILES;
 
@@ -28,20 +28,13 @@ import static cn.alphahub.dtt.plus.constant.Constants.PROPERTIES_FILES;
 public class DefaultExtraPropertiesLoader implements EnvironmentPostProcessor {
 
     @Override
-    @SuppressWarnings({"all"})
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        for (String propertiesFile : PROPERTIES_FILES) {
-            Resource resource = new ClassPathResource(propertiesFile);
-            Properties properties = new Properties();
-            if (!resource.exists()) {
-                throw new IllegalArgumentException("资源'" + resource + "'不存在");
-            }
+        Resource[] resources = Arrays.stream(PROPERTIES_FILES).map(ClassPathResource::new).collect(Collectors.toList()).toArray(new Resource[PROPERTIES_FILES.length]);
+        for (Resource resource : resources) {
             try {
-                properties.load(resource.getInputStream());
-                PropertySource<?> propertySource = new PropertiesPropertySource(resource.getFilename(), properties);
-                environment.getPropertySources().addLast(propertySource);
+                environment.getPropertySources().addLast(new ResourcePropertySource(resource));
             } catch (IOException ex) {
-                throw new IllegalStateException("加载配置文件失败" + resource, ex);
+                throw new IllegalStateException("加载配置文件失败:'" + resource + "'", ex);
             }
         }
     }
