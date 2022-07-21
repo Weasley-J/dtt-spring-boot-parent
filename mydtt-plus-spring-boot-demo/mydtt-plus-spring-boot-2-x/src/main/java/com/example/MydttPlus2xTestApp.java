@@ -26,8 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         }
 )
 @MapperScan(basePackages = {"com.example.mapper"})
-public class MydttPlus2xApplication {
+public class MydttPlus2xTestApp {
     public static void main(String[] args) {
-        SpringApplication.run(MydttPlus2xApplication.class, args);
+        SpringApplication.run(MydttPlus2xTestApp.class, args);
     }
 }

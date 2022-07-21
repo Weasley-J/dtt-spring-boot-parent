@@ -1,14 +1,15 @@
 logging:
   level:
+    #cn.alphahub.dtt.plus.framework.core.DefaultTemplateResolver: debug
     org.springframework.jdbc.core.JdbcTemplate: debug
     jdbc.sqltiming: debug
 
-
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db_demo?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&allowMultiQueries=true
-    username: root
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    #driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//192.168.31.23:1521/mysid
+    username: 'sys as sysdba'
     password: 123456
 
 mybatis:
@@ -21,10 +22,10 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
 alphahub:
   dtt:
-    is-enable: true
+    is-enable: on
+    show-sql: on
     all-in-one-table:
       enable: true
       filename: AllInOne.sql

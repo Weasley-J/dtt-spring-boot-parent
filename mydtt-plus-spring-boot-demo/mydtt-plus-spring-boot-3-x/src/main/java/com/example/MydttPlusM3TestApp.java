@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableDtt
 @SpringBootApplication
 @MapperScan(basePackages = {"com.example.mapper.dtt"})
-public class MydttPlusM3TestApplication {
+public class MydttPlusM3TestApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(MydttPlusM3TestApplication.class, args);
+        SpringApplication.run(MydttPlusM3TestApp.class, args);
     }
 
 }
