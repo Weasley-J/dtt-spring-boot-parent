@@ -34,19 +34,19 @@ alphahub:
         Enum: enum
 
       oracle:
-        String: VARCHAR
-        Boolean: NUMBER(1)
+        String: VARCHAR2
+        Boolean: SMALLINT
         Float: FLOAT
         Double: DOUBLE
         Integer: INTEGER
         Long: NUMBER
         BigDecimal: DECIMAL
-        Date: DATETIME
-        LocalDate: DATETIME
-        LocalTime: DATETIME
+        Date: DATE
+        LocalDate: DATE
+        LocalTime: DATE
         Timestamp: TIMESTAMP
-        LocalDateTime: DATETIME
-        Enum: VARCHAR
+        LocalDateTime: TIMESTAMP
+        Enum: VARCHAR2
 
       db2:
         String: ''

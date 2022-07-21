@@ -13,9 +13,9 @@
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
     <version>1.0.9</version>
     <name>mydtt-plus-spring-boot-starter</name>
-    <description>MyDtt-Plus is a starter of SpringBoot，I called it DTT,It's an object-oriented Java framework，
-        The design concept of DTT is "Domain Driven Table", Makes you more focused on your Java domain.
-        Aims to make it easy for you to automatically create DB tables based on your Java model with annotation driven.
+    <description>MyDtt-Plus is a starter of SpringBoot，I named it DTT, It's an object-oriented Java framework，
+        "Domain Driven Table" is the concept of DTT, It makes you focus more on domain objects rather than tables.
+        Aims to make it easy to automatically create DB tables based on your Java model with annotation driven.
         and optionally export SQL to local file，Each table can be added database name concat with table name.
         It can work with ORM frameworks such as MyBatis-Plus and MyBatis with little learning and usage costs.
         It's worth mentioning that DTT can be MyBatis-Plus is integrated in a 0-code way, just like JPA.
