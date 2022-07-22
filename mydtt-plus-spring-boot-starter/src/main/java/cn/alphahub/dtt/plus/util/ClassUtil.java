@@ -34,7 +34,8 @@ public class ClassUtil {
     /**
      * Reflection to Get  the return value of the given method, no args
      *
-     * @param method the given method
+     * @param <T>    The return type
+     * @param method The given method
      * @param aClass which Class be invoked
      * @return value of the given method，default value
      */
@@ -157,6 +158,7 @@ public class ClassUtil {
      *
      * @param fieldName the name of the field
      * @param aClass    the given class
+     * @return Field
      */
     public static Field getAllDeclaredFields(Class<?> aClass, String fieldName) {
         try {

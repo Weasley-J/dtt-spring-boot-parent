@@ -295,6 +295,7 @@ public class MybatisDataSourceConfigurer {
 
         /**
          * @since 1.2.0
+         * @param configurationProperties configurationProperties
          */
         public void setConfigurationProperties(Properties configurationProperties) {
             this.configurationProperties = configurationProperties;

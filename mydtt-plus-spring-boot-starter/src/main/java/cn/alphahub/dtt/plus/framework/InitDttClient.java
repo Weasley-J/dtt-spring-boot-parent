@@ -108,6 +108,11 @@ public class InitDttClient {
     }
 
     /**
+     * Get ContextWrapper
+     *
+     * @param commentParserClient commentParserClient
+     * @param tableHandlerClient  tableHandlerClient
+     * @param dttProperties       dttProperties
      * @return DTT context wrapper
      */
     @Bean
