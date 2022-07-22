@@ -10,7 +10,7 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > Its can easily convert Java domain to SQL create table statement and auto create them(`enable lombok  for your IDE`)，for different country java developer those who is none native English speaker, i.e.
 >
-> - Chinese Java Developer
+> - Chinese  developer
 >
 > 1. Java domian
 >
@@ -124,7 +124,7 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > 
 >
-> - Korean java developer
+> - Korean developer
 >
 > 1. Java domain
 >
