@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import org.apache.velocity.Template;
@@ -34,13 +35,14 @@ import static cn.alphahub.dtt.plus.config.DttProperties.TemplateProperties;
 @EnableConfigurationProperties({TemplateProperties.class, DttProperties.class})
 public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultTemplateResolver.class);
-
     @Autowired
     private VelocityEngine velocityEngine;
     @Autowired
     private DttProperties dttProperties;
     @Autowired
     private TemplateProperties templateProperties;
+    @Autowired
+    private DatabaseHandler databaseHandler;
 
     @Override
     public String resolve(ParseFactory<ModelEntity> parseFactory) {
@@ -67,7 +69,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
      * @return Return the template file, such as: mysql.vm
      */
     public String getTemplate() {
-        String dbTypeLowerCase = DatabaseType.getDbType().name().toLowerCase();
+        String dbTypeLowerCase = databaseHandler.getDbType().name().toLowerCase();
         String templateName = getTemplateName(dbTypeLowerCase);
         return templateProperties.getPath() + "/" + dbTypeLowerCase + "/" + templateName + templateProperties.getSuffix();
     }

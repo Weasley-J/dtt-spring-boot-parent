@@ -3,7 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.util.ClassUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -54,10 +54,9 @@ public interface DttCommentParser<T> extends DttContext<T> {
             enumStr.append("'").append(enumType).append("',");
         }
         String enumString = enumStr.substring(0, enumStr.length() - 1);
-        String finalDatabaseDataType = dbDataType + "(" + enumString + ")";
         //If missing, use the first as the default value of the enumeration type
+        wrapper.setDbDtaType(dbDataType + "(" + enumString + ")");
         wrapper.setInitValue(enumTypeStringValues[0]);
-        wrapper.setDbDtaType(finalDatabaseDataType);
         return wrapper;
     }
 
@@ -74,8 +73,19 @@ public interface DttCommentParser<T> extends DttContext<T> {
         if (!field.getType().isAssignableFrom(String.class)) {
             return dbDataType;
         }
+        return deduceDbDataTypeWithLength(field.getName());
+    }
 
-        String underlineFiledName = camelToUnderline(field.getName());
+
+    /**
+     * Deduce string length by filed name
+     *
+     * @param filedName The filed name of Java model property
+     * @return The DB data type with length
+     */
+    default String deduceDbDataTypeWithLength(String filedName) {
+        String dbDataType;
+        String underlineFiledName = camelToUnderline(filedName);
         ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
         String defaultTextType = wrapper.getTextLengthHandler().getStringLengthMapper().getDefaultTextType();
         Integer defaultTextLength = wrapper.getTextLengthHandler().getStringLengthMapper().getDefaultTextLength();
@@ -120,7 +130,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
                 .filter(field -> !field.getType().isArray())
                 .map(field -> {
                     String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-                    String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
+                    String originalDbDataType = SpringUtil.getBean(DatabaseHandler.class).getDbDataType(javaDataType);
                     String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
                     Object invoke = null;
@@ -165,7 +175,13 @@ public interface DttCommentParser<T> extends DttContext<T> {
     @NoArgsConstructor
     @AllArgsConstructor
     class EnumTypeWrapper {
+        /**
+         * The default value of EnumType
+         */
         private String initValue;
+        /**
+         * The correct DB data type
+         */
         private String dbDtaType;
     }
 }

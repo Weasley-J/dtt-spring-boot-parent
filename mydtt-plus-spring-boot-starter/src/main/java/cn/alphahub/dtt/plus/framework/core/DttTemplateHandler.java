@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
@@ -62,7 +63,7 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
         if (null == context.get(PRIMARY_KEY_MARK) || StringUtils.isBlank(context.get(PRIMARY_KEY_MARK).toString())) {
             context.put(PRIMARY_KEY_MARK, "id");
             Detail detail = new Detail().setFiledName("id").setIsPrimaryKey(true).setFiledComment("自增主键id").setJavaDataType("Long");
-            DatabaseType inferDatabaseType = DatabaseType.getDbType();
+            DatabaseType inferDatabaseType = SpringUtil.getBean(DatabaseHandler.class).getDbType();
             Map<DatabaseType, String> primaryKeyMapper = SpringUtil.getBean(DttProperties.class).getPrimaryKeyMapper();
             primaryKeyMapper.forEach((dbType, dataType) -> {
                 if (inferDatabaseType == dbType) {

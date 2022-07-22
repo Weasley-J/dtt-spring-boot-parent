@@ -1,5 +1,6 @@
 package cn.alphahub.dtt.plus.config.support;
 
+import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.SysUtil;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
@@ -20,6 +21,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
@@ -62,6 +64,7 @@ import static cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer.My
  */
 @Configuration(proxyBeanMethods = false)
 @Conditional({MybatisSupportCondition.class})
+@AutoConfigureBefore({InitDttHandler.class,})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
 @ConditionalOnMissingBean({SqlSessionFactory.class, SqlSessionTemplate.class})

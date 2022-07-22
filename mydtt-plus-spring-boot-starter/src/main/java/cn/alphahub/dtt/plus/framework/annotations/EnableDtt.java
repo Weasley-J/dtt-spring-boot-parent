@@ -5,6 +5,7 @@ import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
 import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.InitDttClient;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.VelocityHandler;
@@ -40,7 +41,8 @@ import java.lang.annotation.Target;
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
         DefaultSqlserverTableHandler.class, VelocityHandler.class, ClassScanningProvider.class,
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
-        DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttRunner.class
+        DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttRunner.class,
+        DatabaseHandler.class,
 })
 public @interface EnableDtt {
     /**

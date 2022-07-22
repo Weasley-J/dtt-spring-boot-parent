@@ -1,7 +1,9 @@
 package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DatabaseProperty;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
@@ -15,10 +17,14 @@ import cn.alphahub.dtt.plus.util.ClassUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -49,13 +55,16 @@ import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
  * @date 2022/7/12
  */
 @Configuration(proxyBeanMethods = false)
+@AutoConfigureAfter({MybatisDataSourceConfigurer.class})
 @AutoConfigureBefore({InitDttHandler.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@EnableConfigurationProperties({DttProperties.class})
+@EnableConfigurationProperties({DttProperties.class, DataSourceProperties.class})
 public class InitDttClient {
-
+    private static final Logger logger = LoggerFactory.getLogger(InitDttClient.class);
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private DatabaseHandler databaseHandler;
 
     /**
      * @return comment parser client map
@@ -88,7 +97,7 @@ public class InitDttClient {
         if (CollectionUtils.isNotEmpty(tableHandlerMap)) {
             tableHandlerMap.forEach((key, value) -> {
                 String classNameUnderline = StringUtils.camelToUnderline(ClassUtil.loadClass(key).getSimpleName());
-                for (String dbType : DatabaseType.getLowerCaseDbTypes()) {
+                for (String dbType : databaseHandler.getLowerCaseDbTypes()) {
                     if (classNameUnderline.contains(dbType)) {
                         client.put(DatabaseType.valueOf(dbType.toUpperCase()), value);
                     }
@@ -102,33 +111,15 @@ public class InitDttClient {
      * @return DTT context wrapper
      */
     @Bean
-    @SuppressWarnings({"all"})
     @DependsOn({"commentParserClient", "commentParserClient"})
-    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
-                                         @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
-                                         DataSource dataSource,
-                                         DttProperties dttProperties
-    ) throws SQLException {
-        String databaseName = "";
-        DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
-        ResultSet result = metaData.getCatalogs();
-        String dataURL = metaData.getURL();
-        while (result.next()) {
-            String databaseNameTemp = result.getString(1);
-            if (!Objects.requireNonNull(DatabaseType.getDbType()).name().equalsIgnoreCase(databaseNameTemp)
-                    && dataURL.contains(databaseNameTemp)) {
-                databaseName = databaseNameTemp;
-            }
-        }
+    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient, @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient, DttProperties dttProperties) {
 
-        if (dttProperties.getBannerMode() == BannerMode.ON)
-            DttBanner.getInstance().printBanner();
+        if (dttProperties.getBannerMode() == BannerMode.ON) DttBanner.getInstance().printBanner();
 
-        ContextWrapper contextWrapper = ContextWrapper.builder()
-                .databaseName(databaseName)
+        ContextWrapper wrapper = ContextWrapper.builder()
                 .threadReference(new AtomicReference<>(Thread.currentThread()))
                 .commentParser(commentParserClient.get(getEnableDtt().parserType()))
-                .tableHandler(tableHandlerClient.get(DatabaseType.getDbType()))
+                .tableHandler(tableHandlerClient.get(databaseHandler.getDbType()))
                 .dttRunDetail(new ContextWrapper.DttRunDetail(LocalDateTime.now()))
                 .build();
 
@@ -136,10 +127,8 @@ public class InitDttClient {
         if (ObjectUtils.isNotEmpty(lengthMappers)) {
             Map<DatabaseType, StringLengthMapper> mapperMap = lengthMappers.stream().collect(Collectors.toMap(StringLengthMapper::getDatabaseType, v -> v));
             if (ObjectUtils.isNotEmpty(mapperMap)) {
-                StringLengthMapper stringLengthMapper = mapperMap.get(DatabaseType.getDbType());
+                StringLengthMapper stringLengthMapper = mapperMap.get(databaseHandler.getDbType());
                 if (null != stringLengthMapper) {
-                    String defaultTextType = stringLengthMapper.getDefaultTextType();
-                    Integer defaultTextLength = stringLengthMapper.getDefaultTextLength();
                     List<LengthProperties> lengthConfigs = stringLengthMapper.getLengthConfigs();
                     if (ObjectUtils.isNotEmpty(lengthConfigs)) {
                         Map<String, Integer> textLengthPropertiesMap = lengthConfigs.stream().collect(Collectors.toMap(LengthProperties::getText, LengthProperties::getLength));
@@ -148,13 +137,45 @@ public class InitDttClient {
                             ContextWrapper.TextLengthHandler handler = new ContextWrapper.TextLengthHandler();
                             handler.setStringLengthMapper(stringLengthMapper);
                             handler.setTextLengthProperties(textLengthPropertiesMap);
-                            contextWrapper.setTextLengthHandler(handler);
+                            wrapper.setTextLengthHandler(handler);
                         }
                     }
                 }
             }
         }
 
-        return contextWrapper;
+        return wrapper;
+    }
+
+    /**
+     * The property for your database
+     *
+     * @return DatabaseProperty
+     */
+    @Bean
+    public DatabaseProperty databaseProperty(DataSource dataSource, DataSourceProperties dataSourceProperties) {
+        DatabaseProperty property = new DatabaseProperty();
+        property.setDatabaseType(databaseHandler.getDbType());
+        String databaseName = "";
+        try {
+            if (databaseHandler.getDbType() == DatabaseType.ORACLE)
+                databaseName = dataSourceProperties.getUsername();
+            @SuppressWarnings({"all"}) DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
+            property.setDatabaseVersion(metaData.getDatabaseProductVersion());
+            property.setIntDatabaseVersion(metaData.getDatabaseMajorVersion());
+            ResultSet result = metaData.getCatalogs();
+            String dataURL = metaData.getURL();
+            while (result.next()) {
+                String databaseNameTemp = result.getString(1);
+                if (!Objects.requireNonNull(databaseHandler.getDbType()).name().equalsIgnoreCase(databaseNameTemp) && dataURL.contains(databaseNameTemp)) {
+                    databaseName = databaseNameTemp;
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("{}", e.getLocalizedMessage(), e);
+        }
+        property.setDatabaseName(databaseName);
+        return property;
     }
 }

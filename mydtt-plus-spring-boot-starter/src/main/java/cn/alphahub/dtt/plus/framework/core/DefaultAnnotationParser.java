@@ -2,16 +2,16 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.annotations.Dtt;
 import cn.alphahub.dtt.plus.constant.Constants;
-import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DatabaseProperty;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
@@ -37,23 +37,26 @@ import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultAnnotationParser.class);
+    @Autowired
+    private DatabaseHandler databaseHandler;
+    @Autowired
+    private DatabaseProperty databaseProperty;
 
     @Override
     public ParseFactory<ModelEntity> parse(String fullyQualifiedClassName) {
         logger.info("Use the annotation '@Dtt' to parse the data table structure information，class '{}'", fullyQualifiedClassName);
-        String databaseName = SpringUtil.getBean(ContextWrapper.class).getDatabaseName();
         Class<?> aClass = ClassUtil.loadClass(fullyQualifiedClassName);
         return () -> {
             Dtt dtt = aClass.getAnnotation(Dtt.class);
             ModelEntity model = new ModelEntity();
             if (dtt == null) {
-                model.setDatabaseName(databaseName);
+                model.setDatabaseName(databaseProperty.getDatabaseName());
                 model.setModelName(camelToUnderline(aClass.getSimpleName()));
                 model.setModelComment("");
                 model.setDetails(handleTableWithoutComment(aClass));
                 return model;
             }
-            model.setDatabaseName(databaseName);
+            model.setDatabaseName(databaseProperty.getDatabaseName());
             model.setModelComment(dtt.value());
             model.setModelName(camelToUnderline(aClass.getSimpleName()));
             model.setDetails(handleTableWithDttAnno(aClass));
@@ -70,7 +73,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
     private List<ModelEntity.Detail> handleTableWithDttAnno(Class<?> aClass) {
         return Arrays.stream(aClass.getDeclaredFields()).filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName())).map(field -> {
             String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-            String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
+            String originalDbDataType = databaseHandler.getDbDataType(javaDataType);
             Dtt[] dttAnnotations = field.getAnnotationsByType(Dtt.class);
             ModelEntity.Detail detail = new ModelEntity.Detail();
             if (ObjectUtils.isNotEmpty(dttAnnotations)) {

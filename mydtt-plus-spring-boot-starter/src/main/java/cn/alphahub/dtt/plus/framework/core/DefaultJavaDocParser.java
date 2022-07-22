@@ -1,19 +1,19 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.constant.Constants;
-import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DatabaseProperty;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.exception.ParseException;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.ClassUtil;
 import cn.alphahub.dtt.plus.util.SysUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.therapi.runtimejavadoc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
@@ -44,13 +44,17 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
      */
     private static final CommentFormatter formatter = new CommentFormatter();
 
+    @Autowired
+    private DatabaseHandler databaseHandler;
+    @Autowired
+    private DatabaseProperty databaseProperty;
+
     private static void printMethodJavadoc(MethodJavadoc methodDoc) {
         System.out.println(methodDoc.getName() + methodDoc.getParamTypes());
         System.out.println(format(methodDoc.getComment()));
 
         if (!methodDoc.isConstructor()) {
             logger.info("  returns: {}", format(methodDoc.getReturns()));
-
         }
 
         for (SeeAlsoJavadoc see : methodDoc.getSeeAlso()) {
@@ -89,7 +93,6 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
     @Override
     public ParseFactory<ModelEntity> parse(String fullyQualifiedClassName) {
         logger.info("Parse Java Doc comments for data table structure information，class '{}'", fullyQualifiedClassName);
-        String databaseName = SpringUtil.getBean(ContextWrapper.class).getDatabaseName();
         return () -> {
             ClassJavadoc classDoc = RuntimeJavadoc.getJavadoc(fullyQualifiedClassName);
             if (classDoc.isEmpty()) {
@@ -146,7 +149,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
                         invokeValue = ClassUtil.invoke(method, clazz);
                     }
 
-                    String originalDbDataType = DatabaseType.getDbDataType(javaDataType);
+                    String originalDbDataType = databaseHandler.getDbDataType(javaDataType);
                     String realDbDataType = parseDbDataType(field, originalDbDataType);
 
                     FieldJavadoc fieldJavadoc = null;
@@ -175,7 +178,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
             }
 
             return new ModelEntity()
-                    .setDatabaseName(databaseName)
+                    .setDatabaseName(databaseProperty.getDatabaseName())
                     .setModelName(StringUtils.camelToUnderline(clazz.getSimpleName()))
                     .setModelComment(format(classDoc.getComment()))
                     .setDetails(details);

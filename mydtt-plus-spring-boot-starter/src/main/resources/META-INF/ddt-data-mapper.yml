@@ -5,6 +5,7 @@ alphahub:
   dtt:
     is-enable: on
     show-sql: on
+    enable-oracle-column-upper-case: on
     template:
       path: META-INF/sql-templates
       suffix: .vm
@@ -124,7 +125,7 @@ alphahub:
           - text: request,response,body,text,content
             length: 768
       - database-type: ORACLE
-        default-text-type: VARCHAR
+        default-text-type: VARCHAR2
         default-text-length: 256
         length-configs:
           - text: phone,tel,telephone,_user,_size

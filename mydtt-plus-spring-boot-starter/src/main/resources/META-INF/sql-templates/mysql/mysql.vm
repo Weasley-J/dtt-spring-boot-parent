@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
     #elseif(${detail.isPrimaryKey} == 'false' && ($detail.filedName.toLowerCase().contains("update_time")
     || $detail.filedName.toLowerCase().contains("change_time"))
     || $detail.filedName.toLowerCase().contains("mod_time")
-    || $detail.filedName.toLowerCase().contains("modified_time")
-    )
+    || $detail.filedName.toLowerCase().contains("modified_time"))
     `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '${detail.filedComment}',
     #end
 #end

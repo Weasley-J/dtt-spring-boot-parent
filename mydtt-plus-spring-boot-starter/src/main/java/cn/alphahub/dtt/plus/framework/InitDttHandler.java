@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.ParserType;
@@ -55,10 +56,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @Component
 @AutoConfigureAfter({InitDttClient.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
-@EnableConfigurationProperties({
-        DttProperties.class, DataTypeMappingProperties.class,
-        AllInOneTableProperties.class, LengthProperties.class
-})
+@EnableConfigurationProperties({DttProperties.class, DataTypeMappingProperties.class, AllInOneTableProperties.class, LengthProperties.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class InitDttHandler implements ApplicationRunner {
     /**
@@ -151,8 +149,8 @@ public class InitDttHandler implements ApplicationRunner {
 
         contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
         if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(true))
-            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}, location: {}", FACTORIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
+            logger.info("Auto created tables for '{}' seconds. detail: {}, location: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
         else if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(false))
-            logger.info("Auto created '{}' tables for '{}' seconds. detail: {}", FACTORIES.size(), LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
+            logger.info("Auto created tables for '{}' seconds. detail: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
     }
 }

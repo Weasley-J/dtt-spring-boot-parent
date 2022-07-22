@@ -29,10 +29,6 @@ import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper;
 @Accessors(chain = true)
 public class ContextWrapper implements Serializable {
     /**
-     * 数据库名称
-     */
-    private String databaseName;
-    /**
      * DTT工作线程
      */
     private AtomicReference<Thread> threadReference;

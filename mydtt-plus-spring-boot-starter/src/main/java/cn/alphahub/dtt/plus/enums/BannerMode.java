@@ -21,5 +21,4 @@ public enum BannerMode {
      * Don't show the banner when application start
      */
     OFF,
-    ;
 }

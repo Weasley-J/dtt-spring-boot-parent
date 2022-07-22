@@ -32,6 +32,7 @@ public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
     public void execute(String table) {
         if (StringUtils.isBlank(table)) {
             logger.warn("Database table creation statement must be not null");
+            return;
         }
         jdbcTemplate.execute(table);
     }

@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: mydtt-plus-application-demo
+
+  profiles:
+    active: oracle

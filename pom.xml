@@ -12,7 +12,7 @@
 
     <modules>
         <module>mydtt-plus-spring-boot-starter</module>
-        <module>mydtt-plus-spring-boot-demo</module>
+        <module>mydtt-plus-spring-boot-starter-tests</module>
     </modules>
 
 </project>

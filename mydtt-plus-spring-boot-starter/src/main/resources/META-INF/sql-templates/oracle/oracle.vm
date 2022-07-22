@@ -1,37 +1,30 @@
--- Table structure for DTT_MEMBER
-
-DROP TABLE "C##DTT"."DTT_MEMBER";
-CREATE TABLE "C##DTT"."DTT_MEMBER"
+#if(${dropTableBeforeCreate})
+DROP TABLE ${databaseName}"${modelName}" PURGE;
+#end
+CREATE TABLE ${databaseName}"${modelName}"
 (
-    "ID"                    NUMBER not null primary key,
-    "OPEN_ID"               VARCHAR2(64),
-    "NICKNAME"              VARCHAR2(32),
-    "IS_ENABLE"             NUMBER        default 1,
-    "BALANCE"               NUMBER        default 0.00,
-    "BIRTHDAY"              DATE,
-    "MEMBER_TYPE"           VARCHAR2(128) default 'ORDINARY',
-    "STATUS"                NUMBER        default 3,
-    "DELETED"               NUMBER        default 0,
-    "REGISTRAR_DATE"        DATE,
-    "ACCELERATE_BEGIN_TIME" DATE,
-    "ACCELERATE_END_TIME"   DATE,
-    "UPDATE_TIME"           TIMESTAMP(6) WITH LOCAL TIME ZONE
+#foreach($detail in $details)
+    #if($detail.isPrimaryKey)
+    "$detail.filedName"    $detail.databaseDataType NOT NULL PRIMARY KEY,
+    #elseif($detail.javaDataType == 'String' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
+    #elseif($detail.databaseDataType.toLowerCase().equals("timestamp")
+    && $foreach.hasNext
+    && ($detail.filedName.toLowerCase().contains("update_time")
+    || $detail.filedName.toLowerCase().contains("change_time")
+    || $detail.filedName.toLowerCase().contains("mod_time")
+    || $detail.filedName.toLowerCase().contains("modified_time")))
+    "$detail.filedName"    TIMESTAMP(6) WITH LOCAL TIME ZONE DEFAULT $detail.initialValue,
+    #elseif($foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #else
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue
+    #end
+#end
 );
-
--- Table comment for DTT_MEMBER
-comment on table "C##DTT"."DTT_MEMBER" is '用户信息';
-
--- Column comment for DTT_MEMBER
-comment on column "C##DTT"."DTT_MEMBER"."ID" is '主键id';
-comment on column "C##DTT"."DTT_MEMBER"."OPEN_ID" is '用户openId';
-comment on column "C##DTT"."DTT_MEMBER"."NICKNAME" is '用户昵称';
-comment on column "C##DTT"."DTT_MEMBER"."IS_ENABLE" is '是否启用, 默认：1';
-comment on column "C##DTT"."DTT_MEMBER"."BALANCE" is '用户积分余额, 默认：0.00';
-comment on column "C##DTT"."DTT_MEMBER"."BIRTHDAY" is '出生日期，格式：yyyy-MM-dd HH:mm:ss';
-comment on column "C##DTT"."DTT_MEMBER"."MEMBER_TYPE" is '会员类型，默认：ORDINARY';
-comment on column "C##DTT"."DTT_MEMBER"."STATUS" is '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常';
-comment on column "C##DTT"."DTT_MEMBER"."DELETED" is ' 账户注销状态；0 未注销（默认），1 已销户';
-comment on column "C##DTT"."DTT_MEMBER"."REGISTRAR_DATE" is '注册时间，格式: yyyy-MM-dd';
-comment on column "C##DTT"."DTT_MEMBER"."ACCELERATE_BEGIN_TIME" is '会员加速开始时间, 格式：HH:mm:ss';
-comment on column "C##DTT"."DTT_MEMBER"."ACCELERATE_END_TIME" is '会员加速结束时间, 格式：HH:mm:ss';
-comment on column "C##DTT"."DTT_MEMBER"."UPDATE_TIME" is '修改时间';
+COMMENT ON TABLE ${databaseName}"${modelName}" is '${modelComment}';
+#foreach(${detail} in ${details})
+COMMENT ON COLUMN ${databaseName}"${modelName}"."${detail.filedName}" is '${detail.filedComment}';
+#end
