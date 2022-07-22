@@ -39,7 +39,7 @@ public class DttProperties {
     /**
      * Whether to enable Oracle database columns' name in uppercase
      */
-    private Boolean enableOracleColumnUpperCase = false;
+    private Boolean enableOracleColumnUpperCase = true;
     /**
      * Template property configuration, This is the default configuration,
      * don't modify it if you don't need it

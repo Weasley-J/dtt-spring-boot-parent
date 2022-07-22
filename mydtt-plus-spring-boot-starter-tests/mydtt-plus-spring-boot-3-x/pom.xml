@@ -36,17 +36,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- support-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.2</version>
-        </dependency>
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>1.0.9</version>
+            <version>1.1.0</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
@@ -56,6 +50,19 @@
             <scope>provided</scope>
         </dependency>
         <!-- javadoc-scribe end  -->
+
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.2</version>
+        </dependency>
 
         <!--hutool-->
         <dependency>

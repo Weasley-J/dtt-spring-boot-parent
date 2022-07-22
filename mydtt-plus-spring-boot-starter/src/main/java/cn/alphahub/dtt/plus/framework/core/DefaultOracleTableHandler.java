@@ -62,7 +62,8 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
         for (ModelEntity.Detail detail : model.getDetails()) {
             if (Boolean.class.getSimpleName().equals(detail.getJavaDataType())) {
                 detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
-            } else if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
+            }
+            if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
                 ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
                 String databaseDataType = detail.getDatabaseDataType();
                 String actuallyDbDataType = wrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
@@ -73,7 +74,6 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
                 String filedComment = detail.getFiledComment();
                 detail.setDatabaseDataType(actuallyDbDataType);
                 detail.setFiledComment(filedComment.concat(", Enum type:").concat(enumValues));
-                break;
             }
         }
 

@@ -2,7 +2,7 @@ package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.alphahub.dtt.plus.util.SysUtil;
+import cn.hutool.system.SystemUtil;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.scripting.LanguageDriver;
@@ -91,7 +90,10 @@ public class MybatisDataSourceConfigurer {
     @DependsOn({"dataSource"})
     @ConditionalOnMissingBean(value = {SqlSessionFactory.class})
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource, MybatisProperties mybatis, MybatisPlusProperties mybatisPlus) {
-        org.apache.ibatis.session.Configuration configuration = ObjectUtils.defaultIfNull(mybatis.getConfiguration(), mybatisPlus.getConfiguration());
+        org.apache.ibatis.session.Configuration configuration = mybatis.getConfiguration();
+        if (configuration == null) {
+            configuration = mybatisPlus.getConfiguration();
+        }
         Environment environment = new Environment
                 .Builder(RandomStringUtils.randomNumeric(10))
                 .dataSource(dataSource)
@@ -121,9 +123,15 @@ public class MybatisDataSourceConfigurer {
     public static class MybatisSupportCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            String mybatisProperty = context.getEnvironment().getProperty(MybatisProperties.MYBATIS_PREFIX + ".mapper-locations");
+            String mybatisPlusProperty = context.getEnvironment().getProperty(Constants.MYBATIS_PLUS + ".mapper-locations");
+            boolean mybatisPropertyIsAllBlank = org.apache.commons.lang3.StringUtils.isAllBlank(mybatisProperty, mybatisPlusProperty);
+            if (mybatisPropertyIsAllBlank) {
+                return false;
+            }
             String springVersionPrefix = SpringApplication.class.getPackage().getImplementationVersion().split("\\.")[0];
             if (StringUtils.hasText(springVersionPrefix)) {
-                int javaVersion = SysUtil.getJavaInfo().getVersionInt();
+                int javaVersion = SystemUtil.getJavaInfo().getVersionInt();
                 return Integer.parseInt(springVersionPrefix) >= 3 && javaVersion >= 1700;
             }
             return false;
@@ -139,7 +147,7 @@ public class MybatisDataSourceConfigurer {
     @ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
     public static class MybatisProperties {
 
-        public static final String MYBATIS_PREFIX = "support";
+        public static final String MYBATIS_PREFIX = "mybatis";
 
         private static final ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 
@@ -180,7 +188,7 @@ public class MybatisDataSourceConfigurer {
         private ExecutorType executorType;
 
         /**
-         * The default scripting language driver class. (Available when use together with support-spring 2.0.2+)
+         * The default scripting language driver class. (Available when use together with mybatis-spring 2.0.2+)
          */
         private Class<? extends LanguageDriver> defaultScriptingLanguageDriver;
 
@@ -368,7 +376,7 @@ public class MybatisDataSourceConfigurer {
         private ExecutorType executorType;
 
         /**
-         * The default scripting language driver class. (Available when use together with support-spring 2.0.2+)
+         * The default scripting language driver class. (Available when use together with mybatis-spring 2.0.2+)
          * <p>
          * 如果设置了这个,你会至少失去几乎所有 mp 提供的功能
          */

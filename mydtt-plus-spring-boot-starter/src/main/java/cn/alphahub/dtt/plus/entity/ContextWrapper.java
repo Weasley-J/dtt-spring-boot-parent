@@ -80,7 +80,7 @@ public class ContextWrapper implements Serializable {
         /**
          * String length mapper
          */
-        private StringLengthMapper stringLengthMapper;
+        private transient StringLengthMapper stringLengthMapper;
         /**
          * key: _id,_no,number,name,code,_code,_name
          * <br>
