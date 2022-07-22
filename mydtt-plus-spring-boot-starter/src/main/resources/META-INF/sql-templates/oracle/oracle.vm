@@ -10,8 +10,8 @@ CREATE TABLE ${databaseName}"${modelName}"
     "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
     #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
     "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
-    #elseif($detail.databaseDataType.toLowerCase().equals("timestamp")
-    && $foreach.hasNext
+    #elseif($foreach.hasNext
+    && $detail.databaseDataType.toLowerCase().equals("timestamp")
     && ($detail.filedName.toLowerCase().contains("update_time")
     || $detail.filedName.toLowerCase().contains("change_time")
     || $detail.filedName.toLowerCase().contains("mod_time")

@@ -16,15 +16,15 @@ import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getAllDeclaredFields;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -124,34 +124,31 @@ public interface DttCommentParser<T> extends DttContext<T> {
      * @return 域模型信息集合
      */
     default List<ModelEntity.Detail> handleTableWithoutComment(Class<?> aClass) {
-        return Arrays.stream(aClass.getDeclaredFields())
-                .filter(field -> !Objects.equals(Constants.SERIAL_VERSION_UID, field.getName()))
-                .filter(field -> !field.getType().isInterface())
-                .filter(field -> !field.getType().isArray())
-                .map(field -> {
-                    String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
-                    String originalDbDataType = SpringUtil.getBean(DatabaseHandler.class).getDbDataType(javaDataType);
-                    String realDbDataType = this.parseDbDataType(field, originalDbDataType);
+        List<Field> allDeclaredFields = getAllDeclaredFields(aClass);
+        return allDeclaredFields.stream().map(field -> {
+            String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
+            String originalDbDataType = SpringUtil.getBean(DatabaseHandler.class).getDbDataType(javaDataType);
+            String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
-                    Object invoke = null;
-                    for (Method method : getPublicGetterMethods(aClass)) {
-                        String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
-                        if (Objects.equals(fieldProps, field.getName())) {
-                            invoke = ClassUtil.invoke(method, aClass);
-                            break;
-                        }
-                    }
+            Object invoke = null;
+            for (Method method : getAllPublicGetterMethods(aClass)) {
+                String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
+                if (Objects.equals(fieldProps, field.getName())) {
+                    invoke = ClassUtil.invoke(method, aClass);
+                    break;
+                }
+            }
 
-                    ModelEntity.Detail detail = new ModelEntity.Detail();
-                    detail.setIsPrimaryKey(PRIMARY_KEY.equals(camelToUnderline(field.getName())));
-                    detail.setDatabaseDataType(realDbDataType);
-                    detail.setJavaDataType(javaDataType);
-                    detail.setFiledName(camelToUnderline(field.getName()));
-                    detail.setInitialValue(null != invoke ? String.valueOf(invoke) : "NULL");
-                    detail.setFiledComment("");
+            ModelEntity.Detail detail = new ModelEntity.Detail();
+            detail.setIsPrimaryKey(PRIMARY_KEY.equals(camelToUnderline(field.getName())));
+            detail.setDatabaseDataType(realDbDataType);
+            detail.setJavaDataType(javaDataType);
+            detail.setFiledName(camelToUnderline(field.getName()));
+            detail.setInitialValue(null != invoke ? String.valueOf(invoke) : "NULL");
+            detail.setFiledComment("");
 
-                    return detail;
-                }).collect(Collectors.toList());
+            return detail;
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -162,8 +159,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
      * @return 解析后的实际数据库数据类型
      */
     default String parseDbDataType(Field field, String originalDbDataType) {
-        if (field.getType().isEnum())
-            return parseDatabaseEnumTypes(field, originalDbDataType).getDbDtaType();
+        if (field.getType().isEnum()) return parseDatabaseEnumTypes(field, originalDbDataType).getDbDtaType();
         else return deduceLengthOfStringType(field, originalDbDataType);
     }
 

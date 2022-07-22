@@ -112,7 +112,9 @@ public class InitDttClient {
      */
     @Bean
     @DependsOn({"commentParserClient", "commentParserClient"})
-    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient, @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient, DttProperties dttProperties) {
+    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
+                                         @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
+                                         DttProperties dttProperties) {
 
         if (dttProperties.getBannerMode() == BannerMode.ON) DttBanner.getInstance().printBanner();
 

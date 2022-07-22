@@ -1,7 +1,6 @@
 package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
-import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.ParserType;
@@ -41,7 +40,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.AllInOneTableProperties;
-import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
+import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMapperProperties;
 import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper.LengthProperties;
 import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 
@@ -56,7 +55,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @Component
 @AutoConfigureAfter({InitDttClient.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
-@EnableConfigurationProperties({DttProperties.class, DataTypeMappingProperties.class, AllInOneTableProperties.class, LengthProperties.class})
+@EnableConfigurationProperties({DttProperties.class, DataTypeMapperProperties.class, AllInOneTableProperties.class, LengthProperties.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class InitDttHandler implements ApplicationRunner {
     /**

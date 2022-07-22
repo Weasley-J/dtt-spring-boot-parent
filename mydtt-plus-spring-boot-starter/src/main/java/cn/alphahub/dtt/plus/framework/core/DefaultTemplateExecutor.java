@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -36,4 +37,16 @@ public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
         }
         jdbcTemplate.execute(table);
     }
+
+    /**
+     * Batch update pure sql array
+     *
+     * @param sql pure sql array
+     * @return failure, success
+     */
+    @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
+    public void batchExecute(String... sql) throws DataAccessException {
+        jdbcTemplate.batchUpdate(sql);
+    }
+
 }

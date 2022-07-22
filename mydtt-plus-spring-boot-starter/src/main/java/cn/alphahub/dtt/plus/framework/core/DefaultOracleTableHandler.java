@@ -1,6 +1,6 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.config.datamapper.OracleDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
-
 /**
  * Oracle默认建表实现
  *
@@ -36,7 +34,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingPropertie
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@EnableConfigurationProperties({DttProperties.class, DataTypeMappingProperties.class})
+@EnableConfigurationProperties({OracleDataMapperProperties.class})
 public class DefaultOracleTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultOracleTableHandler.class);
     /**
@@ -46,9 +44,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private DttProperties dttProperties;
-    @Autowired
-    private DataTypeMappingProperties dataTypeMappingProperties;
+    private OracleDataMapperProperties oracleDataMapperProperties;
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
@@ -59,25 +55,10 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
             return null;
         }
 
-        for (ModelEntity.Detail detail : model.getDetails()) {
-            if (Boolean.class.getSimpleName().equals(detail.getJavaDataType())) {
-                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
-            }
-            if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
-                ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
-                String databaseDataType = detail.getDatabaseDataType();
-                String actuallyDbDataType = wrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                String enumValues = databaseDataType.substring(dataTypeMappingProperties.getOracle().get("Enum").toString().length());
-                enumValues = enumValues.replace("('", "");
-                enumValues = enumValues.replace("')", "");
-                enumValues = enumValues.replace("','", ",");
-                String filedComment = detail.getFiledComment();
-                detail.setDatabaseDataType(actuallyDbDataType);
-                detail.setFiledComment(filedComment.concat(", Enum type:").concat(enumValues));
-            }
-        }
+        //处理Oracle数据类型
+        handlingOracleDataTypes(model);
 
-        if (dttProperties.getEnableOracleColumnUpperCase().equals(true)) toRootUpperCase(() -> model);
+        if (oracleDataMapperProperties.getEnableOracleColumnUpperCase().equals(true)) modelToRootUpperCase(() -> model);
 
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
@@ -88,7 +69,34 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
         String template = resolve(() -> model);
 
         String[] sqlArray = StringUtils.split(template, ";");
-        String[] sqlTrimArray = Arrays.stream(sqlArray).map(sql -> {
+        String[] sqlTrimArray = parseTemplateSQLIntoSQLArray(sqlArray);
+
+        String tableName = model.getDatabaseName() + "\"" + model.getModelName() + "\"";
+        boolean dropTableBeforeCreate = InitDttHandler.getEnableDtt().dropTableBeforeCreate();
+        boolean tableExists = isTableExists(model.getModelName());
+        if (dropTableBeforeCreate && tableExists) {
+            // int DROP_TABLE_MAX_RETRY_COUNT = 2
+            dropTableWithRetry(tableName);
+        }
+
+        String[] pureSQLArray = Arrays.stream(sqlTrimArray).filter(sql -> !sql.startsWith("DROP")).toArray(String[]::new);
+        for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+            logger.info("开始对表[{}]进行第[{}]次尝试建表,当前最大建表重试次数[{}]次", tableName, i, CREATE_TABLE_RETRY_MAX_COUNT);
+            boolean updated = this.batchUpdate(pureSQLArray);
+            if (updated) break;
+        }
+
+        return template;
+    }
+
+    /**
+     * Template SQL to  a SQL array composed of a single SQL
+     *
+     * @param sqlArray The array of TemplateSQL split with  ';'
+     * @return A filtered SQL array composed of a single SQL
+     */
+    private String[] parseTemplateSQLIntoSQLArray(String[] sqlArray) {
+        return Arrays.stream(sqlArray).map(sql -> {
             if (sql.startsWith(SysUtil.getLineSeparator()))
                 return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
             else return sql;
@@ -99,41 +107,57 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
                 return StringUtils.removeEnd(sql, SysUtil.getLineSeparator());
             else return sql;
         }).filter(StringUtils::isNoneBlank).toArray(String[]::new);
-
-        String tableName = model.getDatabaseName() + "\"" + model.getModelName() + "\"";
-        boolean dropTableBeforeCreate = InitDttHandler.getEnableDtt().dropTableBeforeCreate();
-        boolean tableExists = isTableExists(model.getModelName());
-        if (dropTableBeforeCreate && tableExists) {
-            // int DROP_TABLE_MAX_RETRY_COUNT = 2
-            try {
-                jdbcTemplate.execute("DROP TABLE " + tableName + " PURGE");
-            } catch (DataAccessException e) {
-                logger.warn("{}", e.getMessage());
-                try {
-                    jdbcTemplate.execute("DROP TABLE " + tableName);
-                } catch (DataAccessException ex) {
-                    logger.warn("{}", e.getMessage());
-                }
-            }
-        }
-
-        String[] pureSQLArray = Arrays.stream(sqlTrimArray).filter(sql -> !sql.startsWith("DROP")).toArray(String[]::new);
-        for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
-            logger.warn("开始对表'{}'进行第'{}'次尝试建表,当前最大建表重试次数:'{}'", tableName, i, CREATE_TABLE_RETRY_MAX_COUNT);
-            boolean updated = this.batchUpdate(pureSQLArray);
-            if (updated) break;
-        }
-
-        return template;
     }
 
+    /**
+     * Drop table with retry two times
+     *
+     * @param tableName The name of Table
+     */
+    private void dropTableWithRetry(String tableName) {
+        try {
+            jdbcTemplate.execute("DROP TABLE " + tableName + " PURGE");
+        } catch (DataAccessException e) {
+            logger.warn("{}", e.getMessage());
+            try {
+                jdbcTemplate.execute("DROP TABLE " + tableName);
+            } catch (DataAccessException ex) {
+                logger.warn("{}", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * 处理Oracle数据类型
+     *
+     * @param model 域模型信息
+     */
+    private void handlingOracleDataTypes(ModelEntity model) {
+        for (ModelEntity.Detail detail : model.getDetails()) {
+            if (Boolean.class.getSimpleName().equals(detail.getJavaDataType())) {
+                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
+            }
+            if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
+                ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
+                String databaseDataType = detail.getDatabaseDataType();
+                String actuallyDbDataType = wrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                String enumValues = databaseDataType.substring(oracleDataMapperProperties.getMappingProperties().get("Enum").toString().length());
+                enumValues = enumValues.replace("('", "");
+                enumValues = enumValues.replace("')", "");
+                enumValues = enumValues.replace("','", ",");
+                String filedComment = detail.getFiledComment();
+                detail.setDatabaseDataType(actuallyDbDataType);
+                detail.setFiledComment(filedComment.concat(", Enum type:").concat(enumValues));
+            }
+        }
+    }
 
     /**
      * To root upper case
      *
      * @param parseFactory The parse factory
      */
-    public void toRootUpperCase(ParseFactory<ModelEntity> parseFactory) {
+    public void modelToRootUpperCase(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         List<ModelEntity.Detail> details = model.getDetails();
         if (CollectionUtils.isEmpty(details)) {
@@ -153,12 +177,12 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
     /**
      * Batch update pure sql array
      *
-     * @param pureSQLArray pure sql array
+     * @param sql pure sql array
      * @return failure, success
      */
-    public boolean batchUpdate(String[] pureSQLArray) {
+    public boolean batchUpdate(String... sql) {
         try {
-            jdbcTemplate.batchUpdate(pureSQLArray);
+            batchExecute(sql);
             return true;
         } catch (DataAccessException e) {
             logger.warn("{}", e.getMessage());
@@ -172,12 +196,18 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
      * @param tableName The name of table
      * @return Exists return true
      */
-    private boolean isTableExists(String tableName) {
+    protected boolean isTableExists(String tableName) {
         String sql = "SELECT COUNT(*) FROM USER_TABLES " + "WHERE TABLE_NAME = '" + tableName + "'";
-        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
-        if (null == result) {
-            return false;
+        for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+            try {
+                Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
+                if (null != result) {
+                    return result > 0;
+                }
+            } catch (DataAccessException e) {
+                logger.warn("{}", e.getMessage());
+            }
         }
-        return result > 0;
+        return false;
     }
 }

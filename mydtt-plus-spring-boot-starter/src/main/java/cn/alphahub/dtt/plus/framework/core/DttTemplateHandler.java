@@ -50,7 +50,7 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
      * @param model   model
      * @param context velocity context
      */
-    default void handlePrimaryKey(ModelEntity model, VelocityContext context) {
+    default void handlingPrimaryKey(ModelEntity model, VelocityContext context) {
         for (Detail detail : model.getDetails()) {
             if (Boolean.TRUE.equals(detail.getIsPrimaryKey())) {
                 context.put(PRIMARY_KEY_MARK, detail.getFiledName());

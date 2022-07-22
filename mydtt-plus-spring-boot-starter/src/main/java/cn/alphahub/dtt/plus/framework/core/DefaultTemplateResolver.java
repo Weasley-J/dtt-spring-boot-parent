@@ -48,7 +48,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
     public String resolve(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         VelocityContext context = new VelocityContext();
-        handlePrimaryKey(model, context);
+        handlingPrimaryKey(model, context);
         context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
         context.put("databaseName", model.getDatabaseName());
         context.put("modelName", model.getModelName());
