@@ -1,7 +1,6 @@
 package cn.alphahub.dtt.plus.framework;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
-import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.ParserType;

@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getDeclaredField;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getDeclaredField;
 
 /**
  * 解析Java doc注释

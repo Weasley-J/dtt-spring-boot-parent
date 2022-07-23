@@ -122,9 +122,11 @@ public class ClassUtil {
      * Get all private properties Field collection of given Class
      * <p>
      * Exclude the type of field Type in the following cases:
-     * <li>isArray</li>
-     * <li>isInterface</li>
-     * <li>serialVersionUID</li>
+     * <ul>
+     *   <li>isArray</li>
+     *   <li>isInterface</li>
+     *   <li>serialVersionUID</li>
+     * </ul>
      *
      * @param aClass class对象
      * @return All private declared fields

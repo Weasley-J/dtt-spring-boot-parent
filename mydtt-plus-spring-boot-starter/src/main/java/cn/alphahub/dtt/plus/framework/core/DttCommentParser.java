@@ -23,8 +23,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**

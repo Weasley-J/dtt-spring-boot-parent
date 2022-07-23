@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.GET;
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -97,7 +97,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                 logger.warn("模型'{}'里面的字段'{}'未添加 '@Dtt' 注解, 将不会解析模型描述信息.", aClass.getSimpleName(), field.getName());
                 String realDbDataType = parseDbDataType(field, originalDbDataType);
                 Object invoke = null;
-                for (Method method : getPublicGetterMethods(aClass)) {
+                for (Method method : getAllPublicGetterMethods(aClass)) {
                     String fieldProps = com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
                     if (Objects.equals(fieldProps, field.getName())) {
                         invoke = ClassUtil.invoke(method, aClass);
