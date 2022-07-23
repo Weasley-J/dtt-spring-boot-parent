@@ -32,4 +32,4 @@ alphahub:
       filepath: /Users/weasley/Downloads
     data-type-mapper:
       oracle:
-        enable-oracle-column-upper-case: on
+        enable-column-upper-case: on

@@ -64,7 +64,7 @@ alphahub:
           LocalDateTime: datetime
           Enum: enum
       oracle:
-        enable-oracle-column-upper-case: true
+        enable-column-upper-case: true
         mapping-properties:
           String: VARCHAR2
           Boolean: SMALLINT

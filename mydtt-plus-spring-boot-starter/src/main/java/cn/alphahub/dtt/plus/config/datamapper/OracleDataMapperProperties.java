@@ -17,7 +17,7 @@ public class OracleDataMapperProperties {
     /**
      * Whether to enable Oracle database columns' name in uppercase
      */
-    private Boolean enableOracleColumnUpperCase = true;
+    private Boolean enableColumnUpperCase = true;
     /**
      * key: java type; value: oracle type
      */

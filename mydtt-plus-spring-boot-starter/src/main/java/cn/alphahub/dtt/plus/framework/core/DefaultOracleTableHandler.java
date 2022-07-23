@@ -58,7 +58,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
         //处理Oracle数据类型
         handlingOracleDataTypes(model);
 
-        if (oracleDataMapperProperties.getEnableOracleColumnUpperCase().equals(true)) modelToRootUpperCase(() -> model);
+        if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelToRootUpperCase(() -> model);
 
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
