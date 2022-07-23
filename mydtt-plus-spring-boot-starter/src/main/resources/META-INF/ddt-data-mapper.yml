@@ -49,6 +49,8 @@ alphahub:
           LocalDateTime: ''
           Enum: ''
       mysql:
+        default-charset: utf8mb4
+        default-collate: utf8mb4_general_ci
         mapping-properties:
           String: varchar
           Boolean: tinyint

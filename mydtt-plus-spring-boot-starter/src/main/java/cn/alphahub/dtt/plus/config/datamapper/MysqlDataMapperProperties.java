@@ -15,6 +15,14 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper.mysql")
 public class MysqlDataMapperProperties {
     /**
+     * Default charset
+     */
+    private String defaultCharset = "utf8mb4";
+    /**
+     * Default collate
+     */
+    private String defaultCollate = "utf8mb4_general_ci";
+    /**
      * key: java type; value: mysql type
      */
     private Properties mappingProperties;

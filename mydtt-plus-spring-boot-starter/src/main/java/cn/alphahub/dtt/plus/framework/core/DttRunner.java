@@ -2,6 +2,7 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import org.apache.velocity.VelocityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.dao.DataAccessException;
@@ -33,6 +34,17 @@ public class DttRunner {
      */
     public String resolve(ParseFactory<ModelEntity> parseFactory) {
         return templateResolver.resolve(parseFactory);
+    }
+
+    /**
+     * Resolve template
+     *
+     * @param parseFactory The factory of parsed object
+     * @param context      The context of Velocity
+     * @return table statement
+     */
+    public String resolve(ParseFactory<ModelEntity> parseFactory, VelocityContext context) {
+        return templateResolver.resolve(parseFactory, context);
     }
 
     /**

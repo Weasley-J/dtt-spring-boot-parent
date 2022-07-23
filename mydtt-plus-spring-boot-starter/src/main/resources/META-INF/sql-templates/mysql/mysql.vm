@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
     #if(${detail.isPrimaryKey})
     `${detail.filedName}`  ${detail.databaseDataType} NOT NULL AUTO_INCREMENT COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'String')
-    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT ${detail.initialValue}  COMMENT '${detail.filedComment}',
+    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT ${detail.initialValue}  COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum')
-    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '${detail.initialValue}' COMMENT '${detail.filedComment}',
+    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT '${detail.initialValue}' COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false')
     `${detail.filedName}`  ${detail.databaseDataType}                                                  DEFAULT ${detail.initialValue} COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ($detail.filedName.toLowerCase().contains("update_time")
@@ -23,6 +23,5 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
 #end
 PRIMARY KEY (`${primaryKey}`)
 ) ENGINE = InnoDB
-DEFAULT CHARSET = utf8mb4
-COLLATE = utf8mb4_general_ci COMMENT ='${modelComment}';
-
+DEFAULT CHARSET = ${defaultCharset}
+COLLATE = ${defaultCollate} COMMENT ='${modelComment}';

@@ -1,11 +1,14 @@
 package cn.alphahub.dtt.plus.framework.core;
 
+import cn.alphahub.dtt.plus.config.datamapper.MysqlDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.velocity.VelocityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -21,6 +24,9 @@ import org.springframework.util.CollectionUtils;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
+
+    @Autowired
+    private MysqlDataMapperProperties mysqlDataMapperProperties;
 
     /**
      * Create table
@@ -44,7 +50,10 @@ public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandl
         if (StringUtils.isNoneBlank(databaseName)) databaseName = "`" + databaseName + "`";
         model.setDatabaseName(databaseName);
 
-        String template = resolve(() -> model);
+        VelocityContext context = new VelocityContext();
+        context.put("defaultCharset", mysqlDataMapperProperties.getDefaultCharset());
+        context.put("defaultCollate", mysqlDataMapperProperties.getDefaultCollate());
+        String template = resolve(() -> model, context);
         execute(template);
         return template;
     }

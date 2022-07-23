@@ -49,6 +49,26 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
         ModelEntity model = parseFactory.getModel();
         VelocityContext context = new VelocityContext();
         handlingPrimaryKey(model, context);
+        StringWriter writer = processTemplate(context, model);
+        return writer.toString();
+    }
+
+    @Override
+    public String resolve(ParseFactory<ModelEntity> parseFactory, VelocityContext context) {
+        ModelEntity model = parseFactory.getModel();
+        handlingPrimaryKey(model, context);
+        StringWriter writer = processTemplate(context, model);
+        return writer.toString();
+    }
+
+    /**
+     * Process templates
+     *
+     * @param context The context of Velocity
+     * @param model   The model
+     * @return The 'StringWriter' of template
+     */
+    protected StringWriter processTemplate(VelocityContext context, ModelEntity model) {
         context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
         context.put("databaseName", model.getDatabaseName());
         context.put("modelName", model.getModelName());
@@ -60,7 +80,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
         if (logger.isDebugEnabled() || dttProperties.getShowSql().equals(true)) {
             logger.info("数据库建表语句: \n{}", writer);
         }
-        return writer.toString();
+        return writer;
     }
 
     /**

@@ -37,6 +37,17 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
     }
 
     /**
+     * Resolve template
+     *
+     * @param parseFactory The factory of parsed object
+     * @param context      The context of Velocity
+     * @return table statement
+     */
+    default String resolve(ParseFactory<ModelEntity> parseFactory, VelocityContext context) {
+        return null;
+    }
+
+    /**
      * Execute table statement
      *
      * @param table table statement
