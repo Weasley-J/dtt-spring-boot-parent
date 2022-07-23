@@ -134,7 +134,9 @@ public class InitDttHandler implements ApplicationRunner {
             }
             return;
         }
-        this.resolveAnnotationsClass(getEnableDtt());
+
+        resolveAnnotationsClass(getEnableDtt());
+
         if (CollectionUtils.isEmpty(FACTORIES)) {
             if (warnEnabled) {
                 logger.warn("Data model is empty. DTT cannot parse.");
