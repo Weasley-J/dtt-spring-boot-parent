@@ -12,16 +12,17 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
     `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT ${detail.initialValue}  COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum')
     `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT '${detail.initialValue}' COMMENT '${detail.filedComment}',
-    #elseif(${detail.isPrimaryKey} == 'false')
+    #elseif(${detail.isPrimaryKey} == 'false' && (
+        $detail.filedName.toLowerCase().contains("mod_time") ||
+        $detail.filedName.toLowerCase().contains("update_time") ||
+        $detail.filedName.toLowerCase().contains("change_time") ||
+        $detail.filedName.toLowerCase().contains("modified_time")))
+    `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT NULL ON UPDATE current_timestamp() COMMENT '${detail.filedComment}',
+    #elseif($foreach.hasNext)
     `${detail.filedName}`  ${detail.databaseDataType}                                                  DEFAULT ${detail.initialValue} COMMENT '${detail.filedComment}',
-    #elseif(${detail.isPrimaryKey} == 'false' && ($detail.filedName.toLowerCase().contains("update_time")
-    || $detail.filedName.toLowerCase().contains("change_time"))
-    || $detail.filedName.toLowerCase().contains("mod_time")
-    || $detail.filedName.toLowerCase().contains("modified_time"))
-    `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '${detail.filedComment}',
     #end
 #end
 PRIMARY KEY (`${primaryKey}`)
-) ENGINE = InnoDB
+) ENGINE = ${defaultEngine}
 DEFAULT CHARSET = ${defaultCharset}
 COLLATE = ${defaultCollate} COMMENT ='${modelComment}';

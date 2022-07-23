@@ -24,7 +24,6 @@ import org.springframework.util.CollectionUtils;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
-
     @Autowired
     private MysqlDataMapperProperties mysqlDataMapperProperties;
 
@@ -51,6 +50,7 @@ public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandl
         model.setDatabaseName(databaseName);
 
         VelocityContext context = new VelocityContext();
+        context.put("defaultEngine", mysqlDataMapperProperties.getDefaultEngine());
         context.put("defaultCharset", mysqlDataMapperProperties.getDefaultCharset());
         context.put("defaultCollate", mysqlDataMapperProperties.getDefaultCollate());
         String template = resolve(() -> model, context);

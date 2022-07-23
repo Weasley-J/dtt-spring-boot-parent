@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * mariadb默认建表实现
  *
@@ -36,13 +39,16 @@ public class DefaultMariadbTableHandler extends DttRunner implements DttTableHan
             return null;
         }
         logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
-        String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName)) databaseName = "`" + databaseName + "`";
-        model.setDatabaseName(databaseName);
-        VelocityContext context = new VelocityContext();
-        context.put("defaultCharset", mariadbDataMapperProperties.getDefaultCharset());
-        context.put("defaultCollate", mariadbDataMapperProperties.getDefaultCollate());
-        String template = resolve(() -> model, context);
+        if (StringUtils.isNoneBlank(model.getDatabaseName())) {
+            String databaseName = model.getDatabaseName();
+            databaseName = "`" + databaseName + "`";
+            model.setDatabaseName(databaseName);
+        }
+        Map<String, Object> contextMap = new LinkedHashMap<>();
+        contextMap.put("defaultEngine", mariadbDataMapperProperties.getDefaultEngine());
+        contextMap.put("defaultCharset", mariadbDataMapperProperties.getDefaultCharset());
+        contextMap.put("defaultCollate", mariadbDataMapperProperties.getDefaultCollate());
+        String template = resolve(() -> model, new VelocityContext(contextMap));
         execute(template);
         return template;
     }

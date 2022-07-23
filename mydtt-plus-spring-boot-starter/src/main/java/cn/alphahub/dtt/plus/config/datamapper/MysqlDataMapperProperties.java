@@ -15,11 +15,15 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper.mysql")
 public class MysqlDataMapperProperties {
     /**
+     * The default engine of mysql
+     */
+    private String defaultEngine = "InnoDB";
+    /**
      * Default charset
      */
     private String defaultCharset = "utf8mb4";
     /**
-     * Default collate
+     * Default character collation
      */
     private String defaultCollate = "utf8mb4_general_ci";
     /**

@@ -16,7 +16,7 @@ CREATE TABLE ${databaseName}"${modelName}"
     || $detail.filedName.toLowerCase().contains("change_time")
     || $detail.filedName.toLowerCase().contains("mod_time")
     || $detail.filedName.toLowerCase().contains("modified_time")))
-    "$detail.filedName"    TIMESTAMP(6) WITH LOCAL TIME ZONE DEFAULT $detail.initialValue,
+    "$detail.filedName"    TIMESTAMP(6) DEFAULT SYSDATE,
     #elseif($foreach.hasNext)
     "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
     #else
