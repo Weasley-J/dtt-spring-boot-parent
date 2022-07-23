@@ -23,7 +23,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         scanBaseClasses = {
                 //OmsOrderInquiry.class
                 //DttPerson.class,
-                DttMember.class,
+                //DttMember.class,
         }
 )
 @MapperScan(basePackages = {"com.example.mapper"})

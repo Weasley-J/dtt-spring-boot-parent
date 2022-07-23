@@ -22,7 +22,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
+import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMapperProperties;
 
 /**
  * Handling some DB information
@@ -34,7 +34,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingPropertie
 @Component
 @AutoConfigureBefore({ContextWrapper.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@EnableConfigurationProperties({DataSourceProperties.class, DataTypeMappingProperties.class})
+@EnableConfigurationProperties({DataSourceProperties.class, DataTypeMapperProperties.class})
 public class DatabaseHandler {
 
     /**
@@ -56,7 +56,7 @@ public class DatabaseHandler {
     private DataSourceProperties dataSourceProperties;
 
     @Autowired
-    private DataTypeMappingProperties dataTypeMapping;
+    private DataTypeMapperProperties dataTypeMapping;
 
     /**
      * jdbcUrl获取数据库类型

@@ -5,7 +5,6 @@ alphahub:
   dtt:
     is-enable: on
     show-sql: on
-    enable-oracle-column-upper-case: on
     template:
       path: META-INF/sql-templates
       suffix: .vm
@@ -19,95 +18,97 @@ alphahub:
       POSTGRESQL: bigint
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
-      mysql:
-        String: varchar
-        Boolean: tinyint
-        Float: float
-        Double: double
-        Integer: int
-        Long: bigint
-        BigDecimal: decimal
-        Date: datetime
-        LocalTime: time
-        LocalDate: date
-        Timestamp: timestamp
-        LocalDateTime: datetime
-        Enum: enum
-
-      oracle:
-        String: VARCHAR2
-        Boolean: SMALLINT
-        Float: FLOAT
-        Double: DOUBLE
-        Integer: INTEGER
-        Long: NUMBER
-        BigDecimal: DECIMAL
-        Date: DATE
-        LocalDate: DATE
-        LocalTime: DATE
-        Timestamp: TIMESTAMP
-        LocalDateTime: TIMESTAMP
-        Enum: VARCHAR2
-
       db2:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
-      sqlserver:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
+        mapping-properties:
+          String: ''
+          Boolean: ''
+          Float: ''
+          Double: ''
+          Integer: ''
+          Long: ''
+          BigDecimal: ''
+          Date: ''
+          LocalTime: ''
+          LocalDate: ''
+          Timestamp: ''
+          LocalDateTime: ''
+          Enum: ''
       mariadb:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
+        mapping-properties:
+          String: ''
+          Boolean: ''
+          Float: ''
+          Double: ''
+          Integer: ''
+          Long: ''
+          BigDecimal: ''
+          Date: ''
+          LocalTime: ''
+          LocalDate: ''
+          Timestamp: ''
+          LocalDateTime: ''
+          Enum: ''
+      mysql:
+        mapping-properties:
+          String: varchar
+          Boolean: tinyint
+          Float: float
+          Double: double
+          Integer: int
+          Long: bigint
+          BigDecimal: decimal
+          Date: datetime
+          LocalTime: time
+          LocalDate: date
+          Timestamp: timestamp
+          LocalDateTime: datetime
+          Enum: enum
+      oracle:
+        enable-column-upper-case: true
+        mapping-properties:
+          String: VARCHAR2
+          Boolean: SMALLINT
+          Float: FLOAT
+          Double: BINARY_DOUBLE
+          Integer: INTEGER
+          Long: NUMBER
+          BigDecimal: DECIMAL
+          Date: DATE
+          LocalDate: DATE
+          LocalTime: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: VARCHAR2
       postgresql:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
+        mapping-properties:
+          String: ''
+          Boolean: ''
+          Float: ''
+          Double: ''
+          Integer: ''
+          Long: ''
+          BigDecimal: ''
+          Date: ''
+          LocalTime: ''
+          LocalDate: ''
+          Timestamp: ''
+          LocalDateTime: ''
+          Enum: ''
+      sqlserver:
+        mapping-properties:
+          String: ''
+          Boolean: ''
+          Float: ''
+          Double: ''
+          Integer: ''
+          Long: ''
+          BigDecimal: ''
+          Date: ''
+          LocalTime: ''
+          LocalDate: ''
+          Timestamp: ''
+          LocalDateTime: ''
+          Enum: ''
     # Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL

@@ -33,9 +33,7 @@ public interface DttTableHandler<T> extends DttContext<T> {
      * @return all tables (ALl IN ONE)
      */
     default String bulkOps(Set<ParseFactory<T>> modelSet) {
-        if (CollectionUtils.isEmpty(modelSet)) {
-            return null;
-        }
+        if (CollectionUtils.isEmpty(modelSet)) return null;
         return StringUtils.join(modelSet.parallelStream().map(this::create).collect(Collectors.toList()), SysUtil.getLineSeparator());
     }
 }

@@ -108,11 +108,18 @@ public class InitDttClient {
     }
 
     /**
+     * Get ContextWrapper
+     *
+     * @param commentParserClient commentParserClient
+     * @param tableHandlerClient  tableHandlerClient
+     * @param dttProperties       dttProperties
      * @return DTT context wrapper
      */
     @Bean
     @DependsOn({"commentParserClient", "commentParserClient"})
-    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient, @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient, DttProperties dttProperties) {
+    public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
+                                         @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
+                                         DttProperties dttProperties) {
 
         if (dttProperties.getBannerMode() == BannerMode.ON) DttBanner.getInstance().printBanner();
 
@@ -150,6 +157,8 @@ public class InitDttClient {
     /**
      * The property for your database
      *
+     * @param dataSource           dataSource
+     * @param dataSourceProperties dataSourceProperties
      * @return DatabaseProperty
      */
     @Bean

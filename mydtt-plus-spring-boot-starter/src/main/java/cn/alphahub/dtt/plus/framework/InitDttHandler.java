@@ -40,7 +40,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.AllInOneTableProperties;
-import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMappingProperties;
+import static cn.alphahub.dtt.plus.config.DttProperties.DataTypeMapperProperties;
 import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper.LengthProperties;
 import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 
@@ -55,7 +55,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @Component
 @AutoConfigureAfter({InitDttClient.class})
 @ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
-@EnableConfigurationProperties({DttProperties.class, DataTypeMappingProperties.class, AllInOneTableProperties.class, LengthProperties.class})
+@EnableConfigurationProperties({DttProperties.class, DataTypeMapperProperties.class, AllInOneTableProperties.class, LengthProperties.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class InitDttHandler implements ApplicationRunner {
     /**
@@ -118,22 +118,27 @@ public class InitDttHandler implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        boolean warnEnabled = logger.isWarnEnabled();
+        boolean infoEnabled = logger.isInfoEnabled();
         if (dttProperties.getIsEnable().equals(false)) {
-            if (logger.isWarnEnabled()) {
+            if (warnEnabled) {
                 logger.warn("Dtt is disabled，Please check the configuration property of 'alphahub.dtt.is-enable' in your yaml file.");
             }
             return;
         }
+
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
-            if (logger.isWarnEnabled()) {
+            if (warnEnabled) {
                 logger.warn("Your application run with type of '{}', ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
             }
             return;
         }
-        this.resolveAnnotationsClass(getEnableDtt());
+
+        resolveAnnotationsClass(getEnableDtt());
+
         if (CollectionUtils.isEmpty(FACTORIES)) {
-            if (logger.isWarnEnabled()) {
+            if (warnEnabled) {
                 logger.warn("Data model is empty. DTT cannot parse.");
             }
             return;
@@ -146,10 +151,12 @@ public class InitDttHandler implements ApplicationRunner {
             }
         }
 
-        contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
-        if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(true))
-            logger.info("Auto created tables for '{}' seconds. detail: {}, location: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
-        else if (logger.isInfoEnabled() && allInOneProperties.getEnable().equals(false))
-            logger.info("Auto created tables for '{}' seconds. detail: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
+        if (infoEnabled) {
+            contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
+            if (allInOneProperties.getEnable().equals(true))
+                logger.info("Auto created tables for '{}' seconds. detail: {}, location: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
+            else
+                logger.info("Auto created tables for '{}' seconds. detail: {}", LocalDateTimeUtil.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime(), ChronoUnit.SECONDS), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
+        }
     }
 }

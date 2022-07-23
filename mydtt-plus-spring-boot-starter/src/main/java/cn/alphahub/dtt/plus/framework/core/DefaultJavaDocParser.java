@@ -25,7 +25,6 @@ import java.util.Objects;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getDeclaredField;
 
 /**
  * 解析Java doc注释
@@ -135,7 +134,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
                 for (Method method : publicMethods) {
                     String fieldName = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
                     String fieldNameToUnderline = StringUtils.camelToUnderline(fieldName);
-                    Field field = getDeclaredField(clazz, fieldName);
+                    Field field = ClassUtil.getDeclaredField(clazz, fieldName);
                     String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
 
                     // 过滤掉不符合命名规范的列

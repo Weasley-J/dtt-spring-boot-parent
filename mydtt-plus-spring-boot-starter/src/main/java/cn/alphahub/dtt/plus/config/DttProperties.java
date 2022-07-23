@@ -1,5 +1,11 @@
 package cn.alphahub.dtt.plus.config;
 
+import cn.alphahub.dtt.plus.config.datamapper.Db2DataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.MariadbDataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.MysqlDataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.OracleDataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.PostgresqlDataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.SqlserverDataMapperProperties;
 import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.SysUtil;
@@ -37,10 +43,6 @@ public class DttProperties {
      */
     private Boolean showSql = true;
     /**
-     * Whether to enable Oracle database columns' name in uppercase
-     */
-    private Boolean enableOracleColumnUpperCase = true;
-    /**
      * Template property configuration, This is the default configuration,
      * don't modify it if you don't need it
      */
@@ -63,7 +65,7 @@ public class DttProperties {
      * The properties' relationship of Java data type mapping to database data type
      */
     @NestedConfigurationProperty
-    private DataTypeMappingProperties dataTypeMapper;
+    private DataTypeMapperProperties dataTypeMapper;
     /**
      * Model attribute If the Java type is 'java.lang.String' type,
      * when the attribute contains text content such as: "text", "content", "message", "phone", "id", "tel", etc.,
@@ -127,31 +129,31 @@ public class DttProperties {
      */
     @Data
     @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper")
-    public static class DataTypeMappingProperties {
+    public static class DataTypeMapperProperties {
         /**
-         * key: java type; value: mysql type
+         * The mapper of Java data type mapping with db2
          */
-        private Properties mysql;
+        private Db2DataMapperProperties db2;
         /**
-         * key: java type; value: oracle type
+         * The mapper of Java data type mapping with mariadb
          */
-        private Properties oracle;
+        private MariadbDataMapperProperties mariadb;
         /**
-         * key: java type; value: db2 type
+         * The mapper of Java data type mapping with mysql
          */
-        private Properties db2;
+        private MysqlDataMapperProperties mysql;
         /**
-         * key: java type; value: sqlserver type
+         * The mapper of Java data type mapping with oracle
          */
-        private Properties sqlserver;
+        private OracleDataMapperProperties oracle;
         /**
-         * key: java type; value: mariadb type
+         * The mapper of Java data type mapping with postgresql
          */
-        private Properties mariadb;
+        private PostgresqlDataMapperProperties postgresql;
         /**
-         * key: java type; value: postgresql type
+         * The mapper of Java data type mapping with sqlserver
          */
-        private Properties postgresql;
+        private SqlserverDataMapperProperties sqlserver;
 
         /**
          * 获取数据类型映射对应关系
@@ -162,17 +164,17 @@ public class DttProperties {
         public Properties getPropsByDbType(DatabaseType databaseType) {
             switch (databaseType) {
                 case DB2:
-                    return getDb2();
+                    return this.getDb2().getMappingProperties();
                 case MYSQL:
-                    return getMysql();
+                    return this.getMysql().getMappingProperties();
                 case ORACLE:
-                    return getOracle();
+                    return this.getOracle().getMappingProperties();
                 case MARIADB:
-                    return getMariadb();
+                    return this.getMariadb().getMappingProperties();
                 case SQLSERVER:
-                    return getSqlserver();
+                    return this.getSqlserver().getMappingProperties();
                 case POSTGRESQL:
-                    return getPostgresql();
+                    return this.getPostgresql().getMappingProperties();
                 default:
                     return new Properties();
             }
@@ -187,29 +189,29 @@ public class DttProperties {
         public Properties getPropsByDbTypeJavaTypeIsLowerCase(DatabaseType databaseType) {
             switch (databaseType) {
                 case DB2:
-                    return convertJavaDataTypeToLowercase(getDb2());
+                    return this.convertJavaTypeToLowercase(getDb2().getMappingProperties());
                 case MYSQL:
-                    return convertJavaDataTypeToLowercase(getMysql());
+                    return this.convertJavaTypeToLowercase(getMysql().getMappingProperties());
                 case ORACLE:
-                    return convertJavaDataTypeToLowercase(getOracle());
+                    return this.convertJavaTypeToLowercase(getOracle().getMappingProperties());
                 case MARIADB:
-                    return convertJavaDataTypeToLowercase(getMariadb());
+                    return this.convertJavaTypeToLowercase(getMariadb().getMappingProperties());
                 case SQLSERVER:
-                    return convertJavaDataTypeToLowercase(getSqlserver());
+                    return this.convertJavaTypeToLowercase(getSqlserver().getMappingProperties());
                 case POSTGRESQL:
-                    return convertJavaDataTypeToLowercase(getPostgresql());
+                    return this.convertJavaTypeToLowercase(getPostgresql().getMappingProperties());
                 default:
                     return new Properties();
             }
         }
 
         /**
-         * convert java data types to lowercase
+         * Convert java data types to lowercase
          *
          * @param properties key 大写
          * @return key 大写
          */
-        protected Properties convertJavaDataTypeToLowercase(Properties properties) {
+        protected Properties convertJavaTypeToLowercase(Properties properties) {
             Properties need = new Properties();
             properties.forEach((k, v) -> need.put(k.toString().toLowerCase(), v));
             return need;

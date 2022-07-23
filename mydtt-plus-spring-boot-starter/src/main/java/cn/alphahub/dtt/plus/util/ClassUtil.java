@@ -42,6 +42,7 @@ public class ClassUtil {
     public static <T> T invoke(Method method, Class<?> aClass) {
         method.setAccessible(true);
         try {
+            method.setAccessible(true);
             return (T) method.invoke(ClassUtils.newInstance(aClass));
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new ParseException(e.getLocalizedMessage(), e);
