@@ -40,6 +40,15 @@ public interface DttCommentParser<T> extends DttContext<T> {
     Logger logger = LoggerFactory.getLogger(DttCommentParser.class);
 
     /**
+     * 解析全限定类名到数据表结构模型
+     *
+     * @param fullyQualifiedClassName fully qualified class name of model
+     * @return 数据表结构模型
+     */
+    @Override
+    ParseFactory<T> parse(String fullyQualifiedClassName);
+
+    /**
      * 根绝java枚举类型解析数据库枚举类型
      *
      * @param field      Java field
@@ -108,14 +117,6 @@ public interface DttCommentParser<T> extends DttContext<T> {
 
         return dbDataType;
     }
-
-    /**
-     * 解析全限定类名到数据表结构模型
-     *
-     * @param fullyQualifiedClassName fully qualified class name of model
-     * @return 数据表结构模型
-     */
-    ParseFactory<T> parse(String fullyQualifiedClassName);
 
     /**
      * 处理没有不加注释、不加注解的

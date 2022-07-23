@@ -5,8 +5,6 @@ import cn.alphahub.dtt.plus.exception.ParseException;
 import com.baomidou.mybatisplus.core.toolkit.ClassUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +24,6 @@ import java.util.stream.Collectors;
  * @date 2022/7/17
  */
 public class ClassUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(ClassUtil.class);
 
     private ClassUtil() {
     }
@@ -39,6 +36,7 @@ public class ClassUtil {
      * @param aClass which Class be invoked
      * @return value of the given method，default value
      */
+    @SuppressWarnings({"all"})
     public static <T> T invoke(Method method, Class<?> aClass) {
         method.setAccessible(true);
         try {
@@ -101,10 +99,7 @@ public class ClassUtil {
     public static List<Method> getAllPublicGetterMethods(Class<?> aClass) {
         if (null == aClass) return Collections.emptyList();
         List<Field> fields = getAllDeclaredFields(aClass);
-        List<Method> methods = Arrays.stream(aClass.getDeclaredMethods())
-                .distinct().collect(Collectors.toList()).stream()
-                .filter(method -> method.getName().startsWith(Constants.GET) && !method.getName().equals("getClass"))
-                .collect(Collectors.toList());
+        List<Method> methods = Arrays.stream(aClass.getDeclaredMethods()).distinct().collect(Collectors.toList()).stream().filter(method -> method.getName().startsWith(Constants.GET) && !method.getName().equals("getClass")).collect(Collectors.toList());
 
         List<Method> orderConsistentMethods = new ArrayList<>();
         // keep the order of all getter methods consistent
@@ -133,11 +128,7 @@ public class ClassUtil {
      * @return All private declared fields
      */
     public static List<Field> getAllDeclaredFields(Class<?> aClass) {
-        return Arrays.stream(aClass.getDeclaredFields()).collect(Collectors.toList()).stream()
-                .filter(field -> !Constants.SERIAL_VERSION_UID.equals(field.getName()))
-                .filter(field -> !field.getType().isInterface())
-                .filter(field -> !field.getType().isArray())
-                .collect(Collectors.toList());
+        return Arrays.stream(aClass.getDeclaredFields()).collect(Collectors.toList()).stream().filter(field -> !Constants.SERIAL_VERSION_UID.equals(field.getName())).filter(field -> !field.getType().isInterface()).filter(field -> !field.getType().isArray()).collect(Collectors.toList());
     }
 
     /**

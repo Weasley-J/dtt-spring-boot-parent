@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.ExecutorType;
@@ -95,7 +94,7 @@ public class MybatisDataSourceConfigurer {
             configuration = mybatisPlus.getConfiguration();
         }
         Environment environment = new Environment
-                .Builder(RandomStringUtils.randomNumeric(10))
+                .Builder("333666999")
                 .dataSource(dataSource)
                 .transactionFactory(new JdbcTransactionFactory())
                 .build();
@@ -294,8 +293,8 @@ public class MybatisDataSourceConfigurer {
         }
 
         /**
-         * @since 1.2.0
          * @param configurationProperties configurationProperties
+         * @since 1.2.0
          */
         public void setConfigurationProperties(Properties configurationProperties) {
             this.configurationProperties = configurationProperties;
