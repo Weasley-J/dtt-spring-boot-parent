@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMG='mcr.microsoft.com/mssql/server:2022-latest'
+IMG='mcr.microsoft.com/mssql/server:latest'
 WORK_DIR='/usr/local/sqlserver'
 CONTAINER='sqlserver'
 
