@@ -34,20 +34,22 @@ alphahub:
           LocalDateTime: ''
           Enum: ''
       mariadb:
+        default-charset: utf8mb4
+        default-collate: utf8mb4_general_ci
         mapping-properties:
-          String: ''
-          Boolean: ''
-          Float: ''
-          Double: ''
-          Integer: ''
-          Long: ''
-          BigDecimal: ''
-          Date: ''
-          LocalTime: ''
-          LocalDate: ''
-          Timestamp: ''
-          LocalDateTime: ''
-          Enum: ''
+          String: varchar
+          Boolean: tinyint
+          Float: float
+          Double: double
+          Integer: int
+          Long: bigint
+          BigDecimal: decimal
+          Date: datetime
+          LocalTime: time
+          LocalDate: date
+          Timestamp: timestamp
+          LocalDateTime: datetime
+          Enum: enum
       mysql:
         default-charset: utf8mb4
         default-collate: utf8mb4_general_ci
@@ -138,6 +140,20 @@ alphahub:
           - text: url,link
             length: 128
           - text: _msg,message,remark,
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: MARIADB
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
             length: 512
           - text: request,response,body,text,content
             length: 768
