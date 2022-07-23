@@ -7,8 +7,8 @@ logging:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.31.23/[DATABASE_NAME]
-    username: ''
+    url: jdbc:postgresql://192.168.31.23:5432/dtt_demo
+    username: root
     password: 123456
 
 mybatis:
