@@ -30,6 +30,6 @@ alphahub:
       enable: true
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
-   data-type-mapper:
-     oracle:
-       enable-oracle-column-upper-case: on
+    data-type-mapper:
+      oracle:
+        enable-oracle-column-upper-case: on
