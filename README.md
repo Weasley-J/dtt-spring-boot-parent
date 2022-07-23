@@ -570,12 +570,12 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 
 | database     | version           | adaptation |
 | ------------ | ----------------- | ---------- |
-| `mysql`      | 5.7+              | adapted    |
-| `oracle`     | 11.2.x  or latest | adapted    |
-| `db2`        |                   |            |
-| `sqlserver`  |                   |            |
-| `mariadb`    |                   |            |
-| `postgresql` |                   |            |
+| `mysql`      | 5.7+ or latest    | ✅          |
+| `oracle`     | 11.2.x  or latest | ✅          |
+| `db2`        | 10.x or latest    | ⌛          |
+| `sqlserver`  |                   | ⌛          |
+| `mariadb`    |                   | ✅          |
+| `postgresql` |                   | ⌛          |
 
 
 
