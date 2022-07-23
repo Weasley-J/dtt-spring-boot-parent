@@ -25,7 +25,7 @@ import java.util.Objects;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getDeclaredField;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 
 /**
  * 解析Java doc注释
@@ -127,7 +127,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
                 printMethodJavadoc(methodDoc);
             }
 
-            List<Method> publicMethods = getPublicGetterMethods(clazz);
+            List<Method> publicMethods = getAllPublicGetterMethods(clazz);
 
             // Methods
             List<ModelEntity.Detail> details = new ArrayList<>();

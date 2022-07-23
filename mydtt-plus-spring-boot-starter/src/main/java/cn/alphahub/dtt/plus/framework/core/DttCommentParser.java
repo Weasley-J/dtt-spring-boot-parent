@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
-import static cn.alphahub.dtt.plus.util.ClassUtil.getPublicGetterMethods;
+import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
@@ -134,7 +134,7 @@ public interface DttCommentParser<T> extends DttContext<T> {
                     String realDbDataType = this.parseDbDataType(field, originalDbDataType);
 
                     Object invoke = null;
-                    for (Method method : getPublicGetterMethods(aClass)) {
+                    for (Method method : getAllPublicGetterMethods(aClass)) {
                         String fieldProps = StringUtils.firstToLowerCase(method.getName().substring(Constants.GET.length()));
                         if (Objects.equals(fieldProps, field.getName())) {
                             invoke = ClassUtil.invoke(method, aClass);

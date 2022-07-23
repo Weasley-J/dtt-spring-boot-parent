@@ -30,7 +30,7 @@ class ClassUtilTest {
 
     @Test
     void contextLoads2() {
-        List<Method> methods = ClassUtil.getPublicGetterMethods(DttMember.class);
+        List<Method> methods = ClassUtil.getAllPublicGetterMethods(DttMember.class);
         methods.forEach(method -> {
             System.out.println(ReflectionUtil.methodNameToProperty(method.getName()) + " <---> " + ReflectionUtil.methodNameToUnderline(method.getName()));
         });
