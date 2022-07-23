@@ -42,7 +42,6 @@ public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
      * Batch update pure sql array
      *
      * @param sql pure sql array
-     * @return failure, success
      */
     @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void batchExecute(String... sql) throws DataAccessException {

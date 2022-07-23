@@ -157,6 +157,8 @@ public class InitDttClient {
     /**
      * The property for your database
      *
+     * @param dataSource           dataSource
+     * @param dataSourceProperties dataSourceProperties
      * @return DatabaseProperty
      */
     @Bean

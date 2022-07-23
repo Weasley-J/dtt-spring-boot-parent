@@ -40,6 +40,7 @@ public class ClassUtil {
      * @return value of the given method，default value
      */
     public static <T> T invoke(Method method, Class<?> aClass) {
+        method.setAccessible(true);
         try {
             method.setAccessible(true);
             return (T) method.invoke(ClassUtils.newInstance(aClass));
@@ -123,9 +124,9 @@ public class ClassUtil {
      * <p>
      * Exclude the type of field Type in the following cases:
      * <ul>
-     *     <li>isArray</li>
-     *     <li>isInterface</li>
-     *     <li>serialVersionUID</li>
+     *   <li>isArray</li>
+     *   <li>isInterface</li>
+     *   <li>serialVersionUID</li>
      * </ul>
      *
      * @param aClass class对象
@@ -140,7 +141,7 @@ public class ClassUtil {
     }
 
     /**
-     * load class
+     * Load class
      *
      * @param fullyQualifiedClassName fully qualified class name
      * @return the class represented by className using the current thread's context class loader(class be initialized)
@@ -160,7 +161,7 @@ public class ClassUtil {
      * @param aClass    the given class
      * @return Field
      */
-    public static Field getAllDeclaredFields(Class<?> aClass, String fieldName) {
+    public static Field getDeclaredField(Class<?> aClass, String fieldName) {
         try {
             return aClass.getDeclaredField(fieldName);
         } catch (NoSuchFieldException e) {

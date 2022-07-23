@@ -22,7 +22,7 @@ class ClassUtilTest {
 
     @Test
     void contextLoads() {
-        Field memberType = ClassUtil.getAllDeclaredFields(DttMember.class, "memberType");
+        Field memberType = ClassUtil.getDeclaredField(DttMember.class, "memberType");
         String[] enumTypeStringValues = ClassUtil.getEnumTypeStringValues(memberType);
         System.out.println(JacksonUtil.toJson(enumTypeStringValues));
     }
