@@ -78,6 +78,7 @@
             <version>5.8.4</version>
         </dependency>
 
+        <!-- jdbc start -->
         <!-- db2 -->
         <dependency>
             <groupId>com.ibm.db2</groupId>
@@ -114,7 +115,7 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-
+        <!-- jdbc end -->
     </dependencies>
 
     <build>

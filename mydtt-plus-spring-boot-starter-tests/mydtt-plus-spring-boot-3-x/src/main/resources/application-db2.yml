@@ -1,14 +1,14 @@
 logging:
   level:
     #cn.alphahub.dtt.plus.framework.core.DefaultTemplateResolver: debug
-    #org.springframework.jdbc.core.JdbcTemplate: debug
+    org.springframework.jdbc.core.JdbcTemplate: debug
     jdbc.sqltiming: debug
 
 spring:
   datasource:
     driver-class-name: com.ibm.db2.jcc.DB2Driver
-    url: jdbc:db2://192.168.31.23:[PORT]/[DATABASE_NAME]
-    username: ''
+    url: jdbc:db2://192.168.31.23:50000/testdb
+    username: weasley
     password: 123456
 
 mybatis:

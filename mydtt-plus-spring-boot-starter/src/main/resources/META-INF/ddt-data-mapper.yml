@@ -159,3 +159,45 @@ alphahub:
             length: 512
           - text: request,response,body,text,content
             length: 768
+      - database-type: SQLSERVER
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: POSTGRESQL
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: DB2
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768

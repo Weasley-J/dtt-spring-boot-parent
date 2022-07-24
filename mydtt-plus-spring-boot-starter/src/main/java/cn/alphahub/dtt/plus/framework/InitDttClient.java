@@ -30,6 +30,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.DatabaseMetaData;
@@ -38,7 +39,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -55,16 +55,18 @@ import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
  * @date 2022/7/12
  */
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter({MybatisDataSourceConfigurer.class})
 @AutoConfigureBefore({InitDttHandler.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
+@AutoConfigureAfter({MybatisDataSourceConfigurer.class})
 @EnableConfigurationProperties({DttProperties.class, DataSourceProperties.class})
 public class InitDttClient {
     private static final Logger logger = LoggerFactory.getLogger(InitDttClient.class);
     @Autowired
-    private ApplicationContext applicationContext;
+    private JdbcTemplate jdbcTemplate;
     @Autowired
     private DatabaseHandler databaseHandler;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     /**
      * @return comment parser client map
@@ -116,6 +118,7 @@ public class InitDttClient {
      * @return DTT context wrapper
      */
     @Bean
+    @SuppressWarnings({"all"})
     @DependsOn({"commentParserClient", "commentParserClient"})
     public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
                                          @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
@@ -169,6 +172,8 @@ public class InitDttClient {
         try {
             if (databaseHandler.getDbType() == DatabaseType.ORACLE)
                 databaseName = dataSourceProperties.getUsername();
+            if (databaseHandler.getDbType() == DatabaseType.DB2)
+                databaseName = jdbcTemplate.queryForObject("SELECT CURRENT SERVER FROM SYSIBM.SYSDUMMY1", String.class);
             @SuppressWarnings({"all"}) DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
             property.setDatabaseVersion(metaData.getDatabaseProductVersion());
             property.setIntDatabaseVersion(metaData.getDatabaseMajorVersion());
@@ -176,7 +181,9 @@ public class InitDttClient {
             String dataURL = metaData.getURL();
             while (result.next()) {
                 String databaseNameTemp = result.getString(1);
-                if (!Objects.requireNonNull(databaseHandler.getDbType()).name().equalsIgnoreCase(databaseNameTemp) && dataURL.contains(databaseNameTemp)) {
+                if (org.apache.commons.lang3.StringUtils.isNotBlank(databaseNameTemp)
+                        && !databaseHandler.getDbType().name().equalsIgnoreCase(databaseNameTemp)
+                        && dataURL.contains(databaseNameTemp)) {
                     databaseName = databaseNameTemp;
                     break;
                 }
