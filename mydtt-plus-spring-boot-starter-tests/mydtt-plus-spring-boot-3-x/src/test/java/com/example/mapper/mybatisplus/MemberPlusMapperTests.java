@@ -26,7 +26,7 @@ class MemberPlusMapperTests {
 
     @Test
     void selectOne() {
-        DttMember member = memberPlusMapper.selectOne(Wrappers.lambdaQuery(DttMember.class).eq(DttMember::getId, 1));
+        DttMember dttMember = memberPlusMapper.selectById(1);
     }
 
     @Test

@@ -11,7 +11,7 @@ spring:
     username: weasley
     password: 123456
 
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
   type-aliases-package: com.example.domain.dtt,com.example.domain.order
   global-config:
@@ -29,3 +29,6 @@ alphahub:
       enable: true
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
+    data-type-mapper:
+      db2:
+        enable-column-upper-case: off

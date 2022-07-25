@@ -37,10 +37,6 @@ import java.util.stream.Collectors;
 @EnableConfigurationProperties({OracleDataMapperProperties.class})
 public class DefaultOracleTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultOracleTableHandler.class);
-    /**
-     * Oracle maximum number of failed attempts to execute create table SQL
-     */
-    private static final int CREATE_TABLE_RETRY_MAX_COUNT = 3;
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -95,7 +91,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
      * @param sqlArray The array of TemplateSQL split with  ';'
      * @return A filtered SQL array composed of a single SQL
      */
-    private String[] parseTemplateSQLIntoSQLArray(String[] sqlArray) {
+    public String[] parseTemplateSQLIntoSQLArray(String[] sqlArray) {
         return Arrays.stream(sqlArray).map(sql -> {
             if (sql.startsWith(SysUtil.getLineSeparator()))
                 return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
@@ -129,6 +125,10 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
 
     /**
      * 处理Oracle数据类型
+     * <ul>
+     *     <li>Boolean</li>
+     *     <li>Enum</li>
+     * </ul>
      *
      * @param model 域模型信息
      */

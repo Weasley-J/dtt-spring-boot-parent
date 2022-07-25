@@ -3,6 +3,7 @@ package com.example.mapper.dtt;
 import com.example.domain.dtt.DttMember;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -65,4 +66,7 @@ public interface MemberMapper {
     int updateBatchSelective(List<DttMember> list);
 
     int batchInsert(@Param("list") List<DttMember> list);
+
+    @Select("SELECT * FROM TESTDB.DTT_MEMBER WHERE ID = #{id}")
+    DttMember selectById(long id);
 }

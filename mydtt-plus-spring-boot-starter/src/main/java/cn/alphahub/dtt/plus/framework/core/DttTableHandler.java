@@ -18,6 +18,11 @@ import java.util.stream.Collectors;
 @FunctionalInterface
 public interface DttTableHandler<T> extends DttContext<T> {
     /**
+     * The maximum number of failed attempts to execute create table SQL
+     */
+    int CREATE_TABLE_RETRY_MAX_COUNT = 3;
+
+    /**
      * create table
      *
      * @param parseFactory 数据模型解析结果

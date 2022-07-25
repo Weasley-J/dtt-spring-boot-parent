@@ -23,9 +23,12 @@ mybatis:
 
 alphahub:
   dtt:
-    is-enable: on
+    is-enable: off
     show-sql: on
     all-in-one-table:
       enable: true
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
+    data-type-mapper:
+      db2:
+        enable-column-upper-case: off

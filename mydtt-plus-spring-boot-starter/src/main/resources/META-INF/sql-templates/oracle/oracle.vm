@@ -24,7 +24,7 @@ CREATE TABLE ${databaseName}"${modelName}"
     #end
 #end
 );
-COMMENT ON TABLE ${databaseName}"${modelName}" is '${modelComment}';
+COMMENT ON TABLE ${databaseName}"${modelName}" IS '${modelComment}';
 #foreach(${detail} in ${details})
-COMMENT ON COLUMN ${databaseName}"${modelName}"."${detail.filedName}" is '${detail.filedComment}';
+COMMENT ON COLUMN ${databaseName}"${modelName}"."${detail.filedName}" IS '${detail.filedComment}';
 #end

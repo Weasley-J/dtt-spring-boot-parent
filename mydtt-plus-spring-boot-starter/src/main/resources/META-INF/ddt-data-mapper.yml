@@ -19,20 +19,21 @@ alphahub:
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       db2:
+        enable-column-upper-case: true
         mapping-properties:
-          String: ''
-          Boolean: ''
-          Float: ''
-          Double: ''
-          Integer: ''
-          Long: ''
-          BigDecimal: ''
-          Date: ''
-          LocalTime: ''
-          LocalDate: ''
-          Timestamp: ''
-          LocalDateTime: ''
-          Enum: ''
+          String: VARCHAR
+          Boolean: BOOLEAN
+          Float: DECFLOAT
+          Double: DOUBLE
+          Integer: INTEGER
+          Long: BIGINT
+          BigDecimal: DECIMAL
+          Date: TIMESTAMP
+          LocalTime: TIME
+          LocalDate: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: VARCHAR
       mariadb:
         default-engine: InnoDB
         default-charset: utf8mb4

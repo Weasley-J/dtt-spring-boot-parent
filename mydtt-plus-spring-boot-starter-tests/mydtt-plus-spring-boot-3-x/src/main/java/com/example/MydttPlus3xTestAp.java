@@ -2,6 +2,7 @@ package com.example;
 
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import com.example.domain.dtt.DttMember;
 import com.example.domain.order.GoodsCarriageTemplate;
 import com.example.domain.order.NearPharmacyDto;
 import com.example.domain.order.TradeOrder;
@@ -24,7 +25,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 //OmsOrderInquiry.class
                 //DttPerson.class,
                 //DttMember.class,
-                //GoodsCarriageTemplate.class, NearPharmacyDto.class,
+                //GoodsCarriageTemplate.class,
+                //NearPharmacyDto.class,
         }
 )
 @SpringBootApplication

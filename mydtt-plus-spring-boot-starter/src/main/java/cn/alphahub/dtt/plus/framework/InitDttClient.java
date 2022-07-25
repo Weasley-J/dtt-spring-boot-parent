@@ -19,7 +19,6 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -30,6 +29,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -61,19 +61,13 @@ import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
 @EnableConfigurationProperties({DttProperties.class, DataSourceProperties.class})
 public class InitDttClient {
     private static final Logger logger = LoggerFactory.getLogger(InitDttClient.class);
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private DatabaseHandler databaseHandler;
-    @Autowired
-    private ApplicationContext applicationContext;
 
     /**
      * @return comment parser client map
      */
-    @Bean
     @SuppressWarnings({"all"})
-    public Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient() {
+    @Bean
+    public Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient(ApplicationContext applicationContext) {
         Map<ParserType, DttCommentParser<ModelEntity>> client = new ConcurrentHashMap<>(1);
         Map<String, DttCommentParser> commentParserMap = applicationContext.getBeansOfType(DttCommentParser.class);
         if (CollectionUtils.isNotEmpty(commentParserMap)) {
@@ -90,10 +84,10 @@ public class InitDttClient {
     /**
      * @return table handler map
      */
-    @Bean
     @SuppressWarnings({"all"})
+    @Bean
     @DependsOn({"commentParserClient"})
-    public Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient() {
+    public Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient(ApplicationContext applicationContext, DatabaseHandler databaseHandler) {
         Map<DatabaseType, DttTableHandler<ModelEntity>> client = new ConcurrentHashMap<>(16);
         Map<String, DttTableHandler> tableHandlerMap = applicationContext.getBeansOfType(DttTableHandler.class);
         if (CollectionUtils.isNotEmpty(tableHandlerMap)) {
@@ -117,12 +111,14 @@ public class InitDttClient {
      * @param dttProperties       dttProperties
      * @return DTT context wrapper
      */
-    @Bean
     @SuppressWarnings({"all"})
+    @Bean
     @DependsOn({"commentParserClient", "commentParserClient"})
     public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
                                          @Qualifier("tableHandlerClient") Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient,
-                                         DttProperties dttProperties) {
+                                         DttProperties dttProperties,
+                                         DatabaseHandler databaseHandler
+    ) {
 
         if (dttProperties.getBannerMode() == BannerMode.ON) DttBanner.getInstance().printBanner();
 
@@ -138,7 +134,7 @@ public class InitDttClient {
             Map<DatabaseType, StringLengthMapper> mapperMap = lengthMappers.stream().collect(Collectors.toMap(StringLengthMapper::getDatabaseType, v -> v));
             if (ObjectUtils.isNotEmpty(mapperMap)) {
                 StringLengthMapper stringLengthMapper = mapperMap.get(databaseHandler.getDbType());
-                if (null != stringLengthMapper) {
+                if (ObjectUtils.allNotNull(stringLengthMapper)) {
                     List<LengthProperties> lengthConfigs = stringLengthMapper.getLengthConfigs();
                     if (ObjectUtils.isNotEmpty(lengthConfigs)) {
                         Map<String, Integer> textLengthPropertiesMap = lengthConfigs.stream().collect(Collectors.toMap(LengthProperties::getText, LengthProperties::getLength));
@@ -165,15 +161,27 @@ public class InitDttClient {
      * @return DatabaseProperty
      */
     @Bean
-    public DatabaseProperty databaseProperty(DataSource dataSource, DataSourceProperties dataSourceProperties) {
+    public DatabaseProperty databaseProperty(DataSource dataSource,
+                                             DataSourceProperties dataSourceProperties,
+                                             JdbcTemplate jdbcTemplate,
+                                             DatabaseHandler databaseHandler
+    ) {
         DatabaseProperty property = new DatabaseProperty();
         property.setDatabaseType(databaseHandler.getDbType());
         String databaseName = "";
-        try {
-            if (databaseHandler.getDbType() == DatabaseType.ORACLE)
-                databaseName = dataSourceProperties.getUsername();
-            if (databaseHandler.getDbType() == DatabaseType.DB2)
+        if (databaseHandler.getDbType() == DatabaseType.ORACLE)
+            databaseName = dataSourceProperties.getUsername();
+        if (databaseHandler.getDbType() == DatabaseType.DB2) {
+            try {
                 databaseName = jdbcTemplate.queryForObject("SELECT CURRENT SERVER FROM SYSIBM.SYSDUMMY1", String.class);
+                if (null == databaseName || "NULL".equals(databaseName) || "null".equals(databaseName)) {
+                    databaseName = "";
+                }
+            } catch (DataAccessException e) {
+                logger.warn("{}", e.getLocalizedMessage(), e);
+            }
+        }
+        try {
             @SuppressWarnings({"all"}) DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
             property.setDatabaseVersion(metaData.getDatabaseProductVersion());
             property.setIntDatabaseVersion(metaData.getDatabaseMajorVersion());

@@ -1,2 +1,28 @@
-
-
+#if(${dropTableBeforeCreate})
+DROP TABLE IF EXISTS ${databaseName}"${modelName}";
+#end
+CREATE TABLE ${databaseName}"${modelName}"
+(
+#foreach($detail in $details)
+    #if($detail.isPrimaryKey)
+    "$detail.filedName"    $detail.databaseDataType NOT NULL,
+    #elseif($detail.javaDataType == 'String' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
+    #elseif($detail.databaseDataType.toLowerCase().equals("timestamp")
+    && ($detail.filedName.toLowerCase().contains("update_time")
+    || $detail.filedName.toLowerCase().contains("change_time")
+    || $detail.filedName.toLowerCase().contains("mod_time")
+    || $detail.filedName.toLowerCase().contains("modified_time")))
+    "$detail.filedName"    TIMESTAMP(6) DEFAULT CURRENT TIMESTAMP,
+    #else
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #end
+#end
+    PRIMARY KEY ("${primaryKey}")
+);
+COMMENT ON TABLE ${databaseName}"${modelName}" IS '${modelComment}';
+#foreach(${detail} in ${details})
+COMMENT ON COLUMN ${databaseName}"${modelName}"."${detail.filedName}" IS '${detail.filedComment}';
+#end

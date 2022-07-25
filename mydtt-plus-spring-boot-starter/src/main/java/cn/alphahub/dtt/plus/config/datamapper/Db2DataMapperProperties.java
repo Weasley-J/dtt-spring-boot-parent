@@ -15,6 +15,10 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper.db2")
 public class Db2DataMapperProperties {
     /**
+     * Whether to enable db2 database columns' name in uppercase
+     */
+    private Boolean enableColumnUpperCase = true;
+    /**
      * key: java type; value: db2 type
      */
     private Properties mappingProperties;
