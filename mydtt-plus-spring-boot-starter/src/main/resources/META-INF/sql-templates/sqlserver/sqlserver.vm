@@ -7,7 +7,8 @@ IF EXISTS(SELECT *
 GO
 #end
 CREATE TABLE [dbo].[${modelName}]
-(#foreach(${detail} in ${details})
+(
+#foreach(${detail} in ${details})
     #if($detail.isPrimaryKey)
     [$detail.filedName]    $detail.databaseDataType PRIMARY KEY NOT NULL,
     #elseif($detail.javaDataType == 'String')

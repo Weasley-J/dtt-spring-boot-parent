@@ -5,14 +5,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[express_kdyb_data]
 GO
 CREATE TABLE [dbo].[express_kdyb_data]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [time]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [ftime]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [status]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [area_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [area_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [context]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -71,14 +71,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_assets_relation_item]
 GO
 CREATE TABLE [dbo].[order_assets_relation_item]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_id]    int DEFAULT NULL,
     [order_item_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_item_id]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -139,7 +139,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_assets_extend]
 GO
 CREATE TABLE [dbo].[order_assets_extend]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [assets_package_id]    bigint DEFAULT NULL,
     [assets_card_template_id]    int DEFAULT NULL,
@@ -161,7 +162,6 @@ CREATE TABLE [dbo].[order_assets_extend]
     [activate_end_time]    datetime2 DEFAULT NULL,
     [sku_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_item_id]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -312,9 +312,9 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[lottery_batchno_generator]
 GO
 CREATE TABLE [dbo].[lottery_batchno_generator]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [created_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -345,7 +345,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[express_record]
 GO
 CREATE TABLE [dbo].[express_record]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [com_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [com_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [exp_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -357,7 +358,6 @@ CREATE TABLE [dbo].[express_record]
     [sign_time]    datetime2 DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -448,7 +448,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_item]
 GO
 CREATE TABLE [dbo].[order_item]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [goods_id]    int DEFAULT NULL,
     [sku_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -513,7 +514,6 @@ CREATE TABLE [dbo].[order_item]
     [warehouse_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [warehouse_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [send_supplier_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -922,7 +922,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_local_delivery]
 GO
 CREATE TABLE [dbo].[order_local_delivery]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_item_id]    int DEFAULT NULL,
     [sku_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -940,7 +941,6 @@ CREATE TABLE [dbo].[order_local_delivery]
     [predict_delivery_time]    time DEFAULT NULL,
     [delivery_num]    bigint DEFAULT NULL,
     [delivery_outer_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1067,7 +1067,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_three_import_batch]
 GO
 CREATE TABLE [dbo].[order_three_import_batch]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [batch_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL,
@@ -1077,7 +1078,6 @@ CREATE TABLE [dbo].[order_three_import_batch]
     [order_import_status]    int DEFAULT NULL,
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1156,7 +1156,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[promotion_order_goods]
 GO
 CREATE TABLE [dbo].[promotion_order_goods]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [activity_type]    int DEFAULT NULL,
     [activity_id]    int DEFAULT NULL,
@@ -1168,7 +1169,6 @@ CREATE TABLE [dbo].[promotion_order_goods]
     [activity_price]    decimal DEFAULT NULL,
     [discount_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1259,7 +1259,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_refund_voucher]
 GO
 CREATE TABLE [dbo].[order_refund_voucher]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_id]    int DEFAULT NULL,
     [refund_voucher_url]    varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -1270,7 +1271,6 @@ CREATE TABLE [dbo].[order_refund_voucher]
     [create_time]    datetime2 DEFAULT NULL,
     [delete_flag]    int DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1355,7 +1355,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_three_refund]
 GO
 CREATE TABLE [dbo].[order_three_refund]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel_order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [sku_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -1364,7 +1365,6 @@ CREATE TABLE [dbo].[order_three_refund]
     [refund_reason]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [create_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1437,14 +1437,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_audiologist_remark]
 GO
 CREATE TABLE [dbo].[order_audiologist_remark]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [doctor_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [audiologist_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [configuration_location]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [shipper]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [accessories_details]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1505,13 +1505,13 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_compliance_switch_log]
 GO
 CREATE TABLE [dbo].[rx_compliance_switch_log]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [switch_id]    int DEFAULT NULL,
     [switch_type]    int DEFAULT NULL,
     [remark]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1566,7 +1566,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_global_buy]
 GO
 CREATE TABLE [dbo].[order_global_buy]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [customs_bill_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [bill_status]    int DEFAULT NULL,
@@ -1587,7 +1588,6 @@ CREATE TABLE [dbo].[order_global_buy]
     [link_status]    int DEFAULT NULL,
     [link_content]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [link_service_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -1734,7 +1734,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_inquiry]
 GO
 CREATE TABLE [dbo].[order_inquiry]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [inquiry_type]    int DEFAULT NULL,
     [roam_status]    int DEFAULT NULL,
@@ -1775,7 +1776,6 @@ CREATE TABLE [dbo].[order_inquiry]
     [consult_order_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [consult_status]    int DEFAULT NULL,
     [consult_date]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2040,7 +2040,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[goods_carriage_template]
 GO
 CREATE TABLE [dbo].[goods_carriage_template]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [supplier_id]    int DEFAULT NULL,
     [carriage_type]    int DEFAULT NULL,
@@ -2054,7 +2055,6 @@ CREATE TABLE [dbo].[goods_carriage_template]
     [end_distance]    float DEFAULT NULL,
     [start_time]    time DEFAULT NULL,
     [end_time]    time DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2157,10 +2157,10 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_goods_statistics]
 GO
 CREATE TABLE [dbo].[order_goods_statistics]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [goods_id]    int DEFAULT NULL,
     [sale_amount]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2197,7 +2197,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_payment_line]
 GO
 CREATE TABLE [dbo].[order_payment_line]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [payment_status]    int DEFAULT NULL,
     [payment_date]    datetime2 DEFAULT NULL,
@@ -2212,7 +2213,6 @@ CREATE TABLE [dbo].[order_payment_line]
     [del_flag]    int DEFAULT NULL,
     [pos_sn]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [combine_amount]    decimal DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2321,7 +2321,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_compliance_switch_user]
 GO
 CREATE TABLE [dbo].[rx_compliance_switch_user]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [switch_status]    int DEFAULT NULL,
     [remark]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [platform_id]    int DEFAULT NULL,
@@ -2331,7 +2332,6 @@ CREATE TABLE [dbo].[rx_compliance_switch_user]
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [update_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2410,14 +2410,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[lottery_meeting_user]
 GO
 CREATE TABLE [dbo].[lottery_meeting_user]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [oa_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [mobile]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [user_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [qualification_flag]    int DEFAULT NULL,
     [delete_flag]    int DEFAULT NULL,
     [created_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2478,7 +2478,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_share_detail]
 GO
 CREATE TABLE [dbo].[order_share_detail]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [usage_type]    int DEFAULT NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -2495,7 +2496,6 @@ CREATE TABLE [dbo].[order_share_detail]
     [share_domain_key]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2616,7 +2616,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_operation_log]
 GO
 CREATE TABLE [dbo].[order_operation_log]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [log_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [refund_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -2628,7 +2629,6 @@ CREATE TABLE [dbo].[order_operation_log]
     [operation_result]    int DEFAULT NULL,
     [creator]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2719,7 +2719,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_compliance_switch_endpoint]
 GO
 CREATE TABLE [dbo].[rx_compliance_switch_endpoint]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [endpoint]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [endpoint_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [switch_status]    int DEFAULT NULL,
@@ -2729,7 +2730,6 @@ CREATE TABLE [dbo].[rx_compliance_switch_endpoint]
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [update_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2808,7 +2808,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_extend]
 GO
 CREATE TABLE [dbo].[order_extend]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [insurance_service_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [insurance_service_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -2826,7 +2827,6 @@ CREATE TABLE [dbo].[order_extend]
     [day_serial_number]    int DEFAULT NULL,
     [inquiry_review]    int DEFAULT NULL,
     [reserved_mobile]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -2953,14 +2953,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[log_outer_reqst]
 GO
 CREATE TABLE [dbo].[log_outer_reqst]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [outer_code]    int DEFAULT NULL,
     [outer_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [request_uri]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [request_params]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [response_result]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -3021,7 +3021,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_express]
 GO
 CREATE TABLE [dbo].[order_express]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_item_id]    int DEFAULT NULL,
     [goods_num]    int DEFAULT NULL,
@@ -3033,7 +3034,6 @@ CREATE TABLE [dbo].[order_express]
     [create_time]    datetime2 DEFAULT NULL,
     [del_flag]    int DEFAULT NULL,
     [create_user_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -3124,7 +3124,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_yaofang_split]
 GO
 CREATE TABLE [dbo].[order_yaofang_split]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [original_order_id]    int DEFAULT NULL,
     [original_order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [split_order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -3163,7 +3164,6 @@ CREATE TABLE [dbo].[order_yaofang_split]
     [del_flag]    int DEFAULT NULL,
     [prescribe_result]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [goods_num]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -3416,7 +3416,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_refund]
 GO
 CREATE TABLE [dbo].[order_refund]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [refund_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -3464,7 +3465,6 @@ CREATE TABLE [dbo].[order_refund]
     [invoice_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [express_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [picture_url]    varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -3771,7 +3771,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_promotion]
 GO
 CREATE TABLE [dbo].[order_promotion]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [promotion_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [promotion_type]    int DEFAULT NULL,
@@ -3785,7 +3786,6 @@ CREATE TABLE [dbo].[order_promotion]
     [coupon_platform]    int DEFAULT NULL,
     [promotion_sub_type]    int DEFAULT NULL,
     [promotion_sub_type_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -3888,7 +3888,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_three_import_fail_item]
 GO
 CREATE TABLE [dbo].[order_three_import_fail_item]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [batch_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel_store_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -3915,7 +3916,6 @@ CREATE TABLE [dbo].[order_three_import_fail_item]
     [fosun_goods_spec]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4096,12 +4096,12 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_template_content]
 GO
 CREATE TABLE [dbo].[carriage_template_content]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_id]    int DEFAULT NULL,
     [region_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [base_carriage_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4150,7 +4150,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_bang_log]
 GO
 CREATE TABLE [dbo].[order_bang_log]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [doctor_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [buyer_id]    int DEFAULT NULL,
@@ -4158,7 +4159,6 @@ CREATE TABLE [dbo].[order_bang_log]
     [goods_info]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [mq]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4225,12 +4225,12 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[lottery_meeting_winner]
 GO
 CREATE TABLE [dbo].[lottery_meeting_winner]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [batch_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [oa_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [delete_flag]    int DEFAULT NULL,
     [created_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4279,11 +4279,11 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_batch_ship_req]
 GO
 CREATE TABLE [dbo].[order_batch_ship_req]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [invoice_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [com_code_kdyb]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4324,7 +4324,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_three_import_success_item]
 GO
 CREATE TABLE [dbo].[order_three_import_success_item]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [batch_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [channel_store_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -4356,7 +4357,6 @@ CREATE TABLE [dbo].[order_three_import_success_item]
     [order_import_status]    int DEFAULT NULL,
     [refund_amount]    decimal DEFAULT NULL,
     [sms_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4567,7 +4567,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_compliance_switch]
 GO
 CREATE TABLE [dbo].[rx_compliance_switch]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [switch_status]    int DEFAULT NULL,
     [remark]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [platform_id]    int DEFAULT NULL,
@@ -4578,7 +4579,6 @@ CREATE TABLE [dbo].[rx_compliance_switch]
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [update_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4663,10 +4663,10 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[region_province_mapping]
 GO
 CREATE TABLE [dbo].[region_province_mapping]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [province]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [region_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4703,7 +4703,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[car_item]
 GO
 CREATE TABLE [dbo].[car_item]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [car_id]    int DEFAULT NULL,
     [sku_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [number]    int DEFAULT NULL,
@@ -4711,7 +4712,6 @@ CREATE TABLE [dbo].[car_item]
     [activity_id]    int DEFAULT NULL,
     [goods_type]    int DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4778,7 +4778,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[express_company]
 GO
 CREATE TABLE [dbo].[express_company]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [express_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [express_company]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL,
@@ -4787,7 +4788,6 @@ CREATE TABLE [dbo].[express_company]
     [com_code_kdyb]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [default_flag]    int DEFAULT NULL,
     [oms_express_company_id]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4860,14 +4860,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_card_record]
 GO
 CREATE TABLE [dbo].[order_card_record]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [assets_card_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [use_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -4928,7 +4928,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_jd_refund]
 GO
 CREATE TABLE [dbo].[order_jd_refund]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [jd_order_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -4949,7 +4950,6 @@ CREATE TABLE [dbo].[order_jd_refund]
     [buyer_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [buyer_tel]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [cancel_reason]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5094,7 +5094,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_compliance_switch_sku]
 GO
 CREATE TABLE [dbo].[rx_compliance_switch_sku]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [remark]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [platform_id]    int DEFAULT NULL,
     [item_id]    int DEFAULT NULL,
@@ -5104,7 +5105,6 @@ CREATE TABLE [dbo].[rx_compliance_switch_sku]
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [update_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5183,13 +5183,13 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_template_platform]
 GO
 CREATE TABLE [dbo].[carriage_template_platform]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_id]    int DEFAULT NULL,
     [province_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [base_carriage_amount]    decimal DEFAULT NULL,
     [free_carriage_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5244,7 +5244,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_vaccines_extend]
 GO
 CREATE TABLE [dbo].[order_vaccines_extend]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [cancel_duration]    int DEFAULT NULL,
     [out_order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -5253,7 +5254,6 @@ CREATE TABLE [dbo].[order_vaccines_extend]
     [create_time]    datetime2 DEFAULT NULL,
     [delete_flag]    int DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5326,7 +5326,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[near_pharmacy_dto]
 GO
 CREATE TABLE [dbo].[near_pharmacy_dto]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [abbr_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [full_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [distance]    float DEFAULT NULL,
@@ -5339,7 +5340,6 @@ CREATE TABLE [dbo].[near_pharmacy_dto]
     [start_time]    time DEFAULT NULL,
     [end_time]    time DEFAULT NULL,
     [supplier_id]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5434,12 +5434,12 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_template_region]
 GO
 CREATE TABLE [dbo].[carriage_template_region]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_id]    int DEFAULT NULL,
     [region_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [base_carriage_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5488,13 +5488,13 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[car_shopping]
 GO
 CREATE TABLE [dbo].[car_shopping]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [member_id]    int DEFAULT NULL,
     [platform_id]    int DEFAULT NULL,
     [count]    int DEFAULT NULL,
     [supplier_id]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5549,7 +5549,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[letter_box]
 GO
 CREATE TABLE [dbo].[letter_box]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [letter_type]    int DEFAULT NULL,
     [letter_status]    int DEFAULT NULL,
     [service_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -5557,7 +5558,6 @@ CREATE TABLE [dbo].[letter_box]
     [message_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [update_date]    datetime2 DEFAULT NULL,
     [create_date]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5624,7 +5624,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_comment]
 GO
 CREATE TABLE [dbo].[order_comment]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [comment_content]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_user_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -5632,7 +5633,6 @@ CREATE TABLE [dbo].[order_comment]
     [update_user_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [update_time]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5699,14 +5699,14 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_operation_log]
 GO
 CREATE TABLE [dbo].[carriage_operation_log]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [operation_user]    varchar(16) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [operation_content]    varchar(768) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [template_id]    int DEFAULT NULL,
     [before_change]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [after_change]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5767,7 +5767,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[express_subscribe]
 GO
 CREATE TABLE [dbo].[express_subscribe]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [sub_platform]    int DEFAULT NULL,
     [com_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [exp_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -5776,7 +5777,6 @@ CREATE TABLE [dbo].[express_subscribe]
     [result_status]    int DEFAULT NULL,
     [del_flag]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5849,7 +5849,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_template]
 GO
 CREATE TABLE [dbo].[carriage_template]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [platform_id]    int DEFAULT NULL,
     [supplier_id]    int DEFAULT NULL,
@@ -5859,7 +5860,6 @@ CREATE TABLE [dbo].[carriage_template]
     [create_username]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [template_type]    int DEFAULT NULL,
     [delete_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -5938,7 +5938,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_template_shop]
 GO
 CREATE TABLE [dbo].[carriage_template_shop]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [template_id]    int DEFAULT NULL,
     [distance]    decimal DEFAULT NULL,
     [base_carriage_amount]    decimal DEFAULT NULL,
@@ -5947,7 +5948,6 @@ CREATE TABLE [dbo].[carriage_template_shop]
     [create_time]    datetime2 DEFAULT NULL,
     [delivery_service_provider]    int DEFAULT NULL,
     [delivery_service_code]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6020,7 +6020,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_jd_info]
 GO
 CREATE TABLE [dbo].[order_jd_info]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [p_order_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -6034,7 +6035,6 @@ CREATE TABLE [dbo].[order_jd_info]
     [jd_order_state]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [finish_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6137,7 +6137,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_item_assorted_detail]
 GO
 CREATE TABLE [dbo].[order_item_assorted_detail]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [item_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -6156,7 +6157,6 @@ CREATE TABLE [dbo].[order_item_assorted_detail]
     [share_amount]    decimal DEFAULT NULL,
     [assorted_flag]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6289,12 +6289,12 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[record_jd_msg]
 GO
 CREATE TABLE [dbo].[record_jd_msg]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [jd_msg_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [jd_msg]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [msg_type]    int DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6343,7 +6343,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[rx_inquiry_log]
 GO
 CREATE TABLE [dbo].[rx_inquiry_log]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_ids]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [consult_order_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [consult_status]    int DEFAULT NULL,
@@ -6352,7 +6353,6 @@ CREATE TABLE [dbo].[rx_inquiry_log]
     [del_flag]    int DEFAULT NULL,
     [url]    varchar(128) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [remark]    varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6425,7 +6425,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_refund_payment_line]
 GO
 CREATE TABLE [dbo].[order_refund_payment_line]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [refund_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [refund_payment_status]    int DEFAULT NULL,
@@ -6438,7 +6439,6 @@ CREATE TABLE [dbo].[order_refund_payment_line]
     [pay_amount]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL,
     [del_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6535,11 +6535,11 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[carriage_region_province]
 GO
 CREATE TABLE [dbo].[carriage_region_province]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [province]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [region_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [region_id]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6582,7 +6582,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[order_jd_item]
 GO
 CREATE TABLE [dbo].[order_jd_item]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_id]    int DEFAULT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [jd_order_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
@@ -6595,7 +6596,6 @@ CREATE TABLE [dbo].[order_jd_item]
     [goods_oid]    varchar(256) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [goods_price]    decimal DEFAULT NULL,
     [create_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -6692,7 +6692,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[trade_order]
 GO
 CREATE TABLE [dbo].[trade_order]
-(    [id]    int PRIMARY KEY NOT NULL,
+(
+    [id]    int PRIMARY KEY NOT NULL,
     [order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [parent_order_no]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [status]    int DEFAULT NULL,
@@ -6762,7 +6763,6 @@ CREATE TABLE [dbo].[trade_order]
     [client_type]    int DEFAULT NULL,
     [device_name]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [distribution_flag]    int DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
@@ -7203,7 +7203,8 @@ IF EXISTS(SELECT *
     DROP TABLE [dbo].[dtt_member]
 GO
 CREATE TABLE [dbo].[dtt_member]
-(    [id]    bigint PRIMARY KEY NOT NULL,
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
     [open_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [nickname]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
     [is_enable]    tinyint DEFAULT 1,
@@ -7216,7 +7217,6 @@ CREATE TABLE [dbo].[dtt_member]
     [accelerate_begin_time]    time DEFAULT NULL,
     [accelerate_end_time]    time DEFAULT NULL,
     [update_time]    datetime2 DEFAULT NULL
-
 )
 GO
 EXEC sp_addextendedproperty
