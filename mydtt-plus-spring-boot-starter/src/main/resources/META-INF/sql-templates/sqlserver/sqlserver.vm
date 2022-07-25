@@ -1,2 +1,45 @@
-
+#if($dropTableBeforeCreate)
+IF EXISTS(SELECT *
+          FROM sys.all_objects
+          WHERE object_id = OBJECT_ID(N'[dbo].[$modelName]')
+            AND type IN ('U'))
+    DROP TABLE [dbo].[$modelName]
+GO
+#end
+CREATE TABLE [dbo].[${modelName}]
+(#foreach(${detail} in ${details})
+    #if($detail.isPrimaryKey)
+    [$detail.filedName]    $detail.databaseDataType PRIMARY KEY NOT NULL,
+    #elseif($detail.javaDataType == 'String')
+    [$detail.filedName]    $detail.databaseDataType COLLATE $defaultCollate DEFAULT    $detail.initialValue,
+    #elseif($detail.javaDataType == 'Enum')
+    [$detail.filedName]    $detail.databaseDataType DEFAULT '$detail.initialValue',
+    #elseif($foreach.hasNext
+    && $detail.databaseDataType.toLowerCase().equals("datetime2")
+    && ($detail.filedName.toLowerCase().contains("update_time")
+    || $detail.filedName.toLowerCase().contains("change_time")
+    || $detail.filedName.toLowerCase().contains("mod_time")
+    || $detail.filedName.toLowerCase().contains("modified_time")))
+    [$detail.filedName]    datetime2(7) DEFAULT CURRENT_TIMESTAMP    NULL,
+    #elseif($foreach.hasNext)
+    [$detail.filedName]    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #else
+    [$detail.filedName]    $detail.databaseDataType DEFAULT $detail.initialValue
+    #end
+#end
+)
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'$modelComment',
+    'SCHEMA', N'dbo',
+    'TABLE', N'$modelName'
+GO
+#foreach(${detail} in ${details})
+EXEC sp_addextendedproperty
+    'MS_Description', N'$detail.filedComment',
+    'SCHEMA', N'dbo',
+    'TABLE', N'$modelName',
+    'COLUMN', N'$detail.filedName'
+GO
+#end
 

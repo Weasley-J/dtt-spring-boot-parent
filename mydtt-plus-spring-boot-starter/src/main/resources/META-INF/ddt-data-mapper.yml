@@ -102,20 +102,21 @@ alphahub:
           LocalDateTime: ''
           Enum: ''
       sqlserver:
+        default-collate: SQL_Latin1_General_CP1_CI_AS
         mapping-properties:
-          String: ''
-          Boolean: ''
-          Float: ''
-          Double: ''
-          Integer: ''
-          Long: ''
-          BigDecimal: ''
-          Date: ''
-          LocalTime: ''
-          LocalDate: ''
-          Timestamp: ''
-          LocalDateTime: ''
-          Enum: ''
+          String: varchar
+          Boolean: tinyint
+          Float: float
+          Double: float
+          Integer: int
+          Long: bigint
+          BigDecimal: decimal
+          Date: datetime2
+          LocalTime: time
+          LocalDate: date
+          Timestamp: timestamp
+          LocalDateTime: datetime2
+          Enum: varchar
     # Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL

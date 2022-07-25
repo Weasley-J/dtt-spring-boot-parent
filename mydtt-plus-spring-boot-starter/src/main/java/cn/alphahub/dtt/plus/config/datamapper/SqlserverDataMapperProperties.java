@@ -15,6 +15,10 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper.sqlserver")
 public class SqlserverDataMapperProperties {
     /**
+     * Default character collation
+     */
+    private String defaultCollate = "SQL_Latin1_General_CP1_CI_AS";
+    /**
      * key: java type; value: sqlserver type
      */
     private Properties mappingProperties;
