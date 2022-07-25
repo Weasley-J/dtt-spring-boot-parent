@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
 /**
- * mariadb默认建表实现
+ * postgresql默认建表实现
  *
  * @author weasley
  * @version 1.0
@@ -22,8 +22,8 @@ public class DefaultPostgresqlTableHandler extends DttRunner implements DttTable
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
-        if (logger.isInfoEnabled()) logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
-        // TODO document why this method is empty
+        if (logger.isInfoEnabled()) logger.info("使用postgresql默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
+
         return null;
     }
 }
