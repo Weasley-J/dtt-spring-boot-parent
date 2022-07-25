@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Dtt Runner integrates Executor and Resolver to provide the ability for the database to implement Class
@@ -61,7 +59,6 @@ public class DttRunner {
      * @param sql pure sql array
      * @return failure, success
      */
-    @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void batchExecute(String... sql) throws DataAccessException {
         templateExecutor.batchExecute(sql);
     }

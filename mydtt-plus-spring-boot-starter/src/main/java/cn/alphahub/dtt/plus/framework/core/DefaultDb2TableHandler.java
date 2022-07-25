@@ -57,18 +57,25 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
         if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\"" + ".");
 
         if (db2DataMapperProperties.getEnableColumnUpperCase().equals(true))
-            defaultOracleTableHandler.modelToRootUpperCase(() -> model);
+            defaultOracleTableHandler.toRootUpperCase(() -> model);
 
         String template = resolve(() -> model);
 
-        String tableName = model.getDatabaseName() + "\"" + model.getModelName() + "\"";
         String[] sqlArray = defaultOracleTableHandler.parseTemplateSQLIntoSQLArray(StringUtils.split(template, ";"));
-        for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
-            logger.info("正在并发创建表,开始对表[{}]进行第[{}]次尝试建表,当前最大建表重试次数[{}]次", tableName, i, CREATE_TABLE_RETRY_MAX_COUNT);
-            boolean update = defaultOracleTableHandler.batchUpdate(sqlArray);
-            if (update) break;
+        for (String sql : sqlArray) {
+            boolean success;
+            for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+                try {
+                    execute(sql);
+                    success = true;
+                } catch (Exception e) {
+                    logger.warn("{}", e.getMessage());
+                    success = false;
+                }
+                if (success) break;
+            }
         }
-
         return template;
     }
+
 }

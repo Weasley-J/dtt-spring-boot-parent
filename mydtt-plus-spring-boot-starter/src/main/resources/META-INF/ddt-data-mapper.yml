@@ -189,7 +189,7 @@ alphahub:
           - text: request,response,body,text,content
             length: 768
       - database-type: DB2
-        default-text-type: varchar
+        default-text-type: VARCHAR
         default-text-length: 256
         length-configs:
           - text: phone,_tel,telephone,_user,_size

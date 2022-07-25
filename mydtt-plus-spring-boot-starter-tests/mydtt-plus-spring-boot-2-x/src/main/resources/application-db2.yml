@@ -23,7 +23,7 @@ mybatis:
 
 alphahub:
   dtt:
-    is-enable: off
+    is-enable: on
     show-sql: on
     all-in-one-table:
       enable: true
@@ -31,4 +31,4 @@ alphahub:
       filepath: /Users/weasley/Downloads
     data-type-mapper:
       db2:
-        enable-column-upper-case: off
+        enable-column-upper-case: on

@@ -5,7 +5,7 @@ CREATE TABLE ${databaseName}"${modelName}"
 (
 #foreach($detail in $details)
     #if($detail.isPrimaryKey)
-    "$detail.filedName"    $detail.databaseDataType NOT NULL,
+    "$detail.filedName"    $detail.databaseDataType NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
     #elseif($detail.javaDataType == 'String' && $foreach.hasNext)
     "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
     #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
@@ -20,7 +20,7 @@ CREATE TABLE ${databaseName}"${modelName}"
     "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
     #end
 #end
-    PRIMARY KEY ("${primaryKey}")
+PRIMARY KEY ("${primaryKey}")
 );
 COMMENT ON TABLE ${databaseName}"${modelName}" IS '${modelComment}';
 #foreach(${detail} in ${details})

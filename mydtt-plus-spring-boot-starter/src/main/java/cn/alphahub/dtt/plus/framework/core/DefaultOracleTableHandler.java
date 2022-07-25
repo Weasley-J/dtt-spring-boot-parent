@@ -54,7 +54,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
         //处理Oracle数据类型
         handlingOracleDataTypes(model);
 
-        if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelToRootUpperCase(() -> model);
+        if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) toRootUpperCase(() -> model);
 
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
@@ -157,7 +157,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
      *
      * @param parseFactory The parse factory
      */
-    public void modelToRootUpperCase(ParseFactory<ModelEntity> parseFactory) {
+    public void toRootUpperCase(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         List<ModelEntity.Detail> details = model.getDetails();
         if (CollectionUtils.isEmpty(details)) {
@@ -184,8 +184,8 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
         try {
             batchExecute(sql);
             return true;
-        } catch (DataAccessException e) {
-            logger.warn("{}", e.getMessage());
+        } catch (DataAccessException e1) {
+            logger.warn("{}", e1.getMessage());
             return false;
         }
     }
@@ -197,7 +197,7 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
      * @return Exists return true
      */
     protected boolean isTableExists(String tableName) {
-        String sql = "SELECT COUNT(*) FROM USER_TABLES " + "WHERE TABLE_NAME = '" + tableName + "'";
+        String sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
         for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
             try {
                 Integer result = jdbcTemplate.queryForObject(sql, Integer.class);

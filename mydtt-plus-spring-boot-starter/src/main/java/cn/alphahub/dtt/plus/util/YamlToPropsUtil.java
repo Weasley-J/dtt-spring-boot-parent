@@ -33,7 +33,7 @@ public final class YamlToPropsUtil {
     public static Properties toProperties(InputStream in) {
         Yaml yaml = new Yaml();
         TreeMap<String, Map<String, Object>> config = yaml.loadAs(in, TreeMap.class);
-        logger.info("{}", String.format("%s%n\nConverts to Properties:%n%n%s", config.toString(), toPropertiesString(config)));
+        //logger.info("{}", String.format("%s%n\nConverts to Properties:%n%n%s", config.toString(), toPropertiesString(config)).var);
         return toProperties(config);
     }
 
@@ -62,9 +62,7 @@ public final class YamlToPropsUtil {
 
     private static String toPropertiesString(TreeMap<String, Map<String, Object>> config) {
         StringBuilder sb = new StringBuilder();
-        for (String key : config.keySet()) {
-            sb.append(toString(key, config.get(key)));
-        }
+        config.forEach((k, v) -> sb.append(toString(k, v)));
         return sb.toString();
     }
 

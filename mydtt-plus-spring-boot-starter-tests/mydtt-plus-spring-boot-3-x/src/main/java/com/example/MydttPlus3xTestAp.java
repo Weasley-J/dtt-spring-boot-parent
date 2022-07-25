@@ -17,16 +17,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         scanBasePackages = {
                 //"com.example.i18n.korean",
                 //"com.example.domain.dtt",
-                "com.example.domain.order",
+                //"com.example.domain.order",
         },
         parserType = ParserType.JAVA_DOC,
         dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //OmsOrderInquiry.class
                 //DttPerson.class,
-                //DttMember.class,
+                DttMember.class,
                 //GoodsCarriageTemplate.class,
                 //NearPharmacyDto.class,
+                //TradeOrder.class
         }
 )
 @SpringBootApplication
