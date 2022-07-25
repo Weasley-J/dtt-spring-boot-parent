@@ -110,7 +110,7 @@ alphahub:
           Double: float
           Integer: int
           Long: bigint
-          BigDecimal: decimal
+          BigDecimal: money
           Date: datetime2
           LocalTime: time
           LocalDate: date
