@@ -35,7 +35,7 @@ public class DefaultSqlserverTableHandler extends DttRunner implements DttTableH
     public String create(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         if (logger.isInfoEnabled()) logger.info("使用sqlserver默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
-        if (CollectionUtils.isEmpty(model.getDetails())) {
+        if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("sqlserver的表结构元数据解析结果不能为空 {}", model);
             return null;
         }

@@ -45,6 +45,10 @@ public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
      */
     @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void batchExecute(String... sql) throws DataAccessException {
+        if (StringUtils.isAnyBlank(sql)) {
+            logger.warn("Database table creation statement must be not null");
+            return;
+        }
         jdbcTemplate.batchUpdate(sql);
     }
 

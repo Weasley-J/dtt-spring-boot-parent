@@ -34,7 +34,7 @@ public class DefaultMariadbTableHandler extends DttRunner implements DttTableHan
     public String create(ParseFactory<ModelEntity> parseFactory) {
         if (logger.isInfoEnabled()) logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
         ModelEntity model = parseFactory.getModel();
-        if (CollectionUtils.isEmpty(model.getDetails())) {
+        if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("表结构元数据解析结果不能为空 {}", model);
             return null;
         }

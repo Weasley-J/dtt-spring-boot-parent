@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +41,12 @@ public class DefaultPostgresqlTableHandler extends DttRunner implements DttTable
     public String create(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         if (logger.isInfoEnabled()) logger.info("使用postgresql默认建表实现 {}", JacksonUtil.toJson(model));
+
+        if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
+            logger.error("Model cannot be null or empty");
+            return null;
+        }
+
         Properties mappingProperties = postgresqlDataMapperProperties.getMappingProperties();
         model.getDetails().forEach(detail -> {
             if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
@@ -47,10 +54,10 @@ public class DefaultPostgresqlTableHandler extends DttRunner implements DttTable
                 handlingEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
             }
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
-                detail.setFiledComment(detail.getFiledComment().replace("\\'",""));
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             }
             if (detail.getFiledComment().contains(";")) {
-                detail.setFiledComment(detail.getFiledComment().replace(";","；"));
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
             }
         });
 
