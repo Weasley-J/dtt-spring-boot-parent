@@ -139,15 +139,8 @@ public class DefaultOracleTableHandler extends DttRunner implements DttTableHand
             }
             if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
                 ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
-                String databaseDataType = detail.getDatabaseDataType();
                 String actuallyDbDataType = wrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                String enumValues = databaseDataType.substring(oracleDataMapperProperties.getMappingProperties().get("Enum").toString().length());
-                enumValues = enumValues.replace("('", "");
-                enumValues = enumValues.replace("')", "");
-                enumValues = enumValues.replace("','", ",");
-                String filedComment = detail.getFiledComment();
-                detail.setDatabaseDataType(actuallyDbDataType);
-                detail.setFiledComment(filedComment.concat(", Enum type:").concat(enumValues));
+                handlingEnumerationTypeToString(oracleDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
             }
         }
     }

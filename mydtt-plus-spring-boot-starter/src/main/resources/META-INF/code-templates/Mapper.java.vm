@@ -1,0 +1,13 @@
+package ${modulePackage}.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${domainFullyQualifiedClass};
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * The mybatis mapper interface of #if($domainDescription.length() > 0)${domainDescription}#else${domainSimpleClassName}#end
+ */
+@Mapper
+public interface ${domainSimpleClassName}Mapper extends BaseMapper<${domainSimpleClassName}> {
+
+}

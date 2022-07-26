@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 
+import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.util.SysUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -9,6 +10,7 @@ import org.springframework.util.ObjectUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,23 @@ public interface DttTableHandler<T> extends DttContext<T> {
     default String bulkOps(Set<ParseFactory<T>> modelSet) {
         if (CollectionUtils.isEmpty(modelSet)) return null;
         return StringUtils.join(modelSet.parallelStream().map(this::create).collect(Collectors.toList()), SysUtil.getLineSeparator());
+    }
+
+    /**
+     * Handling enumeration type to concat string, If possible.
+     *
+     * @param mappingProperties  The properties of data type mapping
+     * @param detail             Model metadata details
+     * @param actuallyDbDataType The db data type from 'mappingProperties'
+     */
+    default void handlingEnumerationTypeToString(Properties mappingProperties, ModelEntity.Detail detail, String actuallyDbDataType) {
+        String enumValues = detail.getDatabaseDataType().substring(mappingProperties.get("Enum").toString().length());
+        enumValues = enumValues.replace("('", "");
+        enumValues = enumValues.replace("')", "");
+        enumValues = enumValues.replace("','", ",");
+        String filedComment = detail.getFiledComment();
+        detail.setDatabaseDataType(actuallyDbDataType);
+        detail.setFiledComment(filedComment + ", Enum type:" + enumValues);
     }
 
     /**

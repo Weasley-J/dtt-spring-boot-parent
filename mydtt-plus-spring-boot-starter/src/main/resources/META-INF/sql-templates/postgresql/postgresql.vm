@@ -1,2 +1,37 @@
-
-
+#if(${dropTableBeforeCreate})
+DROP TABLE IF EXISTS ${databaseName}"public"."${modelName}";
+#end
+CREATE TABLE ${databaseName}"public"."${modelName}"
+(
+#foreach($detail in $details)
+    #if($detail.isPrimaryKey)
+    "$detail.filedName"    #if($detail.databaseDataType.toLowerCase().equals("bigint"))  bigserial   PRIMARY KEY,#else    $detail.databaseDataType   PRIMARY KEY NOT NULL,#end
+    #elseif($detail.javaDataType == 'String' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
+    #elseif($foreach.hasNext
+    && $detail.databaseDataType.toLowerCase().equals("timestamp")
+    && ($detail.filedName.toLowerCase().contains("update_time")
+    || $detail.filedName.toLowerCase().contains("change_time")
+    || $detail.filedName.toLowerCase().contains("mod_time")
+    || $detail.filedName.toLowerCase().contains("modified_time")))
+    "$detail.filedName"    TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP,
+    #elseif($foreach.hasNext == 'false'
+    && $detail.databaseDataType.toLowerCase().equals("timestamp")
+    && ($detail.filedName.toLowerCase().contains("update_time")
+    || $detail.filedName.toLowerCase().contains("change_time")
+    || $detail.filedName.toLowerCase().contains("mod_time")
+    || $detail.filedName.toLowerCase().contains("modified_time")))
+    "$detail.filedName"    TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP
+    #elseif($foreach.hasNext)
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
+    #else
+    "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue
+    #end
+#end
+);
+COMMENT ON TABLE ${databaseName}"public"."${modelName}" IS '${modelComment}';
+#foreach(${detail} in ${details})
+COMMENT ON COLUMN ${databaseName}"public"."${modelName}"."${detail.filedName}" IS '${detail.filedComment}';
+#end

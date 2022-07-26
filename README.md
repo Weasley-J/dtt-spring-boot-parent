@@ -234,7 +234,7 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > 
 >
-> You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` ，I first support the implements for `MySQL` ，`ORACLE`, `DB2`, `SQLSERVER`, `MARIADB`, `POSTGRESQL` wil be support in the future. Thanks for you star, .
+> You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` ，Support the implements for `MySQL` ，`ORACLE`, `DB2`, `SQLSERVER`, `MARIADB`, `POSTGRESQL`，Thanks for you star, .
 >
 > 
 
@@ -404,138 +404,9 @@ Which can annotate on you Java modle class or property of modle，Usually used i
 
 You can easily  use in prefix of `alphahub.tt` in your porject，Here the  fully yaml property with default maybe you can reference it.  you can override in you `application.yml` if you don't need one of them. i.e:
 
-```yaml
-alphahub:
-  dtt:
-    is-enable: on
-    #The properties' relationship of Java data type mapping to database.
-    data-type-mapper:
-      mysql:
-        String: varchar
-        Boolean: tinyint
-        Float: float
-        Double: double
-        Integer: int
-        Long: bigint
-        BigDecimal: decimal
-        Date: datetime
-        LocalTime: time
-        LocalDate: date
-        Timestamp: timestamp
-        LocalDateTime: datetime
-        Enum: enum
-
-      oracle:
-        String: VARCHAR
-        Boolean: NUMBER(1)
-        Float: FLOAT
-        Double: DOUBLE
-        Integer: INTEGER
-        Long: NUMBER
-        BigDecimal: DECIMAL
-        Date: DATETIME
-        LocalDate: DATETIME
-        LocalTime: DATETIME
-        Timestamp: TIMESTAMP
-        LocalDateTime: DATETIME
-        Enum: VARCHAR
-
-      db2:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
-      sqlserver:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
-      mariadb:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-
-      postgresql:
-        String: ''
-        Boolean: ''
-        Float: ''
-        Double: ''
-        Integer: ''
-        Long: ''
-        BigDecimal: ''
-        Date: ''
-        LocalTime: ''
-        LocalDate: ''
-        Timestamp: ''
-        LocalDateTime: ''
-        Enum: ''
-    # Mapping configuration to automatically infer text length
-    string-length-mapper:
-      - database-type: MYSQL
-        default-text-type: varchar
-        default-text-length: 256
-        length-configs:
-          - text: phone,_tel,telephone,_user,_size
-            length: 16
-          - text: _id,_no,number,name,code,_code,_name
-            length: 64
-          - text: link,url,_url,_link
-            length: 128
-          - text: _msg,message,remark
-            length: 512
-          - text: request,response,body,text,content
-            length: 768
-      - database-type: ORACLE
-        default-text-type: VARCHAR
-        default-text-length: 256
-        length-configs:
-          - text: phone,tel,telephone,_user,_size
-            length: 16
-          - text: _id,_no,number,name,code,_code,_name
-            length: 64
-          - text: url,link
-            length: 128
-          - text: _msg,message,remark,
-            length: 512
-          - text: request,response,body,text,content
-            length: 768
-```
-
-[Or refere to src](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-type-mapping.yml)
+[Or refere to source code](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-type-mapping.yml)
 
 Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `all-in-one` type table DDL statements to the destination you set in your `application.yml` file.
-
-
 
 
 
@@ -572,10 +443,10 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 | ------------ | ------------------- | ---------- |
 | `mysql`      | `5.7+` or latest    | ✅          |
 | `oracle`     | `11.2.x`  or latest | ✅          |
-| `db2`        | -                   | ✅          |
-| `sqlserver`  | -                   | ✅          |
+| `db2`        | `11.x`  or latest   | ✅          |
+| `sqlserver`  | `14.x` or latest    | ✅          |
 | `mariadb`    | `10.x `or latest    | ✅          |
-| `postgresql` |                     | ⌛          |
+| `postgresql` | `v9.x` or latest    | ✅          |
 
 
 

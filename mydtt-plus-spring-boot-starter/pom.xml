@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <name>mydtt-plus-spring-boot-starter</name>
     <description>
         MyDtt-Plus is a starter of SpringBoot，I named it DTT, It's an object-oriented Java framework，
@@ -53,6 +53,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <hutool.version>5.8.4</hutool.version>
+        <commons-io.version>2.11.0</commons-io.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
@@ -110,6 +111,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- commons-io  -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
         <!-- mybatis-plus -->
         <dependency>

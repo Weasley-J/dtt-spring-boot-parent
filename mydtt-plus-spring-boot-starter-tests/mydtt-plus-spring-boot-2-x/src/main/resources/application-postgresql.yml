@@ -27,5 +27,5 @@ alphahub:
     show-sql: on
     all-in-one-table:
       enable: true
-      filename: AllInOne.sql
+      filename: AllInOne-postgresql.sql
       filepath: /Users/weasley/Downloads

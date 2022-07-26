@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -45,11 +46,7 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
         model.getDetails().forEach(detail -> {
             if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
                 String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                String enumValues = detail.getDatabaseDataType().substring(db2DataMapperProperties.getMappingProperties().get("Enum").toString().length());
-                enumValues = enumValues.replace("('", "").replace("')", "").replace("','", ",");
-                String filedComment = detail.getFiledComment();
-                detail.setDatabaseDataType(actuallyDbDataType);
-                detail.setFiledComment(filedComment + ", Enum type:" + enumValues);
+                handlingEnumerationTypeToString(db2DataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
             }
         });
 
@@ -62,7 +59,7 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
         String template = resolve(() -> model);
 
         String[] sqlArray = defaultOracleTableHandler.parseTemplateSQLIntoSQLArray(StringUtils.split(template, ";"));
-        for (String sql : sqlArray) {
+        Arrays.stream(sqlArray).forEach(sql -> {
             boolean success;
             for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
                 try {
@@ -74,7 +71,8 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
                 }
                 if (success) break;
             }
-        }
+        });
+
         return template;
     }
 

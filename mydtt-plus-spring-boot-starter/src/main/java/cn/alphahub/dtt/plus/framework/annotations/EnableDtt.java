@@ -2,6 +2,7 @@ package cn.alphahub.dtt.plus.framework.annotations;
 
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
+import cn.alphahub.dtt.plus.config.support.MyBatisPlusCodeGeneratorConfigurer;
 import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
@@ -42,7 +43,7 @@ import java.lang.annotation.Target;
         DefaultSqlserverTableHandler.class, VelocityHandler.class, ClassScanningProvider.class,
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttRunner.class,
-        DatabaseHandler.class,
+        DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class,
 })
 public @interface EnableDtt {
     /**

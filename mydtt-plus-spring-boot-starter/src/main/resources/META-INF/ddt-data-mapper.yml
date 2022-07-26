@@ -8,6 +8,15 @@ alphahub:
     template:
       path: META-INF/sql-templates
       suffix: .vm
+    code-generator:
+      is-enable: false
+      show-code: false
+      override-exists: false
+      module-name: ""
+      module-package: ""
+      module-path: ""
+      base-package: ""
+      base-classes: ""
     #The primary key data type mappings，If missing.
     primary-key-mapper:
       MYSQL: bigint
@@ -15,7 +24,7 @@ alphahub:
       DB2: BIGINT
       SQLSERVER: bigint
       MARIADB: BIGINT
-      POSTGRESQL: bigint
+      POSTGRESQL: bigserial
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       db2:
@@ -88,19 +97,19 @@ alphahub:
           Enum: VARCHAR2
       postgresql:
         mapping-properties:
-          String: ''
-          Boolean: ''
-          Float: ''
-          Double: ''
-          Integer: ''
-          Long: ''
-          BigDecimal: ''
-          Date: ''
-          LocalTime: ''
-          LocalDate: ''
-          Timestamp: ''
-          LocalDateTime: ''
-          Enum: ''
+          String: VARCHAR
+          Boolean: BOOLEAN
+          Float: FLOAT
+          Double: FLOAT
+          Integer: INTEGER
+          Long: BIGINT
+          BigDecimal: money
+          Date: TIMESTAMP
+          LocalTime: TIME
+          LocalDate: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: VARCHAR
       sqlserver:
         default-collate: SQL_Latin1_General_CP1_CI_AS
         mapping-properties:
@@ -176,7 +185,7 @@ alphahub:
           - text: request,response,body,text,content
             length: 768
       - database-type: POSTGRESQL
-        default-text-type: varchar
+        default-text-type: VARCHAR
         default-text-length: 256
         length-configs:
           - text: phone,_tel,telephone,_user,_size

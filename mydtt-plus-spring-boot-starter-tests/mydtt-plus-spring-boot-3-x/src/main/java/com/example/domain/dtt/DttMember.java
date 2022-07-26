@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- * 用户信息
+ * 用户信息-DttMember
  */
 @Data
 @Builder

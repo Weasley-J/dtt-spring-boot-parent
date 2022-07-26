@@ -49,6 +49,20 @@ public class DttProperties {
     @NestedConfigurationProperty
     private TemplateProperties template;
     /**
+     * /**
+     * MyBatis-Plus code generation configuration properties
+     * <p>
+     * Tips:
+     * <ul>
+     * <li>Only Service, Mapper, XML files are generated</li>
+     * <li>The location of Mapper XML file's path will be like this: src/main/resources/mapper/${module-name}</li>
+     * <li>The location of Service src path will be like this: src/main/java/${base-package}/${module-name}</li>
+     * <li>The location of Mapper interface src path will be like this: src/main/java/${base-package}/${module-name}</li>
+     * </ul>
+     */
+    @NestedConfigurationProperty
+    private CodeGeneratorProperties codeGenerator;
+    /**
      * 所有建表SQL写入文件
      */
     @NestedConfigurationProperty
@@ -90,6 +104,54 @@ public class DttProperties {
          * SQL template file name suffix
          */
         private String suffix = ".vm";
+    }
+
+    /**
+     * MyBatis-Plus code generation configuration properties
+     * <p>
+     * Tips:
+     * <ul>
+     * <li>Only Service, Mapper, XML files are generated</li>
+     * <li>The location of Mapper XML file's path will be like this: src/main/resources/mapper/${module-name}</li>
+     * <li>The location of Service src path will be like this: src/main/java/${base-package}/${module-name}</li>
+     * <li>The location of Mapper interface src path will be like this: src/main/java/${base-package}/${module-name}</li>
+     * </ul>
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.code-generator")
+    public static class CodeGeneratorProperties {
+        /**
+         * Whether to enable mybatis-plus code generation
+         */
+        private Boolean isEnable = false;
+        /**
+         * Whether to show generated code in console
+         */
+        private Boolean showCode = false;
+        /**
+         * Whether to overwrite existing files
+         */
+        private Boolean overrideExists = false;
+        /**
+         * The name of your module
+         */
+        private String moduleName;
+        /**
+         * The package location of generating code
+         */
+        private String modulePackage;
+        /**
+         * The absolute path location of your project
+         */
+        private String modulePath;
+        /**
+         * The domain package what your want to generate code. It's also the location of your Java Entity's package
+         */
+        private String basePackage;
+        /**
+         * The domain with fully qualified class name what your want to generate code. It's optional,Multiple Classes are separated by commas(",")
+         */
+        private String[] baseClasses;
     }
 
     /**

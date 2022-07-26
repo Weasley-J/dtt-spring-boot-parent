@@ -1,0 +1,15 @@
+package ${modulePackage}.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${domainFullyQualifiedClass};
+import ${modulePackage}.mapper.${domainSimpleClassName}Mapper;
+import org.springframework.stereotype.Service;
+
+/**
+ * The service handle class of #if($domainDescription.length() > 0)${domainDescription}#else${domainSimpleClassName}#end
+ */
+@Service
+public class ${domainSimpleClassName}Service extends ServiceImpl<${domainSimpleClassName}Mapper, ${domainSimpleClassName}> implements IService<${domainSimpleClassName}> {
+
+}

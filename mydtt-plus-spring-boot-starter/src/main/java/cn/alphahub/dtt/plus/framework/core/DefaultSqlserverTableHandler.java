@@ -29,8 +29,6 @@ import java.util.Properties;
 public class DefaultSqlserverTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultSqlserverTableHandler.class);
     @Autowired
-    private DefaultOracleTableHandler defaultOracleTableHandler;
-    @Autowired
     private SqlserverDataMapperProperties sqlserverDataMapperProperties;
 
     @Override
@@ -42,16 +40,12 @@ public class DefaultSqlserverTableHandler extends DttRunner implements DttTableH
             return null;
         }
 
-        ContextWrapper context = SpringUtil.getBean(ContextWrapper.class);
+        ContextWrapper commentParser = SpringUtil.getBean(ContextWrapper.class);
         Properties mappingProperties = sqlserverDataMapperProperties.getMappingProperties();
         model.getDetails().forEach(detail -> {
             if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
-                String actuallyDbDataType = context.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                String enumValues = detail.getDatabaseDataType().substring(mappingProperties.get("Enum").toString().length());
-                enumValues = enumValues.replace("('", "").replace("')", "").replace("','", ",");
-                String filedComment = detail.getFiledComment();
-                detail.setDatabaseDataType(actuallyDbDataType);
-                detail.setFiledComment(filedComment + ", Enum type:" + enumValues);
+                String actuallyDbDataType = commentParser.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                handlingEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
             }
             if (Objects.equals(Boolean.class.getSimpleName(), detail.getJavaDataType())) {
                 detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");

@@ -67,7 +67,7 @@ public class OrderJdInfo implements Serializable {
     private BigDecimal orderTaxPrice;
 
     /**
-     * 订单状态。0为取消订单  1为有效。
+     * 订单状态: 0为取消订单  1为有效
      */
     private Integer orderState;
 
@@ -77,7 +77,7 @@ public class OrderJdInfo implements Serializable {
     private Integer state;
 
     /**
-     * 预占确认状态。0没确认预占;1已确认预占
+     * 预占确认状态: 0没确认预占, 1已确认预占
      */
     private Integer submitState;
 

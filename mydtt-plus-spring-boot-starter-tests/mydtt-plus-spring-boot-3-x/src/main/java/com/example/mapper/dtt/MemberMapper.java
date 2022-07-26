@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/**
+ * The mybatis mapper interface of xxx
+ */
 @Mapper
 public interface MemberMapper {
     /**
