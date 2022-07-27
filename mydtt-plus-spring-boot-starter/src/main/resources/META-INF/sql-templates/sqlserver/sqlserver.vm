@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[${modelName}]
     #if($detail.isPrimaryKey)
     [$detail.filedName]    $detail.databaseDataType PRIMARY KEY NOT NULL,
     #elseif($detail.javaDataType == 'String')
-    [$detail.filedName]    $detail.databaseDataType COLLATE $defaultCollate DEFAULT '$detail.initialValue',
+    [$detail.filedName]    $detail.databaseDataType COLLATE $defaultCollate DEFAULT #if($detail.initialValue != 'NULL')'$detail.initialValue'#else$detail.initialValue#end,
     #elseif($detail.javaDataType == 'Enum')
     [$detail.filedName]    $detail.databaseDataType DEFAULT '$detail.initialValue',
     #elseif($foreach.hasNext

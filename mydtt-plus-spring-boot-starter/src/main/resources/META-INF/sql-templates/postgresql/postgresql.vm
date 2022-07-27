@@ -7,7 +7,7 @@ CREATE TABLE ${databaseName}"public"."${modelName}"
     #if($detail.isPrimaryKey)
     "$detail.filedName"    #if($detail.databaseDataType.toLowerCase().equals("bigint"))  bigserial   PRIMARY KEY,#else    $detail.databaseDataType   PRIMARY KEY NOT NULL,#end
     #elseif($detail.javaDataType == 'String' && $foreach.hasNext)
-    "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
+    "$detail.filedName"    $detail.databaseDataType DEFAULT #if($detail.initialValue != 'NULL')'$detail.initialValue'#else$detail.initialValue#end,
     #elseif($detail.javaDataType == 'Enum' && $foreach.hasNext)
     "$detail.filedName"    $detail.databaseDataType DEFAULT '$detail.initialValue',
     #elseif($foreach.hasNext

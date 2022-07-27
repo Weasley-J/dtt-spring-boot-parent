@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class DefaultTemplateExecutor implements DttTemplateHandler<Void> {
      */
     @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRES_NEW)
     public void batchExecute(String... sql) throws DataAccessException {
-        if (StringUtils.isAnyBlank(sql)) {
+        if (ObjectUtils.isEmpty(sql)) {
             logger.warn("Database table creation statement must be not null");
             return;
         }

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
     #if(${detail.isPrimaryKey})
     `${detail.filedName}`  ${detail.databaseDataType} NOT NULL AUTO_INCREMENT COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'String')
-    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT ${detail.initialValue}  COMMENT '${detail.filedComment}',
+    `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT #if($detail.initialValue != 'NULL')'$detail.initialValue'#else$detail.initialValue#end  COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum')
     `${detail.filedName}`  ${detail.databaseDataType} CHARACTER SET ${defaultCharset} COLLATE ${defaultCollate} DEFAULT '${detail.initialValue}' COMMENT '${detail.filedComment}',
     #elseif(${detail.isPrimaryKey} == 'false' && (

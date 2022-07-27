@@ -48,6 +48,15 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
                 String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
                 handlingEnumerationTypeToString(db2DataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
             }
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
+            }
+            if (detail.getFiledComment().contains(";")) {
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+            }
+            if (detail.getFiledComment().contains(".")) {
+                detail.setFiledComment(detail.getFiledComment().replace(".", " "));
+            }
         });
 
         String databaseName = model.getDatabaseName();
@@ -58,11 +67,13 @@ public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler
 
         String template = resolve(() -> model);
 
-        String[] sqlArray = defaultOracleTableHandler.parseTemplateSQLIntoSQLArray(StringUtils.split(template, ";"));
-        Arrays.stream(sqlArray).forEach(sql -> {
+        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateSQLIntoSQLArray(StringUtils.split(template, ";"));
+
+        Arrays.asList(pureSqlArray).forEach(sql -> {
             boolean success;
             for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
                 try {
+                    //If the field comment is too long, it will cause rollback and cannot be submitted in batches
                     execute(sql);
                     success = true;
                 } catch (Exception e) {
