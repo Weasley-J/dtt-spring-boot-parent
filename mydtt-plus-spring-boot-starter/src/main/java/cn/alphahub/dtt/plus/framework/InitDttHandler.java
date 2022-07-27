@@ -12,6 +12,7 @@ import cn.alphahub.dtt.plus.util.SysUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.Data;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -148,6 +150,9 @@ public class InitDttHandler implements ApplicationRunner {
 
         String tables = contextWrapper.getTableHandler().bulkOps(FACTORIES);
         if (allInOneProperties.getEnable().equals(true)) {
+            File file = new File(allInOneProperties.getAbsoluteFilename());
+            if (!file.getParentFile().exists())
+                FileUtils.forceMkdirParent(file);
             try (FileOutputStream fos = new FileOutputStream(allInOneProperties.getAbsoluteFilename(), false)) {
                 fos.write(tables.getBytes());
             }
