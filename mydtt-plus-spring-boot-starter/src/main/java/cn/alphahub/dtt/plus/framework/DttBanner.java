@@ -22,7 +22,7 @@ public final class DttBanner {
         String versionText = StringUtils.defaultIfBlank(DttVersion.getVersion(), "");
         if (StringUtils.isNotBlank(versionText))
             versionText = "Dtt Version: (v" + versionText + ")";
-        System.out.println("" +
+        System.out.println("\n" +
                 "__/\\\\\\\\\\\\\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\__/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_        \n" +
                 " _\\/\\\\\\////////\\\\\\__\\///////\\\\\\/////__\\///////\\\\\\/////__       \n" +
                 "  _\\/\\\\\\______\\//\\\\\\_______\\/\\\\\\_____________\\/\\\\\\_______      \n" +
@@ -32,7 +32,7 @@ public final class DttBanner {
                 "      _\\/\\\\\\_______/\\\\\\________\\/\\\\\\_____________\\/\\\\\\_______  \n" +
                 "       _\\/\\\\\\\\\\\\\\\\\\\\\\\\/_________\\/\\\\\\_____________\\/\\\\\\_______ \n" +
                 "        _\\////////////___________\\///______________\\///________\n" +
-                "                                                               " + versionText);
+                "" + versionText + "\n");
     }
 
     private static class BannerHolder {
