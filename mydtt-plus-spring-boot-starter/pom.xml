@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
     <name>mydtt-plus-spring-boot-starter</name>
     <description>
         MyDtt-Plus is a starter of SpringBoot，I named it DTT, It's an object-oriented Java framework，
@@ -55,7 +55,7 @@
         <hutool.version>5.8.4</hutool.version>
         <commons-io.version>2.11.0</commons-io.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
-        <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
+        <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <mybatis.version>3.5.10</mybatis.version>
@@ -124,12 +124,23 @@
             <artifactId>mybatis-plus-core</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
+        <!-- javadoc-scribe start  -->
         <!-- runtime javadoc library -->
         <dependency>
             <groupId>com.github.therapi</groupId>
             <artifactId>therapi-runtime-javadoc</artifactId>
             <version>${therapi-runtime-javadoc.version}</version>
         </dependency>
+        <!-- Annotation processor -->
+        <!--
+        <dependency>
+            <groupId>com.github.therapi</groupId>
+            <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+            <version>${therapi-runtime-javadoc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        -->
+        <!-- javadoc-scribe end  -->
         <!-- jackson start-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

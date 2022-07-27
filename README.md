@@ -484,8 +484,12 @@ todo
 
 ![image-20220726180112087](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220726180112087.png)
 
-
-
 ## Credits
 
-todo
+- Java document analyse
+
+[com.github.therapi:therapi-runtime-javadoc](https://github.com/dnault/therapi-runtime-javadoc)
+
+- Template engine language
+
+[org.apache.velocity:velocity-engine-core](https://search.maven.org/artifact/org.apache.velocity/velocity-engine-core/2.3/jar)
