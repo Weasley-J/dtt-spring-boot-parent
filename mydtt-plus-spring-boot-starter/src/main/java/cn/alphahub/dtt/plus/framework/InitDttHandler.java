@@ -8,6 +8,7 @@ import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
+import cn.alphahub.dtt.plus.util.SysUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.Data;
@@ -121,26 +122,27 @@ public class InitDttHandler implements ApplicationRunner {
         boolean warnEnabled = logger.isWarnEnabled();
         boolean infoEnabled = logger.isInfoEnabled();
         if (dttProperties.getIsEnable().equals(false)) {
-            if (warnEnabled) {
+            if (warnEnabled)
                 logger.warn("Dtt is disabled，Please check the configuration property of 'alphahub.dtt.is-enable' in your yaml file.");
-            }
             return;
         }
 
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location) && getEnableDtt().parserType() == ParserType.JAVA_DOC) {
-            if (warnEnabled) {
+            if (warnEnabled)
                 logger.warn("Your application run with type of '{}', ParserType Of JAVA_DOC not support, Please check your @EnableDtt annotation's configurations.", location);
-            }
             return;
         }
+
+        //There is no dependency of 'com.github.therapi:therapi-runtime-javadoc-scribe' in classpath to parse the description of model
+        if (getEnableDtt().parserType() == ParserType.JAVA_DOC && !SysUtil.getJarPath().contains("therapi-runtime-javadoc-scribe"))
+            logger.warn("Current model parser type is: {}, there is no dependency of 'com.github.therapi:therapi-runtime-javadoc-scribe' in your classpath, please add this dependency in the project to parse the description of your model.", getEnableDtt().parserType());
 
         resolveAnnotationsClass(getEnableDtt());
 
         if (CollectionUtils.isEmpty(FACTORIES)) {
-            if (warnEnabled) {
+            if (warnEnabled)
                 logger.warn("Data model is empty. DTT cannot parse.");
-            }
             return;
         }
 

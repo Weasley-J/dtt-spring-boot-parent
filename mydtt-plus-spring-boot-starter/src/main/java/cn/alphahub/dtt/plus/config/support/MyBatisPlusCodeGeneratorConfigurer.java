@@ -1,10 +1,11 @@
 package cn.alphahub.dtt.plus.config.support;
 
+import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultJavaDocParser;
+import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import cn.alphahub.dtt.plus.util.JacksonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +42,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
+import static cn.alphahub.dtt.plus.util.JacksonUtil.toJson;
+import static java.lang.System.out;
 
 /**
  * The configurer of  mybatis-plus code generator
@@ -49,8 +53,8 @@ import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@ConditionalOnProperty(prefix = "alphahub.dtt.code-generator", name = {"is-enable"}, havingValue = "true")
 @EnableConfigurationProperties({CodeGeneratorProperties.class})
+@ConditionalOnProperty(prefix = "alphahub.dtt.code-generator", name = {"is-enable"}, havingValue = "true")
 public class MyBatisPlusCodeGeneratorConfigurer {
     private static final Logger log = LoggerFactory.getLogger(MyBatisPlusCodeGeneratorConfigurer.class);
     /**
@@ -73,7 +77,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      * @return The class of mybatis-plus code generator
      */
     @Bean
-    @ConditionalOnBean({VelocityEngine.class})
+    @ConditionalOnBean({VelocityEngine.class, DefaultJavaDocParser.class, ClassScanningProvider.class})
     public MyBatisPlusCodeGeneratorPlaceholder myBatisPlusCodeGeneratorPlaceholder(CodeGeneratorProperties cgProperties,
                                                                                    VelocityEngine velocityEngine,
                                                                                    DefaultJavaDocParser javaDocParser,
@@ -82,13 +86,13 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         MyBatisPlusCodeGeneratorPlaceholder placeholder = new MyBatisPlusCodeGeneratorPlaceholder();
 
         if (StringUtils.isAnyBlank(cgProperties.getModuleName(), cgProperties.getModulePath())) {
-            log.warn("The properties of code generator cannot be null or empty: {}", JacksonUtil.toJson(cgProperties));
+            log.warn("The properties of code generator cannot be null or empty: {}", toJson(cgProperties));
             return placeholder;
         }
 
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location)) {
-            log.warn("Not support for application run with type of '{}'!", location);
+            log.warn("The code generator not support for application run type of '{}'!", location);
             return placeholder;
         }
 
@@ -125,7 +129,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
                 } catch (IOException ex) {
                     log.error("{}", ex.getLocalizedMessage(), ex);
                 }
-                System.out.println(absoluteFilename);
+                out.println(absoluteFilename);
             }
         }
 
@@ -147,10 +151,13 @@ public class MyBatisPlusCodeGeneratorConfigurer {
             codeWrappers = classScanningProvider.scanBasePackage(cgProperties.getBasePackage()).stream()
                     .filter(className -> !className.getName().endsWith("Builder"))
                     .map(aClass -> {
-                        String modelComment = javaDocParser.parse(aClass.getName()).getModel().getModelComment();
+                        String modelComment = "";
+                        ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
+                        if (null != parseFactory.getModel())
+                            modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
                         return MyBatisPlusCodeWrapper.builder()
                                 .modulePackage(cgProperties.getModulePackage())
-                                .domainDescription(StringUtils.defaultIfBlank(modelComment, ""))
+                                .domainDescription(modelComment)
                                 .domainSimpleClassName(aClass.getSimpleName())
                                 .domainFullyQualifiedClass(aClass.getName())
                                 .build();
@@ -160,14 +167,16 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         if (ObjectUtils.isNotEmpty(cgProperties.getBaseClasses())) {
             for (String baseClass : cgProperties.getBaseClasses()) {
                 Class<?> aClass = ClassUtil.loadClass(baseClass);
-                String modelComment = javaDocParser.parse(aClass.getName()).getModel().getModelComment();
-                MyBatisPlusCodeWrapper codeWrapper = MyBatisPlusCodeWrapper.builder()
+                String modelComment = "";
+                ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
+                if (null != parseFactory.getModel())
+                    modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
+                codeWrappers.add(MyBatisPlusCodeWrapper.builder()
                         .modulePackage(cgProperties.getModulePackage())
-                        .domainDescription(StringUtils.defaultIfBlank(modelComment, ""))
+                        .domainDescription(modelComment)
                         .domainSimpleClassName(aClass.getSimpleName())
                         .domainFullyQualifiedClass(aClass.getName())
-                        .build();
-                codeWrappers.add(codeWrapper);
+                        .build());
             }
         }
 
@@ -212,10 +221,10 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         }
 
         if (templateResource.endsWith(javaSuffix))
-            absoluteFilename = basicPath + "/" + fileParentPathname + "/" + codeWrapper.getDomainSimpleClassName() + templateResource;
+            absoluteFilename = MessageFormat.format("{0}/{1}/{2}{3}", basicPath, fileParentPathname, codeWrapper.getDomainSimpleClassName(), templateResource);
 
         if (templateResource.endsWith(xmlSuffix))
-            absoluteFilename = basicPath + "/" + codeWrapper.getDomainSimpleClassName() + templateResource;
+            absoluteFilename = MessageFormat.format("{0}/{1}{2}", basicPath, codeWrapper.getDomainSimpleClassName(), templateResource);
 
         return absoluteFilename;
     }
