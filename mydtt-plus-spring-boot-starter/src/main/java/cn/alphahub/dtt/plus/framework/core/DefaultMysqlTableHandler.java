@@ -22,7 +22,7 @@ import org.springframework.util.CollectionUtils;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultMysqlTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultMysqlTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMysqlTableHandler.class);
     @Autowired
     private MysqlDataMapperProperties mysqlDataMapperProperties;

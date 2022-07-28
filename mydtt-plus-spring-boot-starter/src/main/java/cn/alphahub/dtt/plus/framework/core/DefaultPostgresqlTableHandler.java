@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultPostgresqlTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultPostgresqlTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultPostgresqlTableHandler.class);
 
     @Autowired

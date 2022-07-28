@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultDb2TableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultDb2TableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDb2TableHandler.class);
     @Autowired
     private Db2DataMapperProperties db2DataMapperProperties;

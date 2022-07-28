@@ -25,14 +25,15 @@ import java.util.Map;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultMariadbTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultMariadbTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMariadbTableHandler.class);
     @Autowired
     private MariadbDataMapperProperties mariadbDataMapperProperties;
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
-        if (logger.isInfoEnabled()) logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
+        if (logger.isInfoEnabled())
+            logger.info("使用mariadb默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
         ModelEntity model = parseFactory.getModel();
         if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("表结构元数据解析结果不能为空 {}", model);

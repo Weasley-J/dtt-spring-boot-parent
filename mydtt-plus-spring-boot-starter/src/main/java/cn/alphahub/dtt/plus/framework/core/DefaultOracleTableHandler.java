@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({OracleDataMapperProperties.class})
-public class DefaultOracleTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultOracleTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultOracleTableHandler.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;

@@ -26,7 +26,7 @@ import java.util.Properties;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultSqlserverTableHandler extends DttRunner implements DttTableHandler<ModelEntity> {
+public class DefaultSqlserverTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultSqlserverTableHandler.class);
     @Autowired
     private SqlserverDataMapperProperties sqlserverDataMapperProperties;
@@ -34,7 +34,8 @@ public class DefaultSqlserverTableHandler extends DttRunner implements DttTableH
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
-        if (logger.isInfoEnabled()) logger.info("使用sqlserver默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
+        if (logger.isInfoEnabled())
+            logger.info("使用sqlserver默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
         if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("sqlserver的表结构元数据解析结果不能为空 {}", model);
             return null;

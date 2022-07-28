@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DttRunner {
+public class DttAggregationRunner {
 
     @Autowired
     private DefaultTemplateExecutor templateExecutor;
