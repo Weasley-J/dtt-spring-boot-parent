@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 /**
- * Dtt Runner integrates Executor and Resolver to provide the ability for the database to implement Class
+ * Dtt aggregation runner integrates Executor and Resolver to provide the ability for the database to implement Class
  *
  * @author weasley
  * @version 1.1.0
