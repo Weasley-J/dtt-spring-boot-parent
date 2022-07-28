@@ -2,11 +2,6 @@ package com.example;
 
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import com.example.domain.dtt.DttMember;
-import com.example.domain.order.NearPharmacyDto;
-import com.example.domain.order.OrderJdInfo;
-import com.example.domain.order.OrderPromotion;
-import com.example.domain.order.TradeOrder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,7 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         scanBaseClasses = {
                 //OmsOrderInquiry.class
                 //DttPerson.class,
-                DttMember.class,
+                //DttMember.class,
         }
 )
 @SpringBootApplication

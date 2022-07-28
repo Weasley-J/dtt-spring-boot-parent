@@ -15,8 +15,8 @@ import org.apache.ibatis.scripting.LanguageDriver;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -88,7 +88,10 @@ public class MybatisDataSourceConfigurer {
     @Bean
     @DependsOn({"dataSource"})
     @ConditionalOnMissingBean(value = {SqlSessionFactory.class})
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource, MybatisProperties mybatis, MybatisPlusProperties mybatisPlus) {
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource,
+                                               MybatisProperties mybatis,
+                                               MybatisPlusProperties mybatisPlus
+    ) {
         org.apache.ibatis.session.Configuration configuration = mybatis.getConfiguration();
         if (configuration == null) {
             configuration = mybatisPlus.getConfiguration();
@@ -96,7 +99,7 @@ public class MybatisDataSourceConfigurer {
         Environment environment = new Environment
                 .Builder("333666999")
                 .dataSource(dataSource)
-                .transactionFactory(new JdbcTransactionFactory())
+                .transactionFactory(new SpringManagedTransactionFactory())
                 .build();
         configuration.setEnvironment(environment);
         return new SqlSessionFactoryBuilder().build(configuration);
