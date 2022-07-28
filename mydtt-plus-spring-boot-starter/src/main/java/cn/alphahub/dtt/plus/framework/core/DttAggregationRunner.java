@@ -54,7 +54,8 @@ public class DttAggregationRunner {
         templateExecutor.execute(table);
     }
 
-    /* Batch update pure sql array
+    /**
+     * Batch update pure sql array
      *
      * @param sql pure sql array
      * @return failure, success
