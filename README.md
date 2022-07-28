@@ -243,23 +243,18 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 - Add maven dependencies to your `pom.xml`
 
 ```xml
-<properties>
-  <mydtt-plus.version>1.0.6</therapi-runtime-javadoc.version>
-  <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
-</properties>
-
 <dependencies>
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>${mydtt-plus.version}</version>
+            <version>1.2.6</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
             <groupId>com.github.therapi</groupId>
             <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-            <version>${therapi-runtime-javadoc.version}</version>
+            <version>0.15.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- javadoc-scribe end  -->
