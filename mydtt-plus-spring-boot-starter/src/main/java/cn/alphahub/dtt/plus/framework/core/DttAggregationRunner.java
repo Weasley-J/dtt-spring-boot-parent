@@ -58,7 +58,6 @@ public class DttAggregationRunner {
      * Batch update pure sql array
      *
      * @param sql pure sql array
-     * @return failure, success
      */
     public void batchExecute(String... sql) throws DataAccessException {
         templateExecutor.batchExecute(sql);
