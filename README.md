@@ -4,13 +4,15 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 
 > - What is DTT?
 >
-> It's means  `Domain-to-Table`,  Aims to make it easy for you to automatically create DB tables based on your Java model.
+> It's means  `Domain-to-Table`, Aims to make it easy for you to automatically create DB tables based on your Java
+> model.
 >
 > - What can DTT do?
 >
-> Its can easily convert Java domain to SQL create table statement and auto create them(`enable lombok  for your IDE`)，for different country java developer those who is none native English speaker, i.e.
+> Its can easily convert Java domain to SQL create table statement and auto create them(`enable lombok  for your IDE`)
+> ，for different country java developer those who is none native English speaker, i.e.
 >
-> - Chinese  developer
+> - Chinese developer
 >
 > 1. Java domian
 >
@@ -484,27 +486,88 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 
 ## Features of DTT
 
-### Good partner for RDB data migration
+### 1 Good partner for RDB data migration
 
 You can easily complete the creation of the target database in the RDB database that `DTT` has been adapted to without
 modifying any source code, and can retain the remark information of each metadata of the old database. The whole process
 takes about 20 seconds.
 
-### Create tables with the type of `0-code` injection
+### 2 Create tables with the type of `0-code` injection
 
 Which means DTT do nothing for your source code, you can specify `parserType = ParserType.JAVA_DOC` in `EnableDtt`
 annotation. you can also make ``parserType = ParserType.ANNOTATION` optional.
 
-### Export `SQL` for table's `DDL`  statement to local file
+### 3 Export `SQL` for table's `DDL`  statement to local file
 
 `DTT` can Export `SQL` for table's `DDL`  statement to local file thorough yaml configuration optional that you can
 modify those DLL statements.
 
-### Preserve all meta comments for database tables
+### 4 Preserve all meta comments for database tables
 
-### Specifies the character length of the metadata
+DTT's parser support parsing the Java documentation.
 
-You can configure in you yaml files just like this:
+### 5 Specifies the character length of the metadata
+
+You can configure for your configuration yaml like this:
+
+https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130
+
+Example:
+
+```yaml
+alphahub:
+  dtt:
+    string-length-mapper:
+      - database-type: MYSQL
+        default-text-type: varchar
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+```
+
+Explanation：
+
+Which means when your database is `MySQL`, An column contains filed of  `phone`, `_tel`, ... will be defined as type
+of `varchar(16)`
+
+### 6  Integrate multi-mybatis framework with `0-Code`
+
+1. `mybatis`: https://github.com/mybatis/spring-boot-starter
+2. `mybatis-plus`: https://github.com/baomidou/mybatis-plus
+3. `tk.mybatis`: https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter
+4. `pagehelper`: https://search.maven.org/artifact/com.github.pagehelper/pagehelper
+
+### 7 Built-in mybatis-plus code generator
+
+`DTT` can help you build an enterprise development framework quickly, you can configure it in your project configuration
+yaml file,
+
+i.e:
+
+```yaml
+alphahub:
+  dtt:
+    code-generator:
+      is-enable: on
+      show-code: false
+      override-exists: false
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
+      base-package: com.example.domain.dtt
+      base-classes: ""
+```
+
+[here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
 ## Database adaptation
 
