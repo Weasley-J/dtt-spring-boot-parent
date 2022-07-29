@@ -359,15 +359,83 @@ public class MydttPlusTestsApplication {
 
 You can enable the required functions as needed. When your application started. You'll be see like this console log in your IDE:
 
-
-
 ```
 
 2022-07-17 22:15:13.894  INFO 12961 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created '1' tables for '0' seconds. detail: {"dttStartTime":"2022-07-17 22:15:13","dttEndTime":"2022-07-17 22:15:13"}, location: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/ALL_IN_ONE.SQL
 
 ```
 
+- Generate business source code with `DTT` through yaml configuration
 
+Here is the example of `application.yml`:
+
+```yaml
+alphahub:
+  dtt:
+    code-generator:
+      is-enable: off
+      show-code: false
+      override-exists: false
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
+      base-package: com.example.domain.dtt
+      base-classes: ""
+```
+
+[Full meta data for `code-generator` configuration](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
+，the classes of `Service`,  `Mapper interface`, `Mapper.xm`, The directory structure is as follows:
+
+![image-20220729171604994](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220729171604994.png)
+
+Next, you can use the generated code in some controller class，i.e:
+
+```java
+/**
+ * Some controller
+ */
+@RestController
+@RequestMapping("/api/member")
+public class SomeController {
+    @Autowired
+    private DttMemberService memberService;
+
+    @PostMapping("/save")
+    @Transactional(rollbackFor = {Exception.class})
+    public ResponseEntity<Boolean> save(@RequestBody DttMember member) {
+        boolean save = memberService.save(member);
+        return ResponseEntity.ok(save);
+    }
+
+    @PutMapping("/update")
+    @Transactional(rollbackFor = {Exception.class})
+    public ResponseEntity<Boolean> update(@RequestBody DttMember member) {
+        boolean updated = memberService.updateById(member);
+        return ResponseEntity.ok(updated);
+    }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<DttMember> info(@PathVariable Long id) {
+        DttMember dttMember = memberService.getById(id);
+        return ResponseEntity.ok(dttMember);
+    }
+
+    @GetMapping("/list/{ids}")
+    public ResponseEntity<List<DttMember>> list(@PathVariable Long[] ids) {
+        List<DttMember> list = memberService.listByIds(Arrays.asList(ids));
+        return ResponseEntity.ok(list);
+    }
+
+    @DeleteMapping("/delete/{ids}")
+    @Transactional(rollbackFor = {Exception.class})
+    public ResponseEntity<Boolean> delete(@PathVariable Long[] ids) {
+        boolean removed = memberService.removeByIds(Arrays.asList(ids));
+        return ResponseEntity.ok(removed);
+    }
+}
+```
+
+That's the overview for `DTT` quick start.
 
 ### Annotation Metadata
 
@@ -393,9 +461,7 @@ Which can annotate on you Java modle class or property of modle，Usually used i
 | `dbDataType`   | String  | DB data type, i.e（MySQL）: `varchar(64)`                    |        |
 | `defaultValue` | String  | default value of current property，mapping to table column   |        |
 
-
-
-### Yaml file configuration
+### Yaml configuration
 
 You can easily  use in prefix of `alphahub.tt` in your porject，Here the  fully yaml property with default maybe you can reference it.  you can override in you `application.yml` if you don't need one of them. i.e:
 
@@ -416,21 +482,29 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 | IDE        | IDEA、Eclipse...                      |        |
 | Maven      | v3.6.5 or latest                      |        |
 
-
-
-
-
-
-
-
-
-
-
 ## Features of DTT
 
+### Good partner for RDB data migration
 
+You can easily complete the creation of the target database in the RDB database that `DTT` has been adapted to without
+modifying any source code, and can retain the remark information of each metadata of the old database. The whole process
+takes about 20 seconds.
 
+### Create tables with the type of `0-code` injection
 
+Which means DTT do nothing for your source code, you can specify `parserType = ParserType.JAVA_DOC` in `EnableDtt`
+annotation. you can also make ``parserType = ParserType.ANNOTATION` optional.
+
+### Export `SQL` for table's `DDL`  statement to local file
+
+`DTT` can Export `SQL` for table's `DDL`  statement to local file thorough yaml configuration optional that you can
+modify those DLL statements.
+
+### Preserve all meta comments for database tables
+
+### Specifies the character length of the metadata
+
+You can configure in you yaml files just like this:
 
 ## Database adaptation
 
@@ -442,16 +516,6 @@ Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `al
 | `sqlserver`  | `14.x` or latest    | ✅          |
 | `mariadb`    | `10.x `or latest    | ✅          |
 | `postgresql` | `v9.x` or latest    | ✅          |
-
-
-
-
-
-
-
-## `UML` architecture diagram
-
-![image-20220716190138301](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220716190138301.png)
 
 
 
