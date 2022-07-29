@@ -536,7 +536,7 @@ alphahub:
 
 Explanation：
 
-Which means when your database is `MySQL`, An column contains filed of  `phone`, `_tel`, ... will be defined as type
+Which means when your database is `MySQL`, A column contains filed of  `phone`, `_tel`, ... will be defined as type
 of `varchar(16)`
 
 ### 6  Integrate multi-mybatis framework with `0-Code`
