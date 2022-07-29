@@ -495,7 +495,7 @@ takes about 20 seconds.
 ### 2 Create tables with the type of `0-code` injection
 
 Which means DTT do nothing for your source code, you can specify `parserType = ParserType.JAVA_DOC` in `EnableDtt`
-annotation. you can also make ``parserType = ParserType.ANNOTATION` optional.
+annotation. you can also make `parserType = ParserType.ANNOTATION` optional.
 
 ### 3 Export `SQL` for table's `DDL`  statement to local file
 
