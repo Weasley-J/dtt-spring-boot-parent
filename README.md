@@ -643,7 +643,8 @@ public class DttMember implements Serializable {
 }
 ```
 
-- For those properties who specified default value，`DTT` can infer the default value for different `RDB` which `DTT` has
+- For those properties which specified default value，`DTT` can infer the default value for different `RDB` which `DTT`
+  has
   supported as follow:
 
 ```java
