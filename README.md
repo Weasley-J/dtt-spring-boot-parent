@@ -539,14 +539,322 @@ Explanation：
 Which means when your database is `MySQL`, A column contains filed of  `phone`, `_tel`, ... will be defined as type
 of `varchar(16)`
 
-### 6  Integrate multi-mybatis framework with `0-Code`
+### 6 Automatically infer default values for database table columns
+
+i.e:
+
+- An enum type to illustrate DTT infer default values.
+
+```java
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * 会员类型枚举
+ *
+ * @author weasley
+ * @version 1.0
+ * @date 2022/7/9
+ */
+@Getter
+@AllArgsConstructor
+public enum MemberType {
+    ORDINARY("普通会员"),
+    STUDENT("学生会员"),
+    GUNMETAL("青铜会员"),
+    SILVER("白银会员"),
+    GOLD("黄金会员"),
+    DIAMOND("钻石会员"),
+    SPORTS("体育会员"),
+    PLUS("plus会员");
+
+    /**
+     * 会员描述
+     */
+    private final String desc;
+}
+```
+
+- An domain class to infer diffrent table structure between `DTT` supported `RDB`
+
+```java
+/**
+ * 用户信息-DttMember
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+public class DttMember implements Serializable {
+    private static final long serialVersionUID = 1L;
+    /**
+     * 主键id
+     */
+    private Long id;
+    /**
+     * 用户openId
+     */
+    private String openId;
+    /**
+     * 用户昵称
+     */
+    private String nickname;
+    /**
+     * 是否启用, 默认：1
+     */
+    private Boolean isEnable = true;
+    /**
+     * 用户积分余额, 默认：0.00
+     */
+    private BigDecimal balance = BigDecimal.valueOf(0L, 2);
+    /**
+     * 出生日期，格式：yyyy-MM-dd HH:mm:ss
+     */
+    private LocalDateTime birthday;
+    /**
+     * 会员类型，默认：ORDINARY
+     */
+    private MemberType memberType = MemberType.ORDINARY;
+    /**
+     * 用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常
+     */
+    private Integer status = 3;
+    /**
+     * 账户注销状态；0 未注销（默认），1 已销户
+     */
+    private Integer deleted = 0;
+    /**
+     * 注册时间，格式: yyyy-MM-dd
+     */
+    private LocalDate registrarDate;
+    /**
+     * 会员加速开始时间, 格式：HH:mm:ss
+     */
+    private LocalTime accelerateBeginTime;
+    /**
+     * 会员加速结束时间, 格式：HH:mm:ss
+     */
+    private LocalTime accelerateEndTime;
+    /**
+     * 修改时间
+     */
+    private LocalDateTime updateTime;
+}
+```
+
+- For those properties who specified default value，`DTT` can infer the default value for different `RDB` which `DTT` has
+  supported as follow:
+
+```java
+/**
+ * 用户信息-DttMember
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+public class DttMember implements Serializable {
+    private static final long serialVersionUID = 1L;
+    /**
+     * 是否启用, 默认：1
+     */
+    private Boolean isEnable = true;
+    /**
+     * 用户积分余额, 默认：0.00
+     */
+    private BigDecimal balance = BigDecimal.valueOf(0L, 2);
+    /**
+     * 会员类型，默认：ORDINARY
+     */
+    private MemberType memberType = MemberType.ORDINARY;
+    /**
+     * 用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常
+     */
+    private Integer status = 3;
+    /**
+     * 账户注销状态；0 未注销（默认），1 已销户
+     */
+    private Integer deleted = 0;
+}
+```
+
+**As you can see the default value specified by `DTT`  in the table DDL statement demonstrate the given 3 types RDB.**
+
+#### (a) DB2
+
+```sql
+CREATE TABLE "TESTDB"."DTT_MEMBER"
+(
+    "ID"    BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1),
+    "OPEN_ID"    VARCHAR(64) DEFAULT NULL,
+    "NICKNAME"    VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"    BOOLEAN DEFAULT true,
+    "BALANCE"    DECIMAL DEFAULT 0.00,
+    "BIRTHDAY"    TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"    VARCHAR(256) DEFAULT 'ORDINARY',
+    "STATUS"    INTEGER DEFAULT 3,
+    "DELETED"    INTEGER DEFAULT 0,
+    "REGISTRAR_DATE"    DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"    TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"    TIME DEFAULT NULL,
+    "UPDATE_TIME"    TIMESTAMP(6) DEFAULT CURRENT TIMESTAMP,
+    PRIMARY KEY ("ID")
+);
+COMMENT ON TABLE "TESTDB"."DTT_MEMBER" IS '用户信息';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."ID" IS '主键id';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."OPEN_ID" IS '用户openId';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."NICKNAME" IS '用户昵称';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."IS_ENABLE" IS '是否启用, 默认：1';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."BALANCE" IS '用户积分余额, 默认：0.00';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY, Enum type:ORDINARY,STUDENT,GUNMETAL,SILVER,GOLD,DIAMOND,SPORTS,PLUS';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss';
+COMMENT ON COLUMN "TESTDB"."DTT_MEMBER"."UPDATE_TIME" IS '修改时间';
+```
+
+#### (b) SQL server
+
+```sql
+CREATE TABLE [dbo].[dtt_member]
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
+    [open_id]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
+    [nickname]    varchar(64) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT    NULL,
+    [is_enable]    tinyint DEFAULT 1,
+    [balance]    money DEFAULT 0.00,
+    [birthday]    datetime2 DEFAULT NULL,
+    [member_type]    varchar(256) DEFAULT 'ORDINARY',
+    [status]    int DEFAULT 3,
+    [deleted]    int DEFAULT 0,
+    [registrar_date]    date DEFAULT NULL,
+    [accelerate_begin_time]    time DEFAULT NULL,
+    [accelerate_end_time]    time DEFAULT NULL,
+    [update_time]    datetime2 DEFAULT NULL
+)
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户信息',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'主键id',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'id'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户openId',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'open_id'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户昵称',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'nickname'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'是否启用, 默认：1',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'is_enable'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户积分余额, 默认：0.00',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'balance'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'出生日期，格式：yyyy-MM-dd HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'birthday'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员类型，默认：ORDINARY, Enum type:ORDINARY,STUDENT,GUNMETAL,SILVER,GOLD,DIAMOND,SPORTS,PLUS',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'member_type'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'status'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'账户注销状态；0 未注销（默认），1 已销户',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'deleted'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'注册时间，格式: yyyy-MM-dd',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'registrar_date'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员加速开始时间, 格式：HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'accelerate_begin_time'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员加速结束时间, 格式：HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'accelerate_end_time'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'修改时间',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'update_time'
+GO
+```
+
+#### (c) MySQL
+
+```mysql
+CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
+(
+    `id`  bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `open_id`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '用户openId',
+    `nickname`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '用户昵称',
+    `is_enable`  tinyint                                                  DEFAULT true COMMENT '是否启用, 默认：1',
+    `balance`  decimal                                                  DEFAULT 0.00 COMMENT '用户积分余额, 默认：0.00',
+    `birthday`  datetime                                                  DEFAULT NULL COMMENT '出生日期，格式：yyyy-MM-dd HH:mm:ss',
+    `member_type`  enum('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'ORDINARY' COMMENT '会员类型，默认：ORDINARY',
+    `status`  int                                                  DEFAULT 3 COMMENT '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
+    `deleted`  int                                                  DEFAULT 0 COMMENT '账户注销状态；0 未注销（默认），1 已销户',
+    `registrar_date`  date                                                  DEFAULT NULL COMMENT '注册时间，格式: yyyy-MM-dd',
+    `accelerate_begin_time`  time                                                  DEFAULT NULL COMMENT '会员加速开始时间, 格式：HH:mm:ss',
+    `accelerate_end_time`  time                                                  DEFAULT NULL COMMENT '会员加速结束时间, 格式：HH:mm:ss',
+    `update_time`  datetime                                                 DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+DEFAULT CHARSET = utf8mb4
+COLLATE = utf8mb4_general_ci COMMENT ='用户信息-DttMember';
+```
+
+### 7 Integrate multi-mybatis framework with `0-Code`
 
 1. `mybatis`: https://github.com/mybatis/spring-boot-starter
 2. `mybatis-plus`: https://github.com/baomidou/mybatis-plus
 3. `tk.mybatis`: https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter
 4. `pagehelper`: https://search.maven.org/artifact/com.github.pagehelper/pagehelper
 
-### 7 Built-in mybatis-plus code generator
+### 8 Built-in mybatis-plus code generator
 
 `DTT` can help you build an enterprise development framework quickly, you can configure it in your project configuration
 yaml file,
@@ -569,7 +877,7 @@ alphahub:
 
 [here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
-## Database adaptation
+## Supported `RDB` type
 
 | database     | version             | adaptation |
 | ------------ | ------------------- | ---------- |
@@ -579,10 +887,6 @@ alphahub:
 | `sqlserver`  | `14.x` or latest    | ✅          |
 | `mariadb`    | `10.x `or latest    | ✅          |
 | `postgresql` | `v9.x` or latest    | ✅          |
-
-
-
-
 
 ## Contribute your code
 
