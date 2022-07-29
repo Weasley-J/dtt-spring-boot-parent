@@ -101,7 +101,7 @@ alphahub:
 解释：
 
 如果你的数据库是`mysql`，数据表里面如果列名包含：`phone`,`_tel`等字段时该列会被定义为`varchar(16)`,
-DTT会有一切默认长度的自动推断，你可以想示例里面的例子一样在你的`yaml`文件中覆盖它.
+DTT会有一些默认长度的自动推断，你可以像示例里面的例子一样在你的`yaml`文件中覆盖它.
 
 [完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
