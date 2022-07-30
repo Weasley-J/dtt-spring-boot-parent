@@ -1,16 +1,14 @@
 package com.example.controller;
 
-import cn.alphahub.dtt.plus.util.JacksonUtil;
+import cn.hutool.json.JSONUtil;
 import com.example.domain.dtt.DttMember;
 import com.example.service.DttMemberService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,11 +30,18 @@ public class SomeController {
     @PostMapping("/save/no/params")
     @Transactional(rollbackFor = {Exception.class})
     public ResponseEntity<Boolean> saveNoParams() {
-        String json = "";
-        Collection<DttMember> dttMembers = JacksonUtil.readValue(json, new TypeReference<>() {
-        });
-        System.out.println(JacksonUtil.toJson(dttMembers));
-        boolean save = memberService.saveBatch(dttMembers);
+        String json = "{\n" +
+                "  \"openId\": \"fawezOE5sT\",\n" +
+                "  \"nickname\": \"蒋震南\",\n" +
+                "  \"isEnable\": true,\n" +
+                "  \"balance\": 865,\n" +
+                "  \"memberType\": \"STUDENT\",\n" +
+                "  \"status\": 0,\n" +
+                "  \"deleted\": 1,\n" +
+                "}";
+        DttMember member = JSONUtil.toBean(json, DttMember.class);
+        boolean save = memberService.saveBatch(Arrays.asList(member));
+        System.out.println(JSONUtil.toJsonStr(member));
         return ResponseEntity.ok(save);
     }
 

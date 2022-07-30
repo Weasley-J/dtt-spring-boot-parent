@@ -124,7 +124,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
                 break;
             case ORACLE:
                 if (!StringUtils.isCapitalMode(tableName)) {
-                    // TODO Whether the table Name is converted to uppercase
+                    tableName = tableName.toUpperCase();
                 }
                 sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
                 break;

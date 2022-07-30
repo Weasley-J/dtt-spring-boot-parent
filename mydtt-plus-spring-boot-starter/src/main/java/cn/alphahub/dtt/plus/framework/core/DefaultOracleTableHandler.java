@@ -191,16 +191,8 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
      */
     protected boolean isTableExists(String tableName) {
         String sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
-        for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
-            try {
-                Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
-                if (null != result) {
-                    return result > 0;
-                }
-            } catch (DataAccessException e) {
-                logger.warn("{}", e.getMessage());
-            }
-        }
-        return false;
+        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
+        if (null == result) return false;
+        return result > 0;
     }
 }

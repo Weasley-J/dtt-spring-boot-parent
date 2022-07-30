@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
     name: mydtt-plus-application-demo
 
   profiles:
-    active: mysql
+    active: oracle
