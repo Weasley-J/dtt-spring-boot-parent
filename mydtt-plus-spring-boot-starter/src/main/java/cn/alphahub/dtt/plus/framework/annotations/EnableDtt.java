@@ -10,6 +10,7 @@ import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.InitDttClient;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
+import cn.alphahub.dtt.plus.framework.Interceptor.DefaultDttMybatisInterceptor;
 import cn.alphahub.dtt.plus.framework.VelocityHandler;
 import cn.alphahub.dtt.plus.framework.core.*;
 import org.springframework.context.annotation.Import;

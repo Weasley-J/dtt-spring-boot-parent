@@ -2,8 +2,8 @@ package cn.alphahub.dtt.plus.config;
 
 import cn.alphahub.dtt.plus.constant.Constants;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
+import cn.alphahub.dtt.plus.framework.Interceptor.DefaultDttMybatisInterceptor;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.alphahub.dtt.plus.framework.core.DefaultDttMybatisInterceptor;
 import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
