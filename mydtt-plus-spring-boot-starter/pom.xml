@@ -59,6 +59,7 @@
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <mybatis.version>3.5.10</mybatis.version>
+        <jsqlparser.version>4.5</jsqlparser.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
         <!-- deploy start -->
         <nexus-staging.version>1.6.13</nexus-staging.version>
@@ -186,6 +187,11 @@
             </exclusions>
         </dependency>
         <!-- mybatis end-->
+        <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>${jsqlparser.version}</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>

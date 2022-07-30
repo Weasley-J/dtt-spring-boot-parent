@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * support plus 分页插件配置
@@ -12,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Weasley J
  * @link https://mp.baomidou.com/guide/page.html
  */
-@Configuration
+//@Configuration
 public class MybatisPlusConfig {
 
     /**
