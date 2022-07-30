@@ -94,7 +94,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             dttCommentParser = contextWrapper.getCommentParser();
 
         for (String tableName : tableNames) {
-            if (isTableNotExists(tableName) && !CollectionUtils.isEmpty(TYPE_ALIASES_MAP)) {
+            if (isTableNotExists(tableName) && CollectionUtils.isNotEmpty(TYPE_ALIASES_MAP)) {
                 logger.info("Table of '{}' doesn't exists, DTT will be created automatically", tableName);
                 String classCamelName = StringUtils.underlineToCamel(tableName);
                 if (!TYPE_ALIASES_MAP.containsKey(classCamelName)) return;
