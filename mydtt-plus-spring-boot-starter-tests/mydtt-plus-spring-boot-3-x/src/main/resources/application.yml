@@ -6,4 +6,4 @@ spring:
     name: mydtt-plus-application-demo
 
   profiles:
-    active: oracle
+    active: mysql
