@@ -13,6 +13,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
+import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
+
 /**
  * Enter the description of this class here
  *
@@ -34,7 +38,9 @@ import java.util.stream.Collectors;
 @Lazy(value = false)
 @ConditionalOnClass({SqlSessionFactory.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
+@EnableConfigurationProperties({DttMybatisOrmSupportProperties.class})
 @AutoConfigureAfter(name = {"mybatisAutoConfiguration", "mybatisPlusAutoConfiguration"})
+@ConditionalOnProperty(prefix = "alphahub.dtt.mybatis-orm-support", value = {"is-enable"}, havingValue = "true")
 public class DttMybatisInterceptorConfigurer implements InitializingBean {
     /**
      * The type aliases map of mybatis

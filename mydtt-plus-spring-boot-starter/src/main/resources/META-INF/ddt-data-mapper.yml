@@ -3,8 +3,11 @@
 #
 alphahub:
   dtt:
-    is-enable: on
-    show-sql: on
+    is-enable: true
+    banner-mode: ON
+    show-sql: true
+    mybatis-orm-support:
+      is-enable: false
     template:
       path: META-INF/sql-templates
       suffix: .vm

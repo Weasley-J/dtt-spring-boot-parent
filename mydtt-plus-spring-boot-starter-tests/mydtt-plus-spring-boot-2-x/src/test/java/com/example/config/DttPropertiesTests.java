@@ -2,6 +2,7 @@ package com.example.config;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
+import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,11 @@ class DttPropertiesTests {
     void getPrimaryKeyMapper() {
         Map<DatabaseType, String> primaryKeyMapper = dttProperties.getPrimaryKeyMapper();
         System.out.println("primaryKeyMapper = " + primaryKeyMapper);
+    }
+
+    @Test
+    void printDttProperties() {
+        System.err.println(JacksonUtil.toPrettyJson(dttProperties));
     }
 
 }

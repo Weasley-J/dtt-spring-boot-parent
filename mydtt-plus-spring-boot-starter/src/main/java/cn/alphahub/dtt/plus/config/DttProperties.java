@@ -43,6 +43,12 @@ public class DttProperties {
      */
     private Boolean showSql = true;
     /**
+     * The configuration property of DTT-MyBatis,<br>
+     * To provide the ability of fully automated ORM framework support.
+     */
+    @NestedConfigurationProperty
+    private DttMybatisOrmSupportProperties mybatisOrmSupport;
+    /**
      * Template property configuration, This is the default configuration,
      * don't modify it if you don't need it
      */
@@ -89,6 +95,21 @@ public class DttProperties {
      */
     @NestedConfigurationProperty
     private List<StringLengthMapper> stringLengthMapper;
+
+    /**
+     * The configuration property of DTT-MyBatis,<br>
+     * To provide the ability of fully automated ORM framework support.
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.mybatis-orm-support")
+    public static class DttMybatisOrmSupportProperties {
+        /**
+         * Whether to enable mybatis fully automatic ORM support in the range of RDB supported by DTT
+         *
+         * @see DatabaseType
+         */
+        private Boolean isEnable = false;
+    }
 
     /**
      * Template property configuration

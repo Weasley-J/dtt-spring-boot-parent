@@ -25,7 +25,6 @@ class DttPropertiesTests {
 
     @Test
     void contextLoads1() {
-        DttProperties.DataTypeMapperProperties dataTypeMapper = dttProperties.getDataTypeMapper();
         System.err.println(JacksonUtil.toPrettyJson(this.dttProperties));
     }
 

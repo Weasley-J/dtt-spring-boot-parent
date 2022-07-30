@@ -23,7 +23,10 @@ mybatis-plus:
 alphahub:
   dtt:
     is-enable: on
-    show-sql: false
+    banner-mode: ON
+    show-sql: off
+    mybatis-orm-support:
+      is-enable: on
     all-in-one-table:
       enable: true
       filename: AllInOne.sql

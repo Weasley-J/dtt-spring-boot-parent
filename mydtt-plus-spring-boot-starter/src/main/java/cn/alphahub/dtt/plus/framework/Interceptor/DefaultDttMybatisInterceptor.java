@@ -24,6 +24,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -34,6 +35,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import static cn.alphahub.dtt.plus.config.DttMybatisInterceptorConfigurer.TYPE_ALIASES_MAP;
+import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
  * The default interceptor of mybatis-pro
@@ -47,15 +49,19 @@ import static cn.alphahub.dtt.plus.config.DttMybatisInterceptorConfigurer.TYPE_A
         @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
 })
+@ConditionalOnProperty(prefix = "alphahub.dtt.mybatis-orm-support", value = {"is-enable"}, havingValue = "true")
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
     private final JdbcTemplate jdbcTemplate;
 
     private final ApplicationContext applicationContext;
 
-    public DefaultDttMybatisInterceptor(JdbcTemplate jdbcTemplate, ApplicationContext applicationContext) {
+    private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
+
+    public DefaultDttMybatisInterceptor(JdbcTemplate jdbcTemplate, ApplicationContext applicationContext, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
         this.jdbcTemplate = jdbcTemplate;
         this.applicationContext = applicationContext;
+        this.dttMybatisOrmSupportProperties = dttMybatisOrmSupportProperties;
     }
 
     @Override
@@ -71,7 +77,8 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             Statement parse = CCJSqlParserUtil.parse(boundSql.getSql());
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             List<String> tableNames = tablesNamesFinder.getTableList(parse);
-            createTableIfNotExists(tableNames);
+            if (dttMybatisOrmSupportProperties.getIsEnable().equals(true))
+                createTableIfNotExists(tableNames);
         }
         return invocation.proceed();
     }
