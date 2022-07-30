@@ -41,7 +41,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
 @EnableConfigurationProperties({DttMybatisOrmSupportProperties.class})
 @AutoConfigureAfter(name = {"mybatisAutoConfiguration", "mybatisPlusAutoConfiguration"})
 @ConditionalOnProperty(prefix = "alphahub.dtt.mybatis-orm-support", value = {"is-enable"}, havingValue = "true")
-public class DttMybatisOrmAutoConfiguration implements InitializingBean {
+public class DttMybatisAutoConfiguration implements InitializingBean {
     /**
      * The type aliases map of mybatis
      * <p>
@@ -62,7 +62,7 @@ public class DttMybatisOrmAutoConfiguration implements InitializingBean {
     private final DefaultDttMybatisInterceptor defaultDttMybatisInterceptor;
 
 
-    public DttMybatisOrmAutoConfiguration(ClassScanningProvider classScanningProvider, List<SqlSessionFactory> sqlSessionFactories, DefaultDttMybatisInterceptor defaultDttMybatisInterceptor) {
+    public DttMybatisAutoConfiguration(ClassScanningProvider classScanningProvider, List<SqlSessionFactory> sqlSessionFactories, DefaultDttMybatisInterceptor defaultDttMybatisInterceptor) {
         this.classScanningProvider = classScanningProvider;
         this.sqlSessionFactories = sqlSessionFactories;
         this.defaultDttMybatisInterceptor = defaultDttMybatisInterceptor;

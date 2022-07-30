@@ -34,7 +34,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
 
-import static cn.alphahub.dtt.plus.config.DttMybatisOrmAutoConfiguration.TYPE_ALIASES_MAP;
+import static cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration.TYPE_ALIASES_MAP;
 import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
