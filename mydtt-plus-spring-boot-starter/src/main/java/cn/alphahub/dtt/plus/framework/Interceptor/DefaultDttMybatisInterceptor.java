@@ -34,7 +34,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
 
-import static cn.alphahub.dtt.plus.config.DttMybatisInterceptorConfigurer.TYPE_ALIASES_MAP;
+import static cn.alphahub.dtt.plus.config.DttMybatisOrmAutoConfiguration.TYPE_ALIASES_MAP;
 import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
@@ -53,9 +53,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
     private final JdbcTemplate jdbcTemplate;
-
     private final ApplicationContext applicationContext;
-
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
 
     public DefaultDttMybatisInterceptor(JdbcTemplate jdbcTemplate, ApplicationContext applicationContext, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {

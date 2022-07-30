@@ -2,7 +2,7 @@ package cn.alphahub.dtt.plus.framework.annotations;
 
 import cn.alphahub.dtt.plus.config.DefaultExtraPropertiesLoader;
 import cn.alphahub.dtt.plus.config.DefaultExtraYamlSourceLoader;
-import cn.alphahub.dtt.plus.config.DttMybatisInterceptorConfigurer;
+import cn.alphahub.dtt.plus.config.DttMybatisOrmAutoConfiguration;
 import cn.alphahub.dtt.plus.config.support.MyBatisPlusCodeGeneratorConfigurer;
 import cn.alphahub.dtt.plus.config.support.MybatisDataSourceConfigurer;
 import cn.alphahub.dtt.plus.enums.ParserType;
@@ -46,7 +46,7 @@ import java.lang.annotation.Target;
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttAggregationRunner.class,
         DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class, DefaultDttMybatisInterceptor.class,
-        DttMybatisInterceptorConfigurer.class
+        DttMybatisOrmAutoConfiguration.class
 })
 public @interface EnableDtt {
     /**
