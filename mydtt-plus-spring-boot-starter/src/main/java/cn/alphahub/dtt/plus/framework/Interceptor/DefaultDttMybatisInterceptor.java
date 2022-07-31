@@ -25,7 +25,6 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,6 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
         @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
 })
-@ConditionalOnProperty(prefix = "alphahub.dtt.mybatis-orm-support", value = {"is-enable"}, havingValue = "true")
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
     private final JdbcTemplate jdbcTemplate;

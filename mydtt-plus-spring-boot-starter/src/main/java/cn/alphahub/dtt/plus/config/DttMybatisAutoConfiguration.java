@@ -14,7 +14,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -40,7 +39,6 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DttMybatisOrmSupportProperties.class})
 @AutoConfigureAfter(name = {"mybatisAutoConfiguration", "mybatisPlusAutoConfiguration"})
-@ConditionalOnProperty(prefix = "alphahub.dtt.mybatis-orm-support", value = {"is-enable"}, havingValue = "true")
 public class DttMybatisAutoConfiguration implements InitializingBean {
     /**
      * The type aliases map of mybatis
