@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.Interceptor;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.DatabaseProperty;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
@@ -75,8 +76,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             Statement parse = CCJSqlParserUtil.parse(boundSql.getSql());
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             List<String> tableNames = tablesNamesFinder.getTableList(parse);
-            if (dttMybatisOrmSupportProperties.getIsEnable().equals(true))
-                createTableIfNotExists(tableNames);
+            if (dttMybatisOrmSupportProperties.getIsEnable().equals(true)) createTableIfNotExists(tableNames);
         }
         return invocation.proceed();
     }
@@ -98,8 +98,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         // if APP run with type of Jar environment dtt Comment Parser takes Default Annotation Parser
         if (ResourceUtils.isJarURL(location))
             dttCommentParser = applicationContext.getBean(DefaultAnnotationParser.class);
-        else
-            dttCommentParser = contextWrapper.getCommentParser();
+        else dttCommentParser = contextWrapper.getCommentParser();
 
         for (String tableName : tableNames) {
             if (isTableNotExists(tableName) && CollectionUtils.isNotEmpty(TYPE_ALIASES_MAP)) {
@@ -112,7 +111,6 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
                 contextWrapper.getTableHandler().create(parseFactory);
             }
         }
-
     }
 
     /**
@@ -125,22 +123,35 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         if (StringUtils.isBlank(tableName)) return false;
         DatabaseProperty databaseProperty = SpringUtil.getBean(DatabaseProperty.class);
         String sql = "";
+
+        if (databaseProperty.getDatabaseType() == DatabaseType.DB2) {
+            Integer exists;
+            if (!StringUtils.isCapitalMode(tableName)) {
+                sql = "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '" + tableName.toUpperCase() + "'";
+                exists = jdbcTemplate.queryForObject(sql, Integer.class);
+                if (null != exists && exists > 0) return false;
+            }
+            sql = "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '" + tableName + "'";
+            exists = jdbcTemplate.queryForObject(sql, Integer.class);
+            return null == exists || exists == 0;
+        }
+
+        if (databaseProperty.getDatabaseType() == DatabaseType.ORACLE) {
+            Integer exists;
+            if (!StringUtils.isCapitalMode(tableName)) {
+                sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName.toUpperCase() + "'";
+                exists = jdbcTemplate.queryForObject(sql, Integer.class);
+                if (null != exists && exists > 0) return false;
+            }
+            sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
+            exists = jdbcTemplate.queryForObject(sql, Integer.class);
+            return null == exists || exists == 0;
+        }
+
         switch (databaseProperty.getDatabaseType()) {
             case MYSQL:
             case MARIADB:
                 sql = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_NAME = '" + tableName + "'";
-                break;
-            case ORACLE:
-                if (!StringUtils.isCapitalMode(tableName)) {
-                    tableName = tableName.toUpperCase();
-                }
-                sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
-                break;
-            case DB2:
-                if (!StringUtils.isCapitalMode(tableName)) {
-                    tableName = tableName.toUpperCase();
-                }
-                sql = "SELECT COUNT(*) FROM syscat.tables WHERE TABSCHEMA = 'TESTDB' AND TABNAME = '" + tableName + "'";
                 break;
             case SQLSERVER:
                 sql = "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[" + tableName + "]' ) AND type IN ( 'U' )";
@@ -151,9 +162,10 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             default:
                 break;
         }
+
         if (StringUtils.isBlank(sql)) return false;
-        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class);
-        if (null == integer) return true;
-        return integer == 0;
+        Integer exists = jdbcTemplate.queryForObject(sql, Integer.class);
+
+        return null == exists || exists == 0;
     }
 }

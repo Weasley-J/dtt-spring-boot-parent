@@ -7,7 +7,7 @@ alphahub:
     banner-mode: ON
     show-sql: true
     mybatis-orm-support:
-      is-enable: false
+      is-enable: true
     template:
       path: META-INF/sql-templates
       suffix: .vm

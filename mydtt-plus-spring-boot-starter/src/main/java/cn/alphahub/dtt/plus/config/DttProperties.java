@@ -108,7 +108,7 @@ public class DttProperties {
          *
          * @see DatabaseType
          */
-        private Boolean isEnable = false;
+        private Boolean isEnable = true;
     }
 
     /**
