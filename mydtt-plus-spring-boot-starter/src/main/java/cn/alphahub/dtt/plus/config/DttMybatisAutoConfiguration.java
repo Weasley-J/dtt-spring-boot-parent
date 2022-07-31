@@ -5,6 +5,7 @@ import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.Interceptor.DefaultDttMybatisInterceptor;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.hutool.extra.spring.SpringUtil;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.Configuration;
@@ -17,7 +18,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -72,9 +72,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
     public void afterPropertiesSet() {
         sqlSessionFactories.forEach(sqlSessionFactory -> {
             Configuration configuration = sqlSessionFactory.getConfiguration();
-            if (null != configuration
-                    && CollectionUtils.isEmpty(configuration.getInterceptors())
-                    && !configuration.getInterceptors().contains(defaultDttMybatisInterceptor)) {
+            if (null != configuration && !configuration.getInterceptors().contains(defaultDttMybatisInterceptor)) {
                 configuration.addInterceptor(defaultDttMybatisInterceptor);
             }
         });
@@ -84,11 +82,9 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             if (StringUtils.isNoneBlank(property)) {
                 String[] typeAliasesPackages = StringUtils.split(property, ",");
                 if (ObjectUtils.isNotEmpty(typeAliasesPackages)) {
-                    Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream()
-                            .filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
-                    if (!CollectionUtils.isEmpty(classes)) {
-                        ConcurrentMap<String, ? extends Class<?>> classConcurrentMap = classes.stream()
-                                .collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> value)));
+                    Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
+                    if (CollectionUtils.isNotEmpty(classes)) {
+                        ConcurrentMap<String, ? extends Class<?>> classConcurrentMap = classes.stream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> value)));
                         TYPE_ALIASES_MAP.putAll(classConcurrentMap);
                     }
                 }
