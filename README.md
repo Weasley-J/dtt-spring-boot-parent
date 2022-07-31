@@ -249,8 +249,8 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
-            <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>1.2.7</version>
+          <artifactId>mydtt-plus-spring-boot-starter</artifactId>
+          <version>1.2.8</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>

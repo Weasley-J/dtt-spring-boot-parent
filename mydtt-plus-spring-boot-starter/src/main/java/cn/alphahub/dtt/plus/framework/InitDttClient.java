@@ -174,7 +174,7 @@ public class InitDttClient {
         if (databaseHandler.getDbType() == DatabaseType.DB2) {
             try {
                 databaseName = jdbcTemplate.queryForObject("SELECT CURRENT SERVER FROM SYSIBM.SYSDUMMY1", String.class);
-                if (null == databaseName || "NULL".equals(databaseName) || "null".equals(databaseName)) {
+                if (StringUtils.isBlank(databaseName) || "NULL".equals(databaseName) || "null".equals(databaseName)) {
                     databaseName = "";
                 }
             } catch (DataAccessException e) {

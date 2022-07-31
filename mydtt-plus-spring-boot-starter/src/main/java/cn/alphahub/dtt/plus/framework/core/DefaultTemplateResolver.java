@@ -48,7 +48,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
     public String resolve(ParseFactory<ModelEntity> parseFactory) {
         ModelEntity model = parseFactory.getModel();
         VelocityContext context = new VelocityContext();
-        handlingPrimaryKey(model, context);
+        handlePrimaryKey(model, context);
         StringWriter writer = processTemplate(context, model);
         return writer.toString();
     }
@@ -56,7 +56,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
     @Override
     public String resolve(ParseFactory<ModelEntity> parseFactory, VelocityContext context) {
         ModelEntity model = parseFactory.getModel();
-        handlingPrimaryKey(model, context);
+        handlePrimaryKey(model, context);
         StringWriter writer = processTemplate(context, model);
         return writer.toString();
     }

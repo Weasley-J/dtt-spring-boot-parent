@@ -51,11 +51,8 @@ public class DefaultDb2TableHandler extends DttAggregationRunner implements DttT
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             }
-            if (detail.getFiledComment().contains(";")) {
-                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
-            }
-            if (detail.getFiledComment().contains(".")) {
-                detail.setFiledComment(detail.getFiledComment().replace(".", " "));
+            if (detail.getFiledComment().contains("\\.")) {
+                detail.setFiledComment(detail.getFiledComment().replace("\\.", " "));
             }
         });
 

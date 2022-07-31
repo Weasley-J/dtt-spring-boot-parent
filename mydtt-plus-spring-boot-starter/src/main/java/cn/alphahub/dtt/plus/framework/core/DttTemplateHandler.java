@@ -61,7 +61,7 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
      * @param model   model
      * @param context velocity context
      */
-    default void handlingPrimaryKey(ModelEntity model, VelocityContext context) {
+    default void handlePrimaryKey(ModelEntity model, VelocityContext context) {
         for (Detail detail : model.getDetails()) {
             if (Boolean.TRUE.equals(detail.getIsPrimaryKey())) {
                 context.put(PRIMARY_KEY_MARK, detail.getFiledName());
@@ -85,5 +85,14 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
             //Move the manually added 'id' column to the position of the first column
             Collections.swap(model.getDetails(), 0, model.getDetails().size() - 1);
         }
+    }
+
+    /**
+     * 处理小数精度
+     *
+     * @param model The model be processed
+     */
+    default void handleDecimalPrecision(ModelEntity model) {
+        //TODO 处理小数精度
     }
 }
