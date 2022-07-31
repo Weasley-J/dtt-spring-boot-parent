@@ -1000,7 +1000,7 @@ End of this feature introduction, I want to note that in the development environ
 be obtained by parsing `Java documentation`. In the environment of  `Jar`、 `war`，DTT doesn't support parsing `Java`
 documents, so the comments for the created table are missing. If you want to synchronize the table structure
 for `production environment` from `Dev environment` which created by `DTT`, then you can ignore to use`@Dtt`annotations
-to annotate your domain objects.
+to annotate your domain objects，you can you some `RDB` tools.
 
 ## Supported `RDB` type
 

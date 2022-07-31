@@ -101,7 +101,7 @@ alphahub:
 解释：
 
 如果你的数据库是`mysql`，数据表里面如果列名包含：`phone`,`_tel`等字段时该列会被定义为`varchar(16)`,
-DTT会有一些默认长度的自动推断，你可以像示例里面的例子一样在你的`yaml`文件中覆盖它.
+DTT会有一切默认长度的自动推断，你可以想示例里面的例子一样在你的`yaml`文件中覆盖它.
 
 [完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
@@ -264,7 +264,7 @@ public class DttMember implements Serializable {
 
 开发环境下可以通过解析`Java document`获取数据表的备注说明，`Jar`，`war`包环境下不支持解析`Java`
 注释，因此创建的表的注释会缺失。如果你是希望把开发环境的表结构通过`DTT`
-创建好的表结构同步到生产环境，那么你可以忽略使用`@Dtt`注解注释你的域对象。
+创建好的表结构同步到生产环境，那么你可以忽略使用`@Dtt`注解注释你的域对象，你可以使用数据库工具。
 
 4. **该功能仅适用于受支持的`RDB`**
 
