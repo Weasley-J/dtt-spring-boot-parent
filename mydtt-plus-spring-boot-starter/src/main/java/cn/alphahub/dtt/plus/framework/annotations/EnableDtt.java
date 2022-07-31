@@ -46,7 +46,7 @@ import java.lang.annotation.Target;
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttAggregationRunner.class,
         DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class, DefaultDttMybatisInterceptor.class,
-        DttMybatisAutoConfiguration.class
+        DttMybatisAutoConfiguration.class,
 })
 public @interface EnableDtt {
     /**

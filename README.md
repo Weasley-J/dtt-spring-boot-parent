@@ -880,7 +880,127 @@ alphahub:
 ### 9 Support `mybatis` create table automatically
 
 - **This feature only available for supported `RDB`**
--
+
+- This feature depends on your `springboot` main class or configuration class annotated by `@EnableDtt`, you don't need
+  to specify any properties of `@EnableDtt`, and you can set the `enabled` status to `disabled` through `yaml`
+  configuration in different environment of your application（Default status is enabled）.
+- Example of disabled `yaml` configuration
+
+```yaml
+alphahub:
+  dtt:
+    mybatis-orm-support:
+      is-enable: false #Disable DTT to create table during execution SQL lifecycle of mybatis
+```
+
+- It is recommended to
+  use [`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main
+  for production environment /java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23) annotation to annotate your domain
+  model if your are none native English speaker, the domain model is
+  missing [`@Dtt`](https://github.com/Weasley-J/mydtt-
+  plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+  annotation will cause the table to be created without column metadata comments like `Hibernate` created without
+  comments. If your English is so well and you know the meaning of each metadata, it is fine not to add them. Here is an
+  example of using a domain object using `@Dtt`:
+
+```java
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * 会员类型枚举
+ *
+ * @author weasley
+ * @version 1.0
+ * @date 2022/7/9
+ */
+@Getter
+@AllArgsConstructor
+public enum MemberType {
+  ORDINARY("普通会员"),
+  STUDENT("学生会员"),
+  GUNMETAL("青铜会员"),
+  PLUS("plus会员");
+
+  /**
+   * 会员描述
+   */
+  private final String desc;
+}
+```
+
+```java
+import cn.alphahub.dtt.plus.annotations.Dtt;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+/**
+ * 用户信息-DttPerson
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@Dtt("用户信息")
+public class DttMember implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  @Dtt(value = "主键id")
+  private Long id;
+
+  @Dtt(value = "用户openId")
+  private String openId;
+
+  @Dtt(value = "用户昵称")
+  private String nickname;
+
+  @Dtt(value = "是否启用, 默认：1")
+  private Boolean isEnable = true;
+
+  @Dtt(value = "用户积分余额, 默认：0.00")
+  private BigDecimal balance = BigDecimal.valueOf(0L, 2);
+
+  @Dtt(value = "出生日期，格式：yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime birthday;
+
+  @Dtt(value = "会员类型，默认：ORDINARY")
+  private MemberType memberType = MemberType.ORDINARY;
+
+  @Dtt(value = "用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常")
+  private Integer status = 0;
+
+  @Dtt(value = "账户注销状态；0 未注销（默认），1 已销户")
+  private Integer deleted = 0;
+
+  @Dtt(value = "注册时间，格式: yyyy-MM-dd")
+  private LocalDate registrarDate;
+
+  @Dtt(value = "会员加速开始时间, 格式：HH:mm:ss")
+  private LocalTime accelerateBeginTime;
+
+  @Dtt(value = "会员加速结束时间, 格式：HH:mm:ss")
+  private LocalTime accelerateEndTime;
+
+  @Dtt(value = "修改时间")
+  private LocalDateTime updateTime;
+}
+```
+
+End of this feature introduction, I want to note that in the development environment, the remarks of the data table can
+be obtained by parsing `Java documentation`. In the environment of  `Jar`、 `war`，DTT doesn't support parsing `Java`
+documents, so the comments for the created table are missing. If you want to synchronize the table structure
+for `production environment` from `Dev environment` which created by `DTT`, then you can ignore to use`@Dtt`annotations
+to annotate your domain objects.
 
 ## Supported `RDB` type
 
