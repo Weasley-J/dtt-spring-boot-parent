@@ -147,6 +147,127 @@ alphahub:
 
 简单业务甚至你只用写个`Controller`就能完成业务功能
 
+### 9 支持`mybatis`自动创建数据库表
+
+提示:
+
+1. 该功能需用注解驱动开启，在你的启动类上添加`@EnableDtt`（如果你只是想开启`mybatis`
+   自动创建表），更多细节见源码[`@EnableDtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/annotations/EnableDtt.java#L51)
+   ，可以通过`yaml`配置在各个应用环境中禁用和启用状态（默认启用状态）
+2. 禁用的`yaml`配置示例：
+
+```yaml
+alphahub:
+  dtt:
+    mybatis-orm-support:
+      is-enable: false #禁用DTT在mybatis的执行SQL生命周期内创建表
+```
+
+3.
+生产环境建议使用[`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+注解标注你的域模型，域模型缺失[`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+注解会导致创建的表没有元数据注释, 和`Hibernate`
+创建的一样没有comment，如果你的英语很好，知道每个元数据的含义，不添加也行。下面是一个使用使用`@Dtt`的域对象示例：
+
+```java
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * 会员类型枚举
+ *
+ * @author weasley
+ * @version 1.0
+ * @date 2022/7/9
+ */
+@Getter
+@AllArgsConstructor
+public enum MemberType {
+    ORDINARY("普通会员"),
+    STUDENT("学生会员"),
+    GUNMETAL("青铜会员"),
+    PLUS("plus会员");
+
+    /**
+     * 会员描述
+     */
+    private final String desc;
+}
+```
+
+```java
+import cn.alphahub.dtt.plus.annotations.Dtt;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+/**
+ * 用户信息-DttPerson
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+@Dtt("用户信息")
+public class DttMember implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Dtt(value = "主键id")
+    private Long id;
+
+    @Dtt(value = "用户openId")
+    private String openId;
+
+    @Dtt(value = "用户昵称")
+    private String nickname;
+
+    @Dtt(value = "是否启用, 默认：1")
+    private Boolean isEnable = true;
+
+    @Dtt(value = "用户积分余额, 默认：0.00")
+    private BigDecimal balance = BigDecimal.valueOf(0L, 2);
+
+    @Dtt(value = "出生日期，格式：yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime birthday;
+
+    @Dtt(value = "会员类型，默认：ORDINARY")
+    private MemberType memberType = MemberType.ORDINARY;
+
+    @Dtt(value = "用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常")
+    private Integer status = 0;
+
+    @Dtt(value = "账户注销状态；0 未注销（默认），1 已销户")
+    private Integer deleted = 0;
+
+    @Dtt(value = "注册时间，格式: yyyy-MM-dd")
+    private LocalDate registrarDate;
+
+    @Dtt(value = "会员加速开始时间, 格式：HH:mm:ss")
+    private LocalTime accelerateBeginTime;
+
+    @Dtt(value = "会员加速结束时间, 格式：HH:mm:ss")
+    private LocalTime accelerateEndTime;
+
+    @Dtt(value = "修改时间")
+    private LocalDateTime updateTime;
+}
+```
+
+开发环境下可以通过解析`Java document`获取数据表的备注说明，`Jar`，`war`包环境下不支持解析`Java`
+注释，因此创建的表的注释会缺失。如果你是希望把开发环境的表结构通过`DTT`创建好的通过生产环境，那么你可以忽略使用`@Dtt`
+注解注释你的域对象。
+
+4. **该功能仅适用于受支持的`RDB`**
+
 # 受支持的RDB
 
 | 数据库       | 版本                | 适配情况 |

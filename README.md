@@ -877,6 +877,11 @@ alphahub:
 
 [here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
+### 9 Support `mybatis` create table automatically
+
+- **This feature only available for supported `RDB`**
+-
+
 ## Supported `RDB` type
 
 | database     | version             | adaptation |

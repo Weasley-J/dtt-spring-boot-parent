@@ -45,10 +45,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@Intercepts(value = {
-        @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
-        @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
-})
+@Intercepts(value = {@Signature(type = StatementHandler.class, method = "getBoundSql", args = {}), @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),})
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
     private final JdbcTemplate jdbcTemplate;
@@ -120,8 +117,11 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
     public boolean isTableNotExists(String tableName) {
         if (StringUtils.isBlank(tableName)) return false;
         DatabaseProperty databaseProperty = SpringUtil.getBean(DatabaseProperty.class);
+        if (null == databaseProperty.getDatabaseType()) {
+            // Do nothing, Unsupported database type
+            return false;
+        }
         String sql = "";
-
         if (databaseProperty.getDatabaseType() == DatabaseType.DB2) {
             Integer exists;
             if (!StringUtils.isCapitalMode(tableName)) {
