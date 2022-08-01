@@ -1,25 +1,31 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 
+import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.util.SysUtil;
+import cn.hutool.extra.spring.SpringUtil;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper;
+import static cn.alphahub.dtt.plus.entity.ContextWrapper.HighPrecisionDataHandler;
 
 /**
  * 创建数据库建表语句上层接口
  *
  * @author weasley
- * @version 1.0
- * @date 2022/7/10
+ * @version 1.0.0
  */
 @FunctionalInterface
 public interface DttTableHandler<T> extends DttContext<T> {
@@ -115,6 +121,35 @@ public interface DttTableHandler<T> extends DttContext<T> {
         splitList.addAll(temp);
 
         return splitList;
+    }
+
+    /**
+     * Deduce the number of decimals for high precision data types
+     *
+     * @param model The model be processed
+     */
+    default void deduceDecimalPrecision(ModelEntity model) {
+        if (null == model || CollectionUtils.isEmpty(model.getDetails())) return;
+
+        HighPrecisionDataHandler precisionDataHandler = SpringUtil.getBean(ContextWrapper.class).getHighPrecisionDataHandler();
+        HighPrecisionDataMapper precisionDataMapper = precisionDataHandler.getHighPrecisionDataMapper();
+
+        model.getDetails().forEach(detail -> {
+            if (precisionDataMapper.getHighPrecisionDataType().compareToIgnoreCase(detail.getJavaDataType()) == 0) {
+                String dbDataType = detail.getDatabaseDataType();
+                String inferDataType = "";
+                if (CollectionUtils.isNotEmpty(precisionDataHandler.getHighPrecisionDataConfigMap())) {
+                    for (Map.Entry<String, DttProperties.HighPrecisionDataMapper.PrecisionConfigurationProperties> entry : precisionDataHandler.getHighPrecisionDataConfigMap().entrySet()) {
+                        if (detail.getFiledName().toLowerCase().contains(entry.getKey())) {
+                            inferDataType = detail.getDatabaseDataType() + "(" + entry.getValue().getIntegerLength() + "," + entry.getValue().getDecimalLength() + ")";
+                            break;
+                        }
+                    }
+                }
+                String inferDbDataTypeWithDefaultPrecision = dbDataType + "(" + precisionDataMapper.getDefaultIntegerLength() + "," + precisionDataMapper.getDefaultDecimalLength() + ")";
+                detail.setDatabaseDataType(StringUtils.defaultIfBlank(inferDataType, inferDbDataTypeWithDefaultPrecision));
+            }
+        });
     }
 
 }

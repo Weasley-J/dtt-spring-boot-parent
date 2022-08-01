@@ -129,7 +129,7 @@ alphahub:
           Timestamp: timestamp
           LocalDateTime: datetime2
           Enum: varchar
-    # Mapping configuration to automatically infer text length
+    #Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL
         default-text-type: varchar
@@ -215,3 +215,12 @@ alphahub:
             length: 512
           - text: request,response,body,text,content
             length: 768
+    #Mapping configuration for handling the number of decimals for high precision data types
+    high-precision-data-mapper:
+      high-precision-data-type: BigDecimal
+      default-integer-length: 10
+      default-decimal-length: 6
+      precision-configs:
+        - text: price,amount
+          integer-length: 10
+          decimal-length: 2

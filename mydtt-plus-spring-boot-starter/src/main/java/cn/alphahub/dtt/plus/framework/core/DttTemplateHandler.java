@@ -86,13 +86,4 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
             Collections.swap(model.getDetails(), 0, model.getDetails().size() - 1);
         }
     }
-
-    /**
-     * 处理小数精度
-     *
-     * @param model The model be processed
-     */
-    default void handleDecimalPrecision(ModelEntity model) {
-        //TODO 处理小数精度
-    }
 }

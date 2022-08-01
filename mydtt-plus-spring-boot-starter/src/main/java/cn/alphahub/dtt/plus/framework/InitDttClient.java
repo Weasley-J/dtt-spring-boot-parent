@@ -43,8 +43,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper;
-import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper.LengthProperties;
+import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper.PrecisionConfigurationProperties;
+import static cn.alphahub.dtt.plus.entity.ContextWrapper.HighPrecisionDataHandler;
 import static cn.alphahub.dtt.plus.framework.InitDttHandler.getEnableDtt;
 
 /**
@@ -111,7 +111,6 @@ public class InitDttClient {
      * @param dttProperties       dttProperties
      * @return DTT context wrapper
      */
-    @SuppressWarnings({"all"})
     @Bean
     @DependsOn({"commentParserClient", "commentParserClient"})
     public ContextWrapper contextWrapper(@Qualifier("commentParserClient") Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient,
@@ -129,26 +128,11 @@ public class InitDttClient {
                 .dttRunDetail(new ContextWrapper.DttRunDetail(LocalDateTime.now()))
                 .build();
 
-        List<StringLengthMapper> lengthMappers = dttProperties.getStringLengthMapper();
-        if (ObjectUtils.isNotEmpty(lengthMappers)) {
-            Map<DatabaseType, StringLengthMapper> mapperMap = lengthMappers.stream().collect(Collectors.toMap(StringLengthMapper::getDatabaseType, v -> v));
-            if (ObjectUtils.isNotEmpty(mapperMap)) {
-                StringLengthMapper stringLengthMapper = mapperMap.get(databaseHandler.getDbType());
-                if (ObjectUtils.allNotNull(stringLengthMapper)) {
-                    List<LengthProperties> lengthConfigs = stringLengthMapper.getLengthConfigs();
-                    if (ObjectUtils.isNotEmpty(lengthConfigs)) {
-                        Map<String, Integer> textLengthPropertiesMap = lengthConfigs.stream().collect(Collectors.toMap(LengthProperties::getText, LengthProperties::getLength));
-                        if (ObjectUtils.isNotEmpty(textLengthPropertiesMap)) {
-                            // Get the length of the 'String' type configured by the user
-                            ContextWrapper.TextLengthHandler handler = new ContextWrapper.TextLengthHandler();
-                            handler.setStringLengthMapper(stringLengthMapper);
-                            handler.setTextLengthProperties(textLengthPropertiesMap);
-                            wrapper.setTextLengthHandler(handler);
-                        }
-                    }
-                }
-            }
-        }
+        // parse string length mapper
+        parseStringLengthMapper(dttProperties, databaseHandler, wrapper);
+
+        // Parse high precision data handler
+        parseHighPrecisionDataHandler(wrapper, dttProperties);
 
         return wrapper;
     }
@@ -201,5 +185,61 @@ public class InitDttClient {
         }
         property.setDatabaseName(databaseName);
         return property;
+    }
+
+
+    /**
+     * Parse the high precision data handler
+     *
+     * @param wrapper         The wrapper of DTT context
+     * @param dttProperties   The properties of DTT
+     * @param databaseHandler The handler of DTT supported database
+     */
+    protected void parseStringLengthMapper(DttProperties dttProperties, DatabaseHandler databaseHandler, ContextWrapper wrapper) {
+        List<DttProperties.StringLengthMapper> lengthMappers = dttProperties.getStringLengthMapper();
+        if (ObjectUtils.isNotEmpty(lengthMappers)) {
+            Map<DatabaseType, DttProperties.StringLengthMapper> mapperMap = lengthMappers.stream().collect(Collectors.toMap(DttProperties.StringLengthMapper::getDatabaseType, v -> v));
+            if (ObjectUtils.isNotEmpty(mapperMap)) {
+                DttProperties.StringLengthMapper stringLengthMapper = mapperMap.get(databaseHandler.getDbType());
+                if (ObjectUtils.allNotNull(stringLengthMapper)) {
+                    List<DttProperties.StringLengthMapper.LengthProperties> lengthConfigs = stringLengthMapper.getLengthConfigs();
+                    if (ObjectUtils.isNotEmpty(lengthConfigs)) {
+                        Map<String, Integer> textLengthPropertiesMap = lengthConfigs.stream().collect(Collectors.toMap(DttProperties.StringLengthMapper.LengthProperties::getText, DttProperties.StringLengthMapper.LengthProperties::getLength));
+                        if (ObjectUtils.isNotEmpty(textLengthPropertiesMap)) {
+                            // Get the length of the 'String' type configured by the user
+                            ContextWrapper.TextLengthHandler handler = new ContextWrapper.TextLengthHandler();
+                            handler.setStringLengthMapper(stringLengthMapper);
+                            handler.setTextLengthProperties(textLengthPropertiesMap);
+                            wrapper.setTextLengthHandler(handler);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Parse the high precision data handler
+     *
+     * @param contextWrapper The wrapper of DTT context
+     * @param dttProperties  The properties of DTT
+     */
+    protected void parseHighPrecisionDataHandler(ContextWrapper contextWrapper, DttProperties dttProperties) {
+        Map<String, PrecisionConfigurationProperties> highPrecisionDataConfigMap = new ConcurrentHashMap<>(256);
+        List<PrecisionConfigurationProperties> precisionConfigs = dttProperties.getHighPrecisionDataMapper().getPrecisionConfigs();
+        if (CollectionUtils.isNotEmpty(precisionConfigs)) {
+            precisionConfigs.forEach(properties -> {
+                String[] textArray = properties.getText().split(",");
+                if (ObjectUtils.isNotEmpty(textArray)) {
+                    for (String text : textArray) {
+                        highPrecisionDataConfigMap.put(text, properties);
+                    }
+                }
+            });
+        }
+        HighPrecisionDataHandler dataHandler = new HighPrecisionDataHandler();
+        dataHandler.setHighPrecisionDataConfigMap(highPrecisionDataConfigMap);
+        dataHandler.setHighPrecisionDataMapper(dttProperties.getHighPrecisionDataMapper());
+        contextWrapper.setHighPrecisionDataHandler(dataHandler);
     }
 }

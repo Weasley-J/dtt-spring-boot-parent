@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper;
+import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper.PrecisionConfigurationProperties;
 import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper;
 
 /**
@@ -44,6 +46,10 @@ public class ContextWrapper implements Serializable {
      * text length handler
      */
     private TextLengthHandler textLengthHandler;
+    /**
+     * The high precision data  handler
+     */
+    private HighPrecisionDataHandler highPrecisionDataHandler;
     /**
      * 运行时间统计
      */
@@ -87,5 +93,24 @@ public class ContextWrapper implements Serializable {
          * value: 128
          */
         private Map<String, Integer> textLengthProperties;
+    }
+
+    /**
+     * High precision data  handler
+     */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class HighPrecisionDataHandler implements Serializable {
+        /**
+         * High precision data mapper
+         */
+        private HighPrecisionDataMapper highPrecisionDataMapper;
+        /**
+         * key: Some text of column
+         * <br>
+         * value: The precision configuration properties
+         */
+        private Map<String, PrecisionConfigurationProperties> highPrecisionDataConfigMap;
     }
 }

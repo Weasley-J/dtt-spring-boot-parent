@@ -57,9 +57,9 @@ import static cn.alphahub.dtt.plus.constant.Constants.BUILDER_SUFFIX;
 @Data
 @Component
 @AutoConfigureAfter({InitDttClient.class})
-@ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
-@EnableConfigurationProperties({DttProperties.class, DataTypeMapperProperties.class, AllInOneTableProperties.class, LengthProperties.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
+@ConfigurationPropertiesScan({"cn.alphahub.dtt.plus.config"})
+@EnableConfigurationProperties({DttProperties.class, DataTypeMapperProperties.class, AllInOneTableProperties.class, LengthProperties.class,})
 public class InitDttHandler implements ApplicationRunner {
     /**
      * 域模型集合, 默认大小：512

@@ -95,6 +95,11 @@ public class DttProperties {
      */
     @NestedConfigurationProperty
     private List<StringLengthMapper> stringLengthMapper;
+    /**
+     * The mapper configuration for handling the number of decimals for high precision data types
+     */
+    @NestedConfigurationProperty
+    private HighPrecisionDataMapper highPrecisionDataMapper;
 
     /**
      * The configuration property of DTT-MyBatis,<br>
@@ -347,6 +352,69 @@ public class DttProperties {
              * the data length of type
              */
             private Integer length;
+        }
+    }
+
+    /**
+     * The mapper of high precision data types
+     */
+    @Data
+    @ConfigurationProperties(prefix = "alphahub.dtt.high-precision-data-mapper")
+    public static class HighPrecisionDataMapper {
+        /**
+         * The default high precision data type of Java.
+         */
+        private String highPrecisionDataType = "BigDecimal";
+        /**
+         * The default integer part length of high precision data type.
+         */
+        private Integer defaultIntegerLength = 10;
+        /**
+         * The default decimal part length of high precision data type.
+         */
+        private Integer defaultDecimalLength = 6;
+        /**
+         * The precision configuration list for some text.
+         */
+        @NestedConfigurationProperty
+        private List<PrecisionConfigurationProperties> precisionConfigs;
+
+        /**
+         * The precision configuration list for some text. i.e:
+         * <p>
+         * Take <b>MySQL<b> as an example, if you have the following configuration.
+         * <pre>
+         * alphahub:
+         *   dtt:
+         *     high-precision-data-mapper:
+         *       high-precision-data-type: BigDecimal
+         *       default-integer-length: 10
+         *       default-decimal-length: 6
+         *       precision-configs:
+         *         - text: price,amount
+         *           integer-length: 10
+         *           decimal-length: 2
+         * </pre>
+         * <p>
+         * When a column of some table contains 'price' or 'amount',
+         * DTT will infer the data type of the database point for this column as: decimal(10,2)
+         */
+        @Data
+        @ConfigurationProperties(prefix = "alphahub.dtt.high-precision-data-mapper.precision-configs")
+        public static class PrecisionConfigurationProperties {
+            /**
+             * The text property is the content you want some column contained,
+             * Multiple 'text' be separated by commas(","). i.e: price,amount
+             */
+            private String text;
+            /**
+             * The length of integer part
+             */
+            private Integer integerLength;
+            /**
+             * The length of decimal part
+             */
+            private Integer decimalLength;
         }
     }
 }

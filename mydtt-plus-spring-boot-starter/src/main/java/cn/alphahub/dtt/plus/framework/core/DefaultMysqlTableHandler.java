@@ -34,12 +34,15 @@ public class DefaultMysqlTableHandler extends DttAggregationRunner implements Dt
      */
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
-        if (logger.isDebugEnabled()) logger.debug("使用mysql默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
+        if (logger.isDebugEnabled())
+            logger.debug("使用mysql默认建表实现 {}", JacksonUtil.toJson(parseFactory.getModel()));
         ModelEntity model = parseFactory.getModel();
         if (null == model || CollectionUtils.isEmpty(model.getDetails())) {
             logger.warn("表结构元数据解析结果不能为空 {}", model);
             return null;
         }
+
+        deduceDecimalPrecision(model);
 
         if (logger.isInfoEnabled()) {
             logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));

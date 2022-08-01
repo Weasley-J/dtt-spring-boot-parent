@@ -53,6 +53,7 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
 
         //处理Oracle数据类型
         handlingOracleDataTypes(model);
+        deduceDecimalPrecision(model);
 
         if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) toRootUpperCase(() -> model);
 

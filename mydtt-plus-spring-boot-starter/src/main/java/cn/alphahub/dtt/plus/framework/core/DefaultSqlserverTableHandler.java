@@ -14,6 +14,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -54,10 +57,28 @@ public class DefaultSqlserverTableHandler extends DttAggregationRunner implement
         });
 
         VelocityContext velocityContext = new VelocityContext();
-        velocityContext.put("defaultCollate", sqlserverDataMapperProperties.getDefaultCollate());
+        velocityContext.put("defaultCollate", getDefaultCollate(sqlserverDataMapperProperties));
         String template = resolve(() -> model, velocityContext);
         String[] pureSQL = template.split("GO\n");
         batchExecute(pureSQL);
         return template;
+    }
+
+
+    /**
+     * Get default collate
+     * <p>
+     * Solve Chinese garbled characters
+     *
+     * @param properties The mapper of Java data type mapping with sqlserver
+     * @return collate
+     */
+    private String getDefaultCollate(SqlserverDataMapperProperties properties) {
+        Locale locale = Locale.getDefault();
+        List<String> simplifiedChinese = Arrays.asList("zh", "zh-CN", "zh-Hans", "zh-Hans-CN");
+        List<String> traditionalChinese = Arrays.asList("zh-HK", "zh-TW", "zh-Hans-HK", "zh-Hans-TW");
+        if (simplifiedChinese.contains(locale.toLanguageTag())) return "Chinese_PRC_CI_AS";
+        if (traditionalChinese.contains(locale.toLanguageTag())) return "Chinese_Taiwan_Stroke_CI_AS";
+        return properties.getDefaultCollate();
     }
 }

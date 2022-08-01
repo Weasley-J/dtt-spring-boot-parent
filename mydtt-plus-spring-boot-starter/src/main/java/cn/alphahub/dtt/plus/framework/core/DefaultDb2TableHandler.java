@@ -42,6 +42,8 @@ public class DefaultDb2TableHandler extends DttAggregationRunner implements DttT
             return null;
         }
 
+        deduceDecimalPrecision(model);
+
         ContextWrapper contextWrapper = SpringUtil.getBean(ContextWrapper.class);
         model.getDetails().forEach(detail -> {
             if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
