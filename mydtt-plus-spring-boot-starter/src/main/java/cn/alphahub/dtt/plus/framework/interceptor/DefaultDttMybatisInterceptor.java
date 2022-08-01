@@ -1,4 +1,4 @@
-package cn.alphahub.dtt.plus.framework.Interceptor;
+package cn.alphahub.dtt.plus.framework.interceptor;
 
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.DatabaseProperty;
