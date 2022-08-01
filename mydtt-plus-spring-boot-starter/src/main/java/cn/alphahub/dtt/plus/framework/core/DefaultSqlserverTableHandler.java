@@ -68,7 +68,7 @@ public class DefaultSqlserverTableHandler extends DttAggregationRunner implement
     /**
      * Get default collate
      * <p>
-     * Solve Chinese garbled characters
+     * Solve Chinese garbled characters, <a href="https://docs.microsoft.com/zh-cn/sql/relational-databases/collations/collation-and-unicode-support?view=sql-server-ver16">Here is the help link for SQLServer official.</a>
      *
      * @param properties The mapper of Java data type mapping with sqlserver
      * @return collate
