@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
- * Enter the description of this class here
+ * The configuration for dtt-mybatis
  *
  * @author weasley
  * @version 1.0.0
