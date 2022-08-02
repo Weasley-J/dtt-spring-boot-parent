@@ -5,8 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!--<version>2.7.1</version>-->
-        <version>2.3.12.RELEASE</version>
+        <version>2.7.2</version>
+        <!--<version>2.3.12.RELEASE</version>-->
         <relativePath/>
     </parent>
 
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>io.github.weasley-j</groupId>
             <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.9</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
@@ -78,20 +78,20 @@
             <version>5.8.4</version>
         </dependency>
 
-        <!-- jdbc start -->
-        <!-- db2 -->
+        <!--jdbc start-->
+        <!-- db2-jcc -->
         <dependency>
             <groupId>com.ibm.db2</groupId>
             <artifactId>jcc</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- sqlserver -->
+        <!-- mssql-jdbc -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- oracle -->
+        <!-- ojdbc8 -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
@@ -103,7 +103,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- mariadb -->
+        <!--  mariadb -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -113,9 +113,30 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>42.3.6</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- jdbc end -->
+        <!-- h2  -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.212</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- derby -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- hsqldb -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!--jdbc end-->
+
     </dependencies>
 
     <build>
