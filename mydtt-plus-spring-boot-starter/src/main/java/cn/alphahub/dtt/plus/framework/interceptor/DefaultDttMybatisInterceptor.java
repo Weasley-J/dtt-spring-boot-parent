@@ -45,7 +45,10 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@Intercepts(value = {@Signature(type = StatementHandler.class, method = "getBoundSql", args = {}), @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),})
+@Intercepts(value = {
+        @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
+        @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
+})
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
     private final JdbcTemplate jdbcTemplate;
@@ -149,7 +152,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         switch (databaseProperty.getDatabaseType()) {
             case MYSQL:
             case MARIADB:
-                sql = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_NAME = '" + tableName + "'";
+                sql = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = '" + databaseProperty.getDatabaseName() + "' AND TABLE_NAME = '" + tableName + "'";
                 break;
             case SQLSERVER:
                 sql = "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[" + tableName + "]' ) AND type IN ( 'U' )";
