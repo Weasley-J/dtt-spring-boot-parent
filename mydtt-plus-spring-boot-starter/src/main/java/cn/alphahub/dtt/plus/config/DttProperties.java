@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.config;
 
 import cn.alphahub.dtt.plus.config.datamapper.Db2DataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.H2DataMapperProperties;
 import cn.alphahub.dtt.plus.config.datamapper.MariadbDataMapperProperties;
 import cn.alphahub.dtt.plus.config.datamapper.MysqlDataMapperProperties;
 import cn.alphahub.dtt.plus.config.datamapper.OracleDataMapperProperties;
@@ -243,6 +244,10 @@ public class DttProperties {
          * The mapper of Java data type mapping with sqlserver
          */
         private SqlserverDataMapperProperties sqlserver;
+        /**
+         * The data mapper properties of  H2 database.
+         */
+        private H2DataMapperProperties h2;
 
         /**
          * 获取数据类型映射对应关系

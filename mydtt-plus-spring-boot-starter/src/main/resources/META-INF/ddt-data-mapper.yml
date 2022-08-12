@@ -129,6 +129,24 @@ alphahub:
           Timestamp: timestamp
           LocalDateTime: datetime2
           Enum: varchar
+      h2:
+        default-engine: InnoDB
+        default-charset: utf8mb4
+        default-collate: utf8mb4_general_ci
+        mapping-properties:
+          String: varchar
+          Boolean: tinyint
+          Float: float
+          Double: double
+          Integer: int
+          Long: bigint
+          BigDecimal: decimal
+          Date: datetime
+          LocalTime: time
+          LocalDate: date
+          Timestamp: timestamp
+          LocalDateTime: datetime
+          Enum: enum
     #Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL
@@ -202,6 +220,20 @@ alphahub:
           - text: request,response,body,text,content
             length: 768
       - database-type: DB2
+        default-text-type: VARCHAR
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: H2
         default-text-type: VARCHAR
         default-text-length: 256
         length-configs:
