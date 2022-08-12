@@ -1,5 +1,6 @@
 package cn.alphahub.dtt.plus.config.support;
 
+import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
@@ -54,7 +55,7 @@ import static java.lang.System.out;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({CodeGeneratorProperties.class})
-@ConditionalOnProperty(prefix = "alphahub.dtt.code-generator", name = {"is-enable"}, havingValue = "true")
+@ConditionalOnProperty(prefix = DttProperties.PREFIX + ".code-generator", name = {"is-enable"}, havingValue = "true")
 public class MyBatisPlusCodeGeneratorConfigurer {
     private static final Logger log = LoggerFactory.getLogger(MyBatisPlusCodeGeneratorConfigurer.class);
     /**

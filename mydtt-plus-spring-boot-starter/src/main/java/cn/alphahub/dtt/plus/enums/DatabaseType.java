@@ -19,5 +19,7 @@ public enum DatabaseType {
     SQLSERVER,
     MARIADB,
     POSTGRESQL,
+    H2,
+    ;
 
 }

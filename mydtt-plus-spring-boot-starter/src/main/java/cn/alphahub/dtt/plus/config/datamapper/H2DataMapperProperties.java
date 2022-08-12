@@ -7,18 +7,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.Properties;
 
 /**
- * The mapper of Java data type mapping with db2
+ * The data mapper properties of  H2 database.
  *
  * @author weasley
- * @version 1.0.0
+ * @version 1.3.1
  */
 @Data
-@ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper.db2")
-public class Db2DataMapperProperties {
-    /**
-     * Whether to enable db2 database columns' name in uppercase
-     */
-    private Boolean enableColumnUpperCase = true;
+@ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper.h2")
+public class H2DataMapperProperties {
     /**
      * key: java type; value: db2 type
      */

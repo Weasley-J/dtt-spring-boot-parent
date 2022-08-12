@@ -1,5 +1,6 @@
 package cn.alphahub.dtt.plus.config.datamapper;
 
+import cn.alphahub.dtt.plus.config.DttProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -12,7 +13,7 @@ import java.util.Properties;
  * @version 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper.postgresql")
+@ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper.postgresql")
 public class PostgresqlDataMapperProperties {
     /**
      * key: java type; value: postgresql type

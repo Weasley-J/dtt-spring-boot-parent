@@ -30,6 +30,7 @@ import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
 @Data
 @ConfigurationProperties(prefix = "alphahub.dtt")
 public class DttProperties {
+    public static final String PREFIX = "alphahub.dtt";
     /**
      * Whether to enable
      */
@@ -69,7 +70,7 @@ public class DttProperties {
     @NestedConfigurationProperty
     private CodeGeneratorProperties codeGenerator;
     /**
-     * 所有建表SQL写入文件
+     * The configuration properties of writing all table DLL statements to local file.
      */
     @NestedConfigurationProperty
     private AllInOneTableProperties allInOneTable;
@@ -106,7 +107,7 @@ public class DttProperties {
      * To provide the ability of fully automated ORM framework support.
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.mybatis-orm-support")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".mybatis-orm-support")
     public static class DttMybatisOrmSupportProperties {
         /**
          * Whether to enable mybatis fully automatic ORM support in the range of RDB supported by DTT
@@ -120,7 +121,7 @@ public class DttProperties {
      * Template property configuration
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.template")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".template")
     public static class TemplateProperties {
         /**
          * SQL template file path
@@ -144,7 +145,7 @@ public class DttProperties {
      * </ul>
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.code-generator")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".code-generator")
     public static class CodeGeneratorProperties {
         /**
          * Whether to enable mybatis-plus code generation
@@ -181,21 +182,21 @@ public class DttProperties {
     }
 
     /**
-     * All table creation SQL writes to local file configuration properties
+     * The configuration properties of writing all table DLL statements to local file.
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.all-in-one-table")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".all-in-one-table")
     public static class AllInOneTableProperties {
         /**
-         * 是否创建所有建表SQL写入文件
+         * Whether to write all SQL of table creation to local files
          */
         private Boolean enable = false;
         /**
-         * SQL文件名
+         * The filename of the exported SQL statement
          */
         private String filename = "AllInOne.sql";
         /**
-         * SQL文件写入的绝对路径,未配置则取当前工作路径: "user.dir"
+         * The absolute filepath of all table DDL statements to, Take the current working path: "user.dir" If not configured.
          */
         private String filepath;
 
@@ -216,7 +217,7 @@ public class DttProperties {
      * 数据类型映射属性
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.data-type-mapper")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper")
     public static class DataTypeMapperProperties {
         /**
          * The mapper of Java data type mapping with db2
@@ -317,7 +318,7 @@ public class DttProperties {
      * Note: The length of 'java.lang.String' type preferably power of 2.
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.string-length-mapper")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".string-length-mapper")
     public static class StringLengthMapper {
         /**
          * database type, Must be not null.
@@ -328,7 +329,7 @@ public class DttProperties {
          */
         private String defaultTextType;
         /**
-         * Text length oof default if missing
+         * Text length of default if missing
          */
         private Integer defaultTextLength = 256;
         /**
@@ -341,7 +342,7 @@ public class DttProperties {
          * Text  length configuration properties
          */
         @Data
-        @ConfigurationProperties(prefix = "alphahub.dtt.string-length-mapper.length-configs")
+        @ConfigurationProperties(prefix = DttProperties.PREFIX + ".string-length-mapper.length-configs")
         public static class LengthProperties {
             /**
              * Text property is the content you want the current column contained,
@@ -359,7 +360,7 @@ public class DttProperties {
      * The mapper of high precision data types
      */
     @Data
-    @ConfigurationProperties(prefix = "alphahub.dtt.high-precision-data-mapper")
+    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".high-precision-data-mapper")
     public static class HighPrecisionDataMapper {
         /**
          * The default high precision data type of Java.
@@ -400,7 +401,7 @@ public class DttProperties {
          * DTT will infer the data type of the database point for this column as: decimal(10,2)
          */
         @Data
-        @ConfigurationProperties(prefix = "alphahub.dtt.high-precision-data-mapper.precision-configs")
+        @ConfigurationProperties(prefix = DttProperties.PREFIX + ".high-precision-data-mapper.precision-configs")
         public static class PrecisionConfigurationProperties {
             /**
              * The text property is the content you want some column contained,
