@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static cn.alphahub.dtt.plus.config.DttProperties.PREFIX;
 import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
 
 /**
@@ -29,7 +30,7 @@ import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
  * @date 2022/7/10
  */
 @Data
-@ConfigurationProperties(prefix = "alphahub.dtt")
+@ConfigurationProperties(prefix = PREFIX)
 public class DttProperties {
     public static final String PREFIX = "alphahub.dtt";
     /**
@@ -108,7 +109,7 @@ public class DttProperties {
      * To provide the ability of fully automated ORM framework support.
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".mybatis-orm-support")
+    @ConfigurationProperties(prefix = PREFIX + ".mybatis-orm-support")
     public static class DttMybatisOrmSupportProperties {
         /**
          * Whether to enable mybatis fully automatic ORM support in the range of RDB supported by DTT
@@ -122,7 +123,7 @@ public class DttProperties {
      * Template property configuration
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".template")
+    @ConfigurationProperties(prefix = PREFIX + ".template")
     public static class TemplateProperties {
         /**
          * SQL template file path
@@ -146,7 +147,7 @@ public class DttProperties {
      * </ul>
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".code-generator")
+    @ConfigurationProperties(prefix = PREFIX + ".code-generator")
     public static class CodeGeneratorProperties {
         /**
          * Whether to enable mybatis-plus code generation
@@ -186,7 +187,7 @@ public class DttProperties {
      * The configuration properties of writing all table DLL statements to local file.
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".all-in-one-table")
+    @ConfigurationProperties(prefix = PREFIX + ".all-in-one-table")
     public static class AllInOneTableProperties {
         /**
          * Whether to write all SQL of table creation to local files
@@ -218,7 +219,7 @@ public class DttProperties {
      * 数据类型映射属性
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper")
+    @ConfigurationProperties(prefix = PREFIX + ".data-type-mapper")
     public static class DataTypeMapperProperties {
         /**
          * The mapper of Java data type mapping with db2
@@ -323,7 +324,7 @@ public class DttProperties {
      * Note: The length of 'java.lang.String' type preferably power of 2.
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".string-length-mapper")
+    @ConfigurationProperties(prefix = PREFIX + ".string-length-mapper")
     public static class StringLengthMapper {
         /**
          * database type, Must be not null.
@@ -347,7 +348,7 @@ public class DttProperties {
          * Text  length configuration properties
          */
         @Data
-        @ConfigurationProperties(prefix = DttProperties.PREFIX + ".string-length-mapper.length-configs")
+        @ConfigurationProperties(prefix = PREFIX + ".string-length-mapper.length-configs")
         public static class LengthProperties {
             /**
              * Text property is the content you want the current column contained,
@@ -365,7 +366,7 @@ public class DttProperties {
      * The mapper of high precision data types
      */
     @Data
-    @ConfigurationProperties(prefix = DttProperties.PREFIX + ".high-precision-data-mapper")
+    @ConfigurationProperties(prefix = PREFIX + ".high-precision-data-mapper")
     public static class HighPrecisionDataMapper {
         /**
          * The default high precision data type of Java.
@@ -406,7 +407,7 @@ public class DttProperties {
          * DTT will infer the data type of the database point for this column as: decimal(10,2)
          */
         @Data
-        @ConfigurationProperties(prefix = DttProperties.PREFIX + ".high-precision-data-mapper.precision-configs")
+        @ConfigurationProperties(prefix = PREFIX + ".high-precision-data-mapper.precision-configs")
         public static class PrecisionConfigurationProperties {
             /**
              * The text property is the content you want some column contained,
