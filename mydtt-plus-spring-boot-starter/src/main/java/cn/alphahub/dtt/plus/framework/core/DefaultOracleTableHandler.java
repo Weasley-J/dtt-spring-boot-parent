@@ -71,7 +71,7 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
         String template = resolve(() -> model);
 
         String[] sqlArray = StringUtils.split(template, ";");
-        String[] sqlTrimArray = parseTemplateSQLToArray(sqlArray);
+        String[] sqlTrimArray = parseTemplateToSqlArray(sqlArray);
 
         String tableName = model.getDatabaseName() + "\"" + model.getModelName() + "\"";
         boolean dropTableBeforeCreate = InitDttHandler.getEnableDtt().dropTableBeforeCreate();
@@ -97,7 +97,7 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
      * @param sqlArray The array of TemplateSQL split with  ';'
      * @return A filtered SQL array composed of a single SQL
      */
-    public String[] parseTemplateSQLToArray(String[] sqlArray) {
+    public String[] parseTemplateToSqlArray(String[] sqlArray) {
         return Arrays.stream(sqlArray).map(sql -> {
             if (sql.startsWith(SysUtil.getLineSeparator()))
                 return StringUtils.substring(sql, SysUtil.getLineSeparator().length());

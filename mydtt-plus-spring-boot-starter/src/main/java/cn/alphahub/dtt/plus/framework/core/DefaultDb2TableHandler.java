@@ -69,7 +69,7 @@ public class DefaultDb2TableHandler extends DttAggregationRunner implements DttT
 
         String template = resolve(() -> model);
 
-        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateSQLToArray(StringUtils.split(template, ";"));
+        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateToSqlArray(StringUtils.split(template, ";"));
 
         Arrays.asList(pureSqlArray).forEach(sql -> {
             boolean success;

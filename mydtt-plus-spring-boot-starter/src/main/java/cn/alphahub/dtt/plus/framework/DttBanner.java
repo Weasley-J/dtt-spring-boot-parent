@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author weasley
  * @version 1.0
- * @date 2022/7/19
  */
 public final class DttBanner {
 

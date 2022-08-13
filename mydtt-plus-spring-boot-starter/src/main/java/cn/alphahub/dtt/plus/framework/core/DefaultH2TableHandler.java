@@ -67,7 +67,7 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
         VelocityContext context = new VelocityContext();
         String template = resolve(() -> model, context);
 
-        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateSQLToArray(StringUtils.split(template, ";"));
+        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateToSqlArray(StringUtils.split(template, ";"));
         Arrays.asList(pureSqlArray).forEach(sql -> {
             int success = 0;
             for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
