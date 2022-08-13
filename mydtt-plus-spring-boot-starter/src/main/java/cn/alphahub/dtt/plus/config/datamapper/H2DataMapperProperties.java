@@ -16,6 +16,10 @@ import java.util.Properties;
 @ConfigurationProperties(prefix = DttProperties.PREFIX + ".data-type-mapper.h2")
 public class H2DataMapperProperties {
     /**
+     * Whether to enable h2 database columns' name in uppercase
+     */
+    private Boolean enableColumnUpperCase = true;
+    /**
      * key: java type; value: db2 type
      */
     private Properties mappingProperties;

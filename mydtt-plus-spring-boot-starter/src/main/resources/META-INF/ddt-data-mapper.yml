@@ -28,6 +28,7 @@ alphahub:
       SQLSERVER: bigint
       MARIADB: BIGINT
       POSTGRESQL: bigserial
+      H2: BIGINT
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       db2:
@@ -130,23 +131,21 @@ alphahub:
           LocalDateTime: datetime2
           Enum: varchar
       h2:
-        default-engine: InnoDB
-        default-charset: utf8mb4
-        default-collate: utf8mb4_general_ci
+        enable-column-upper-case: true
         mapping-properties:
-          String: varchar
-          Boolean: tinyint
-          Float: float
-          Double: double
-          Integer: int
-          Long: bigint
-          BigDecimal: decimal
-          Date: datetime
-          LocalTime: time
-          LocalDate: date
-          Timestamp: timestamp
-          LocalDateTime: datetime
-          Enum: enum
+          String: CHARACTER
+          Boolean: BOOLEAN
+          Float: REAL
+          Double: DOUBLE PRECISION
+          Integer: INTEGER
+          Long: BIGINT
+          BigDecimal: NUMERIC
+          Date: TIMESTAMP
+          LocalTime: TIME
+          LocalDate: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: ENUM
     #Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL

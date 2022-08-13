@@ -270,6 +270,8 @@ public class DttProperties {
                     return this.getSqlserver().getMappingProperties();
                 case POSTGRESQL:
                     return this.getPostgresql().getMappingProperties();
+                case H2:
+                    return this.getH2().getMappingProperties();
                 default:
                     return new Properties();
             }

@@ -7,7 +7,6 @@ import cn.alphahub.dtt.plus.util.JacksonUtil;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -43,20 +42,19 @@ public class DatabaseHandler {
     private static final Map<String, DatabaseType> JDBC_URL_PREFIX_MAP;
 
     static {
-        JDBC_URL_PREFIX_MAP = new ConcurrentHashMap<>(8);
-        JDBC_URL_PREFIX_MAP.put("jdbc:mysql:", DatabaseType.MYSQL);
-        JDBC_URL_PREFIX_MAP.put("jdbc:oracle:", DatabaseType.ORACLE);
-        JDBC_URL_PREFIX_MAP.put("jdbc:db2:", DatabaseType.DB2);
-        JDBC_URL_PREFIX_MAP.put("jdbc:sqlserver:", DatabaseType.SQLSERVER);
-        JDBC_URL_PREFIX_MAP.put("jdbc:mariadb:", DatabaseType.MARIADB);
-        JDBC_URL_PREFIX_MAP.put("jdbc:postgresql:", DatabaseType.POSTGRESQL);
+        JDBC_URL_PREFIX_MAP = new ConcurrentHashMap<>(DatabaseType.values().length);
+        for (DatabaseType databaseType : DatabaseType.values()) {
+            JDBC_URL_PREFIX_MAP.put("jdbc:" + databaseType.name().toLowerCase() + ":", databaseType);
+        }
     }
 
-    @Autowired
-    private DataSourceProperties dataSourceProperties;
+    private final DataSourceProperties dataSourceProperties;
+    private final DataTypeMapperProperties dataTypeMapping;
 
-    @Autowired
-    private DataTypeMapperProperties dataTypeMapping;
+    public DatabaseHandler(DataSourceProperties dataSourceProperties, DataTypeMapperProperties dataTypeMapping) {
+        this.dataSourceProperties = dataSourceProperties;
+        this.dataTypeMapping = dataTypeMapping;
+    }
 
     /**
      * jdbcUrl获取数据库类型
@@ -83,7 +81,7 @@ public class DatabaseHandler {
             value = lowerCaseProps.get(javaDataType);
             final Logger logger = LoggerFactory.getLogger(DatabaseType.class);
             if (null == value && logger.isErrorEnabled()) {
-                logger.error("Java数据类型映射至数据库数据类型出错，数据类型映射类型: {}, Java-data-type = {}", JacksonUtil.toJson(props), javaDataType);
+                logger.error("Java数据类型映射至数据库数据类型出错，数据类型映射类型: {},The data type of Java: {}", JacksonUtil.toJson(props), javaDataType);
             }
         }
         return Objects.nonNull(value) ? value.toString() : "";
