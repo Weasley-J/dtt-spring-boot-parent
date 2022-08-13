@@ -9,7 +9,7 @@ spring:
     embedded-database-connection: h2
     driver-class-name: org.h2.Driver
     #url: jdbc:h2:mem:h2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    url: jdbc:h2:/Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/embedded-db/h2
+    url: jdbc:h2:./embedded-db/h2
     username: ""
     password: ""
   h2:
@@ -32,7 +32,7 @@ mybatis-plus:
 
 alphahub:
   dtt:
-    is-enable: on
+    is-enable: off
     show-sql: on
     all-in-one-table:
       enable: true
