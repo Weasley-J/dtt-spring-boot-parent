@@ -63,6 +63,11 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
         if (StringUtils.isNoneBlank(databaseName))
             model.setDatabaseName("\"".concat(databaseName).concat("\"").concat("."));
 
+        model.getDetails().forEach(detail -> {
+            if (detail.getFiledComment().contains(";"))
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+        });
+
         String template = resolve(() -> model);
 
         String[] sqlArray = StringUtils.split(template, ";");
