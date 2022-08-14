@@ -124,13 +124,18 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
                                   ContextWrapper contextWrapper,
                                   DttCommentParser<ModelEntity> dttCommentParser) {
         for (String tableName : tableNames) {
-            logger.info("Table of '{}' not exists, dtt will be created automatically", tableName);
             String classCamelName = StringUtils.underlineToCamel(tableName);
             if (!typeAliasesMap.containsKey(classCamelName)) return;
-            ParseFactory<ModelEntity> parseFactory = dttCommentParser.parse(typeAliasesMap.get(classCamelName).getDomainClass().getName());
-            if (null == parseFactory.getModel() || CollectionUtils.isEmpty(parseFactory.getModel().getDetails()))
-                return;
-            contextWrapper.getTableHandler().create(parseFactory);
+            DttMbActWrapper actWrapper = typeAliasesMap.get(classCamelName);
+            if (actWrapper.getTableNotExists().equals(true)) {
+                logger.info("Table of '{}' not exists, dtt will be created automatically", tableName);
+                ParseFactory<ModelEntity> parseFactory = dttCommentParser.parse(actWrapper.getDomainClass().getName());
+                if (null == parseFactory.getModel() || CollectionUtils.isEmpty(parseFactory.getModel().getDetails()))
+                    return;
+                contextWrapper.getTableHandler().create(parseFactory);
+                //Set table does not exist to false after creation.
+                actWrapper.setTableNotExists(false);
+            }
         }
     }
 }
