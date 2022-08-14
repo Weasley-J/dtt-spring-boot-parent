@@ -55,7 +55,7 @@ public class DttConditionalService {
      * @param classFullyQualifyNames The list of classFullyQualifyNames
      * @return The list of 'DttManualActEntity'
      */
-    public List<DttManualActEntity> manualAct(List<String> classFullyQualifyNames) {
+    public List<DttManualActEntity> manualCreate(List<String> classFullyQualifyNames) {
         if (CollectionUtils.isEmpty(classFullyQualifyNames)) {
             logger.warn("'classFullyQualifyNames' must be not empty.");
             return Collections.emptyList();
