@@ -278,6 +278,9 @@ public class DttMember implements Serializable {
 | `sqlserver`  | `14.x` or latest    | ✅        |
 | `mariadb`    | `10.x `or latest    | ✅        |
 | `postgresql` | `v9.x` or latest    | ✅        |
+| `h2`         | 所有版本            | ✅        |
+| `hsql`       |                     | 规划中   |
+| `derby`      |                     | 规划中   |
 
 # 快问快答
 

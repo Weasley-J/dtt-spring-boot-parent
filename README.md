@@ -234,9 +234,10 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 > COLLATE = utf8mb4_general_ci COMMENT ='사용자 정보';
 > ```
 >
-> 
 >
-> You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` ，Support the implements for `MySQL` ，`ORACLE`, `DB2`, `SQLSERVER`, `MARIADB`, `POSTGRESQL`，Thanks for you star, .
+>
+> You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance
+> them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` .
 >
 > 
 
@@ -1012,6 +1013,9 @@ to annotate your domain objects，you can you some `RDB` tools.
 | `sqlserver`  | `14.x` or latest    | ✅          |
 | `mariadb`    | `10.x `or latest    | ✅          |
 | `postgresql` | `v9.x` or latest    | ✅          |
+| `h2`         | All veriosn         | ✅          |
+| `hsql`       |                     | planning   |
+| `derby`      |                     | planning   |
 
 ## Contribute your code
 
