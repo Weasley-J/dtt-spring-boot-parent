@@ -182,23 +182,23 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             case MARIADB:
             case SQLSERVER:
             case POSTGRESQL:
-                String sql = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
-                if (sql.contains(dbNamePlaceHolder))
-                    sql = sql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlScripts.add(sql);
+                String sqlScript = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
+                if (sqlScript.contains(dbNamePlaceHolder))
+                    sqlScript = sqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                sqlScripts.add(sqlScript);
                 return sqlScripts;
             case H2:
             case DB2:
             case ORACLE:
-                String lowerCaseTableNameSql = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
-                String upperCaseTableNameSql = rawSql.getScriptOfUpperCaseTableName().replace("${upperCaseTableName}", tableName.toUpperCase());
-                if (lowerCaseTableNameSql.contains(dbNamePlaceHolder))
-                    lowerCaseTableNameSql = lowerCaseTableNameSql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlScripts.add(lowerCaseTableNameSql);
+                String lowerCaseTableNameSqlScript = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
+                String upperCaseTableNameSqlScript = rawSql.getScriptOfUpperCaseTableName().replace("${upperCaseTableName}", tableName.toUpperCase());
+                if (lowerCaseTableNameSqlScript.contains(dbNamePlaceHolder))
+                    lowerCaseTableNameSqlScript = lowerCaseTableNameSqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                sqlScripts.add(lowerCaseTableNameSqlScript);
 
-                if (upperCaseTableNameSql.contains(dbNamePlaceHolder))
-                    upperCaseTableNameSql = upperCaseTableNameSql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlScripts.add(upperCaseTableNameSql);
+                if (upperCaseTableNameSqlScript.contains(dbNamePlaceHolder))
+                    upperCaseTableNameSqlScript = upperCaseTableNameSqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                sqlScripts.add(upperCaseTableNameSqlScript);
 
                 return sqlScripts;
             case HSQL:
