@@ -456,7 +456,7 @@ public class DttProperties {
          * @see DatabaseType#MARIADB
          * @see DatabaseType#POSTGRESQL
          */
-        private String lowerCaseTableName;
+        private String scriptOfLowerCaseTableName;
         /**
          * The SQL script to  query the given table whether exists, the table name format(underline), Optional.
          * <p>
@@ -466,6 +466,6 @@ public class DttProperties {
          * @see DatabaseType#H2
          * @see DatabaseType#ORACLE
          */
-        private String upperCaseTableName;
+        private String scriptOfUpperCaseTableName;
     }
 }

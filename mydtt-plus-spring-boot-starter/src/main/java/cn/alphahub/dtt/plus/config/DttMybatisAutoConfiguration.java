@@ -151,10 +151,10 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             // TODO: compatibility with sharding-sphere, May be compatible later
             return false;
         }
-        List<String> sqlList = getQueryTableExistsSqlList(tableName, databaseProperty.getDatabaseType());
-        if (CollectionUtils.isEmpty(sqlList)) return false;
+        List<String> sqlScripts = getQueryTableExistsSqlScripts(tableName, databaseProperty.getDatabaseType());
+        if (CollectionUtils.isEmpty(sqlScripts)) return false;
         Integer exists = null;
-        for (String sql : sqlList) {
+        for (String sql : sqlScripts) {
             exists = jdbcTemplate.queryForObject(sql, Integer.class);
             if (null != exists && exists > 0) {
                 return false;
@@ -169,10 +169,10 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      *
      * @param tableName    The name of given table, i.e: dtt_member
      * @param databaseType The given database type
-     * @return SQL entity
+     * @return sql scripts
      */
-    public List<String> getQueryTableExistsSqlList(String tableName, DatabaseType databaseType) {
-        List<String> sqlList = new ArrayList<>(4);
+    public List<String> getQueryTableExistsSqlScripts(String tableName, DatabaseType databaseType) {
+        List<String> sqlScripts = new ArrayList<>(4);
         Map<DatabaseType, TableExistsSqlMapperProperties> propertiesMap = dttProperties.getTableExistsSqlMapper();
         TableExistsSqlMapperProperties rawSql = propertiesMap.get(databaseType);
         if (null == rawSql) return Collections.emptyList();
@@ -182,29 +182,29 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             case MARIADB:
             case SQLSERVER:
             case POSTGRESQL:
-                String sql = rawSql.getLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
+                String sql = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
                 if (sql.contains(dbNamePlaceHolder))
                     sql = sql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlList.add(sql);
-                return sqlList;
+                sqlScripts.add(sql);
+                return sqlScripts;
             case H2:
             case DB2:
             case ORACLE:
-                String lowerCaseTableNameSql = rawSql.getLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
-                String upperCaseTableNameSql = rawSql.getUpperCaseTableName().replace("${upperCaseTableName}", tableName.toUpperCase());
+                String lowerCaseTableNameSql = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
+                String upperCaseTableNameSql = rawSql.getScriptOfUpperCaseTableName().replace("${upperCaseTableName}", tableName.toUpperCase());
                 if (lowerCaseTableNameSql.contains(dbNamePlaceHolder))
                     lowerCaseTableNameSql = lowerCaseTableNameSql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlList.add(lowerCaseTableNameSql);
+                sqlScripts.add(lowerCaseTableNameSql);
 
                 if (upperCaseTableNameSql.contains(dbNamePlaceHolder))
                     upperCaseTableNameSql = upperCaseTableNameSql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlList.add(upperCaseTableNameSql);
+                sqlScripts.add(upperCaseTableNameSql);
 
-                return sqlList;
+                return sqlScripts;
             case HSQL:
             case DERBY:
             default:
-                return sqlList;
+                return sqlScripts;
         }
     }
 }
