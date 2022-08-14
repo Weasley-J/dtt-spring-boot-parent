@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 数据库类型
+ * The Database Type
  *
  * @author weasley
- * @version 1.0
- * @date 2022/7/10
+ * @version 1.0.0
  */
 @Getter
 @AllArgsConstructor
@@ -20,6 +19,6 @@ public enum DatabaseType {
     MARIADB,
     POSTGRESQL,
     H2,
-    ;
-
+    HSQL,
+    DERBY;
 }

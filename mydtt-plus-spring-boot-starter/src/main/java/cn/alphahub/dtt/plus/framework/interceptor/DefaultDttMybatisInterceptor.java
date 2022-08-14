@@ -1,14 +1,13 @@
 package cn.alphahub.dtt.plus.framework.interceptor;
 
+import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
-import cn.alphahub.dtt.plus.entity.DatabaseProperty;
+import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -25,16 +24,17 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
-import static cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration.TYPE_ALIASES_MAP;
 import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
@@ -49,14 +49,13 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
         @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
 })
+@EnableConfigurationProperties({DataSourceProperties.class})
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
-    private final JdbcTemplate jdbcTemplate;
     private final ApplicationContext applicationContext;
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
 
-    public DefaultDttMybatisInterceptor(JdbcTemplate jdbcTemplate, ApplicationContext applicationContext, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
-        this.jdbcTemplate = jdbcTemplate;
+    public DefaultDttMybatisInterceptor(ApplicationContext applicationContext, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
         this.applicationContext = applicationContext;
         this.dttMybatisOrmSupportProperties = dttMybatisOrmSupportProperties;
     }
@@ -67,7 +66,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         Executor executor = target instanceof Executor ? ((Executor) target) : null;
         StatementHandler statementHandler = target instanceof StatementHandler ? ((StatementHandler) target) : null;
         if (null != executor) {
-            // No dump
+            //No dump
         }
         if (null != statementHandler) {
             BoundSql boundSql = statementHandler.getBoundSql();
@@ -98,75 +97,40 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             dttCommentParser = applicationContext.getBean(DefaultAnnotationParser.class);
         else dttCommentParser = contextWrapper.getCommentParser();
 
-        for (String tableName : tableNames) {
-            if (isTableNotExists(tableName) && CollectionUtils.isNotEmpty(TYPE_ALIASES_MAP)) {
-                logger.info("Table of '{}' doesn't exists, DTT will be created automatically", tableName);
-                String classCamelName = StringUtils.underlineToCamel(tableName);
-                if (!TYPE_ALIASES_MAP.containsKey(classCamelName)) return;
-                ParseFactory<ModelEntity> parseFactory = dttCommentParser.parse(TYPE_ALIASES_MAP.get(classCamelName).getName());
-                if (null == parseFactory.getModel() || CollectionUtils.isEmpty(parseFactory.getModel().getDetails()))
-                    return;
-                contextWrapper.getTableHandler().create(parseFactory);
-            }
+        DttMybatisAutoConfiguration dttMybatisAutoConfiguration = applicationContext.getBean(DttMybatisAutoConfiguration.class);
+        Map<String, DttMbActWrapper> typeAliasesMap = dttMybatisAutoConfiguration.getTypeAliasesMap();
+        if (CollectionUtils.isEmpty(typeAliasesMap)) return;
+
+        boolean isShardingSphereEnable = dttMybatisAutoConfiguration.isShardingSphereEnable();
+
+        if (isShardingSphereEnable) {
+            // TODO: compatibility with sharding-sphere, May be compatible later
+            return;
         }
+
+        handleCrateTable(tableNames, typeAliasesMap, contextWrapper, dttCommentParser);
     }
 
     /**
-     * Whether the table exists in the database
+     * Handle crate table by default
      *
-     * @param tableName The name of table
-     * @return If table not exists, return true
+     * @param tableNames       table names
+     * @param typeAliasesMap   typeAliasesMap
+     * @param contextWrapper   contextWrapper
+     * @param dttCommentParser dttCommentParser
      */
-    public boolean isTableNotExists(String tableName) {
-        if (StringUtils.isBlank(tableName)) return false;
-        DatabaseProperty databaseProperty = SpringUtil.getBean(DatabaseProperty.class);
-        if (null == databaseProperty.getDatabaseType()) {
-            // Do nothing, Unsupported database type
-            return false;
+    private void handleCrateTable(List<String> tableNames,
+                                  Map<String, DttMbActWrapper> typeAliasesMap,
+                                  ContextWrapper contextWrapper,
+                                  DttCommentParser<ModelEntity> dttCommentParser) {
+        for (String tableName : tableNames) {
+            logger.info("Table of '{}' not exists, dtt will be created automatically", tableName);
+            String classCamelName = StringUtils.underlineToCamel(tableName);
+            if (!typeAliasesMap.containsKey(classCamelName)) return;
+            ParseFactory<ModelEntity> parseFactory = dttCommentParser.parse(typeAliasesMap.get(classCamelName).getDomainClass().getName());
+            if (null == parseFactory.getModel() || CollectionUtils.isEmpty(parseFactory.getModel().getDetails()))
+                return;
+            contextWrapper.getTableHandler().create(parseFactory);
         }
-        String sql = "";
-        if (databaseProperty.getDatabaseType() == DatabaseType.DB2) {
-            Integer exists;
-            if (!StringUtils.isCapitalMode(tableName)) {
-                sql = "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '" + tableName.toUpperCase() + "'";
-                exists = jdbcTemplate.queryForObject(sql, Integer.class);
-                if (null != exists && exists > 0) return false;
-            }
-            sql = "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '" + tableName + "'";
-            exists = jdbcTemplate.queryForObject(sql, Integer.class);
-            return null == exists || exists == 0;
-        }
-
-        if (databaseProperty.getDatabaseType() == DatabaseType.ORACLE) {
-            Integer exists;
-            if (!StringUtils.isCapitalMode(tableName)) {
-                sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName.toUpperCase() + "'";
-                exists = jdbcTemplate.queryForObject(sql, Integer.class);
-                if (null != exists && exists > 0) return false;
-            }
-            sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
-            exists = jdbcTemplate.queryForObject(sql, Integer.class);
-            return null == exists || exists == 0;
-        }
-
-        switch (databaseProperty.getDatabaseType()) {
-            case MYSQL:
-            case MARIADB:
-                sql = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = '" + databaseProperty.getDatabaseName() + "' AND TABLE_NAME = '" + tableName + "'";
-                break;
-            case SQLSERVER:
-                sql = "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[" + tableName + "]' ) AND type IN ( 'U' )";
-                break;
-            case POSTGRESQL:
-                sql = "SELECT COUNT(*) FROM pg_class WHERE relname = '" + tableName + "'";
-                break;
-            default:
-                break;
-        }
-
-        if (StringUtils.isBlank(sql)) return false;
-        Integer exists = jdbcTemplate.queryForObject(sql, Integer.class);
-
-        return null == exists || exists == 0;
     }
 }

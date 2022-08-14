@@ -1,0 +1,118 @@
+package cn.alphahub.dtt.plus.framework.miscellaneous;
+
+import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
+import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.framework.InitDttClient;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
+import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
+import cn.alphahub.dtt.plus.framework.core.ParseFactory;
+import cn.alphahub.dtt.plus.util.ClassUtil;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
+
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Manually specify the fully qualified class name of Class to call DTT to create a table.
+ * <p>Maybe useful in some condition.
+ *
+ * @author weasley
+ * @version 1.3.1
+ */
+@Data
+@Component
+@ConditionalOnBean(annotation = {EnableDtt.class})
+@AutoConfigureAfter({InitDttClient.class, ContextWrapper.class})
+public class DttConditionalService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final ApplicationContext applicationContext;
+
+    public DttConditionalService(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    /**
+     * Manually specify a collection of fully qualified Class names to create database tables
+     *
+     * @param classFullyQualifyNames The list of classFullyQualifyNames
+     * @return The list of 'DttManualActEntity'
+     */
+    public List<DttManualActEntity> manualAct(List<String> classFullyQualifyNames) {
+        if (CollectionUtils.isEmpty(classFullyQualifyNames)) {
+            logger.warn("'classFullyQualifyNames' must be not empty.");
+            return Collections.emptyList();
+        }
+
+        DttCommentParser<ModelEntity> dttCommentParser;
+        URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
+        ContextWrapper contextWrapper = applicationContext.getBean(ContextWrapper.class);
+        if (ObjectUtils.isNull(contextWrapper)) {
+            logger.warn("'cn.alphahub.dtt.plus.entity.ContextWrapper' must be not null.");
+            return Collections.emptyList();
+        }
+        // if APP run with type of Jar environment dtt Comment Parser takes Default Annotation Parser
+        if (ResourceUtils.isJarURL(location))
+            dttCommentParser = applicationContext.getBean(DefaultAnnotationParser.class);
+        else dttCommentParser = contextWrapper.getCommentParser();
+
+        DttMybatisAutoConfiguration dttMybatisAutoConfiguration = applicationContext.getBean(DttMybatisAutoConfiguration.class);
+        Map<String, DttMbActWrapper> typeAliasesMap = dttMybatisAutoConfiguration.getTypeAliasesMap();
+        if (CollectionUtils.isEmpty(typeAliasesMap)) return Collections.emptyList();
+
+        List<Class<?>> classes = new ArrayList<>();
+        for (String classFullyQualifyName : classFullyQualifyNames) {
+            try {
+                Class<?> aClass = ClassUtil.loadClass(classFullyQualifyName);
+                classes.add(aClass);
+            } catch (Exception e) {
+                //No dump
+            }
+        }
+
+        List<DttManualActEntity> dttManualActEntities = new ArrayList<>();
+        for (Class<?> aClass : classes) {
+            ParseFactory<ModelEntity> parseFactory = dttCommentParser.parse(aClass.getName());
+            if (null != parseFactory.getModel() && CollectionUtils.isNotEmpty(parseFactory.getModel().getDetails())) {
+                String tableStatement = contextWrapper.getTableHandler().create(parseFactory);
+                dttManualActEntities.add(new DttManualActEntity(aClass.getName(), tableStatement));
+            }
+        }
+
+        return dttManualActEntities;
+    }
+
+    /**
+     * The entity of DTT manual create table
+     */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DttManualActEntity implements Serializable {
+        /**
+         * The class map to table
+         */
+        private String tableMappedClass;
+        /**
+         * The table DML statement
+         */
+        private String tableStatement;
+    }
+}

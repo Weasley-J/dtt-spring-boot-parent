@@ -103,6 +103,13 @@ public class DttProperties {
      */
     @NestedConfigurationProperty
     private HighPrecisionDataMapper highPrecisionDataMapper;
+    /**
+     * The properties of sql-script-mapper to query the given table whether exists
+     * <p>
+     * key: DatabaseType, value: sql-script-mapper
+     */
+    @NestedConfigurationProperty
+    private Map<DatabaseType, TableExistsSqlMapperProperties> tableExistsSqlMapper;
 
     /**
      * The configuration property of DTT-MyBatis,<br>
@@ -272,6 +279,8 @@ public class DttProperties {
                     return this.getPostgresql().getMappingProperties();
                 case H2:
                     return this.getH2().getMappingProperties();
+                case HSQL:
+                case DERBY:
                 default:
                     return new Properties();
             }
@@ -286,17 +295,21 @@ public class DttProperties {
         public Properties getPropsByDbTypeJavaTypeIsLowerCase(DatabaseType databaseType) {
             switch (databaseType) {
                 case DB2:
-                    return this.convertJavaTypeToLowercase(getDb2().getMappingProperties());
+                    return convertJavaTypeToLowercase(getDb2().getMappingProperties());
                 case MYSQL:
-                    return this.convertJavaTypeToLowercase(getMysql().getMappingProperties());
+                    return convertJavaTypeToLowercase(getMysql().getMappingProperties());
                 case ORACLE:
-                    return this.convertJavaTypeToLowercase(getOracle().getMappingProperties());
+                    return convertJavaTypeToLowercase(getOracle().getMappingProperties());
                 case MARIADB:
-                    return this.convertJavaTypeToLowercase(getMariadb().getMappingProperties());
+                    return convertJavaTypeToLowercase(getMariadb().getMappingProperties());
                 case SQLSERVER:
-                    return this.convertJavaTypeToLowercase(getSqlserver().getMappingProperties());
+                    return convertJavaTypeToLowercase(getSqlserver().getMappingProperties());
                 case POSTGRESQL:
-                    return this.convertJavaTypeToLowercase(getPostgresql().getMappingProperties());
+                    return convertJavaTypeToLowercase(getPostgresql().getMappingProperties());
+                case H2:
+                    return convertJavaTypeToLowercase(getH2().getMappingProperties());
+                case HSQL:
+                case DERBY:
                 default:
                     return new Properties();
             }
@@ -425,5 +438,34 @@ public class DttProperties {
              */
             private Integer decimalLength;
         }
+    }
+
+    /**
+     * The properties of sql-script-mapper to query the given table whether exists
+     */
+    @Data
+    @ConfigurationProperties(prefix = PREFIX + ".table-exists-sql-mapper")
+    public static class TableExistsSqlMapperProperties {
+        /**
+         * The SQL script to  query the given table whether exists, the table name format(underline),
+         * <p>
+         * i.e: dtt_member
+         *
+         * @see DatabaseType#MYSQL
+         * @see DatabaseType#SQLSERVER
+         * @see DatabaseType#MARIADB
+         * @see DatabaseType#POSTGRESQL
+         */
+        private String lowerCaseTableName;
+        /**
+         * The SQL script to  query the given table whether exists, the table name format(underline), Optional.
+         * <p>
+         * i.e: DTT_MEMBER
+         *
+         * @see DatabaseType#DB2
+         * @see DatabaseType#H2
+         * @see DatabaseType#ORACLE
+         */
+        private String upperCaseTableName;
     }
 }
