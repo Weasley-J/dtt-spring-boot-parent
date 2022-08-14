@@ -1,7 +1,9 @@
 package cn.alphahub.dtt.plus.framework.core;
 
+import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.config.datamapper.OracleDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DatabaseProperty;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -39,6 +42,8 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
     private static final Logger logger = LoggerFactory.getLogger(DefaultOracleTableHandler.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private ApplicationContext applicationContext;
     @Autowired
     private OracleDataMapperProperties oracleDataMapperProperties;
 
@@ -193,12 +198,22 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
      * Get table exists or not
      *
      * @param tableName The name of table
-     * @return Exists return true
+     * @return if exists return true
      */
     protected boolean isTableExists(String tableName) {
-        String sql = "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'";
-        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
-        if (null == result) return false;
-        return result > 0;
+        DttMybatisAutoConfiguration config = applicationContext.getBean(DttMybatisAutoConfiguration.class);
+        DatabaseProperty dbProperty = applicationContext.getBean(DatabaseProperty.class);
+        List<String> sqlScripts = config.getQueryTableExistsSqlScripts(tableName, dbProperty.getDatabaseType());
+        for (String sql : sqlScripts) {
+            try {
+                Integer exists = jdbcTemplate.queryForObject(sql, Integer.class);
+                if (null != exists && exists > 0) {
+                    return true;
+                }
+            } catch (DataAccessException ignored) {
+                //No dump
+            }
+        }
+        return false;
     }
 }

@@ -268,6 +268,42 @@ public class DttMember implements Serializable {
 
 4. **该功能仅适用于受支持的`RDB`**
 
+### 10 支持调用API创建表
+
+`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
+
+1. 在你的`spring-boot`应用的启动类上添加注解`@EnableDtt`
+
+2. 示例：
+
+```java
+import cn.alphahub.dtt.plus.entity.DttManualActEntity;
+import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Some controller
+ */
+@RestController
+@RequestMapping("/api/member")
+public class SomeController {
+   @Autowired
+   private DttDefaultConditionalService defaultConditionalService;
+
+   @PostMapping("/manual/act")
+   public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
+      return this.defaultConditionalService.manualCreate(request);
+   }
+}
+```
+
 # 受支持的RDB
 
 | 数据库       | 版本                | 适配情况 |

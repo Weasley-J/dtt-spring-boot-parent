@@ -1003,6 +1003,41 @@ documents, so the comments for the created table are missing. If you want to syn
 for `production environment` from `Dev environment` which created by `DTT`, then you can ignore to use`@Dtt`annotations
 to annotate your domain objects，you can you some `RDB` tools.
 
+### 10 Support calling API to create table
+
+`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
+
+- Add the annotation `@EnableDtt` to the startup class of your `spring-boot` application
+- i.e:
+
+```java
+import cn.alphahub.dtt.plus.entity.DttManualActEntity;
+import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * Some controller
+ */
+@RestController
+@RequestMapping("/api/member")
+public class SomeController {
+    @Autowired
+    private DttDefaultConditionalService defaultConditionalService;
+
+    @PostMapping("/manual/act")
+    public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
+        return this.defaultConditionalService.manualCreate(request);
+    }
+}
+```
+
 ## Supported `RDB` type
 
 | database     | version             | adaptation |
