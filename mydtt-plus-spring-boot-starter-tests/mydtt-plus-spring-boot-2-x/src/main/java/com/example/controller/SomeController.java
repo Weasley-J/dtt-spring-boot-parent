@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import cn.alphahub.dtt.plus.entity.DttManualActEntity;
+import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
 import cn.hutool.json.JSONUtil;
 import com.example.domain.dtt.DttMember;
 import com.example.service.DttMemberService;
@@ -19,6 +22,8 @@ import java.util.List;
 public class SomeController {
     @Autowired
     private DttMemberService memberService;
+    @Autowired
+    private DttDefaultConditionalService defaultConditionalService;
 
     @PostMapping("/save")
     @Transactional(rollbackFor = {Exception.class})
@@ -69,5 +74,10 @@ public class SomeController {
     public ResponseEntity<Boolean> delete(@PathVariable Long[] ids) {
         boolean removed = memberService.removeByIds(Arrays.asList(ids));
         return ResponseEntity.ok(removed);
+    }
+
+    @PostMapping("/manual/act")
+    public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
+        return this.defaultConditionalService.manualCreate(request);
     }
 }

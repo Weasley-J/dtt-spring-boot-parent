@@ -20,7 +20,15 @@ import java.util.List;
 @Accessors(chain = true)
 public class DttManualActRequest implements Serializable {
     /**
-     * The list of fully qualified class names
+     * The list of fully qualified class names,i.e:
+     * <pre>
+     * {
+     *   "fullyQualifiedClassNames": [
+     *     "com.example.domain.dtt.DttMember",
+     *     "com.example.domain.dtt.OmsB2bOrder"
+     *   ]
+     * }
+     * </pre>
      */
     private List<String> fullyQualifiedClassNames;
 
