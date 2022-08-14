@@ -13,7 +13,7 @@ import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.VelocityHandler;
 import cn.alphahub.dtt.plus.framework.core.*;
 import cn.alphahub.dtt.plus.framework.interceptor.DefaultDttMybatisInterceptor;
-import cn.alphahub.dtt.plus.framework.miscellaneous.DttConditionalService;
+import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
@@ -48,7 +48,7 @@ import java.lang.annotation.Target;
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttAggregationRunner.class,
         DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class, DefaultDttMybatisInterceptor.class,
-        DttMybatisAutoConfiguration.class, DttConditionalService.class,
+        DttMybatisAutoConfiguration.class, DttDefaultConditionalService.class,
 })
 public @interface EnableDtt {
     /**

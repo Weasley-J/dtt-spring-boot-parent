@@ -2,6 +2,8 @@ package cn.alphahub.dtt.plus.framework.miscellaneous;
 
 import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DttManualActEntity;
+import cn.alphahub.dtt.plus.entity.DttManualActRequest;
 import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.InitDttClient;
@@ -12,9 +14,7 @@ import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import cn.alphahub.dtt.plus.util.ClassUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -23,7 +23,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,23 +40,23 @@ import java.util.Map;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @AutoConfigureAfter({InitDttClient.class, ContextWrapper.class})
-public class DttConditionalService {
+public class DttDefaultConditionalService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ApplicationContext applicationContext;
 
-    public DttConditionalService(ApplicationContext applicationContext) {
+    public DttDefaultConditionalService(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     /**
      * Manually specify a collection of fully qualified Class names to create database tables
      *
-     * @param classFullyQualifyNames The list of classFullyQualifyNames
+     * @param request The request data for dtt manual automatically create database tables
      * @return The list of 'DttManualActEntity'
      */
-    public List<DttManualActEntity> manualCreate(List<String> classFullyQualifyNames) {
-        if (CollectionUtils.isEmpty(classFullyQualifyNames)) {
-            logger.warn("'classFullyQualifyNames' must be not empty.");
+    public List<DttManualActEntity> manualCreate(DttManualActRequest request) {
+        if (CollectionUtils.isEmpty(request.getFullyQualifiedClassNames())) {
+            logger.warn("'fullyQualifiedClassNames' must be not empty.");
             return Collections.emptyList();
         }
 
@@ -78,12 +77,14 @@ public class DttConditionalService {
         if (CollectionUtils.isEmpty(typeAliasesMap)) return Collections.emptyList();
 
         List<Class<?>> classes = new ArrayList<>();
-        for (String classFullyQualifyName : classFullyQualifyNames) {
+        for (String classFullyQualifyName : request.getFullyQualifiedClassNames()) {
             try {
                 Class<?> aClass = ClassUtil.loadClass(classFullyQualifyName);
                 classes.add(aClass);
             } catch (Exception e) {
-                //No dump
+                if (logger.isErrorEnabled()) {
+                    logger.error("{}", e.getLocalizedMessage(), e);
+                }
             }
         }
 
@@ -97,22 +98,5 @@ public class DttConditionalService {
         }
 
         return dttManualActEntities;
-    }
-
-    /**
-     * The entity of DTT manual create table
-     */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class DttManualActEntity implements Serializable {
-        /**
-         * The class map to table
-         */
-        private String tableMappedClass;
-        /**
-         * The table DML statement
-         */
-        private String tableStatement;
     }
 }
