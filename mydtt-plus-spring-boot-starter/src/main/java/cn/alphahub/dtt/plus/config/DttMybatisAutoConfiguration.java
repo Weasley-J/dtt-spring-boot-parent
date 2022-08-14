@@ -198,8 +198,8 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
                 if (upperCaseTableNameSql.contains(dbNamePlaceHolder))
                     upperCaseTableNameSql = upperCaseTableNameSql.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-
                 sqlList.add(upperCaseTableNameSql);
+
                 return sqlList;
             case HSQL:
             case DERBY:
