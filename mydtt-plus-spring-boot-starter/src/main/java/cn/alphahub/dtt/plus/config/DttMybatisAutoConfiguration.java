@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -61,24 +62,33 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      * key:The simple name of class(Lower case, small camel case), value: The class
      */
     private final Map<String, DttMbActWrapper> typeAliasesMap = new ConcurrentHashMap<>(768);
-    private final DttProperties dttProperties;
     private final JdbcTemplate jdbcTemplate;
+    private final DttProperties dttProperties;
     private final DatabaseProperty databaseProperty;
-    private final ClassScanningProvider classScanningProvider;
+    private final ApplicationContext applicationContext;
     /**
      * The list of 'SqlSessionFactory'
      */
     private final List<SqlSessionFactory> sqlSessionFactories;
+    private final ClassScanningProvider classScanningProvider;
     /**
      * The default interceptor of mybatis-pro
      */
     private final DefaultDttMybatisInterceptor defaultDttMybatisInterceptor;
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
 
-    public DttMybatisAutoConfiguration(DttProperties dttProperties, JdbcTemplate jdbcTemplate, DatabaseProperty databaseProperty, ClassScanningProvider classScanningProvider, List<SqlSessionFactory> sqlSessionFactories, DefaultDttMybatisInterceptor defaultDttMybatisInterceptor, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
-        this.dttProperties = dttProperties;
+    public DttMybatisAutoConfiguration(JdbcTemplate jdbcTemplate,
+                                       DttProperties dttProperties,
+                                       DatabaseProperty databaseProperty,
+                                       ApplicationContext applicationContext,
+                                       List<SqlSessionFactory> sqlSessionFactories,
+                                       ClassScanningProvider classScanningProvider,
+                                       DefaultDttMybatisInterceptor defaultDttMybatisInterceptor,
+                                       DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
         this.jdbcTemplate = jdbcTemplate;
+        this.dttProperties = dttProperties;
         this.databaseProperty = databaseProperty;
+        this.applicationContext = applicationContext;
         this.sqlSessionFactories = sqlSessionFactories;
         this.classScanningProvider = classScanningProvider;
         this.defaultDttMybatisInterceptor = defaultDttMybatisInterceptor;
@@ -87,18 +97,22 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        if (dttMybatisOrmSupportProperties.getIsEnable().equals(false)) return;
+        if (dttMybatisOrmSupportProperties.getIsEnable().equals(false) || isShardingSphereEnable()) return;
+
         sqlSessionFactories.forEach(sqlSessionFactory -> {
             Configuration configuration = sqlSessionFactory.getConfiguration();
             if (ObjectUtils.isNotEmpty(configuration) && !configuration.getInterceptors().contains(defaultDttMybatisInterceptor)) {
                 configuration.addInterceptor(defaultDttMybatisInterceptor);
             }
         });
+
         if (logger.isInfoEnabled()) {
-            logger.info("Waiting..., " +
-                    "DTT is judging the existence of database table for caching, will take a few seconds. " +
-                    "if you want to disable dtt-mybatis-orm-support set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false' to skip waiting.");
+            logger.info("Loading..., " +
+                    "DTT is judging the existence of all tables for caching, it's will take a few seconds." +
+                    "if you want to disable dtt-mybatis-orm-support," +
+                    "please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false' to skip waiting.");
         }
+
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = SpringUtil.getProperty(mybatisPropPrefix);
             if (StringUtils.isNoneBlank(property)) {
@@ -129,12 +143,19 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      */
     public boolean isShardingSphereEnable() {
         boolean isShardingSphereEnable = false;
+        try {
+            Class<?> shardingSphereDriver = Class.forName("org.apache.shardingsphere.driver.ShardingSphereDriver");
+            if (ObjectUtils.isNotEmpty(shardingSphereDriver)) return true;
+            Class<?> shardingSphereConnection = Class.forName("org.apache.shardingsphere.driver.jdbc.core.connection.ShardingSphereConnection");
+            if (ObjectUtils.isNotEmpty(shardingSphereConnection)) return true;
+        } catch (Exception e) {
+            // No dump
+        }
         for (String shardingSphereBean : shardingSphereBeans) {
             try {
-                if (com.baomidou.mybatisplus.core.toolkit.ObjectUtils.isNotNull(SpringUtil.getBean(shardingSphereBean))) {
+                if (ObjectUtils.isNotEmpty(applicationContext.getBean(shardingSphereBean)))
                     isShardingSphereEnable = true;
-                    break;
-                }
+                if (isShardingSphereEnable) break;
             } catch (Exception e) {
                 // No dump
             }
@@ -151,10 +172,6 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
     public boolean isTableNotExists(String tableName) {
         if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(tableName)) return false;
         if (null == databaseProperty.getDatabaseType()) return false;
-        if (isShardingSphereEnable()) {
-            // TODO: compatibility with sharding-sphere, May be compatible later
-            return false;
-        }
         List<String> sqlScripts = getQueryTableExistsSqlScripts(tableName, databaseProperty.getDatabaseType());
         if (CollectionUtils.isEmpty(sqlScripts)) return false;
         Integer exists = null;
