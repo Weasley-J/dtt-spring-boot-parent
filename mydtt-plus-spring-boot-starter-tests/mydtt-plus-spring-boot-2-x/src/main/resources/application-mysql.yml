@@ -22,7 +22,6 @@ mybatis-plus:
 
 alphahub:
   dtt:
-    is-enable: on
     banner-mode: ON
     show-sql: off
     mybatis-orm-support:

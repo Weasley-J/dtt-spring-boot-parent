@@ -108,29 +108,26 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
         if (logger.isInfoEnabled()) {
             logger.info("Loading..., " +
-                    "DTT is judging the existence of all tables for caching, it's will take a few seconds." +
+                    "DTT is judging the existence of all tables for caching, it's will take a few seconds," +
                     "if you want to disable dtt-mybatis-orm-support," +
-                    "please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false' to skip waiting.");
+                    "please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
         }
 
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = SpringUtil.getProperty(mybatisPropPrefix);
-            if (StringUtils.isNoneBlank(property)) {
-                String[] typeAliasesPackages = StringUtils.split(property, ",");
-                if (ObjectUtils.isNotEmpty(typeAliasesPackages)) {
-                    Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
-                    if (CollectionUtils.isNotEmpty(classes)) {
-                        ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.stream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
-                            DttMbActWrapper actWrapper = new DttMbActWrapper();
-                            actWrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
-                            actWrapper.setDomainClass(value);
-                            String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
-                            actWrapper.setTableNotExists(isTableNotExists(tableName));
-                            return actWrapper;
-                        })));
-                        this.typeAliasesMap.putAll(classConcurrentMap);
-                    }
-                }
+            if (StringUtils.isBlank(property)) continue;
+            String[] typeAliasesPackages = StringUtils.split(property, ",");
+            Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
+            if (CollectionUtils.isNotEmpty(classes)) {
+                ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
+                    DttMbActWrapper actWrapper = new DttMbActWrapper();
+                    actWrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
+                    actWrapper.setDomainClass(value);
+                    String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
+                    actWrapper.setTableNotExists(isTableNotExists(tableName));
+                    return actWrapper;
+                })));
+                this.typeAliasesMap.putAll(classConcurrentMap);
             }
         }
     }

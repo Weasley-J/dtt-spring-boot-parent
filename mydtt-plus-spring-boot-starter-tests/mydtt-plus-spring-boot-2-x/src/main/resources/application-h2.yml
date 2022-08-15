@@ -32,7 +32,6 @@ mybatis-plus:
 
 alphahub:
   dtt:
-    is-enable: off
     show-sql: on
     all-in-one-table:
       enable: true

@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         scanBasePackages = {
                 //"com.example.i18n.korean",
                 //"com.example.domain.dtt",
-                //"com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
-                //"com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
+                "com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
+                "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
         parserType = ParserType.JAVA_DOC,
         dropTableBeforeCreate = false,

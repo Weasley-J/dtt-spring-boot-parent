@@ -13,7 +13,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
-  type-aliases-package: com.example.domain.dtt
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
   global-config:
     db-config:
       id-type: auto
@@ -23,7 +23,6 @@ mybatis-plus:
 
 alphahub:
   dtt:
-    is-enable: on
     show-sql: on
     all-in-one-table:
       enable: true

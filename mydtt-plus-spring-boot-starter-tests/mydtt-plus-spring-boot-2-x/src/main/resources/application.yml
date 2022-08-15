@@ -7,3 +7,7 @@ spring:
 
   profiles:
     active: H2
+
+alphahub:
+  dtt:
+    is-enable: off
