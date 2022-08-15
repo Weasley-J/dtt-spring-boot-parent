@@ -1,10 +1,8 @@
 package cn.alphahub.dtt.plus.framework.miscellaneous;
 
-import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.DttManualActEntity;
 import cn.alphahub.dtt.plus.entity.DttManualActRequest;
-import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.InitDttClient;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
@@ -27,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Manually specify the fully qualified class name to call DTT to create a table.
@@ -71,10 +68,6 @@ public class DttDefaultConditionalService {
         if (ResourceUtils.isJarURL(location))
             dttCommentParser = applicationContext.getBean(DefaultAnnotationParser.class);
         else dttCommentParser = contextWrapper.getCommentParser();
-
-        DttMybatisAutoConfiguration dttMybatisAutoConfiguration = applicationContext.getBean(DttMybatisAutoConfiguration.class);
-        Map<String, DttMbActWrapper> typeAliasesMap = dttMybatisAutoConfiguration.getTypeAliasesMap();
-        if (CollectionUtils.isEmpty(typeAliasesMap)) return Collections.emptyList();
 
         List<Class<?>> classes = new ArrayList<>();
         for (String classFullyQualifyName : request.getFullyQualifiedClassNames()) {
