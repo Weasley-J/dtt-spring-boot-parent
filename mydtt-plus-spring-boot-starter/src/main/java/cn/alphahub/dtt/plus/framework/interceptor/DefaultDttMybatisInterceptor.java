@@ -101,9 +101,9 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         Map<String, DttMbActWrapper> typeAliasesMap = dttMybatisAutoConfiguration.getTypeAliasesMap();
         if (CollectionUtils.isEmpty(typeAliasesMap)) return;
 
-        boolean isShardingSphereEnable = dttMybatisAutoConfiguration.isShardingSphereEnable();
+        boolean shardingSphereEnable = dttMybatisAutoConfiguration.getShardingSphereEnable();
 
-        if (isShardingSphereEnable) {
+        if (shardingSphereEnable) {
             // TODO: compatibility with sharding-sphere, May be compatible later
             return;
         }

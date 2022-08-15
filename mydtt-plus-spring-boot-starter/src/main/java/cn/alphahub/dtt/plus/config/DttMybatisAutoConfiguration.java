@@ -54,7 +54,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.TableExistsSqlMapperProp
 @AutoConfigureAfter(name = {"mybatisAutoConfiguration", "mybatisPlusAutoConfiguration"})
 public class DttMybatisAutoConfiguration implements InitializingBean {
     private static final String[] MYBATIS_PROP_PREFIX = {"mybatis-plus.type-aliases-package", "mybatis.type-aliases-package"};
-    private static final String[] shardingSphereBeans = {"shardingSphereAutoConfiguration", "org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration"};
+    private static final String[] SHARDING_SPHERE_BEANS = {"shardingSphereAutoConfiguration", "org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration"};
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * The type aliases map of mybatis
@@ -76,6 +76,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      */
     private final DefaultDttMybatisInterceptor defaultDttMybatisInterceptor;
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
+    private Boolean shardingSphereEnable = false;
 
     public DttMybatisAutoConfiguration(JdbcTemplate jdbcTemplate,
                                        DttProperties dttProperties,
@@ -97,22 +98,18 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        if (dttMybatisOrmSupportProperties.getIsEnable().equals(false) || isShardingSphereEnable()) return;
-
+        if (dttMybatisOrmSupportProperties.getIsEnable().equals(false)) return;
+        this.shardingSphereEnable = isShardingSphereEnable();
         sqlSessionFactories.forEach(sqlSessionFactory -> {
             Configuration configuration = sqlSessionFactory.getConfiguration();
             if (ObjectUtils.isNotEmpty(configuration) && !configuration.getInterceptors().contains(defaultDttMybatisInterceptor)) {
                 configuration.addInterceptor(defaultDttMybatisInterceptor);
             }
         });
-
-        if (logger.isInfoEnabled()) {
-            logger.info("Loading..., " +
-                    "DTT is judging the existence of all tables for caching, it's will take a few seconds," +
-                    "if you want to disable dtt-mybatis-orm-support," +
-                    "please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
+        if (logger.isInfoEnabled() && shardingSphereEnable.equals(false)) {
+            logger.info("DTT is judging the existence of all tables for caching, it's will take a few seconds," +
+                    "if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
         }
-
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = SpringUtil.getProperty(mybatisPropPrefix);
             if (StringUtils.isBlank(property)) continue;
@@ -124,7 +121,9 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
                     actWrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
                     actWrapper.setDomainClass(value);
                     String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
-                    actWrapper.setTableNotExists(isTableNotExists(tableName));
+                    if (shardingSphereEnable.equals(false)) {
+                        actWrapper.setTableNotExists(isTableNotExists(tableName));
+                    }
                     return actWrapper;
                 })));
                 this.typeAliasesMap.putAll(classConcurrentMap);
@@ -138,7 +137,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      * @return if enable return true
      * @see <a href="https://shardingsphere.apache.org/document/5.1.2/cn/user-manual/shardingsphere-jdbc/spring-boot-starter/">ShardingSphere Auto-Configuration</a>
      */
-    public boolean isShardingSphereEnable() {
+    protected boolean isShardingSphereEnable() {
         boolean isShardingSphereEnable = false;
         try {
             Class<?> shardingSphereDriver = Class.forName("org.apache.shardingsphere.driver.ShardingSphereDriver");
@@ -148,7 +147,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
         } catch (Exception e) {
             // No dump
         }
-        for (String shardingSphereBean : shardingSphereBeans) {
+        for (String shardingSphereBean : SHARDING_SPHERE_BEANS) {
             try {
                 if (ObjectUtils.isNotEmpty(applicationContext.getBean(shardingSphereBean)))
                     isShardingSphereEnable = true;
