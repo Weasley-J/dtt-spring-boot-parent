@@ -288,24 +288,19 @@ mvn clean install -pl :mydtt-plus-spring-boot-starter -am
 **Tips**: `domain` model must be in the same `src` folder with `pom.xml`
 
 ```xml
-<properties>
-        <therapi-runtime-javadoc.version>0.13.0</therapi-runtime-javadoc.version>
-        <mydtt-plus.version>1.0.6</therapi-runtime-javadoc.version>
-</properties>
-
 <dependencies>
         <!-- mydtt-plus-spring-boot-starter -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
-            <artifactId>mydtt-plus-spring-boot-starter</artifactId>
-            <version>${mydtt-plus.version}</version>
+          <artifactId>mydtt-plus-spring-boot-starter</artifactId>
+          <version>1.3.1</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
             <groupId>com.github.therapi</groupId>
-            <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-            <version>${therapi-runtime-javadoc.version}</version>
-            <scope>provided</scope>
+          <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+          <version>0.15.0</version>
+          <scope>provided</scope>
         </dependency>
         <!-- javadoc-scribe end  -->
 </dependencies>
@@ -908,7 +903,7 @@ alphahub:
       base-classes: ""
 ```
 
-[here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
+[Here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
 ### 10 Support `mybatis` create table automatically
 
@@ -933,8 +928,9 @@ alphahub:
   missing [`@Dtt`](https://github.com/Weasley-J/mydtt-
   plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
   annotation will cause the table to be created without column metadata comments like `Hibernate` created without
-  comments. If your English is so well and you know the meaning of each metadata, it is fine not to add them. Here is an
-  example of using a domain object using `@Dtt`:
+  comments. If your English is so well and you know the meaning of each metadata, it is fine not to add them.
+
+  Here is an example of using a domain object using `@Dtt`:
 
 ```java
 import lombok.AllArgsConstructor;
