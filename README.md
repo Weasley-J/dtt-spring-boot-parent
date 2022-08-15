@@ -538,7 +538,8 @@ alphahub:
 Explanation：
 
 Which means when your database is `MySQL`, A column contains filed of  `phone`, `_tel`, ... will be defined as type
-of `varchar(16)`
+of `varchar(16)`,if the `alphahub.dttstring-length-mapper.length-configs` list is not configured, the data type of the
+column will be defined as: `varchar(256)`;
 
 ### 6 Automatically infer default values for database table columns
 
@@ -829,33 +830,64 @@ GO
 ```mysql
 CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
 (
-    `id`  bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
-    `open_id`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '用户openId',
-    `nickname`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '用户昵称',
-    `is_enable`  tinyint                                                  DEFAULT true COMMENT '是否启用, 默认：1',
-    `balance`  decimal                                                  DEFAULT 0.00 COMMENT '用户积分余额, 默认：0.00',
-    `birthday`  datetime                                                  DEFAULT NULL COMMENT '出生日期，格式：yyyy-MM-dd HH:mm:ss',
-    `member_type`  enum('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'ORDINARY' COMMENT '会员类型，默认：ORDINARY',
-    `status`  int                                                  DEFAULT 3 COMMENT '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
-    `deleted`  int                                                  DEFAULT 0 COMMENT '账户注销状态；0 未注销（默认），1 已销户',
-    `registrar_date`  date                                                  DEFAULT NULL COMMENT '注册时间，格式: yyyy-MM-dd',
-    `accelerate_begin_time`  time                                                  DEFAULT NULL COMMENT '会员加速开始时间, 格式：HH:mm:ss',
-    `accelerate_end_time`  time                                                  DEFAULT NULL COMMENT '会员加速结束时间, 格式：HH:mm:ss',
-    `update_time`  datetime                                                 DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-PRIMARY KEY (`id`)
+  `id`                    bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `open_id`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci                                                                     DEFAULT NULL  COMMENT '用户openId',
+  `nickname`              varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci                                                                     DEFAULT NULL  COMMENT '用户昵称',
+  `is_enable`             tinyint                                                                                                                          DEFAULT true COMMENT '是否启用, 默认：1',
+  `balance`               decimal                                                                                                                          DEFAULT 0.00 COMMENT '用户积分余额, 默认：0.00',
+  `birthday`              datetime                                                                                                                         DEFAULT NULL COMMENT '出生日期，格式：yyyy-MM-dd HH:mm:ss',
+  `member_type`           enum('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'ORDINARY' COMMENT '会员类型，默认：ORDINARY',
+  `status`                int                                                                                                                              DEFAULT 3 COMMENT '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
+  `deleted`               int                                                                                                                              DEFAULT 0 COMMENT '账户注销状态；0 未注销（默认），1 已销户',
+  `registrar_date`        date                                                                                                                             DEFAULT NULL COMMENT '注册时间，格式: yyyy-MM-dd',
+  `accelerate_begin_time` time                                                                                                                             DEFAULT NULL COMMENT '会员加速开始时间, 格式：HH:mm:ss',
+  `accelerate_end_time`   time                                                                                                                             DEFAULT NULL COMMENT '会员加速结束时间, 格式：HH:mm:ss',
+  `update_time`           datetime                                                                                                                         DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-DEFAULT CHARSET = utf8mb4
-COLLATE = utf8mb4_general_ci COMMENT ='用户信息-DttMember';
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci COMMENT ='用户信息-DttMember';
 ```
 
-### 7 Integrate multi-mybatis framework with `0-Code`
+### 7 Configure precision for high precision data types
+
+- [Here is the complete configurations](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
+- The following is an example of the default configuration built into DTT:
+
+```yaml
+alphahub:
+  dtt:
+    high-precision-data-mapper:
+      high-precision-data-type: BigDecimal #The high precision data types of Java
+      default-integer-length: 10 #The default length of the integer part
+      default-decimal-length: 6 #The default length of fractional part
+      precision-configs:
+        - text: price,amount #The possible fields that need to be inferred, separated by ","(case insensitive)
+          integer-length: 10 #The length of the integer part of the field
+          decimal-length: 2 #The length of the fractional part
+```
+
+- Inference description, take the `h2` database as an example:
+
+When the fields of the database table mapped by the private properties of your `Java` object contain `price`, `amount`
+fields (case-insensitive), the data type of the column will be defined as: `NUMERIC(10,2 )`, if
+the `alphahub.dtt.precision-configs` list is not configured, the data type of the column will be defined
+as: `NUMERIC(10,6)`;
+
+Generally, a high-precision data type is used to define the data type of currency. The default configuration of
+DTT's `alphahub.dtt.precision-configs` includes `price`, `amount`, the fields is only applicable to the currency data
+precision of `CNY` , If the developer is using the currency unit of other countries, I strongly recommend that the
+developer configure the data precision that matches the business type in their own application to override the default
+data precision configuration of `DTT` built in.
+
+### 8 Integrate multi-mybatis framework with `0-Code`
 
 1. `mybatis`: https://github.com/mybatis/spring-boot-starter
 2. `mybatis-plus`: https://github.com/baomidou/mybatis-plus
 3. `tk.mybatis`: https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter
 4. `pagehelper`: https://search.maven.org/artifact/com.github.pagehelper/pagehelper
 
-### 8 Built-in mybatis-plus code generator
+### 9 Built-in mybatis-plus code generator
 
 `DTT` can help you build an enterprise development framework quickly, you can configure it in your project configuration
 yaml file,
@@ -878,7 +910,7 @@ alphahub:
 
 [here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
-### 9 Support `mybatis` create table automatically
+### 10 Support `mybatis` create table automatically
 
 - **This feature only available for supported `RDB`**
 
@@ -1003,7 +1035,7 @@ documents, so the comments for the created table are missing. If you want to syn
 for `production environment` from `Dev environment` which created by `DTT`, then you can ignore to use`@Dtt`annotations
 to annotate your domain objects，you can you some `RDB` tools.
 
-### 10 Support calling API to create table
+### 11 Support calling API to create table
 
 `API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
 
@@ -1059,7 +1091,6 @@ public class SomeApplication {
     }
   }
 }
-
 ```
 
 ## Supported `RDB` type

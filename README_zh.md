@@ -105,11 +105,40 @@ DTT会有一切默认长度的自动推断，你可以想示例里面的例子�
 
 [完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
-### 6 自动推断数据表的列的默认值
+### 6 配置高精度数据类型的精度
+
+[完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
+
+- 以下是DTT内置的默认配置示例:
+
+```yaml
+alphahub:
+  dtt:
+    high-precision-data-mapper:
+      high-precision-data-type: BigDecimal #Java的高精度数据类型
+      default-integer-length: 10 #整数部分的默认长度
+      default-decimal-length: 6 #小数部分的默认长度
+      precision-configs:
+        - text: price,amount #需要推断推断的可能包含的字段，多个用","隔开, 不区分大小写
+          integer-length: 10 #该字段的整数部分的长度
+          decimal-length: 2 #小该数部分的长度
+```
+
+- 推断说明，以`h2`数据库为例：
+
+当你的`Java`对象的私有属性所映射的数据库表的字段包含`price`,`amount`
+字段时（不区分大小写），该列的数据类型会被定义为: `NUMERIC(10,2)`, 如果未配置`alphahub.dtt.precision-configs`
+列表，该列的数据类型会被定义为: `NUMERIC(10,6)`;
+
+一般会使用高精度的数据类型来定义货币的数据类型，DTT的`alphahub.dtt.precision-configs`的默认配置包含`price`,`amount`
+字段的配置仅适用于`CNY`的货币数据精度,
+如果开发者使用的是其他国家的货币单位，我强烈建议开发者在自己的应用中配置符合业务类型的数据精度来覆盖`DTT`默认的数据精度配置。
+
+### 7 自动推断数据表的列的默认值
 
 支持`枚举`和`Java基础包装类型`
 
-### 7 `0代码`集成多款`mybatis`生态插件
+### 8 `0代码`集成多款`mybatis`生态插件
 
 1. `mybatis`: https://github.com/mybatis/spring-boot-starter
 2. `mybatis-plus`: https://github.com/baomidou/mybatis-plus
@@ -118,7 +147,7 @@ DTT会有一切默认长度的自动推断，你可以想示例里面的例子�
 
 注解驱动开启功能，开箱即用，无需任何`SPI`继承、实现操作, 更低的学习和使用成本。
 
-### 8 内置`mybatis-plus`代码生成器
+### 9 内置`mybatis-plus`代码生成器
 
 默认关闭，需要通过配置开始
 
@@ -147,7 +176,7 @@ alphahub:
 
 简单业务甚至你只用写个`Controller`就能完成业务功能
 
-### 9 支持`mybatis`自动创建数据库表
+### 10 支持`mybatis`自动创建数据库表
 
 提示:
 
@@ -268,19 +297,20 @@ public class DttMember implements Serializable {
 
 4. **该功能仅适用于受支持的`RDB`**
 
-### 10 支持调用API创建表
+### 11 支持调用API创建表
 
 `API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
 
-1. 在你的`spring-boot`应用的启动类上添加注解`@EnableDtt`
-
-2. 示例：
+1. 在你的`spring-boot`应用的启动类上添加注解`@EnableDtt`，示例：
 
 ```java
 import cn.alphahub.dtt.plus.entity.DttManualActEntity;
 import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -289,18 +319,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Some controller
+ * Some Application
  */
-@RestController
-@RequestMapping("/api/member")
-public class SomeController {
-   @Autowired
-   private DttDefaultConditionalService defaultConditionalService;
+@EnableDtt
+@SpringBootApplication
+public class SomeApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(SomeApplication.class, args);
+  }
 
-   @PostMapping("/manual/act")
-   public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
+  /**
+   * Some controller
+   */
+  @RestController
+  @RequestMapping("/api/member")
+  public static class SomeController {
+    @Autowired
+    private DttDefaultConditionalService defaultConditionalService;
+
+    @PostMapping("/manual/act")
+    public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
       return this.defaultConditionalService.manualCreate(request);
-   }
+    }
+  }
 }
 ```
 
