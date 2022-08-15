@@ -1007,14 +1007,26 @@ to annotate your domain objects，you can you some `RDB` tools.
 
 `API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
 
-- Add the annotation `@EnableDtt` to the startup class of your `spring-boot` application
-- i.e:
+```java
+/**
+ * Manually specify a collection of fully qualified Class names to create database tables
+ *
+ * @param request The request data for dtt manual automatically create database tables
+ * @return The list of 'DttManualActEntity'
+ */
+public List<DttManualActEntity> manualCreate(DttManualActRequest request){}
+```
+
+- Add the annotation `@EnableDtt` to the startup class of your `spring-boot` application, i.e:
 
 ```java
 import cn.alphahub.dtt.plus.entity.DttManualActEntity;
 import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -1023,19 +1035,31 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Some controller
+ * Some Application
  */
-@RestController
-@RequestMapping("/api/member")
-public class SomeController {
+@EnableDtt
+@SpringBootApplication
+public class SomeApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(SomeApplication.class, args);
+  }
+
+  /**
+   * Some controller
+   */
+  @RestController
+  @RequestMapping("/api/member")
+  public static class SomeController {
     @Autowired
     private DttDefaultConditionalService defaultConditionalService;
 
     @PostMapping("/manual/act")
     public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
-        return this.defaultConditionalService.manualCreate(request);
+      return this.defaultConditionalService.manualCreate(request);
     }
+  }
 }
+
 ```
 
 ## Supported `RDB` type

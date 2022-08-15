@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Manually specify the fully qualified class name of Class to call DTT to create a table.
+ * Manually specify the fully qualified class name to call DTT to create a table.
  * <p>Maybe useful in some condition.
  *
  * @author weasley
