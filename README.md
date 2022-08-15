@@ -382,7 +382,7 @@ alphahub:
 ```
 
 [Full meta data for `code-generator` configuration](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
-，the classes of `Service`,  `Mapper interface`, `Mapper.xm`, The directory structure is as follows:
+，the classes of `Service`,  `Mapper interface`, `Mapper.xml`, The directory structure is as follows:
 
 ![image-20220729171604994](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220729171604994.png)
 
@@ -506,9 +506,8 @@ DTT's parser support parsing the Java documentation.
 
 ### 5 Specifies the character length of the metadata
 
-You can configure for your configuration yaml like this:
-
-https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130
+You can configure for your configuration yaml like
+this, [Here is the link](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
 Example:
 
@@ -924,11 +923,9 @@ alphahub:
 ```
 
 - It is recommended to
-  use [`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main
-  for production environment /java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23) annotation to annotate your domain
-  model if your are none native English speaker, the domain model is
-  missing [`@Dtt`](https://github.com/Weasley-J/mydtt-
-  plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+  use [Dtt](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
+  annotation to annotate your domain model if your are none native English speaker, the domain model is
+  missing [Dtt](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
   annotation will cause the table to be created without column metadata comments like `Hibernate` created without
   comments. If your English is so well and you know the meaning of each metadata, it is fine not to add them.
 
