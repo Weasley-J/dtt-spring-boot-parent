@@ -461,11 +461,13 @@ Which can annotate on you Java modle class or property of modle，Usually used i
 
 ### Yaml configuration
 
-You can easily  use in prefix of `alphahub.tt` in your porject，Here the  fully yaml property with default maybe you can reference it.  you can override in you `application.yml` if you don't need one of them. i.e:
+You can easily use in prefix of `alphahub.tt` in your porject，Here the fully yaml property with default maybe you can
+reference it. you can override in you `application.yml` if you don't need one of them. i.e:
 
-[Or refere to source code](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-type-mapping.yml)
+[Or refere to source code](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L1-L512)
 
-Particularly. when `all-in-one-table` set enbled,  DTT'll export a file with `all-in-one` type table DDL statements to the destination you set in your `application.yml` file.
+Particularly. when `all-in-one-table` set enbled, DTT'll export a file with `all-in-one` type table DDL statements to
+the destination you set in your `application.yml` file.
 
 
 
