@@ -57,9 +57,9 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
     private static final String[] SHARDING_SPHERE_BEANS = {"shardingSphereAutoConfiguration", "org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration"};
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
-     * The type aliases map of mybatis
+     * The cache for mybatis type-aliases mapped classes
      * <p>
-     * key:The simple name of class(Lower case, small camel case), value: The class
+     * key:The simple name of class(Lower case, small camel case), value: The wrapper class
      */
     private final Map<String, DttMbActWrapper> typeAliasesMap = new ConcurrentHashMap<>(768);
     private final JdbcTemplate jdbcTemplate;
@@ -76,6 +76,9 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      */
     private final DefaultDttMybatisInterceptor defaultDttMybatisInterceptor;
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
+    /**
+     * Check if there is a sharding Sphere on the classpath
+     */
     private Boolean shardingSphereEnable = false;
 
     public DttMybatisAutoConfiguration(JdbcTemplate jdbcTemplate,
