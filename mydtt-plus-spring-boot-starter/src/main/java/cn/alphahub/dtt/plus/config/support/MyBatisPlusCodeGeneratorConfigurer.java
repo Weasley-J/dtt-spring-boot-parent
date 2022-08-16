@@ -6,7 +6,6 @@ import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultJavaDocParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
-import cn.alphahub.dtt.plus.util.ClassUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +31,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
@@ -166,8 +167,8 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         }
 
         if (ObjectUtils.isNotEmpty(cgProperties.getBaseClasses())) {
-            for (String baseClass : cgProperties.getBaseClasses()) {
-                Class<?> aClass = ClassUtil.loadClass(baseClass);
+            Set<Class<? extends Serializable>> baseClasses = Arrays.stream(cgProperties.getBaseClasses()).collect(Collectors.toSet());
+            for (Class<? extends Serializable> aClass : baseClasses) {
                 String modelComment = "";
                 ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
                 if (null != parseFactory.getModel())

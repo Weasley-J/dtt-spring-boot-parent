@@ -6,7 +6,7 @@ spring:
     name: mydtt-plus-application-demo
 
   profiles:
-    active: H2
+    active: DERBY
 
 alphahub:
   dtt:

@@ -78,32 +78,26 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--hutool-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.8.4</version>
-        </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>2.0.2</version>
         </dependency>
 
-        <!--jdbc start-->
-        <!-- db2-jcc -->
+        <!-- jdbc start -->
+        <!-- db2 -->
         <dependency>
             <groupId>com.ibm.db2</groupId>
             <artifactId>jcc</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- mssql-jdbc -->
+        <!-- sqlserver -->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- ojdbc8 -->
+        <!-- oracle -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
@@ -113,9 +107,10 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
             <scope>runtime</scope>
         </dependency>
-        <!--  mariadb -->
+        <!-- mariadb -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
@@ -128,25 +123,24 @@
             <version>42.3.6</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- h2  -->
+        <!-- embedded db start -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>2.1.212</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- derby -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- hsqldb -->
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- embedded db end -->
+        <!-- jdbc end -->
         <!--jdbc end-->
 
     </dependencies>

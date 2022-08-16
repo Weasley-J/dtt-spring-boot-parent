@@ -1,12 +1,6 @@
 package cn.alphahub.dtt.plus.config;
 
-import cn.alphahub.dtt.plus.config.datamapper.Db2DataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.H2DataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.MariadbDataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.MysqlDataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.OracleDataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.PostgresqlDataMapperProperties;
-import cn.alphahub.dtt.plus.config.datamapper.SqlserverDataMapperProperties;
+import cn.alphahub.dtt.plus.config.datamapper.*;
 import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.SysUtil;
@@ -15,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -185,9 +180,10 @@ public class DttProperties {
          */
         private String basePackage;
         /**
-         * The domain with fully qualified class name what your want to generate code. It's optional,Multiple Classes are separated by commas(",")
+         * The domain class with fully qualified class name what your want to generate code. It's optional, multiple classes are separated by commas(",")<br>
+         * The class must be extend java.io.Serializable.
          */
-        private String[] baseClasses;
+        private Class<? extends Serializable>[] baseClasses;
     }
 
     /**
@@ -256,6 +252,14 @@ public class DttProperties {
          * The data mapper properties of  H2 database.
          */
         private H2DataMapperProperties h2;
+        /**
+         * The mapper of Java data type mapping for HSQL database
+         */
+        private HsqlDataMapperProperties hsql;
+        /**
+         * The mapper of Java data type mapping for DERBY database
+         */
+        private DerbyDataMapperProperties derby;
 
         /**
          * 获取数据类型映射对应关系
@@ -280,7 +284,9 @@ public class DttProperties {
                 case H2:
                     return this.getH2().getMappingProperties();
                 case HSQL:
+                    return this.getHsql().getMappingProperties();
                 case DERBY:
+                    return this.getDerby().getMappingProperties();
                 default:
                     return new Properties();
             }
@@ -309,7 +315,9 @@ public class DttProperties {
                 case H2:
                     return convertJavaTypeToLowercase(getH2().getMappingProperties());
                 case HSQL:
+                    return convertJavaTypeToLowercase(getHsql().getMappingProperties());
                 case DERBY:
+                    return convertJavaTypeToLowercase(getDerby().getMappingProperties());
                 default:
                     return new Properties();
             }

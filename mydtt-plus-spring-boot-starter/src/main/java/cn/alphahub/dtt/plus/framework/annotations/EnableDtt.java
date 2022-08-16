@@ -43,12 +43,12 @@ import java.lang.annotation.Target;
 @Import({InitDttHandler.class, InitDttClient.class, DefaultAnnotationParser.class,
         DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
-        DefaultSqlserverTableHandler.class, DefaultH2TableHandler.class,
-        VelocityHandler.class, ClassScanningProvider.class,
+        DefaultSqlserverTableHandler.class, DefaultH2TableHandler.class, DefaultHsqlTableHandler.class, DefaultDerbyTableHandler.class,
+        DttDefaultConditionalService.class, VelocityHandler.class, ClassScanningProvider.class,
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttAggregationRunner.class,
         DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class, DefaultDttMybatisInterceptor.class,
-        DttMybatisAutoConfiguration.class, DttDefaultConditionalService.class,
+        DttMybatisAutoConfiguration.class,
 })
 public @interface EnableDtt {
     /**

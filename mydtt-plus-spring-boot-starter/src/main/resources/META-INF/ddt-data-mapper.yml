@@ -17,7 +17,7 @@ alphahub:
       module-package: ""
       module-path: ""
       base-package: ""
-      base-classes: ""
+      base-classes:
     #The primary key data type mappings，If missing.
     primary-key-mapper:
       MYSQL: bigint
@@ -27,6 +27,8 @@ alphahub:
       MARIADB: BIGINT
       POSTGRESQL: bigserial
       H2: BIGINT
+      HSQL: bigint
+      DERBY: BIGINT
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
       db2:
@@ -144,6 +146,38 @@ alphahub:
           Timestamp: TIMESTAMP
           LocalDateTime: TIMESTAMP
           Enum: ENUM
+      hsql:
+        enable-column-upper-case: false
+        mapping-properties:
+          String: VARCHAR
+          Boolean:
+          Float:
+          Double:
+          Integer:
+          Long:
+          BigDecimal:
+          Date:
+          LocalTime:
+          LocalDate:
+          Timestamp:
+          LocalDateTime:
+          Enum:
+      derby:
+        enable-column-upper-case: false
+        mapping-properties:
+          String: VARCHAR
+          Boolean: BOOLEAN
+          Float: FLOAT
+          Double: DOUBLE
+          Integer: INTEGER
+          Long: BIGINT
+          BigDecimal: DECIMAL
+          Date: DATE
+          LocalTime: TIME
+          LocalDate: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: VARCHAR
     #Mapping configuration to automatically infer text length
     string-length-mapper:
       - database-type: MYSQL
@@ -231,6 +265,34 @@ alphahub:
           - text: request,response,body,text,content
             length: 768
       - database-type: H2
+        default-text-type: VARCHAR
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: HSQL
+        default-text-type: VARCHAR
+        default-text-length: 256
+        length-configs:
+          - text: phone,_tel,telephone,_user,_size
+            length: 16
+          - text: _id,_no,number,name,code,_code,_name
+            length: 64
+          - text: link,url,_url,_link
+            length: 128
+          - text: _msg,message,remark
+            length: 512
+          - text: request,response,body,text,content
+            length: 768
+      - database-type: DERBY
         default-text-type: VARCHAR
         default-text-length: 256
         length-configs:
