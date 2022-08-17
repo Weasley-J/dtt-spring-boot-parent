@@ -27,11 +27,9 @@ import java.util.Objects;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultDb2TableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultDb2TableHandler.class);
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private Db2DataMapperProperties db2DataMapperProperties;
-    @Autowired
-    private DefaultOracleTableHandler defaultOracleTableHandler;
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
@@ -44,11 +42,40 @@ public class DefaultDb2TableHandler extends DttAggregationRunner implements DttT
 
         deduceDecimalPrecision(model);
 
-        ContextWrapper contextWrapper = SpringUtil.getBean(ContextWrapper.class);
-        model.getDetails().forEach(detail -> {
+        handlePropertiesOfModel(() -> model, SpringUtil.getBean(ContextWrapper.class));
+
+        String databaseName = model.getDatabaseName();
+        if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\"" + ".");
+
+        if (db2DataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
+
+        String template = resolve(() -> model);
+
+        String[] pureSqlArray = parseTemplateToPureSQLScripts(StringUtils.split(template, ";"));
+
+        Arrays.asList(pureSqlArray).forEach(sql -> {
+            boolean success = false;
+            for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+                try {
+                    //If the field comment is too long, it will cause rollback and cannot be submitted in batches
+                    execute(sql);
+                    success = true;
+                } catch (Exception e) {
+                    logger.warn("{}", e.getMessage());
+                }
+                if (success) break;
+            }
+        });
+
+        return template;
+    }
+
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        parseFactory.getModel().getDetails().forEach(detail -> {
             if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
                 String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                handlingEnumerationTypeToString(db2DataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
+                handleEnumerationTypeToString(db2DataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
             }
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
@@ -60,33 +87,5 @@ public class DefaultDb2TableHandler extends DttAggregationRunner implements DttT
                 detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
             }
         });
-
-        String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\"" + ".");
-
-        if (db2DataMapperProperties.getEnableColumnUpperCase().equals(true))
-            defaultOracleTableHandler.toRootUpperCase(() -> model);
-
-        String template = resolve(() -> model);
-
-        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateToSqlArray(StringUtils.split(template, ";"));
-
-        Arrays.asList(pureSqlArray).forEach(sql -> {
-            boolean success;
-            for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
-                try {
-                    //If the field comment is too long, it will cause rollback and cannot be submitted in batches
-                    execute(sql);
-                    success = true;
-                } catch (Exception e) {
-                    logger.warn("{}", e.getMessage());
-                    success = false;
-                }
-                if (success) break;
-            }
-        });
-
-        return template;
     }
-
 }
