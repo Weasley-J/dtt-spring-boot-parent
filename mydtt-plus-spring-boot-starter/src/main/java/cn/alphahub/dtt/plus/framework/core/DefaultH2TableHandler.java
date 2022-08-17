@@ -73,7 +73,6 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
         parseFactory.getModel().getDetails().forEach(detail -> {
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
-
             if (detail.getFiledComment().contains(";"))
                 detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
         });
