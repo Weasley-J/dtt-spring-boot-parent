@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.config.datamapper.H2DataMapperProperties;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
@@ -25,12 +26,10 @@ import java.util.Arrays;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultH2TableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private H2DataMapperProperties h2DataMapperProperties;
-    @Autowired
-    private DefaultOracleTableHandler defaultOracleTableHandler;
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
@@ -41,33 +40,18 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
             return null;
         }
 
-        deduceDecimalPrecision(model);
-
         String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName)) databaseName = "PUBLIC." + databaseName + ".";
-        if (StringUtils.isBlank(databaseName)) databaseName = "PUBLIC.";
+        if (StringUtils.isNoneBlank(databaseName)) databaseName = "\"PUBLIC\".\"" + databaseName + "\".";
+        if (StringUtils.isBlank(databaseName)) databaseName = "\"PUBLIC\".";
         model.setDatabaseName(databaseName);
 
-        if (h2DataMapperProperties.getEnableColumnUpperCase().equals(true)) {
-            defaultOracleTableHandler.toRootUpperCase(() -> model);
-        }
-
-
-        model.getDetails().forEach(detail -> {
-            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
-                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
-            }
-            if (detail.getFiledComment().contains(";")) {
-                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
-            }
-        });
-
+        deduceDecimalPrecision(model);
+        handlePropertiesOfModel(() -> model, null);
+        if (h2DataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
-        VelocityContext context = new VelocityContext();
-        String template = resolve(() -> model, context);
-
-        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateToSqlArray(StringUtils.split(template, ";"));
+        String template = resolve(() -> model, new VelocityContext());
+        String[] pureSqlArray = parseTemplateToPureSQLScripts(StringUtils.split(template, ";"));
         Arrays.asList(pureSqlArray).forEach(sql -> {
             int success = 0;
             for (int i = 1; i <= CREATE_TABLE_RETRY_MAX_COUNT; i++) {
@@ -84,4 +68,14 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
         return template;
     }
 
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        parseFactory.getModel().getDetails().forEach(detail -> {
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
+
+            if (detail.getFiledComment().contains(";"))
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+        });
+    }
 }
