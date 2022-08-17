@@ -1102,13 +1102,21 @@ public class SomeApplication {
 | `hsql`       |                     | planning   |
 | `derby`      |                     | planning   |
 
-## Contribute your code
+## The performance detail
+
+DTT support either create table lazily on demand（depends on mybatis framework） or eagerly on startup.
+
+- Create table eagerly on startup
 
 todo
 
+- Create table lazily on demand
 
+todo
 
+## Contribute your code
 
+todo
 
 ## Question&Answer
 

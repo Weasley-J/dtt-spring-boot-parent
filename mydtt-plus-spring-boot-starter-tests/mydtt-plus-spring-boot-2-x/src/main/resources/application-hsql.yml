@@ -8,8 +8,8 @@ spring:
   datasource:
     embedded-database-connection: hsqldb
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
-    url:
-    username: ""
+    url: jdbc:hsqldb:hsql://localhost/dtt_demo
+    username: SA
     password: ""
 
 mybatis-plus:

@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
@@ -167,8 +166,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         }
 
         if (ObjectUtils.isNotEmpty(cgProperties.getBaseClasses())) {
-            Set<Class<? extends Serializable>> baseClasses = Arrays.stream(cgProperties.getBaseClasses()).collect(Collectors.toSet());
-            for (Class<? extends Serializable> aClass : baseClasses) {
+            for (Class<? extends Serializable> aClass : cgProperties.getBaseClasses()) {
                 String modelComment = "";
                 ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
                 if (null != parseFactory.getModel())

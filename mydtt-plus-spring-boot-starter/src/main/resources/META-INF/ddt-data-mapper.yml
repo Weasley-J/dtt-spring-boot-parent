@@ -163,7 +163,7 @@ alphahub:
           LocalDateTime:
           Enum:
       derby:
-        enable-column-upper-case: false
+        enable-column-upper-case: true
         mapping-properties:
           String: VARCHAR
           Boolean: BOOLEAN
@@ -318,7 +318,7 @@ alphahub:
     #The properties of sql-script-mapper to query the given table whether exists
     table-exists-sql-mapper:
       mysql:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
       oracle:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '${lowerCaseTableName}'"
         script-of-upper-case-table-name: "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '${upperCaseTableName}'"
@@ -328,9 +328,14 @@ alphahub:
       sqlserver:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[${lowerCaseTableName}]' ) AND type IN ( 'U' )"
       mariadb:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
       postgresql:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM pg_class WHERE relname = '${lowerCaseTableName}'"
       h2:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${lowerCaseTableName}'"
         script-of-upper-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${upperCaseTableName}'"
+      hsql:
+        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+      derby:
+        script-of-lower-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${lowerCaseTableName}' AND TABLETYPE = 'T'"
+        script-of-upper-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${upperCaseTableName}' AND TABLETYPE = 'T'"

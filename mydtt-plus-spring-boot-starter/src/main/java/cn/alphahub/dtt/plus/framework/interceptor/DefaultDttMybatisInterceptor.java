@@ -108,20 +108,20 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
             return;
         }
 
-        handleCrateTable(tableNames, typeAliasesMap, contextWrapper, dttCommentParser);
+        handleCrateTable(tableNames, contextWrapper, typeAliasesMap, dttCommentParser);
     }
 
     /**
      * Handle crate table by default
      *
      * @param tableNames       table names
-     * @param typeAliasesMap   typeAliasesMap
      * @param contextWrapper   contextWrapper
+     * @param typeAliasesMap   The cache for mybatis type-aliases mapped classes，key:The simple name of class(Lower case, small camel case), value: The wrapper class
      * @param dttCommentParser dttCommentParser
      */
     private void handleCrateTable(List<String> tableNames,
-                                  Map<String, DttMbActWrapper> typeAliasesMap,
                                   ContextWrapper contextWrapper,
+                                  Map<String, DttMbActWrapper> typeAliasesMap,
                                   DttCommentParser<ModelEntity> dttCommentParser) {
         for (String tableName : tableNames) {
             String classCamelName = StringUtils.underlineToCamel(tableName);

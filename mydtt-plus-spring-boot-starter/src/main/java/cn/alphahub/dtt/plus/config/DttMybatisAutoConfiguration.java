@@ -110,8 +110,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             }
         });
         if (logger.isInfoEnabled() && shardingSphereEnable.equals(false)) {
-            logger.info("DTT is judging the existence of all tables for caching, it's will take a few seconds," +
-                    "if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
+            logger.info("DTT is judging the existence of all tables for caching, it's will take a few seconds, if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
         }
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = SpringUtil.getProperty(mybatisPropPrefix);
@@ -200,36 +199,39 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
         Map<DatabaseType, TableExistsSqlMapperProperties> propertiesMap = dttProperties.getTableExistsSqlMapper();
         TableExistsSqlMapperProperties rawSql = propertiesMap.get(databaseType);
         if (null == rawSql) return Collections.emptyList();
+
+        String lcts = StringUtils.defaultIfBlank(rawSql.getScriptOfLowerCaseTableName(), "");
+        String usts = StringUtils.defaultIfBlank(rawSql.getScriptOfUpperCaseTableName(), "");
         String dbNamePlaceHolder = "${databaseName}";
+
         switch (databaseType) {
             case MYSQL:
             case MARIADB:
             case SQLSERVER:
             case POSTGRESQL:
-                String sqlScript = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
-                if (sqlScript.contains(dbNamePlaceHolder)) {
-                    sqlScript = sqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                lcts = lcts.replace("${lowerCaseTableName}", tableName);
+                if (lcts.contains(dbNamePlaceHolder)) {
+                    lcts = lcts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
                 }
-                sqlScripts.add(sqlScript);
+                sqlScripts.add(lcts);
                 return sqlScripts;
             case H2:
             case DB2:
             case ORACLE:
-                String lowerCaseTableNameSqlScript = rawSql.getScriptOfLowerCaseTableName().replace("${lowerCaseTableName}", tableName);
-                String upperCaseTableNameSqlScript = rawSql.getScriptOfUpperCaseTableName().replace("${upperCaseTableName}", tableName.toUpperCase());
-                if (upperCaseTableNameSqlScript.contains(dbNamePlaceHolder)) {
-                    upperCaseTableNameSqlScript = upperCaseTableNameSqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                }
-                sqlScripts.add(upperCaseTableNameSqlScript);
+            case DERBY:
+                usts = usts.replace("${upperCaseTableName}", tableName.toUpperCase());
+                if (usts.contains(dbNamePlaceHolder))
+                    usts = usts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                sqlScripts.add(usts);
 
-                if (lowerCaseTableNameSqlScript.contains(dbNamePlaceHolder)) {
-                    lowerCaseTableNameSqlScript = lowerCaseTableNameSqlScript.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                }
-                sqlScripts.add(lowerCaseTableNameSqlScript);
+                lcts = lcts.replace("${lowerCaseTableName}", tableName);
+                if (lcts.contains(dbNamePlaceHolder))
+                    lcts = lcts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
+                sqlScripts.add(lcts);
 
                 return sqlScripts;
             case HSQL:
-            case DERBY:
+                // TODO: hsql
             default:
                 return sqlScripts;
         }

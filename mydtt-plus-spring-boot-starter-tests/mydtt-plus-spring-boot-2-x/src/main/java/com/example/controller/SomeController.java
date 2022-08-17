@@ -45,6 +45,7 @@ public class SomeController {
                 "  \"deleted\": 1,\n" +
                 "}";
         DttMember member = JSONUtil.toBean(json, DttMember.class);
+        member.setId(1L);
         boolean save = memberService.saveBatch(Arrays.asList(member));
         System.out.println(JSONUtil.toJsonStr(member));
         return ResponseEntity.ok(save);

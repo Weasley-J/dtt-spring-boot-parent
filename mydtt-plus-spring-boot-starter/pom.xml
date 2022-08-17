@@ -22,7 +22,8 @@
         It's worth mentioning that DTT can be MyBatis-Plus is integrated in a 0-code way, just like JPA.
         However, MyDtt-Plus and MyBatis-Plus may be easier to expand and use than JPA. In addition to supporting the
         functions of JPA, DDT provides multi-table associated SQL DDL based on MyBatis operation,
-        Support databases for MYSQL, ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL, H2.
+        DTT support databases server for MYSQL, ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL and embedded database for
+        H2, HSQL, DERBY.
     </description>
     <url>https://github.com/Weasley-J/mydtt-plus-spring-boot-starter</url>
 

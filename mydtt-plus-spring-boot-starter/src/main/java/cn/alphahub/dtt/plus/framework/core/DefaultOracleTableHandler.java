@@ -168,10 +168,10 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
             return;
         }
         List<ModelEntity.Detail> upperCaseDetails = new ArrayList<>(details.size());
-        String modelName = model.getModelName().toUpperCase(Locale.ROOT);
+        String modelName = model.getModelName().toUpperCase(Locale.ENGLISH);
         model.setModelName(modelName);
         for (ModelEntity.Detail detail : details) {
-            String filedNameToUpperCase = detail.getFiledName().toUpperCase(Locale.ROOT);
+            String filedNameToUpperCase = detail.getFiledName().toUpperCase(Locale.ENGLISH);
             detail.setFiledName(filedNameToUpperCase);
             upperCaseDetails.add(detail);
         }

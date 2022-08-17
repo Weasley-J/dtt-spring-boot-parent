@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.PREFIX;
 import static cn.alphahub.dtt.plus.enums.BannerMode.ON;
@@ -180,10 +181,24 @@ public class DttProperties {
          */
         private String basePackage;
         /**
-         * The domain class with fully qualified class name what your want to generate code. It's optional, multiple classes are separated by commas(",")<br>
-         * The class must be extend java.io.Serializable.
+         * The domain class with fully qualified class name what your want to generate code. It's optional,
+         * This configuration is useful if your project is already run in production, DTT will create tables on demand,
+         * The given classes must be implements {@link java.io.Serializable}.<br>
+         * <p> Yaml Configuration example:
+         * <pre>
+         * alphahub:
+         *   dtt:
+         *     code-generator:
+         *       is-enable: on
+         *       module-name: dtt
+         *       module-package: com.example
+         *       module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+         *       base-classes:
+         *         - com.example.domain.dtt.DttMember
+         *         - com.example.domain.dtt.DttPerson
+         * </pre>
          */
-        private Class<? extends Serializable>[] baseClasses;
+        private Set<Class<? extends Serializable>> baseClasses;
     }
 
     /**

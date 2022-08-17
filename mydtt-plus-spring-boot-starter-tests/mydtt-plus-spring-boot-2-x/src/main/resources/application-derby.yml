@@ -22,8 +22,9 @@ spring:
     #jdbc:derby://localhost:1527/memory:myInMemDB;create=tru
     embedded-database-connection: derby
     driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:;databaseName=memory:dtt_demo;create=true
-    username: ""
+    #url: jdbc:derby:;databaseName=memory:dtt_demo;create=true
+    url: jdbc:derby:/Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/embedded-db/derby;create=true
+    username: app
     password: ""
 
 mybatis-plus:
@@ -31,7 +32,7 @@ mybatis-plus:
   type-aliases-package: com.example.domain.dtt,com.example.domain.order
   global-config:
     db-config:
-      id-type: auto
+      id-type: input
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -45,7 +46,9 @@ alphahub:
       filepath: /Users/weasley/Downloads
     code-generator:
       is-enable: on
-      base-classes: com.example.domain.dtt.DttMember
       module-name: dtt
       module-package: com.example
       module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+      base-classes:
+        - com.example.domain.dtt.DttMember
+        - com.example.domain.dtt.DttPerson
