@@ -6,11 +6,13 @@ import cn.alphahub.dtt.plus.util.SysUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -28,14 +30,11 @@ import static cn.alphahub.dtt.plus.entity.ContextWrapper.HighPrecisionDataHandle
  */
 @FunctionalInterface
 public interface DttTableHandler<T> extends DttContext<T> {
+    Logger logger = LoggerFactory.getLogger(DttTableHandler.class);
     /**
      * The maximum number of failed attempts to execute create table SQL
      */
     int CREATE_TABLE_RETRY_MAX_COUNT = 3;
-    /**
-     * The size of batch
-     */
-    int BATCH_SIZE = 20;
 
     /**
      * create table
@@ -45,6 +44,16 @@ public interface DttTableHandler<T> extends DttContext<T> {
      */
     @Override
     String create(ParseFactory<T> parseFactory);
+
+    /**
+     * To handle the properties of model that parsed from factory
+     *
+     * @param parseFactory   The factory of model which has parsed
+     * @param contextWrapper The wrapper class of DTT context
+     * @implNote Here is the control logic that handles specific model properties，Delegate to the implementation class of the concrete RDB to implement, if necessary.
+     */
+    default void handlePropertiesOfModel(ParseFactory<T> parseFactory, ContextWrapper contextWrapper) {
+    }
 
     /**
      * 批量操作所有建表语语句聚合
@@ -64,7 +73,7 @@ public interface DttTableHandler<T> extends DttContext<T> {
      * @param detail             Model metadata details
      * @param actuallyDbDataType The db data type from 'mappingProperties'
      */
-    default void handlingEnumerationTypeToString(Properties mappingProperties, ModelEntity.Detail detail, String actuallyDbDataType) {
+    default void handleEnumerationTypeToString(Properties mappingProperties, ModelEntity.Detail detail, String actuallyDbDataType) {
         String enumValues = detail.getDatabaseDataType().substring(mappingProperties.get("Enum").toString().length());
         enumValues = enumValues.replace("('", "");
         enumValues = enumValues.replace("')", "");
@@ -75,64 +84,14 @@ public interface DttTableHandler<T> extends DttContext<T> {
     }
 
     /**
-     * Split array to batch list
-     *
-     * @param sqlArray  The given array
-     * @param batchSize How many pieces in a batch
-     * @return A split list
-     */
-    default List<String[]> splitArrayToBatchList(String[] sqlArray, int batchSize) {
-        if (ObjectUtils.isEmpty(sqlArray)) return Collections.emptyList();
-        if (sqlArray.length <= batchSize) {
-            List<String[]> list = new ArrayList<>();
-            list.add(sqlArray);
-            return list;
-        }
-
-        int integerPart = sqlArray.length / batchSize;
-        int integerParts = integerPart * batchSize;
-        int remainder = sqlArray.length % batchSize;
-
-        int count = 0;
-
-        List<String[]> splitList = new ArrayList<>(remainder == 0 ? integerPart : integerPart + 1);
-
-        List<String[]> temp = new ArrayList<>(integerParts);
-        for (int i = 0; i < integerPart; i++) {
-            temp.clear();
-            String[] batch = new String[batchSize];
-            for (int j = 0; j < batchSize; j++) {
-                batch[j] = sqlArray[count];
-                count++;
-            }
-            temp.add(batch);
-            splitList.addAll(temp);
-        }
-
-        String[] batch = new String[remainder];
-        for (int i = 0; i < remainder; i++) {
-            batch[i] = sqlArray[count];
-            count++;
-        }
-
-        temp = new ArrayList<>(remainder);
-        temp.add(batch);
-        splitList.addAll(temp);
-
-        return splitList;
-    }
-
-    /**
      * Deduce the number of decimals for high precision data types
      *
      * @param model The model be processed
      */
     default void deduceDecimalPrecision(ModelEntity model) {
         if (null == model || CollectionUtils.isEmpty(model.getDetails())) return;
-
         HighPrecisionDataHandler pdh = SpringUtil.getBean(ContextWrapper.class).getHighPrecisionDataHandler();
         HighPrecisionDataMapper pdm = pdh.getHighPrecisionDataMapper();
-
         model.getDetails().forEach(detail -> {
             if (pdm.getHighPrecisionDataType().compareToIgnoreCase(detail.getJavaDataType()) == 0) {
                 String dbDataType = detail.getDatabaseDataType();
@@ -145,10 +104,51 @@ public interface DttTableHandler<T> extends DttContext<T> {
                         }
                     }
                 }
-                String inferDbDataTypeWithDefaultPrecision = dbDataType + "(" + pdm.getDefaultIntegerLength() + "," + pdm.getDefaultDecimalLength() + ")";
-                detail.setDatabaseDataType(StringUtils.defaultIfBlank(inferDataType, inferDbDataTypeWithDefaultPrecision));
+                String inferPrecision = dbDataType + "(" + pdm.getDefaultIntegerLength() + "," + pdm.getDefaultDecimalLength() + ")";
+                detail.setDatabaseDataType(StringUtils.defaultIfBlank(inferDataType, inferPrecision));
             }
         });
     }
 
+    /**
+     * Change model properties to uppercase mode
+     *
+     * @param parseFactory The parse factory
+     */
+    default void modelPropertiesToUppercase(ParseFactory<ModelEntity> parseFactory) {
+        ModelEntity model = parseFactory.getModel();
+        List<ModelEntity.Detail> originalDetails = model.getDetails();
+        if (org.springframework.util.CollectionUtils.isEmpty(originalDetails)) {
+            return;
+        }
+        List<ModelEntity.Detail> upperCaseDetails = new ArrayList<>(originalDetails.size());
+        String modelName = model.getModelName().toUpperCase(Locale.ENGLISH);
+        model.setModelName(modelName);
+        for (ModelEntity.Detail detail : originalDetails) {
+            String filedNameToUpperCase = detail.getFiledName().toUpperCase(Locale.ENGLISH);
+            detail.setFiledName(filedNameToUpperCase);
+            upperCaseDetails.add(detail);
+        }
+        model.setDetails(upperCaseDetails);
+    }
+
+    /**
+     * Parse The template SQL to a SQL array composed of a single SQL
+     *
+     * @param rawSqlArray The array of table template SQL split with  ';'
+     * @return A filtered SQL array composed of a single SQL(A pure SQL script array)
+     */
+    default String[] parseTemplateToPureSQLScripts(String[] rawSqlArray) {
+        return Arrays.stream(rawSqlArray).map(sql -> {
+            if (sql.startsWith(SysUtil.getLineSeparator()))
+                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
+            else return sql;
+        }).collect(Collectors.toList()).stream().map(sql -> {
+            if (sql.startsWith(SysUtil.getLineSeparator()))
+                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
+            else if (sql.endsWith(SysUtil.getLineSeparator()))
+                return StringUtils.removeEnd(sql, SysUtil.getLineSeparator());
+            else return sql;
+        }).filter(StringUtils::isNoneBlank).toArray(String[]::new);
+    }
 }
