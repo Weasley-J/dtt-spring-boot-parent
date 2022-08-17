@@ -19,7 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
         parserType = ParserType.JAVA_DOC,
-        dropTableBeforeCreate = false,
+        dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //OmsOrderInquiry.class,
                 //DttPerson.class,

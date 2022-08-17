@@ -44,14 +44,13 @@ public class DefaultSqlserverTableHandler extends DttAggregationRunner implement
             return null;
         }
 
-        handlePropertiesOfModel(parseFactory, SpringUtil.getBean(ContextWrapper.class));
+        handlePropertiesOfModel(() -> model, SpringUtil.getBean(ContextWrapper.class));
 
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("defaultCollate", getDefaultCollate(sqlserverDataMapperProperties));
         String template = resolve(() -> model, velocityContext);
         String[] pureSQL = template.split("GO\n");
-        String[] pureSQLScripts = parseTemplateToPureSQLScripts(pureSQL);
-        batchExecute(pureSQLScripts);
+        batchExecute(pureSQL);
         return template;
     }
 
@@ -65,6 +64,9 @@ public class DefaultSqlserverTableHandler extends DttAggregationRunner implement
             }
             if (Objects.equals(Boolean.class.getSimpleName(), detail.getJavaDataType())) {
                 detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
+            }
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             }
         });
     }
