@@ -31,11 +31,10 @@ import java.util.stream.Collectors;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultPostgresqlTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultPostgresqlTableHandler.class);
+    protected static final Logger logger = LoggerFactory.getLogger(DefaultPostgresqlTableHandler.class);
 
     @Autowired
     private PostgresqlDataMapperProperties postgresqlDataMapperProperties;
-
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
@@ -47,22 +46,7 @@ public class DefaultPostgresqlTableHandler extends DttAggregationRunner implemen
             return null;
         }
 
-        Properties mappingProperties = postgresqlDataMapperProperties.getMappingProperties();
-        model.getDetails().forEach(detail -> {
-            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
-                String actuallyDbDataType = SpringUtil.getBean(ContextWrapper.class).getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                handlingEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
-            }
-            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
-                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
-            }
-            if (detail.getFiledComment().contains(";")) {
-                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
-            }
-        });
-
-        String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\"" + ".");
+        handlePropertiesOfModel(() -> model, SpringUtil.getBean(ContextWrapper.class));
 
         String template = resolve(() -> model);
 
@@ -87,4 +71,26 @@ public class DefaultPostgresqlTableHandler extends DttAggregationRunner implemen
 
         return template;
     }
+
+
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        ModelEntity model = parseFactory.getModel();
+        String databaseName = model.getDatabaseName();
+        if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\"" + ".");
+        Properties mappingProperties = postgresqlDataMapperProperties.getMappingProperties();
+        model.getDetails().forEach(detail -> {
+            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
+                String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                handleEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
+            }
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
+            }
+            if (detail.getFiledComment().contains(";")) {
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+            }
+        });
+    }
+
 }

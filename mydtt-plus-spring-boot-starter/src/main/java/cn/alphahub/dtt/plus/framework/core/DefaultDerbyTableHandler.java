@@ -1,8 +1,11 @@
 package cn.alphahub.dtt.plus.framework.core;
 
+import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.config.datamapper.DerbyDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
+import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -33,12 +36,12 @@ public class DefaultDerbyTableHandler extends DttAggregationRunner implements Dt
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ApplicationContext applicationContext;
     private final DerbyDataMapperProperties derbyDataMapperProperties;
-    private final DefaultOracleTableHandler defaultOracleTableHandler;
+    private final DttMybatisAutoConfiguration dttMybatisAutoConfiguration;
 
-    public DefaultDerbyTableHandler(ApplicationContext applicationContext, DerbyDataMapperProperties derbyDataMapperProperties, DefaultOracleTableHandler defaultOracleTableHandler) {
+    public DefaultDerbyTableHandler(ApplicationContext applicationContext, DerbyDataMapperProperties derbyDataMapperProperties, DttMybatisAutoConfiguration dttMybatisAutoConfiguration) {
         this.applicationContext = applicationContext;
         this.derbyDataMapperProperties = derbyDataMapperProperties;
-        this.defaultOracleTableHandler = defaultOracleTableHandler;
+        this.dttMybatisAutoConfiguration = dttMybatisAutoConfiguration;
     }
 
     @Override
@@ -51,46 +54,56 @@ public class DefaultDerbyTableHandler extends DttAggregationRunner implements Dt
         }
 
         deduceDecimalPrecision(model);
-
-        model.getDetails().forEach(detail -> {
-            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
-                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
-            if (detail.getFiledComment().contains(";"))
-                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
-            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
-                ContextWrapper contextWrapper = applicationContext.getBean(ContextWrapper.class);
-                String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                handlingEnumerationTypeToString(derbyDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
-            }
-        });
+        handlePropertiesOfModel(() -> model, applicationContext.getBean(ContextWrapper.class));
 
         String databaseName = model.getDatabaseName();
         if (StringUtils.isNoneBlank(databaseName)) model.setDatabaseName("\"" + databaseName + "\".");
 
-        if (derbyDataMapperProperties.getEnableColumnUpperCase().equals(true))
-            defaultOracleTableHandler.toRootUpperCase(() -> model);
+        if (derbyDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
 
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
-        VelocityContext context = new VelocityContext();
-        String template = resolve(() -> model, context);
+        String template = resolve(() -> model, new VelocityContext());
+        String[] pureSQLScripts = parseTemplateToPureSQLScripts(template.split(";"));
 
-        String[] pureSqlArray = defaultOracleTableHandler.parseTemplateToSqlArray(template.split(";"));
-        for (String sql : pureSqlArray) {
-            // create-table
-            boolean success = false;
-            for (int k = 1; k <= CREATE_TABLE_RETRY_MAX_COUNT; k++) {
-                try {
-                    execute(sql);
-                    success = true;
-                } catch (Exception e) {
-                    logger.warn("{}", e.getMessage());
+        String key = com.baomidou.mybatisplus.core.toolkit.StringUtils.underlineToCamel(model.getModelName());
+        DttMbActWrapper dttMbActWrapper = dttMybatisAutoConfiguration.getTypeAliasesMap().get(key);
+
+        for (String sql : pureSQLScripts) {
+            if (sql.startsWith("DROP")
+                    && null != dttMbActWrapper
+                    && dttMbActWrapper.getTableExists().equals(true)
+                    && InitDttHandler.getEnableDtt().dropTableBeforeCreate()) {
+                execute(sql);
+            }
+            if (!sql.startsWith("DROP")) {
+                boolean success = false;
+                for (int i = 0; i < CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+                    if (success) break;
+                    try {
+                        execute(sql);
+                        success = true;
+                    } catch (Exception e) {
+                        logger.warn("{}", e.getMessage());
+                    }
                 }
-                if (success) break;
             }
         }
 
         return template;
     }
 
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        parseFactory.getModel().getDetails().forEach(detail -> {
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
+            if (detail.getFiledComment().contains(";"))
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
+                String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                handleEnumerationTypeToString(derbyDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
+            }
+        });
+    }
 }

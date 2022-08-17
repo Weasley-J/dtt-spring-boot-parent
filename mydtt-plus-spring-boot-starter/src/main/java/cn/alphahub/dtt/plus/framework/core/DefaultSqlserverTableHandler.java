@@ -30,7 +30,7 @@ import java.util.Properties;
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultSqlserverTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultSqlserverTableHandler.class);
+    protected static final Logger logger = LoggerFactory.getLogger(DefaultSqlserverTableHandler.class);
     @Autowired
     private SqlserverDataMapperProperties sqlserverDataMapperProperties;
 
@@ -44,29 +44,33 @@ public class DefaultSqlserverTableHandler extends DttAggregationRunner implement
             return null;
         }
 
-        ContextWrapper commentParser = SpringUtil.getBean(ContextWrapper.class);
-        Properties mappingProperties = sqlserverDataMapperProperties.getMappingProperties();
-        model.getDetails().forEach(detail -> {
-            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
-                String actuallyDbDataType = commentParser.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                handlingEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
-            }
-            if (Objects.equals(Boolean.class.getSimpleName(), detail.getJavaDataType())) {
-                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
-            }
-        });
+        handlePropertiesOfModel(parseFactory, SpringUtil.getBean(ContextWrapper.class));
 
         VelocityContext velocityContext = new VelocityContext();
         velocityContext.put("defaultCollate", getDefaultCollate(sqlserverDataMapperProperties));
         String template = resolve(() -> model, velocityContext);
         String[] pureSQL = template.split("GO\n");
-        batchExecute(pureSQL);
+        String[] pureSQLScripts = parseTemplateToPureSQLScripts(pureSQL);
+        batchExecute(pureSQLScripts);
         return template;
     }
 
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        Properties mappingProperties = sqlserverDataMapperProperties.getMappingProperties();
+        parseFactory.getModel().getDetails().forEach(detail -> {
+            if (Objects.equals(Enum.class.getSimpleName(), detail.getJavaDataType())) {
+                String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                handleEnumerationTypeToString(mappingProperties, detail, actuallyDbDataType);
+            }
+            if (Objects.equals(Boolean.class.getSimpleName(), detail.getJavaDataType())) {
+                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
+            }
+        });
+    }
 
     /**
-     * Get default collate
+     * Get the default collate
      * <p>
      * Solve Chinese garbled characters, <a href="https://docs.microsoft.com/zh-cn/sql/relational-databases/collations/collation-and-unicode-support?view=sql-server-ver16">Here is the help link for SQLServer official.</a>
      *

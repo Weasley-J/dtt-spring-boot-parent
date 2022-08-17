@@ -4,6 +4,7 @@ import cn.alphahub.dtt.plus.entity.DttManualActEntity;
 import cn.alphahub.dtt.plus.entity.DttManualActRequest;
 import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.domain.dtt.DttMember;
 import com.example.service.DttMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,12 @@ public class SomeController {
                 "  \"deleted\": 1,\n" +
                 "}";
         DttMember member = JSONUtil.toBean(json, DttMember.class);
-        member.setId(1L);
+        DttMember dttMember = memberService.getOne(new QueryWrapper<DttMember>().select("MAX(ID) id"));
+        if (null != dttMember) {
+            member.setId(dttMember.getId() + 1);
+        }
         boolean save = memberService.saveBatch(Arrays.asList(member));
-        System.out.println(JSONUtil.toJsonStr(member));
+        System.err.println(JSONUtil.toJsonStr(member));
         return ResponseEntity.ok(save);
     }
 
@@ -65,9 +69,14 @@ public class SomeController {
     }
 
     @GetMapping("/list/{ids}")
-    public ResponseEntity<List<DttMember>> list(@PathVariable Long[] ids) {
+    public ResponseEntity<List<DttMember>> listByIds(@PathVariable Long[] ids) {
         List<DttMember> list = memberService.listByIds(Arrays.asList(ids));
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<DttMember>> listAll() {
+        return ResponseEntity.ok(memberService.list());
     }
 
     @DeleteMapping("/delete/{ids}")

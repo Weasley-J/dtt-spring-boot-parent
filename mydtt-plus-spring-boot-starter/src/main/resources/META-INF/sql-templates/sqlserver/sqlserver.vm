@@ -44,4 +44,3 @@ EXEC sp_addextendedproperty
     'COLUMN', N'$detail.filedName'
 GO
 #end
-

@@ -8,8 +8,6 @@ import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import cn.alphahub.dtt.plus.util.SysUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +20,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * Oracle默认建表实现
@@ -56,27 +51,21 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
             return null;
         }
 
-        //处理Oracle数据类型
-        handlingOracleDataTypes(model);
-        deduceDecimalPrecision(model);
-
-        if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) toRootUpperCase(() -> model);
-
-        if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
-
         String databaseName = model.getDatabaseName();
         if (StringUtils.isNoneBlank(databaseName))
             model.setDatabaseName("\"".concat(databaseName).concat("\"").concat("."));
 
-        model.getDetails().forEach(detail -> {
-            if (detail.getFiledComment().contains(";"))
-                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
-        });
+        handlePropertiesOfModel(() -> model, applicationContext.getBean(ContextWrapper.class));
+
+        deduceDecimalPrecision(model);
+
+        if (oracleDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
+
+        if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
         String template = resolve(() -> model);
 
-        String[] sqlArray = StringUtils.split(template, ";");
-        String[] sqlTrimArray = parseTemplateToSqlArray(sqlArray);
+        String[] sqlTrimArray = parseTemplateToPureSQLScripts(StringUtils.split(template, ";"));
 
         String tableName = model.getDatabaseName() + "\"" + model.getModelName() + "\"";
         boolean dropTableBeforeCreate = InitDttHandler.getEnableDtt().dropTableBeforeCreate();
@@ -96,24 +85,24 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
         return template;
     }
 
-    /**
-     * Template SQL to  a SQL array composed of a single SQL
-     *
-     * @param sqlArray The array of TemplateSQL split with  ';'
-     * @return A filtered SQL array composed of a single SQL
-     */
-    public String[] parseTemplateToSqlArray(String[] sqlArray) {
-        return Arrays.stream(sqlArray).map(sql -> {
-            if (sql.startsWith(SysUtil.getLineSeparator()))
-                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
-            else return sql;
-        }).collect(Collectors.toList()).stream().map(sql -> {
-            if (sql.startsWith(SysUtil.getLineSeparator()))
-                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
-            else if (sql.endsWith(SysUtil.getLineSeparator()))
-                return StringUtils.removeEnd(sql, SysUtil.getLineSeparator());
-            else return sql;
-        }).filter(StringUtils::isNoneBlank).toArray(String[]::new);
+    @Override
+    public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
+        ModelEntity model = parseFactory.getModel();
+        for (ModelEntity.Detail detail : model.getDetails()) {
+            if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'")) {
+                detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
+            }
+            if (Boolean.class.getSimpleName().equals(detail.getJavaDataType())) {
+                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
+            }
+            if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
+                String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
+                handleEnumerationTypeToString(oracleDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
+            }
+            if (detail.getFiledComment().contains(";")) {
+                detail.setFiledComment(detail.getFiledComment().replace(";", "；"));
+            }
+        }
     }
 
     /**
@@ -132,50 +121,6 @@ public class DefaultOracleTableHandler extends DttAggregationRunner implements D
                 logger.warn("{}", e.getMessage());
             }
         }
-    }
-
-    /**
-     * 处理Oracle数据类型
-     * <ul>
-     *     <li>Boolean</li>
-     *     <li>Enum</li>
-     * </ul>
-     *
-     * @param model 域模型信息
-     */
-    private void handlingOracleDataTypes(ModelEntity model) {
-        for (ModelEntity.Detail detail : model.getDetails()) {
-            if (Boolean.class.getSimpleName().equals(detail.getJavaDataType())) {
-                detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
-            }
-            if (Enum.class.getSimpleName().equals(detail.getJavaDataType())) {
-                ContextWrapper wrapper = SpringUtil.getBean(ContextWrapper.class);
-                String actuallyDbDataType = wrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
-                handlingEnumerationTypeToString(oracleDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);
-            }
-        }
-    }
-
-    /**
-     * To root upper case
-     *
-     * @param parseFactory The parse factory
-     */
-    public void toRootUpperCase(ParseFactory<ModelEntity> parseFactory) {
-        ModelEntity model = parseFactory.getModel();
-        List<ModelEntity.Detail> details = model.getDetails();
-        if (CollectionUtils.isEmpty(details)) {
-            return;
-        }
-        List<ModelEntity.Detail> upperCaseDetails = new ArrayList<>(details.size());
-        String modelName = model.getModelName().toUpperCase(Locale.ENGLISH);
-        model.setModelName(modelName);
-        for (ModelEntity.Detail detail : details) {
-            String filedNameToUpperCase = detail.getFiledName().toUpperCase(Locale.ENGLISH);
-            detail.setFiledName(filedNameToUpperCase);
-            upperCaseDetails.add(detail);
-        }
-        model.setDetails(upperCaseDetails);
     }
 
     /**
