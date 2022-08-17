@@ -7,14 +7,15 @@ CREATE TABLE IF NOT EXISTS $databaseName"$modelName"
     #if($detail.isPrimaryKey)
     "$detail.filedName"  $detail.databaseDataType NOT NULL AUTO_INCREMENT,
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'String')
-    "$detail.filedName"  $detail.databaseDataType DEFAULT #if($detail.initialValue.compareToIgnoreCase("NULL") != 0)'$detail.initialValue'#else$detail.initialValue#end,
+    "$detail.filedName"  $detail.databaseDataType DEFAULT #if($detail.initialValue.compareToIgnoreCase(
+        "NULL") != 0)'$detail.initialValue'#else$detail.initialValue#end,
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum')
     "$detail.filedName"  $detail.databaseDataType DEFAULT '$detail.initialValue',
     #else
     "$detail.filedName"  $detail.databaseDataType DEFAULT $detail.initialValue,
     #end
 #end
-    PRIMARY KEY ($primaryKey)
+PRIMARY KEY ("$primaryKey")
 );
 COMMENT ON TABLE $databaseName"$modelName" IS '${modelComment}';
 #foreach($detail in $details)
