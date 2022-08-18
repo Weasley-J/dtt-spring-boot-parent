@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Aug 18 23:16:50 CST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0182-b187-4b12-00001c9a8cc8 
+on database directory /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/embedded-db/derby with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/Users/weasley/Development/program/apache-maven/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Azul Systems, Inc.
+java.runtime.version=1.8.0_342-b07
+user.dir=/Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent
+os.name=Mac OS X
+os.arch=aarch64
+os.version=12.5.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

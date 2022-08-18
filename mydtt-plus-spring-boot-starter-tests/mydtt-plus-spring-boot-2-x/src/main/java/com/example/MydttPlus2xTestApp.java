@@ -21,11 +21,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         parserType = ParserType.JAVA_DOC,
         dropTableBeforeCreate = true,
         scanBaseClasses = {
-                //OmsOrderInquiry.class,
                 //DttPerson.class,
                 DttMember.class,
-                //OrderBatchShipReq.class,
-                //RxInquiryLog.class,
         }
 )
 @MapperScan(basePackages = {"com.example.mapper"})
