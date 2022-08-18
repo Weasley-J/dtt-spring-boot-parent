@@ -1102,7 +1102,7 @@ public class SomeApplication {
 | `hsql`       | -                   | ✅          |
 | `derby`      | -                   | ✅          |
 
-## The performance
+## Performance
 
 DTT support either create table lazily on demand（depends on mybatis framework） or eagerly on startup.
 
@@ -1110,9 +1110,9 @@ DTT support either create table lazily on demand（depends on mybatis framework�
 
 | item                        | value             | remark                                                       |
 | --------------------------- | ----------------- | ------------------------------------------------------------ |
-| Computer system             | Mac OS X          | MacBook Pro 14 (2021)                                        |
+| Computer System             | Mac OS X          | MacBook Pro 14 (2021)                                        |
 | Architecture                | aarch64           |                                                              |
-| OS version                  | 12.5.1            |                                                              |
+| OS Version                  | 12.5.1            |                                                              |
 | RAM                         | 32G               |                                                              |
 | JDK                         | 1.8.0_342 (arm64) | ["Azul Systems, Inc." - "Zulu 8.64.0.15"](https://www.azul.com/downloads/?version=java-8-lts&os=macos&architecture=arm-64-bit&package=jdk) |
 | Apache Maven                | 3.8.6             | https://maven.apache.org/download.cgi                        |
