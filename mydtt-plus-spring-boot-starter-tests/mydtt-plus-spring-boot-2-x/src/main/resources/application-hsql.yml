@@ -8,9 +8,9 @@ spring:
   datasource:
     embedded-database-connection: hsqldb
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
-    url: jdbc:hsqldb:hsql://localhost/dtt_demo
-    username: SA
-    password: ""
+    url: jdbc:hsqldb:file:/Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/embedded-db/hsqldb;create=true;shutdown=true
+    username:
+    password:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml

@@ -12,6 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,9 +49,16 @@ public class SomeController {
                 "  \"deleted\": 1,\n" +
                 "}";
         DttMember member = JSONUtil.toBean(json, DttMember.class);
+        member.setBirthday(LocalDateTime.now());
+        member.setRegistrarDate(LocalDate.now());
+        member.setUpdateTime(LocalDateTime.now());
+        member.setAccelerateBeginTime(LocalTime.now());
+        member.setAccelerateEndTime(LocalTime.now());
         DttMember dttMember = memberService.getOne(new QueryWrapper<DttMember>().select("MAX(ID) id"));
         if (null != dttMember) {
             member.setId(dttMember.getId() + 1);
+        } else {
+            member.setId(1L);
         }
         boolean save = memberService.saveBatch(Arrays.asList(member));
         System.err.println(JSONUtil.toJsonStr(member));

@@ -18,7 +18,7 @@ public class DerbyDataMapperProperties {
     /**
      * Whether to enable DERBY database columns' name in uppercase
      */
-    private Boolean enableColumnUpperCase = false;
+    private Boolean enableColumnUpperCase = true;
     /**
      * key: java type; value: DERBY data type<br>
      *

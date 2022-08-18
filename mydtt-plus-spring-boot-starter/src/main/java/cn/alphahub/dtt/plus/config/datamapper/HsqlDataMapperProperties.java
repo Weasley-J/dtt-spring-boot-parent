@@ -18,7 +18,7 @@ public class HsqlDataMapperProperties {
     /**
      * Whether to enable HSQL database columns' name in uppercase
      */
-    private Boolean enableColumnUpperCase = false;
+    private Boolean enableColumnUpperCase = true;
     /**
      * key: java type; value: HSQL data type
      */

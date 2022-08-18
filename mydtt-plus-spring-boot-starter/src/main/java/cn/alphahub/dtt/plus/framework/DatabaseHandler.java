@@ -44,7 +44,9 @@ public class DatabaseHandler {
     static {
         JDBC_URL_PREFIX_MAP = new ConcurrentHashMap<>(DatabaseType.values().length);
         for (DatabaseType databaseType : DatabaseType.values()) {
-            JDBC_URL_PREFIX_MAP.put("jdbc:" + databaseType.name().toLowerCase() + ":", databaseType);
+            String lowercaseDbName = databaseType.name().toLowerCase();
+            if (databaseType == DatabaseType.HSQL) lowercaseDbName = "hsqldb";
+            JDBC_URL_PREFIX_MAP.put("jdbc:" + lowercaseDbName + ":", databaseType);
         }
     }
 

@@ -219,6 +219,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             case DB2:
             case ORACLE:
             case DERBY:
+            case HSQL:
                 usts = usts.replace("${upperCaseTableName}", tableName.toUpperCase());
                 if (usts.contains(dbNamePlaceHolder))
                     usts = usts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
@@ -230,8 +231,6 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
                 sqlScripts.add(lcts);
 
                 return sqlScripts;
-            case HSQL:
-                // TODO: hsql
             default:
                 return sqlScripts;
         }

@@ -27,7 +27,7 @@ alphahub:
       MARIADB: BIGINT
       POSTGRESQL: bigserial
       H2: BIGINT
-      HSQL: bigint
+      HSQL: BIGINT
       DERBY: BIGINT
     #The properties' relationship of Java data type mapping to database.
     data-type-mapper:
@@ -147,21 +147,21 @@ alphahub:
           LocalDateTime: TIMESTAMP
           Enum: ENUM
       hsql:
-        enable-column-upper-case: false
+        enable-column-upper-case: true
         mapping-properties:
           String: VARCHAR
-          Boolean:
-          Float:
-          Double:
-          Integer:
-          Long:
-          BigDecimal:
-          Date:
-          LocalTime:
-          LocalDate:
-          Timestamp:
-          LocalDateTime:
-          Enum:
+          Boolean: BOOLEAN
+          Float: FLOAT
+          Double: DOUBLE
+          Integer: INTEGER
+          Long: BIGINT
+          BigDecimal: DECIMAL
+          Date: TIMESTAMP
+          LocalTime: TIME
+          LocalDate: DATE
+          Timestamp: TIMESTAMP
+          LocalDateTime: TIMESTAMP
+          Enum: VARCHAR
       derby:
         enable-column-upper-case: true
         mapping-properties:
@@ -335,7 +335,8 @@ alphahub:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${lowerCaseTableName}'"
         script-of-upper-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${upperCaseTableName}'"
       hsql:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${lowerCaseTableName}'"
+        script-of-upper-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${upperCaseTableName}'"
       derby:
         script-of-lower-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${lowerCaseTableName}' AND TABLETYPE = 'T'"
         script-of-upper-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${upperCaseTableName}' AND TABLETYPE = 'T'"
