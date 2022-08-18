@@ -41,8 +41,10 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
         }
 
         String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName)) databaseName = "\"PUBLIC\".\"" + databaseName + "\".";
-        if (StringUtils.isBlank(databaseName)) databaseName = "\"PUBLIC\".";
+        if (StringUtils.isNoneBlank(databaseName))
+            databaseName = "\"PUBLIC\".\"" + databaseName + "\".";
+        else
+            databaseName = "\"PUBLIC\".";
         model.setDatabaseName(databaseName);
 
         deduceDecimalPrecision(model);

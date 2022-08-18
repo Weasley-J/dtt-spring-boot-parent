@@ -49,18 +49,13 @@ public class DefaultHsqlTableHandler extends DttAggregationRunner implements Dtt
             logger.warn("HSQL的表结构元数据解析结果不能为空 {}", model);
             return null;
         }
-        String databaseName = model.getDatabaseName();
-        if (StringUtils.isNoneBlank(databaseName))
-            databaseName = "\"PUBLIC\".\"" + databaseName + "\".";
-        else
-            databaseName = "\"PUBLIC\".";
-        model.setDatabaseName(databaseName);
-
+        if (StringUtils.isNotBlank(model.getDatabaseName())) {
+            model.setDatabaseName("\"" + model.getDatabaseName() + "\".");
+        }
         deduceDecimalPrecision(model);
         handlePropertiesOfModel(() -> model, applicationContext.getBean(ContextWrapper.class));
         if (hsqlDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
-
         String template = resolve(() -> model);
         execute(template);
         return template;
@@ -68,7 +63,8 @@ public class DefaultHsqlTableHandler extends DttAggregationRunner implements Dtt
 
     @Override
     public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
-        List<ModelEntity.Detail> details = parseFactory.getModel().getDetails();
+        ModelEntity model = parseFactory.getModel();
+        List<ModelEntity.Detail> details = model.getDetails();
         if (ObjectUtils.isNotEmpty(details)) {
             for (ModelEntity.Detail detail : details) {
                 if (Enum.class.getSimpleName().compareToIgnoreCase(detail.getJavaDataType()) == 0) {

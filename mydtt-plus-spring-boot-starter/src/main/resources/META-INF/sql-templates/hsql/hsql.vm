@@ -1,8 +1,7 @@
-SET DATABASE TEXT TABLE DEFAULTS 'encoding=UTF-8';
 #if(${dropTableBeforeCreate})
-DROP TABLE IF EXISTS $databaseName"$modelName";
+DROP TABLE IF EXISTS $databaseName"PUBLIC".$modelName";
 #end
-CREATE TABLE IF NOT EXISTS $databaseName"$modelName"
+CREATE TABLE IF NOT EXISTS $databaseName"PUBLIC"."$modelName"
 (
 #foreach(${detail} in ${details})
     #if($detail.isPrimaryKey)
@@ -18,7 +17,7 @@ CREATE TABLE IF NOT EXISTS $databaseName"$modelName"
 #end
 PRIMARY KEY ("$primaryKey")
 );
-COMMENT ON TABLE $databaseName"$modelName" IS '${modelComment}';
+COMMENT ON TABLE $databaseName"PUBLIC"."$modelName" IS '${modelComment}';
 #foreach($detail in $details)
-COMMENT ON COLUMN $databaseName"$modelName"."$detail.filedName" IS '$detail.filedComment';
+COMMENT ON COLUMN $databaseName"PUBLIC"."$modelName"."$detail.filedName" IS '$detail.filedComment';
 #end
