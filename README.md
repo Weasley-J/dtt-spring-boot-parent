@@ -1102,9 +1102,26 @@ public class SomeApplication {
 | `hsql`       | -                   | ✅          |
 | `derby`      | -                   | ✅          |
 
-## The performance detail
+## The performance
 
 DTT support either create table lazily on demand（depends on mybatis framework） or eagerly on startup.
+
+- Test device & environment
+
+| item                        | value             | remark                                                       |
+| --------------------------- | ----------------- | ------------------------------------------------------------ |
+| Computer system             | Mac OS X          | MacBook Pro 14 (2021)                                        |
+| Architecture                | aarch64           |                                                              |
+| OS version                  | 12.5.1            |                                                              |
+| RAM                         | 32G               |                                                              |
+| JDK                         | 1.8.0_342 (arm64) | ["Azul Systems, Inc." - "Zulu 8.64.0.15"](https://www.azul.com/downloads/?version=java-8-lts&os=macos&architecture=arm-64-bit&package=jdk) |
+| Apache Maven                | 3.8.6             | https://maven.apache.org/download.cgi                        |
+| DTT                         | 1.3.5             | https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter |
+| spring-boot                 | 2.7.3             | https://search.maven.org/artifact/org.springframework.boot/spring-boot-starter-parent/2.7.3/pom |
+| mybatis-plus-boot-starter   | 3.5.2             | https://search.maven.org/artifact/com.baomidou/mybatis-plus-boot-starter |
+| mybatis-spring-boot-starter | 2.2.2             | https://search.maven.org/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter |
+| pagehelper-spring-boot      | 1.4.3             | https://search.maven.org/artifact/com.github.pagehelper/pagehelper-spring-boot |
+| mapper-spring-boot-starter  | 4.2.1             | https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter |
 
 - Create table eagerly on startup
 
