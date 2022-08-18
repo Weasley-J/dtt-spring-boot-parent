@@ -1098,9 +1098,9 @@ public class SomeApplication {
 | `sqlserver`  | `14.x` or latest    | ✅          |
 | `mariadb`    | `10.x `or latest    | ✅          |
 | `postgresql` | `v9.x` or latest    | ✅          |
-| `h2`         | All veriosn         | ✅          |
-| `hsql`       |                     | planning   |
-| `derby`      |                     | planning   |
+| `h2`         | -                   | ✅          |
+| `hsql`       | -                   | ✅          |
+| `derby`      | -                   | ✅          |
 
 ## The performance detail
 
