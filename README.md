@@ -4,7 +4,7 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 
 > - What is DTT?
 >
-> It's means  `Domain-to-Table`, Aims to make it easy for you to automatically create DB tables based on your Java
+> It's means  `Domain-to-Table`, aims to make it easy for you to automatically create DB tables based on your Java
 > model.
 >
 > - What can DTT do?
