@@ -1144,11 +1144,11 @@ todo
 3. `tk.mybatis`: https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter
 4. `pagehelper`: https://search.maven.org/artifact/com.github.pagehelper/pagehelper
 
-## Source code analysis of Sonarqube
+## Source code quality
 
-![image-20220818183622924](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220818183622924.png)
+![image-20220819122523273](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819122523273.png)
 
-![image-20220818183701361](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220818183701361.png)
+![image-20220819122621908](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819122621908.png)
 
 ## Credits
 
