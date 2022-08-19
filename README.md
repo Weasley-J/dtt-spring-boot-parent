@@ -19,7 +19,7 @@
 >
 > (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
 >
-> here is an example for `0-code` injection way parse Java document to a table DDL statements.
+> here is an example for the  `0-code` injection way to parse Java document to a table DDL statements.
 >
 > - Chinese developer
 >
