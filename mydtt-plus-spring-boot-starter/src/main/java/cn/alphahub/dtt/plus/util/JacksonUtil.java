@@ -24,8 +24,7 @@ import java.time.format.DateTimeFormatter;
  * Jackson工具类
  *
  * @author weasley
- * @version 1.0
- * @date 2022/7/10
+ * @version 1.0.0
  */
 public final class JacksonUtil {
     public static final String LOCAL_TIME_PATTERN = "HH:mm:ss";
