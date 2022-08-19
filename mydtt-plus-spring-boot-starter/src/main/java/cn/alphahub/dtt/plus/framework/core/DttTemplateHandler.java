@@ -56,7 +56,7 @@ public interface DttTemplateHandler<T> extends DttContext<T> {
     }
 
     /**
-     * Handling primary key
+     * Handle the primary key
      *
      * @param model   model
      * @param context velocity context
