@@ -327,7 +327,7 @@ spring:
     password: your_password
 ```
 
-- Using JAVA annotation `@EnableDtt` to enable DTT to your projects main function class, As follow:
+- Using JAVA annotation `@EnableDtt` to enable DTT to your projects Main class, As follow:
 
 ```java
 import cn.alphahub.dtt.plus.enums.ParserType;
