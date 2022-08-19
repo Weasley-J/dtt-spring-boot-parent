@@ -59,7 +59,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
             model.setDatabaseName(databaseProperty.getDatabaseName());
             model.setModelComment(dtt.value());
             model.setModelName(camelToUnderline(aClass.getSimpleName()));
-            model.setDetails(handlingTableWithDttAnnotation(aClass));
+            model.setDetails(handleTableWithDttAnnotation(aClass));
             return model;
         };
     }
@@ -70,7 +70,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
      * @param aClass class object
      * @return 模型元数据详细信息集合
      */
-    private List<ModelEntity.Detail> handlingTableWithDttAnnotation(Class<?> aClass) {
+    private List<ModelEntity.Detail> handleTableWithDttAnnotation(Class<?> aClass) {
         List<Field> allDeclaredFields = getAllDeclaredFields(aClass);
         return allDeclaredFields.stream().map(field -> {
             String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
