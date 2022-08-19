@@ -11,13 +11,13 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > Tips: Read about DDT's features to learn more.
 >
-> (a). Convert your Java domain object to `RDB` table `DDL` statements and auto create them.
+> (a) Convert your Java domain object to `RDB` table `DDL` statements and auto create them.
 >
-> (b). Support the ability of create table automatically for `mybatis` what `hibernate` and `spring-data-jpa` can do.
+> (b) Support the ability of create table automatically for `mybatis` what `hibernate` and `spring-data-jpa` can do.
 >
-> (c). Export an `all-in-one` DDL statements for all tables as local files.
+> (c) Export an `all-in-one` DDL statements for all tables as local files.
 >
-> (d). Retains comments for columns of data tables for the Java developers who is non-native English speaker,
+> (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
 >
 > here is an example for `0-code` injection way based on Java document.
 >
