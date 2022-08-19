@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * mydtt-plus-spring-boot-starter test below springboot 3.0.0-x
+ * mydtt-plus-spring-boot-starter test below springboot 3.x.x
  */
 @EnableDtt(
         scanBasePackages = {
@@ -15,16 +15,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 //"com.example.domain.dtt",
                 //"com.example.domain.order",
         },
-        parserType = ParserType.JAVA_DOC,
-        dropTableBeforeCreate = false,
         scanBaseClasses = {
                 //OmsOrderInquiry.class
                 //DttPerson.class,
                 //DttMember.class,
-        }
+        },
+        parserType = ParserType.JAVA_DOC,
+        dropTableBeforeCreate = false
 )
 @SpringBootApplication
-@MapperScan(basePackages = {"com.example.mapper.dtt","com.example.mapper"})
+@MapperScan(basePackages = {"com.example.mapper.dtt", "com.example.mapper"})
 public class MydttPlus3xTestAp {
 
     public static void main(String[] args) {

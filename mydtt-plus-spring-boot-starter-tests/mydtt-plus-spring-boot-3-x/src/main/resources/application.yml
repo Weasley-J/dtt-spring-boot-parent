@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: mydtt-plus-application-demo
+    name: mydtt-plus-spring-boot-3-x
 
   profiles:
     active: h2

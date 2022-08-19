@@ -3,11 +3,18 @@ server:
 
 spring:
   application:
-    name: mydtt-plus-application-demo
+    name: mydtt-plus-spring-boot-2-x
 
   profiles:
-    active: hsql
+    active: sqlserver
 
-alphahub:
-  dtt:
-    is-enable: on
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    locale: zh_CN
+
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      time: HH:mm:ss

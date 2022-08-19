@@ -3,10 +3,17 @@ package com.example.controller;
 import cn.alphahub.dtt.plus.entity.DttManualActEntity;
 import cn.alphahub.dtt.plus.entity.DttManualActRequest;
 import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
+import cn.alphahub.dtt.plus.util.JacksonUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.domain.dtt.DttMember;
+import com.example.page.PageHandler;
+import com.example.page.PageParam;
+import com.example.page.PageWrapper;
 import com.example.service.DttMemberService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.page.PageMethod;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +28,7 @@ import java.util.List;
 /**
  * Some controller
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/member")
 public class SomeController {
@@ -29,13 +37,20 @@ public class SomeController {
     @Autowired
     private DttDefaultConditionalService defaultConditionalService;
 
+    /**
+     * Save
+     */
     @PostMapping("/save")
     @Transactional(rollbackFor = {Exception.class})
     public ResponseEntity<Boolean> save(@RequestBody DttMember member) {
         boolean save = memberService.save(member);
+        log.info("{}", JacksonUtil.toJson(member));
         return ResponseEntity.ok(save);
     }
 
+    /**
+     * Derect save
+     */
     @PostMapping("/save/no/params")
     @Transactional(rollbackFor = {Exception.class})
     public ResponseEntity<Boolean> saveNoParams() {
@@ -61,32 +76,49 @@ public class SomeController {
             member.setId(1L);
         }
         boolean save = memberService.saveBatch(Arrays.asList(member));
-        System.err.println(JSONUtil.toJsonStr(member));
+        log.info("{}", JacksonUtil.toJson(member));
         return ResponseEntity.ok(save);
     }
 
+    /**
+     * update
+     */
     @PutMapping("/update")
     @Transactional(rollbackFor = {Exception.class})
     public ResponseEntity<Boolean> update(@RequestBody DttMember member) {
         boolean updated = memberService.updateById(member);
+        log.info("{}", JacksonUtil.toJson(member));
         return ResponseEntity.ok(updated);
     }
 
+    /**
+     * select
+     */
     @GetMapping("/info/{id}")
     public ResponseEntity<DttMember> info(@PathVariable Long id) {
         DttMember dttMember = memberService.getById(id);
+        log.info("{}", JacksonUtil.toJson(dttMember));
         return ResponseEntity.ok(dttMember);
     }
 
+    /**
+     * select by Ids
+     */
     @GetMapping("/list/{ids}")
     public ResponseEntity<List<DttMember>> listByIds(@PathVariable Long[] ids) {
         List<DttMember> list = memberService.listByIds(Arrays.asList(ids));
+        log.info("{}", JacksonUtil.toJson(list));
         return ResponseEntity.ok(list);
     }
 
+    /**
+     * select all
+     */
     @GetMapping("/list")
     public ResponseEntity<List<DttMember>> listAll() {
-        return ResponseEntity.ok(memberService.list());
+        List<DttMember> members = memberService.list();
+        log.info("{}", JacksonUtil.toJson(members));
+        return ResponseEntity.ok(members);
     }
 
     @DeleteMapping("/delete/{ids}")
@@ -96,6 +128,21 @@ public class SomeController {
         return ResponseEntity.ok(removed);
     }
 
+    /**
+     * list by page
+     */
+    @PostMapping("/pagehelper/list")
+    public PageWrapper<DttMember> pages(@RequestBody PageParam pageParam) {
+        Page<DttMember> page = PageMethod.startPage(pageParam.getPageNum(), pageParam.getPageSize());
+        List<DttMember> list = memberService.list();
+        PageWrapper<DttMember> render = PageHandler.render(page, list);
+        log.info("{}", JacksonUtil.toJson(render));
+        return render;
+    }
+
+    /**
+     * Specify an entity class to create a table
+     */
     @PostMapping("/manual/act")
     public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
         return this.defaultConditionalService.manualCreate(request);

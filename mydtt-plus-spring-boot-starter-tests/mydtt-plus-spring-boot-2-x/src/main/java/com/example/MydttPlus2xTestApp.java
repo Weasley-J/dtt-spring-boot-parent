@@ -8,9 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * mydtt-plus-spring-boot-starter test below springboot 2.0.0-x
+ * mydtt-plus-spring-boot-starter test below springboot 2.x.x
  */
-@SpringBootApplication
 @EnableDtt(
         scanBasePackages = {
                 //"com.example.i18n.korean",
@@ -18,13 +17,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "com.example.domain.oms", "com.example.domain.order", "com.example.domain.payment",
                 "com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
-        parserType = ParserType.JAVA_DOC,
-        dropTableBeforeCreate = true,
         scanBaseClasses = {
                 //DttPerson.class,
                 DttMember.class,
-        }
+        },
+        parserType = ParserType.JAVA_DOC,
+        dropTableBeforeCreate = true
 )
+@SpringBootApplication
 @MapperScan(basePackages = {"com.example.mapper"})
 public class MydttPlus2xTestApp {
     public static void main(String[] args) {

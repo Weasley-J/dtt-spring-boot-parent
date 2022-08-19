@@ -1106,7 +1106,7 @@ public class SomeApplication {
 
 DTT support either create table lazily on demand（depends on mybatis framework） or eagerly on startup.
 
-- Test device & environment
+- Test platform & environment
 
 | item                        | value             | remark                                                       |
 | --------------------------- | ----------------- | ------------------------------------------------------------ |
@@ -1114,6 +1114,7 @@ DTT support either create table lazily on demand（depends on mybatis framework�
 | Architecture                | aarch64           |                                                              |
 | OS Version                  | 12.5.1            |                                                              |
 | RAM                         | 32G               |                                                              |
+| RDB                         | SQL Server        | version: 14.00.3451                                          |
 | JDK                         | 1.8.0_342 (arm64) | ["Azul Systems, Inc." - "Zulu 8.64.0.15"](https://www.azul.com/downloads/?version=java-8-lts&os=macos&architecture=arm-64-bit&package=jdk) |
 | Apache Maven                | 3.8.6             | https://maven.apache.org/download.cgi                        |
 | DTT                         | 1.3.5             | https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter |

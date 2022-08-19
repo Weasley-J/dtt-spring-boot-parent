@@ -6,17 +6,18 @@ logging:
 
 spring:
   datasource:
-    driver-class-name: com.ibm.db2.jcc.DB2Driver
-    url: jdbc:db2://192.168.31.23:50000/testdb
-    username: weasley
-    password: 123456
+    embedded-database-connection: hsqldb
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:file:/Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/embedded-db/hsqldb;create=true;shutdown=true
+    username:
+    password:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
   type-aliases-package: com.example.domain.dtt,com.example.domain.order
   global-config:
     db-config:
-      id-type: input
+      id-type: auto
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -28,6 +29,9 @@ alphahub:
       enable: true
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
-    data-type-mapper:
-      db2:
-        enable-column-upper-case: on
+    code-generator:
+      is-enable: on
+      base-classes: com.example.domain.dtt.DttMember
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x

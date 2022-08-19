@@ -22,9 +22,20 @@ mybatis-plus:
 
 alphahub:
   dtt:
-    is-enable: on
-    show-sql: false
+    banner-mode: ON
+    show-sql: off
+    mybatis-orm-support:
+      is-enable: on
     all-in-one-table:
       enable: true
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
+    code-generator:
+      is-enable: off
+      show-code: false
+      override-exists: false
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
+      base-package: com.example.domain.dtt
+      base-classes: ""
