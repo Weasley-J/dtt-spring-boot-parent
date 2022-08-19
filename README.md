@@ -11,11 +11,11 @@
 >
 > Tips: Read about DDT's features to learn more.
 >
-> (a) Convert your Java domain object to `RDB` table `DDL` statements and auto create them.
+> (a) Converts your Java domain object to `RDB` table `DDL` statements and auto create them.
 >
-> (b) Support the ability of create table automatically for `mybatis` what `hibernate` and `spring-data-jpa` can do.
+> (b) Supports the ability for `mybatis` to create table lazily on demand just the same as what `hibernate` and `spring-data-jpa` can do.
 >
-> (c) Export an `all-in-one` DDL statements for all tables as local files.
+> (c) Exports an `all-in-one` DDL statements for all tables as local files.
 >
 > (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
 >
