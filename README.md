@@ -19,7 +19,7 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > (d). Retains comments for columns of data tables for the Java developers who is non-native English speaker,
 >
-> here is an example for `0-CODE injection` based on you Java document.
+> here is an example for `0-CODE injection` based on Java document.
 >
 > - Chinese developer
 >
