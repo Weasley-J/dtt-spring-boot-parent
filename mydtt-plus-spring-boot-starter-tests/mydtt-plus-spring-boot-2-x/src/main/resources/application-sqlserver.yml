@@ -19,6 +19,7 @@ mybatis-plus:
 
 alphahub:
   dtt:
+    is-enable: false
     code-generator:
       is-enable: on
       base-classes:

@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.util;
 
 
+import cn.alphahub.dtt.plus.exception.ParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +13,6 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +29,6 @@ public final class JacksonUtil {
     public static final String LOCAL_TIME_PATTERN = "HH:mm:ss";
     public static final String LOCAL_DATE_PATTERN = "yyyy-MM-dd";
     public static final String LOCAL_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    private static final Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
     private static final ObjectWriter writer;
     private static final ObjectMapper mapper;
 
@@ -60,10 +58,7 @@ public final class JacksonUtil {
         try {
             return mapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error("{}, {}", data, e.getMessage(), e);
-            }
-            return null;
+            throw new ParseException(e.getMessage(), e);
         }
     }
 
@@ -77,10 +72,7 @@ public final class JacksonUtil {
         try {
             return writer.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error("{} {}", data, e.getMessage(), e);
-            }
-            return null;
+            throw new ParseException(e.getMessage(), e);
         }
     }
 
@@ -96,10 +88,7 @@ public final class JacksonUtil {
         try {
             return mapper.readValue(content, valueTypeRef);
         } catch (JsonProcessingException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error("{}; {}", content, e.getMessage(), e);
-            }
-            return null;
+            throw new ParseException(e.getMessage(), e);
         }
     }
 
@@ -115,10 +104,7 @@ public final class JacksonUtil {
         try {
             return mapper.readValue(content, valueType);
         } catch (JsonProcessingException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error("{}; {}", content, e.getMessage(), e);
-            }
-            return null;
+            throw new ParseException(e.getMessage(), e);
         }
     }
 
