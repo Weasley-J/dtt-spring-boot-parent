@@ -1206,9 +1206,11 @@ As we can see from the image:
 
 ![image-20220819170348473](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819170348473.png)
 
-`2022-08-19 16:56:24.609  INFO 8331 --- [           main] com.example.MydttPlusTestApplication     : Started MydttPlusTestApplication in 2.132 seconds (JVM running for 2.598)`
+```log
+2022-08-19 16:56:24.609  INFO 8331 --- [           main] com.example.MydttPlusTestApplication     : Started MydttPlusTestApplication in 2.132 seconds (JVM running for 2.598)
 
-`2022-08-19 16:56:26.845  INFO 8331 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created tables for '2' seconds. detail: {"dttStartTime":"2022-08-19 16:56:24","dttEndTime":"2022-08-19 16:56:26"}, location: /Users/weasley/Downloads/AllInOne.sql`
+2022-08-19 16:56:26.845  INFO 8331 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created tables for '2' seconds. detail: {"dttStartTime":"2022-08-19 16:56:24","dttEndTime":"2022-08-19 16:56:26"}, location: /Users/weasley/Downloads/AllInOne.sql
+```
 
 DTT has done two things in the logger:
 
@@ -1245,7 +1247,9 @@ public class MydttPlus2xTestApp {
 
 ![image-20220819172757581](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819172757581.png)
 
-`2022-08-19 17:27:42.829  INFO 21286 --- [           main] MydttPlus2xTestApp     : Started MydttPlus2xTestApp in 2.122 seconds (JVM running for 2.381)`
+```log
+2022-08-19 17:27:42.829  INFO 21286 --- [           main] MydttPlus2xTestApp     : Started MydttPlus2xTestApp in 2.122 seconds (JVM running for 2.381)
+```
 
 Started MydttPlusTestApplication in 2.122 seconds without `DTT`.
 
@@ -1321,7 +1325,9 @@ alphahub:
 
 ![image-20220819175802755](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819175802755.png)
 
-`2022-08-19 17:57:41.708  INFO 33463 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.873 seconds (JVM running for 2.129)`
+```log
+2022-08-19 17:57:41.708  INFO 33463 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.873 seconds (JVM running for 2.129)
+```
 
 Access the same interface twice, simulating DTT to build tables on demand, Here is the API
 url: http://localhost:8080/api/member/save/no/params
