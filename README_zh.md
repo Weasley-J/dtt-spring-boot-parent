@@ -2,7 +2,12 @@
 
 ## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter)
 
-> `DTT`是一个面向对象的`Java`开发框架，领域驱动表是`DTT`的核心理念, 它强调开发者在开发过程中应该更多关注领域而不是数据表，`DTT`可以根据你的域对象推断并创建数据库表, 并保留元数据所有备注，这是`JPA`不具备的，这大概也是`JPA`在非英语母国家不被广泛使用的原因之一，同时`DTT`也支持`mybatis`懒惰地按需创建表，像`JPA`和`Hibernate`那样,  `DTT`支持 `0代码`集成`mybatis`生态的`ORM`框架, 将你从表设计工具中解放出来使你真正面向对象开发.
+> `DTT`是一个面向对象的`Java`开发框架，领域驱动表是`DTT`的核心理念,
+> 它强调开发者在开发过程中应该更多关注领域而不是数据表，`DTT`可以根据你的域对象推断并创建数据库表,
+> 并保留元数据所有备注，这是`JPA`不具备的，这大概也是`JPA`在非英语母国家不被广泛使用的原因之一，同时`DTT`也支持`mybatis`
+> 懒惰地按需创建表，像`JPA`和`Hibernate`那样,  `DTT`支持 `0代码`集成`mybatis`生态的`ORM`框架, 将你从表设计工具中解放出来使你真正面向对象开发。
+
+此文档更新可能不及时，推荐使用[英文文档](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter)
 
 # 快速开始
 

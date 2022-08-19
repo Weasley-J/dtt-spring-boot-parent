@@ -1,11 +1,11 @@
 # mydtt-plus-spring-boot-starter
 
-Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter) 
+## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter)
 
 > - What is DTT?
 >
 > It's means  `domain-to-table`, aims to make it easy for you to automatically create DB tables based on your Java
-> model.
+> model. Domain-Driven-Table is the design concept of `DTT`;
 >
 > - What can DTT do?
 >
