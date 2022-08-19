@@ -1104,9 +1104,12 @@ public class SomeApplication {
 
 ## Performance
 
-DTT support either create table lazily on demand（depends on mybatis framework） or eagerly on startup.
+DTT support `either create table lazily on demand`（depends on mybatis framework） or` eagerly on startup`. this chapter
+will explore the impact of enabling `DTT` on application performance from two
+perspectives. [Here is the tests project](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/tree/main/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x)
+.
 
-- Test platform & environment
+### Test platform & environment
 
 | item                        | value             | remark                                                       |
 | --------------------------- | ----------------- | ------------------------------------------------------------ |
@@ -1124,13 +1127,379 @@ DTT support either create table lazily on demand（depends on mybatis framework�
 | pagehelper-spring-boot      | 1.4.3             | https://search.maven.org/artifact/com.github.pagehelper/pagehelper-spring-boot |
 | mapper-spring-boot-starter  | 4.2.1             | https://search.maven.org/artifact/tk.mybatis/mapper-spring-boot-starter |
 
-- Create table eagerly on startup
+### **Create table eagerly on startup**
 
-todo
+1. Enable DTT for your application
 
-- Create table lazily on demand
+- [x] Main class of application
 
-todo
+```java
+import cn.alphahub.dtt.plus.enums.ParserType;
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@EnableDtt(
+        scanBasePackages = {
+                "com.example.domain.dtt", "com.example.domain.order"
+        },
+        scanBaseClasses = {},
+        parserType = ParserType.JAVA_DOC,
+        dropTableBeforeCreate = true
+)
+@SpringBootApplication
+@MapperScan(basePackages = {"com.example.mapper"})
+public class MydttPlus2xTestApp {
+  public static void main(String[] args) {
+    SpringApplication.run(MydttPlusTestApplication.class, args);
+  }
+}
+```
+
+```yaml
+# The application.yml of sqlserver
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://192.168.31.23:1433;databaseName=dtt_demo;integratedSecurity=false;encrypt=false;
+    username: SA
+    password: weasley@dtt123
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alphahub:
+  dtt:
+    show-sql: false
+    all-in-one-table:
+      enable: true
+      filename: AllInOne.sql
+      filepath: /Users/weasley/Downloads
+    code-generator:
+      is-enable: on
+      base-package: com.example.domain.order
+      module-package: com.example
+      module-name: order
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+```
+
+Note: The property `scanBasePackages`'s value of `@EnableDtt` is the same as the value
+of `mybatis-plus.type-aliases-package` or `mybatis.type-aliases-package` . Those classes are mapped to your database
+table.
+
+- [x] Start application with Enabling `DTT`
+
+As we can see from the image:
+
+![image-20220819170348473](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819170348473.png)
+
+`2022-08-19 16:56:24.609  INFO 8331 --- [           main] com.example.MydttPlusTestApplication     : Started MydttPlusTestApplication in 2.132 seconds (JVM running for 2.598)`
+
+`2022-08-19 16:56:26.845  INFO 8331 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created tables for '2' seconds. detail: {"dttStartTime":"2022-08-19 16:56:24","dttEndTime":"2022-08-19 16:56:26"}, location: /Users/weasley/Downloads/AllInOne.sql`
+
+DTT does two things:
+
+(a) Generate `Service`, `Mapper`, `Mapper.xml` source code
+
+![image-20220819171137271](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819171137271.png)
+
+(b) created `63` tables based on your domain objects
+
+![image-20220819171207065](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819171207065.png)
+
+`DTT` takes `2` seconds to do what it's supposed to do, which means to use `DTT` based on your domain objects you just
+need to write some `Controller` to satisfy your business interface, for
+example: [SomeController](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x/src/main/java/com/example/controller/SomeController.java)
+
+2. Disable DTT for your application
+
+- [x] Main class
+
+```java
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+@SpringBootApplication
+@MapperScan(basePackages = {"com.example.mapper"})
+public class MydttPlus2xTestApp {
+  public static void main(String[] args) {
+    SpringApplication.run(MydttPlusTestApplication.class, args);
+  }
+}
+```
+
+![image-20220819172757581](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819172757581.png)
+
+`2022-08-19 17:27:42.829  INFO 21286 --- [           main] MydttPlus2xTestApp     : Started MydttPlus2xTestApp in 2.122 seconds (JVM running for 2.381)`
+
+Started MydttPlusTestApplication in 2.122 seconds without `DTT`.
+
+3. Compare
+
+| APP                | Loading type       | DTT  | Time                 |
+| ------------------ | ------------------ | ---- | -------------------- |
+| MydttPlus2xTestApp | default            | NO   | 2.122s               |
+| MydttPlus2xTestApp | eagerly on startup | YES  | 2.132s + 2s = 4.132s |
+|                    |                    |      |                      |
+
+### Create table lazily on demand
+
+`Create table lazily on demand` means that when mybatis executes `DDL` or `DQL` statements, if there is no corresponding
+table in the database, DTT will be created, and the cache design is used here.
+
+For this step, delete the test table from your SQL server database, clear your console of IDE,
+
+`com.example.domain.dtt.DttMember` -> `dtt_member`
+
+(1) Main class
+
+```java
+import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@EnableDtt
+@SpringBootApplication
+@MapperScan(basePackages = {"com.example.mapper"})
+public class MydttPlus2xTestApp {
+  public static void main(String[] args) {
+    SpringApplication.run(MydttPlus2xTestApp.class, args);
+  }
+}
+```
+
+(2) application.yml
+
+```yaml
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    jdbc.sqltiming: debug
+
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://192.168.31.23:1433;databaseName=dtt_demo;integratedSecurity=false;encrypt=false;
+    username: SA
+    password: weasley@dtt123
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alphahub:
+  dtt:
+    code-generator:
+      is-enable: on
+      base-classes:
+        - com.example.domain.dtt.DttMember
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+
+```
+
+- [x] Here is the console for step `(2)`.
+
+![image-20220819175802755](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819175802755.png)
+
+`2022-08-19 17:57:41.708  INFO 33463 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.873 seconds (JVM running for 2.129)`
+
+Access the same interface twice, simulating DTT to build tables on demand, Here is the API
+url: http://localhost:8080/api/member/save/no/params
+
+**(a) 1st logger:**
+
+Create table if donest exists, The concrete DDL implementation delegates to the RDB implementation class.
+
+```log
+-08-19 18:10:12.339  INFO 38516 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 2.448 seconds (JVM running for 2.707)
+2022-08-19 18:10:12.344  WARN 38516 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Data model is empty. DTT cannot parse.
+2022-08-19 18:10:21.078  INFO 38516 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-19 18:10:21.078  INFO 38516 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-19 18:10:21.079  INFO 38516 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+JDBC Connection [HikariProxyConnection@1139253693 wrapping ConnectionID:2 ClientConnectionId: f2679647-4094-4f20-a812-ee941a778b4a] will be managed by Spring
+2022-08-19 18:10:21.183  INFO 38516 --- [nio-8080-exec-1] c.a.d.p.f.i.DefaultDttMybatisInterceptor : Table of 'dtt_member' not exists, DTT will help you to create it automatically.
+2022-08-19 18:10:21.183  INFO 38516 --- [nio-8080-exec-1] c.a.d.p.f.core.DefaultJavaDocParser      : Parse Java Doc comments for data table structure information，class 'com.example.domain.dtt.DttMember'
+2022-08-19 18:10:21.215  INFO 38516 --- [nio-8080-exec-1] c.a.d.p.f.c.DefaultSqlserverTableHandler : 使用sqlserver默认建表实现 {"databaseName":"dtt_demo","modelName":"dtt_member","modelComment":"用户信息","details":[{"isPrimaryKey":true,"databaseDataType":"bigint","javaDataType":"Long","filedName":"id","filedComment":"主键id","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"varchar(64)","javaDataType":"String","filedName":"open_id","filedComment":"用户openId","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"varchar(64)","javaDataType":"String","filedName":"nickname","filedComment":"用户昵称","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"tinyint","javaDataType":"Boolean","filedName":"is_enable","filedComment":"是否启用, 默认：1","initialValue":"true"},{"isPrimaryKey":false,"databaseDataType":"money","javaDataType":"BigDecimal","filedName":"balance","filedComment":"用户积分余额, 默认：0.00","initialValue":"0.00"},{"isPrimaryKey":false,"databaseDataType":"datetime2","javaDataType":"LocalDateTime","filedName":"birthday","filedComment":"出生日期，格式：yyyy-MM-dd HH:mm:ss","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"varchar('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS')","javaDataType":"Enum","filedName":"member_type","filedComment":"会员类型，默认：ORDINARY","initialValue":"ORDINARY"},{"isPrimaryKey":false,"databaseDataType":"int","javaDataType":"Integer","filedName":"status","filedComment":"用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常","initialValue":"3"},{"isPrimaryKey":false,"databaseDataType":"int","javaDataType":"Integer","filedName":"deleted","filedComment":"账户注销状态；0 未注销（默认），1 已销户","initialValue":"0"},{"isPrimaryKey":false,"databaseDataType":"date","javaDataType":"LocalDate","filedName":"registrar_date","filedComment":"注册时间，格式: yyyy-MM-dd","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"time","javaDataType":"LocalTime","filedName":"accelerate_begin_time","filedComment":"会员加速开始时间, 格式：HH:mm:ss","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"time","javaDataType":"LocalTime","filedName":"accelerate_end_time","filedComment":"会员加速结束时间, 格式：HH:mm:ss","initialValue":"NULL"},{"isPrimaryKey":false,"databaseDataType":"datetime2","javaDataType":"LocalDateTime","filedName":"update_time","filedComment":"修改时间","initialValue":"NULL"}]}
+2022-08-19 18:10:21.229  INFO 38516 --- [nio-8080-exec-1] c.a.d.p.f.core.DefaultTemplateResolver   : 数据库建表语句: 
+CREATE TABLE [dbo].[dtt_member]
+(
+    [id]    bigint PRIMARY KEY NOT NULL,
+    [open_id]    varchar(64) COLLATE Chinese_PRC_CI_AS DEFAULT NULL,
+    [nickname]    varchar(64) COLLATE Chinese_PRC_CI_AS DEFAULT NULL,
+    [is_enable]    tinyint DEFAULT 1,
+    [balance]    money DEFAULT 0.00,
+    [birthday]    datetime2 DEFAULT NULL,
+    [member_type]    varchar(256) DEFAULT 'ORDINARY',
+    [status]    int DEFAULT 3,
+    [deleted]    int DEFAULT 0,
+    [registrar_date]    date DEFAULT NULL,
+    [accelerate_begin_time]    time DEFAULT NULL,
+    [accelerate_end_time]    time DEFAULT NULL,
+    [update_time]    datetime2 DEFAULT NULL
+)
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户信息',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'主键id',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'id'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户openId',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'open_id'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户昵称',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'nickname'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'是否启用, 默认：1',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'is_enable'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户积分余额, 默认：0.00',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'balance'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'出生日期，格式：yyyy-MM-dd HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'birthday'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员类型，默认：ORDINARY, Enum type:ORDINARY,STUDENT,GUNMETAL,SILVER,GOLD,DIAMOND,SPORTS,PLUS',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'member_type'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'status'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'账户注销状态；0 未注销（默认），1 已销户',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'deleted'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'注册时间，格式: yyyy-MM-dd',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'registrar_date'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员加速开始时间, 格式：HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'accelerate_begin_time'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'会员加速结束时间, 格式：HH:mm:ss',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'accelerate_end_time'
+GO
+EXEC sp_addextendedproperty
+    'MS_Description', N'修改时间',
+    'SCHEMA', N'dbo',
+    'TABLE', N'dtt_member',
+    'COLUMN', N'update_time'
+GO
+
+Transaction synchronization suspending SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+2022-08-19 18:10:21.343 DEBUG 38516 --- [nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing SQL batch update of 15 statements
+Transaction synchronization resuming SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+==>  Preparing: SELECT MAX(ID) id FROM dtt_member
+==> Parameters: 
+<==    Columns: id
+<==        Row: null
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+JDBC Connection [HikariProxyConnection@1139253693 wrapping ConnectionID:2 ClientConnectionId: f2679647-4094-4f20-a812-ee941a778b4a] will be managed by Spring
+==>  Preparing: INSERT INTO dtt_member ( id, open_id, nickname, is_enable, balance, birthday, member_type, status, deleted, registrar_date, accelerate_begin_time, accelerate_end_time, update_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+==> Parameters: 1560569852266041346(Long), fawezOE5sT(String), 蒋震南(String), true(Boolean), 865(BigDecimal), 2022-08-19T18:10:21.135(LocalDateTime), STUDENT(String), 0(Integer), 1(Integer), 2022-08-19(LocalDate), 18:10:21.135(LocalTime), 18:10:21.135(LocalTime), 2022-08-19T18:10:21.135(LocalDateTime)
+2022-08-19 18:10:21.449  INFO 38516 --- [nio-8080-exec-1] com.example.controller.SomeController    : {"id":1560569852266041346,"openId":"fawezOE5sT","nickname":"蒋震南","isEnable":true,"balance":865,"birthday":"2022-08-19 18:10:21","memberType":"STUDENT","status":0,"deleted":1,"registrarDate":"2022-08-19","accelerateBeginTime":"18:10:21","accelerateEndTime":"18:10:21","updateTime":"2022-08-19 18:10:21"}
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+```
+
+**(b) 2nd logger**
+
+Cause by table exists, DTT does nothing.
+
+```log
+2022-08-19 18:10:21.449  INFO 38516 --- [nio-8080-exec-1] com.example.controller.SomeController    : {"id":1560569852266041346,"openId":"fawezOE5sT","nickname":"蒋震南","isEnable":true,"balance":865,"birthday":"2022-08-19 18:10:21","memberType":"STUDENT","status":0,"deleted":1,"registrarDate":"2022-08-19","accelerateBeginTime":"18:10:21","accelerateEndTime":"18:10:21","updateTime":"2022-08-19 18:10:21"}
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7ab15e2a]
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5167ea53]
+JDBC Connection [HikariProxyConnection@1537179939 wrapping ConnectionID:2 ClientConnectionId: f2679647-4094-4f20-a812-ee941a778b4a] will be managed by Spring
+==>  Preparing: SELECT MAX(ID) id FROM dtt_member
+==> Parameters: 
+<==    Columns: id
+<==        Row: 1560569852266041346
+<==      Total: 1
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5167ea53]
+JDBC Connection [HikariProxyConnection@1537179939 wrapping ConnectionID:2 ClientConnectionId: f2679647-4094-4f20-a812-ee941a778b4a] will be managed by Spring
+==>  Preparing: INSERT INTO dtt_member ( id, open_id, nickname, is_enable, balance, birthday, member_type, status, deleted, registrar_date, accelerate_begin_time, accelerate_end_time, update_time ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+==> Parameters: 1560569852266041347(Long), fawezOE5sT(String), 蒋震南(String), true(Boolean), 865(BigDecimal), 2022-08-19T18:13:45.066(LocalDateTime), STUDENT(String), 0(Integer), 1(Integer), 2022-08-19(LocalDate), 18:13:45.066(LocalTime), 18:13:45.066(LocalTime), 2022-08-19T18:13:45.066(LocalDateTime)
+2022-08-19 18:13:45.082  INFO 38516 --- [nio-8080-exec-3] com.example.controller.SomeController    : {"id":1560569852266041347,"openId":"fawezOE5sT","nickname":"蒋震南","isEnable":true,"balance":865,"birthday":"2022-08-19 18:13:45","memberType":"STUDENT","status":0,"deleted":1,"registrarDate":"2022-08-19","accelerateBeginTime":"18:13:45","accelerateEndTime":"18:13:45","updateTime":"2022-08-19 18:13:45"}
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5167ea53]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5167ea53]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@5167ea53]
+```
+
+- [x] Console of default（Without DTT）
+
+![image-20220819175658344](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819175658344.png)
+
+`2022-08-19 17:52:56.045  INFO 31535 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.293 seconds (JVM running for 1.55)`
+
+(3) Compare
+
+| APP                | Loading type     | DTT  | Time   |
+| ------------------ | ---------------- | ---- | ------ |
+| MydttPlus2xTestApp | default          | NO   | 1.293s |
+| MydttPlus2xTestApp | lazily on demand | YES  | 1.873s |
+|                    |                  |      |        |
+
+From the data comparison in the above table, it is easy to see that lazily on demand has little effect on performance.
+
+> The test is made under the circumstances where personal energy and time are limited. Please forgive me if there are
+> any inadequacies.
 
 ## Contribute your code
 

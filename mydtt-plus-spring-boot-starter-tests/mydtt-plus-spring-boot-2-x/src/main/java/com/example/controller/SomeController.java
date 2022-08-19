@@ -34,7 +34,7 @@ import java.util.List;
 public class SomeController {
     @Autowired
     private DttMemberService memberService;
-    @Autowired
+    @Autowired(required = false)
     private DttDefaultConditionalService defaultConditionalService;
 
     /**
@@ -72,8 +72,6 @@ public class SomeController {
         DttMember dttMember = memberService.getOne(new QueryWrapper<DttMember>().select("MAX(ID) id"));
         if (null != dttMember) {
             member.setId(dttMember.getId() + 1);
-        } else {
-            member.setId(1L);
         }
         boolean save = memberService.saveBatch(Arrays.asList(member));
         log.info("{}", JacksonUtil.toJson(member));

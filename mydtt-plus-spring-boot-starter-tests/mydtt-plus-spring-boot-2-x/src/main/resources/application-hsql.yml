@@ -31,7 +31,8 @@ alphahub:
       filepath: /Users/weasley/Downloads
     code-generator:
       is-enable: on
-      base-classes: com.example.domain.dtt.DttMember
+      base-classes:
+        - com.example.domain.dtt.DttMember
       module-name: dtt
       module-package: com.example
       module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
