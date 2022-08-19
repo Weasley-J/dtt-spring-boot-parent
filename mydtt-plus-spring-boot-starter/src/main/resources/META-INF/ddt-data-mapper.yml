@@ -172,7 +172,7 @@ alphahub:
           Integer: INTEGER
           Long: BIGINT
           BigDecimal: DECIMAL
-          Date: DATE
+          Date: TIMESTAMP
           LocalTime: TIME
           LocalDate: DATE
           Timestamp: TIMESTAMP

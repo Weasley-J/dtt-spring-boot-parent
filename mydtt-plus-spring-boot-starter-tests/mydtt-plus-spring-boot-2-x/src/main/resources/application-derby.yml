@@ -30,9 +30,6 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
   type-aliases-package: com.example.domain.dtt,com.example.domain.order
-  global-config:
-    db-config:
-      id-type: input
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

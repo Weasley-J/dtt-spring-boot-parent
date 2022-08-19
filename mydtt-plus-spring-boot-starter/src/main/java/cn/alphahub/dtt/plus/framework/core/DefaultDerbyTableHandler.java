@@ -1,11 +1,8 @@
 package cn.alphahub.dtt.plus.framework.core;
 
-import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
 import cn.alphahub.dtt.plus.config.datamapper.DerbyDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
-import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -36,12 +33,10 @@ public class DefaultDerbyTableHandler extends DttAggregationRunner implements Dt
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ApplicationContext applicationContext;
     private final DerbyDataMapperProperties derbyDataMapperProperties;
-    private final DttMybatisAutoConfiguration dttMybatisAutoConfiguration;
 
-    public DefaultDerbyTableHandler(ApplicationContext applicationContext, DerbyDataMapperProperties derbyDataMapperProperties, DttMybatisAutoConfiguration dttMybatisAutoConfiguration) {
+    public DefaultDerbyTableHandler(ApplicationContext applicationContext, DerbyDataMapperProperties derbyDataMapperProperties) {
         this.applicationContext = applicationContext;
         this.derbyDataMapperProperties = derbyDataMapperProperties;
-        this.dttMybatisAutoConfiguration = dttMybatisAutoConfiguration;
     }
 
     @Override
@@ -65,31 +60,18 @@ public class DefaultDerbyTableHandler extends DttAggregationRunner implements Dt
 
         String template = resolve(() -> model, new VelocityContext());
         String[] pureSQLScripts = parseTemplateToPureSQLScripts(template.split(";"));
-
-        String key = com.baomidou.mybatisplus.core.toolkit.StringUtils.underlineToCamel(model.getModelName());
-        DttMbActWrapper dttMbActWrapper = dttMybatisAutoConfiguration.getTypeAliasesMap().get(key);
-
         for (String sql : pureSQLScripts) {
-            if (sql.startsWith("DROP")
-                    && null != dttMbActWrapper
-                    && dttMbActWrapper.getTableExists().equals(true)
-                    && InitDttHandler.getEnableDtt().dropTableBeforeCreate()) {
-                execute(sql);
-            }
-            if (!sql.startsWith("DROP")) {
-                boolean success = false;
-                for (int i = 0; i < CREATE_TABLE_RETRY_MAX_COUNT; i++) {
-                    if (success) break;
-                    try {
-                        execute(sql);
-                        success = true;
-                    } catch (Exception e) {
-                        logger.warn("{}", e.getMessage());
-                    }
+            boolean success = false;
+            for (int i = 0; i < CREATE_TABLE_RETRY_MAX_COUNT; i++) {
+                if (success) break;
+                try {
+                    execute(sql);
+                    success = true;
+                } catch (Exception e) {
+                    if (logger.isWarnEnabled()) logger.warn("{}", e.getMessage());
                 }
             }
         }
-
         return template;
     }
 
