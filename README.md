@@ -9,8 +9,17 @@ Domain Driven Table [![Maven Central](https://img.shields.io/maven-central/v/io.
 >
 > - What can DTT do?
 >
-> Its can easily convert Java domain to SQL create table statement and auto create them(`enable lombok  for your IDE`)
-> ，for different country java developer those who is none native English speaker, i.e.
+> Tips: Read about DDT's features to learn more.
+>
+> (a). Convert your Java domain object to `RDB` table `DDL` statements and auto create them.
+>
+> (b). Support the ability of create table automatically for `mybatis` what `hibernate` and `spring-data-jpa` can do.
+>
+> (c). Export an `all-in-one` DDL statements for all tables as local files.
+>
+> (d). Retains comments for columns of data tables for the Java developers who is non-native English speaker,
+>
+> here is an example for `0-CODE injection` based on you Java document.
 >
 > - Chinese developer
 >
@@ -1107,7 +1116,6 @@ public class SomeApplication {
 DTT support `either create table lazily on demand`（depends on mybatis framework） or` eagerly on startup`. this chapter
 will explore the impact of enabling `DTT` on application performance from two
 perspectives. [Here is the tests project](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/tree/main/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x)
-.
 
 ### Test platform & environment
 
@@ -1202,7 +1210,7 @@ As we can see from the image:
 
 `2022-08-19 16:56:26.845  INFO 8331 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created tables for '2' seconds. detail: {"dttStartTime":"2022-08-19 16:56:24","dttEndTime":"2022-08-19 16:56:26"}, location: /Users/weasley/Downloads/AllInOne.sql`
 
-DTT does two things:
+DTT has done two things in the logger:
 
 (a) Generate `Service`, `Mapper`, `Mapper.xml` source code
 
@@ -1247,7 +1255,6 @@ Started MydttPlusTestApplication in 2.122 seconds without `DTT`.
 | ------------------ | ------------------ | ---- | -------------------- |
 | MydttPlus2xTestApp | default            | NO   | 2.122s               |
 | MydttPlus2xTestApp | eagerly on startup | YES  | 2.132s + 2s = 4.132s |
-|                    |                    |      |                      |
 
 ### Create table lazily on demand
 
@@ -1494,12 +1501,11 @@ Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaul
 | ------------------ | ---------------- | ---- | ------ |
 | MydttPlus2xTestApp | default          | NO   | 1.293s |
 | MydttPlus2xTestApp | lazily on demand | YES  | 1.873s |
-|                    |                  |      |        |
 
 From the data comparison in the above table, it is easy to see that lazily on demand has little effect on performance.
 
 > The test is made under the circumstances where personal energy and time are limited. Please forgive me if there are
-> any inadequacies.
+> some inadequacies.
 
 ## Contribute your code
 
