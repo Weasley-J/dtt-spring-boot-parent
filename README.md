@@ -13,7 +13,7 @@
 >
 > (a) Converts your Java domain object to `RDB` table `DDL` statements and auto create them.
 >
-> (b) Supports the ability for `mybatis` to create table lazily on demand like `hibernate` and `spring-data-jpa` .
+> (b) Supports the ability for `mybatis` to create table lazily on demand just like `hibernate` and `spring-data-jpa`  can do.
 >
 > (c) Exports an `all-in-one` DDL statements for all tables as local files.
 >
