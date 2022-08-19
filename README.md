@@ -5,7 +5,7 @@
 > - What is DTT?
 >
 > It's means  `domain-to-table`, aims to make it easy for you to automatically create DB tables based on your Java
-> model. Domain driven table is the concept of `DTT`;
+> domain object model, domain driven table is the concept of `DTT`;
 >
 > - What can DTT do?
 >
