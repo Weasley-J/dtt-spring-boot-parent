@@ -20,8 +20,7 @@ import java.util.stream.Collectors;
  * DTT Class Util
  *
  * @author weasley
- * @version 1.0
- * @date 2022/7/17
+ * @version 1.0.0
  */
 public class ClassUtil {
 
