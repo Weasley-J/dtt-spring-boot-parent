@@ -36,13 +36,13 @@ import static cn.alphahub.dtt.plus.config.DttProperties.TemplateProperties;
 public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> {
     private static final Logger logger = LoggerFactory.getLogger(DefaultTemplateResolver.class);
     @Autowired
-    private VelocityEngine velocityEngine;
-    @Autowired
     private DttProperties dttProperties;
     @Autowired
-    private TemplateProperties templateProperties;
+    private VelocityEngine velocityEngine;
     @Autowired
     private DatabaseHandler databaseHandler;
+    @Autowired
+    private TemplateProperties templateProperties;
 
     @Override
     public String resolve(ParseFactory<ModelEntity> parseFactory) {
