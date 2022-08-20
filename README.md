@@ -280,7 +280,7 @@
 
 
 
-**OR ELSE:**
+**OR**
 
 - Clone this project into your dir.
 
