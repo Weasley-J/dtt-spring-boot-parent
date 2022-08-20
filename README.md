@@ -248,17 +248,22 @@
 > You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance
 > them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` .
 >
-> 
+>
+
+## Architecture
+
+![DTT架构图](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/DTT%E6%9E%B6%E6%9E%84%E5%9B%BE-0988567.png)
 
 ## Quick Start
 
 - Add maven dependencies to your `pom.xml`
 
 ```xml
+
 <dependencies>
-        <!-- mydtt-plus-spring-boot-starter -->
-        <dependency>
-            <groupId>io.github.weasley-j</groupId>
+  <!-- mydtt-plus-spring-boot-starter -->
+  <dependency>
+    <groupId>io.github.weasley-j</groupId>
           <artifactId>mydtt-plus-spring-boot-starter</artifactId>
           <version>1.3.5</version>
         </dependency>
