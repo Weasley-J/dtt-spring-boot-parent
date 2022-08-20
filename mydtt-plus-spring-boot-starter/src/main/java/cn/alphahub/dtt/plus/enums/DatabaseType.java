@@ -20,5 +20,6 @@ public enum DatabaseType {
     POSTGRESQL,
     H2,
     HSQL,
-    DERBY;
+    DERBY,
+    ;
 }
