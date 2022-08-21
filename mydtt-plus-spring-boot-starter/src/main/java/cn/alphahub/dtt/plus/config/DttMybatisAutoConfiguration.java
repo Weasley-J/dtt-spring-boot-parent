@@ -51,10 +51,7 @@ import static cn.alphahub.dtt.plus.config.DttProperties.TableExistsSqlMapperProp
 @ConditionalOnClass({SqlSessionFactory.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({DttMybatisOrmSupportProperties.class, DttProperties.class})
-@AutoConfigureAfter(name = {
-        "org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration",
-        "com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration",
-})
+@AutoConfigureAfter(name = {"org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration", "com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration",})
 public class DttMybatisAutoConfiguration implements InitializingBean {
     private static final String[] MYBATIS_PROP_PREFIX = {"mybatis-plus.type-aliases-package", "mybatis.type-aliases-package"};
     private static final String[] SHARDING_SPHERE_BEANS = {"shardingSphereAutoConfiguration", "org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration"};
@@ -125,19 +122,17 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
                 logger.warn("The entity class is empty, Please check your configuration of mybatis, type-aliases-package: {}", mybatisPropPrefix);
                 return;
             }
-            if (CollectionUtils.isNotEmpty(classes)) {
-                ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
-                    DttMbActWrapper actWrapper = new DttMbActWrapper();
-                    actWrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
-                    actWrapper.setDomainClass(value);
-                    String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
-                    if (shardingSphereEnable.equals(false)) {
-                        actWrapper.setTableNotExists(isTableNotExists(tableName));
-                    }
-                    return actWrapper;
-                })));
-                this.typeAliasesMap.putAll(classConcurrentMap);
-            }
+            ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
+                DttMbActWrapper wrapper = new DttMbActWrapper();
+                wrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
+                wrapper.setDomainClass(value);
+                String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
+                if (shardingSphereEnable.equals(false)) {
+                    wrapper.setTableNotExists(isTableNotExists(tableName));
+                }
+                return wrapper;
+            })));
+            this.typeAliasesMap.putAll(classConcurrentMap);
         }
     }
 
