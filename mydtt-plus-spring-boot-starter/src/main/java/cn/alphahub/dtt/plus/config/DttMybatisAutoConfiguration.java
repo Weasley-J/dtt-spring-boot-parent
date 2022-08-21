@@ -101,7 +101,6 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        if (dttProperties.getIsEnable().equals(false)) return;
         if (dttMybatisOrmSupportProperties.getIsEnable().equals(false)) return;
         this.shardingSphereEnable = isShardingSphereEnable();
         sqlSessionFactories.forEach(sqlSessionFactory -> {

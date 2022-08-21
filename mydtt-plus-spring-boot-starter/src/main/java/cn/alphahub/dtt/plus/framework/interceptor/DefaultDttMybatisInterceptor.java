@@ -70,9 +70,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         if (null != executor) {
             //No dump
         }
-        if (null != statementHandler
-                && dttProperties.getIsEnable()
-                && dttMybatisOrmSupportProperties.getIsEnable()) {
+        if (null != statementHandler && dttMybatisOrmSupportProperties.getIsEnable()) {
             BoundSql boundSql = statementHandler.getBoundSql();
             Statement parse = CCJSqlParserUtil.parse(boundSql.getSql());
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
