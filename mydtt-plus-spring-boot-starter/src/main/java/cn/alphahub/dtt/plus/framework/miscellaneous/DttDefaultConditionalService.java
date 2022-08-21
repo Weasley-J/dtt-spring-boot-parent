@@ -28,7 +28,32 @@ import java.util.List;
 
 /**
  * Manually specify the fully qualified class name to call DTT to create a table.
- * <p>Maybe useful in some conditions.
+ * <p>Maybe useful in some conditions. Usage:
+ * <pre>
+ * import cn.alphahub.dtt.plus.entity.DttManualActEntity;
+ * import cn.alphahub.dtt.plus.entity.DttManualActRequest;
+ * import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
+ * import org.springframework.beans.factory.annotation.Autowired;
+ * import org.springframework.web.bind.annotation.PostMapping;
+ * import org.springframework.web.bind.annotation.RequestBody;
+ * import org.springframework.web.bind.annotation.RequestMapping;
+ * import org.springframework.web.bind.annotation.RestController;
+ *
+ * import java.util.List;
+ *
+ * {@code @RestController}
+ * {@code @RequestMapping("/api/some")}
+ * public class SomeController {
+ *
+ *     {@code @Autowired(required = false)}
+ *     private DttDefaultConditionalService dttDefaultConditionalService;
+ *
+ *     {@code @PostMapping("/manual/act")}
+ *     public {@code List<DttManualActEntity>} manualCreateTable({@code @RequestBody} DttManualActRequest request) {
+ *         return this.dttDefaultConditionalService.manualCreate(request);
+ *     }
+ * }
+ * </pre>
  *
  * @author weasley
  * @version 1.3.1
