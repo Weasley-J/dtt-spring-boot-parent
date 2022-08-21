@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  * Manually specify the fully qualified class name to call DTT to create a table.
- * <p>Maybe useful in some condition.
+ * <p>Maybe useful in some conditions.
  *
  * @author weasley
  * @version 1.3.1
