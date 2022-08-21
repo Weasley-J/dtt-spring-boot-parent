@@ -15,7 +15,7 @@
 >
 > (b) Supports the ability for `mybatis` to create table lazily on demand just like `hibernate` and `spring-data-jpa`  can do.
 >
-> (c) Exports an `all-in-one` DDL statements for all tables as local files.
+> (c) Exports an `all-in-one` DDL statements for all tables as local file.
 >
 > (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
 >
