@@ -1046,7 +1046,7 @@ to annotate your domain objects，you can you some `RDB` tools.
 
 ### 11 Support calling API to create table
 
-`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
+`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java)
 
 ```java
 /**
