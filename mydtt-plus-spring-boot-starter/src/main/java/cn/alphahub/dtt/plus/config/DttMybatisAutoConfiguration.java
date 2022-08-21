@@ -50,8 +50,8 @@ import static cn.alphahub.dtt.plus.config.DttProperties.TableExistsSqlMapperProp
 @Lazy(value = false)
 @ConditionalOnClass({SqlSessionFactory.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
-@EnableConfigurationProperties({DttMybatisOrmSupportProperties.class, DttProperties.class})
 @AutoConfigureAfter(name = {"mybatisAutoConfiguration", "mybatisPlusAutoConfiguration"})
+@EnableConfigurationProperties({DttMybatisOrmSupportProperties.class, DttProperties.class})
 public class DttMybatisAutoConfiguration implements InitializingBean {
     private static final String[] MYBATIS_PROP_PREFIX = {"mybatis-plus.type-aliases-package", "mybatis.type-aliases-package"};
     private static final String[] SHARDING_SPHERE_BEANS = {"shardingSphereAutoConfiguration", "org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration"};
