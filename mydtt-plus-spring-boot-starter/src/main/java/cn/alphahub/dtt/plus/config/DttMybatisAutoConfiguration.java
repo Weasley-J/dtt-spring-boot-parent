@@ -121,8 +121,8 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             if (StringUtils.isBlank(property)) continue;
             String[] typeAliasesPackages = StringUtils.split(property, ",");
             Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
-            if (CollectionUtils.isNotEmpty(classes)) {
-                logger.warn("The entity class that is empty, Please check you Configuration, type-aliases-package: {}", mybatisPropPrefix);
+            if (CollectionUtils.isEmpty(classes)) {
+                logger.warn("The entity class is empty, Please check your Configuration, type-aliases-package: {}", mybatisPropPrefix);
                 return;
             }
             if (CollectionUtils.isNotEmpty(classes)) {
