@@ -6,7 +6,7 @@ spring:
     name: mydtt-plus-spring-boot-2-x
 
   profiles:
-    active: sqlserver
+    active: mysql
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

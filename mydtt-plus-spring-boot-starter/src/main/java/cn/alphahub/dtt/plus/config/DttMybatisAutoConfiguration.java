@@ -101,6 +101,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        if (dttProperties.getIsEnable().equals(false)) return;
         if (dttMybatisOrmSupportProperties.getIsEnable().equals(false)) return;
         this.shardingSphereEnable = isShardingSphereEnable();
         sqlSessionFactories.forEach(sqlSessionFactory -> {
@@ -110,13 +111,17 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             }
         });
         if (logger.isInfoEnabled() && shardingSphereEnable.equals(false)) {
-            logger.info("DTT is judging the existence of all tables for caching, it's will take a few seconds, if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'.");
+            logger.info("Judging the existence of all tables for caching, it's will take a few seconds, if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'");
         }
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = SpringUtil.getProperty(mybatisPropPrefix);
             if (StringUtils.isBlank(property)) continue;
             String[] typeAliasesPackages = StringUtils.split(property, ",");
             Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
+            if (CollectionUtils.isNotEmpty(classes)) {
+                logger.warn("The entity class that is empty, Please check you Configuration, type-aliases-package: {}", mybatisPropPrefix);
+                return;
+            }
             if (CollectionUtils.isNotEmpty(classes)) {
                 ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
                     DttMbActWrapper actWrapper = new DttMbActWrapper();
