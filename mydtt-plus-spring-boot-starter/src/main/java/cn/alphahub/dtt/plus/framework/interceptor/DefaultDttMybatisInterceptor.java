@@ -1,6 +1,7 @@
 package cn.alphahub.dtt.plus.framework.interceptor;
 
 import cn.alphahub.dtt.plus.config.DttMybatisAutoConfiguration;
+import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.DttMbActWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
@@ -24,8 +25,6 @@ import org.apache.ibatis.plugin.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -38,7 +37,7 @@ import java.util.Map;
 import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProperties;
 
 /**
- * The default interceptor of mybatis-pro
+ * The default DTT interceptor for mybatis
  *
  * @author weasley
  * @version 1.2.6
@@ -49,13 +48,16 @@ import static cn.alphahub.dtt.plus.config.DttProperties.DttMybatisOrmSupportProp
         @Signature(type = StatementHandler.class, method = "getBoundSql", args = {}),
         @Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}),
 })
-@EnableConfigurationProperties({DataSourceProperties.class})
 public class DefaultDttMybatisInterceptor implements Interceptor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultDttMybatisInterceptor.class);
+    private final DttProperties dttProperties;
     private final ApplicationContext applicationContext;
     private final DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties;
 
-    public DefaultDttMybatisInterceptor(ApplicationContext applicationContext, DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
+    public DefaultDttMybatisInterceptor(DttProperties dttProperties,
+                                        ApplicationContext applicationContext,
+                                        DttMybatisOrmSupportProperties dttMybatisOrmSupportProperties) {
+        this.dttProperties = dttProperties;
         this.applicationContext = applicationContext;
         this.dttMybatisOrmSupportProperties = dttMybatisOrmSupportProperties;
     }
@@ -68,12 +70,15 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         if (null != executor) {
             //No dump
         }
-        if (null != statementHandler) {
+        if (null != statementHandler
+                && dttProperties.getIsEnable()
+                && dttMybatisOrmSupportProperties.getIsEnable()
+        ) {
             BoundSql boundSql = statementHandler.getBoundSql();
             Statement parse = CCJSqlParserUtil.parse(boundSql.getSql());
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             List<String> tableNames = tablesNamesFinder.getTableList(parse);
-            if (dttMybatisOrmSupportProperties.getIsEnable().equals(true)) createTableIfNotExists(tableNames);
+            createTableIfNotExists(tableNames);
         }
         return invocation.proceed();
     }

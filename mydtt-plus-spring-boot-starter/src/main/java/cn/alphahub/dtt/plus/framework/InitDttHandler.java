@@ -125,7 +125,7 @@ public class InitDttHandler implements ApplicationRunner {
         boolean infoEnabled = logger.isInfoEnabled();
         if (dttProperties.getIsEnable().equals(false)) {
             if (warnEnabled)
-                logger.warn("Dtt is disabled，Please check the configuration property of 'alphahub.dtt.is-enable' in your yaml file.");
+                logger.warn("Dtt has disabled，Please check the configuration property of 'alphahub.dtt.is-enable' in your yaml file.");
             return;
         }
 
