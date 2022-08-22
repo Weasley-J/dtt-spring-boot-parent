@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  */
 @Inherited
 @Documented
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueKey {
     /**
@@ -23,5 +23,5 @@ public @interface UniqueKey {
      *
      * @return The unique key value for table
      */
-    String[] value() default {};
+    String[] columns() default {};
 }
