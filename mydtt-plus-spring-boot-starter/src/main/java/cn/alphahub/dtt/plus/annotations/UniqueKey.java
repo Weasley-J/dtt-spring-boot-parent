@@ -8,21 +8,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * To annotate a field of a domain class is one of the unique keys for table
+ * To annotate a field of a domain class is one of the unique key for table
  *
  * @author weasley
  * @version 1.3.6
  */
 @Inherited
 @Documented
-@Target({ElementType.TYPE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UniqueKeys {
+public @interface UniqueKey {
     /**
-     * Returns the unique keys for table
+     * Returns the unique key value for table
      *
-     * @return unique keys
-     * @see UniqueKey
+     * @return The unique key value for table
      */
-    UniqueKey[] value() default {};
+    String[] value() default {};
 }
