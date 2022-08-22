@@ -85,9 +85,9 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                     initialValue = parseDatabaseEnumTypes(field, originalDbDataType).getInitValue();
                 else initialValue = StringUtils.defaultIfBlank(dtt.defaultValue(), "NULL");
 
-                if (PRIMARY_KEY.equals(field.getName()) && Boolean.FALSE.equals(dtt.isPrimaryKey()))
+                if (PRIMARY_KEY.equals(field.getName()) && Boolean.FALSE.equals(dtt.primaryKey()))
                     detail.setIsPrimaryKey(true);
-                else detail.setIsPrimaryKey(dtt.isPrimaryKey());
+                else detail.setIsPrimaryKey(dtt.primaryKey());
 
                 detail.setDatabaseDataType(StringUtils.defaultIfBlank(dtt.dbDataType(), parseDbDataType(field, originalDbDataType)));
                 detail.setJavaDataType(javaDataType);

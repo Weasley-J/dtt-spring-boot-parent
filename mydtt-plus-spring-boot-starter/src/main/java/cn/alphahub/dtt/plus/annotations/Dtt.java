@@ -31,7 +31,7 @@ public @interface Dtt {
     /**
      * @return 是否主键
      */
-    boolean isPrimaryKey() default false;
+    boolean primaryKey() default false;
 
     /**
      * Data types mapped to the database，For example:  varchar(64)
