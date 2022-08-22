@@ -165,15 +165,28 @@ public class DttProperties {
          */
         private Boolean overrideExists = false;
         /**
-         * The name of your module
+         * The name of your module, i.e: moduleName = dtt
+         * <p>
+         * The mapper XML structure as follows:
+         * <ul>
+         *     <Li>src/main/resources/mapper/dtt</Li>
+         * </ul>
          */
         private String moduleName;
         /**
-         * The package location of generating code
+         * The package location of generating code, i.e: modulePackage = com.example<br>
+         * <p>
+         * The source code structure will be as follows:
+         * <ul>
+         *     <Li>src/main/java/com/example</Li>
+         *     <li>src/main/java/com/example/mapper</li>
+         *     <li>src/main/java/com/example/service</li>
+         * </ul>
          */
         private String modulePackage;
         /**
-         * The absolute path location of your project
+         * The absolute path location of your project<br>
+         * i.e: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
          */
         private String modulePath;
         /**
