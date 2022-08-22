@@ -19,9 +19,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Unique {
     /**
-     * Returns the unique key value for table
+     * The name of the <em>fields</em> (mapping to table columns) which used as unique key for table
      *
-     * @return The unique key value for table
+     * @return The name of the fields (mapping to table columns)
      */
     String[] columns() default {};
 }

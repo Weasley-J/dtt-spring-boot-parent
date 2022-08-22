@@ -1,11 +1,16 @@
 package cn.alphahub.dtt.plus.annotations;
 
 /**
- * Enter the description of this class here
+ * The index of the table
  *
  * @author weasley
- * @version 1.0.0
+ * @version 1.3.6
  */
 public @interface Index {
+    /**
+     * The name of the <em>fields</em> (mapping to table columns) which used as an index for table
+     *
+     * @return The name of the fields (mapping to the columns)
+     */
     String[] columns() default {};
 }
