@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Dtt {
     /**
-     * 模型描述信息
+     * 模型描述信息，与表的comment属性对应
      *
      * @return 描述信息
      */
@@ -44,4 +44,14 @@ public @interface Dtt {
      * @return 默认值
      */
     String defaultValue() default "";
+
+    /**
+     * The constraints condition for model of table
+     *
+     * @return constraints condition
+     * @apiNote It is recommended enabling this property on Class to describe constraints information for the table
+     * @see Index
+     * @see Unique
+     */
+    Constraint[] constraints() default {};
 }

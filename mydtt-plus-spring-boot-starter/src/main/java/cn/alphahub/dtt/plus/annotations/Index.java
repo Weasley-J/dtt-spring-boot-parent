@@ -6,5 +6,6 @@ package cn.alphahub.dtt.plus.annotations;
  * @author weasley
  * @version 1.0.0
  */
-public @interface Table {
+public @interface Index {
+    String[] columns() default {};
 }

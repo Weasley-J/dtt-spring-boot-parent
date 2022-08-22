@@ -41,7 +41,7 @@ public class DttPerson implements Serializable {
     @Dtt(value = "出生日期，格式：yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;
 
-    @Dtt(value = "会员类型，默认：ORDINARY", defaultValue = "")
+    @Dtt(value = "会员类型，默认：ORDINARY", defaultValue = "ORDINARY")
     private MemberType memberType = MemberType.ORDINARY;
 
     @Dtt(value = "用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常")
