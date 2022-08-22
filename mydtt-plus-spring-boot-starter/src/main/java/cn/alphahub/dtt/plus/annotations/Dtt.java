@@ -46,7 +46,7 @@ public @interface Dtt {
     String defaultValue() default "";
 
     /**
-     * The constraints condition for model of table
+     * The constraints condition for model of table.
      *
      * @return constraints condition
      * @apiNote It is recommended enabling this property on Class to describe constraints information for the table
