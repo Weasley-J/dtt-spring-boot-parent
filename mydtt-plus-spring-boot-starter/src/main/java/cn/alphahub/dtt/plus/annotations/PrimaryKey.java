@@ -8,20 +8,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * To annotate a field of a domain class is one of the unique key for table
+ * To annotate a field of a domain class is a primary key for table
  *
  * @author weasley
  * @version 1.3.6
  */
 @Inherited
 @Documented
-@Target({ElementType.TYPE, ElementType.FIELD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Unique {
-    /**
-     * The name of the <em>fields</em> (mapping to table columns) which used as unique key for table
-     *
-     * @return The name of the fields (mapping to table columns)
-     */
-    String[] columns() default {};
+public @interface PrimaryKey {
 }

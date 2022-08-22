@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  * @version 1.3.6
  * @apiNote It is recommended enabling this property on Class to describe constraints information for the table
  * @see Index
- * @see Unique
+ * @see UniqueKey
  */
 @Inherited
 @Documented
@@ -34,5 +34,5 @@ public @interface Constraint {
      *
      * @return unique key
      */
-    Unique unique();
+    UniqueKey unique();
 }

@@ -51,7 +51,7 @@ public @interface Dtt {
      * @return constraints condition
      * @apiNote It is recommended enabling this property on Class to describe constraints information for the table
      * @see Index
-     * @see Unique
+     * @see UniqueKey
      */
     Constraint[] constraints() default {};
 }
