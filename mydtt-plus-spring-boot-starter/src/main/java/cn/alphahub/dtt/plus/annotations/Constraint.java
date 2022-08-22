@@ -9,7 +9,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The constraints condition for model of table
+ * The constraints condition for model of table,
+ * <ul>
+ *     <li>Taking effect when {@code @Dtt} annotated on class, If {@code @Dtt} annotated on a property of a class, {@code @Constraint} doesn't work. </li>
+ * </ul>
  *
  * @author weasley
  * @version 1.3.6
