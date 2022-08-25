@@ -1,6 +1,6 @@
 # dtt-spring-boot-starter
 
-## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-parent)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-parent)
+## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-starter)
 
 > `DTT`是一个面向对象的`Java`开发框架，领域驱动表是`DTT`的核心理念,
 > 它强调开发者在开发过程中应该更多关注领域而不是数据表，`DTT`可以根据你的域对象推断并创建数据库表,

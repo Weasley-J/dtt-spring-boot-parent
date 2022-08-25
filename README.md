@@ -1,6 +1,6 @@
 # dtt-spring-boot-starter
 
-## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-parent)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-parent)
+## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-starter)
 
 > - What is DTT?
 >
