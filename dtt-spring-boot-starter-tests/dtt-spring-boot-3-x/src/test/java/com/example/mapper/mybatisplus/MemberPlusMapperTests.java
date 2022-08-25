@@ -1,6 +1,5 @@
 package com.example.mapper.mybatisplus;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.domain.dtt.DttMember;
 import com.example.mapper.dtt.MemberPlusMapper;
 import org.junit.jupiter.api.AfterEach;

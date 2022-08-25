@@ -21,12 +21,12 @@
         with some ORM-Frameworks(MyBatis, MyBatis-Plus) with little learning and usage costs, DTT support databases
         server for MYSQL, ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL and embedded database for H2, HSQL, DERBY.
     </description>
-    <url>https://github.com/Weasley-J/dtt-spring-boot-starter</url>
+    <url>https://github.com/Weasley-J/dtt-spring-boot-parent</url>
 
     <licenses>
         <license>
             <name>GNU GENERAL PUBLIC LICENSE, Version 3</name>
-            <url>https://github.com/Weasley-J/dtt-spring-boot-starter/blob/main/LICENSE</url>
+            <url>https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -40,9 +40,9 @@
     </developers>
 
     <scm>
-        <url>https://github.com/Weasley-J/dtt-spring-boot-starter</url>
-        <connection>https://github.com/Weasley-J/dtt-spring-boot-starter.git</connection>
-        <developerConnection>https://github.com/Weasley-J/dtt-spring-boot-starter</developerConnection>
+        <url>https://github.com/Weasley-J/dtt-spring-boot-parent</url>
+        <connection>https://github.com/Weasley-J/dtt-spring-boot-parent.git</connection>
+        <developerConnection>https://github.com/Weasley-J/dtt-spring-boot-parent</developerConnection>
     </scm>
 
     <properties>
