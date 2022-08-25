@@ -186,7 +186,7 @@ public class DttProperties {
         private String modulePackage;
         /**
          * The absolute path location of your project<br>
-         * i.e: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+         * i.e: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
          */
         private String modulePath;
         /**
