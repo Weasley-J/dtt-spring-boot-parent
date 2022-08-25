@@ -1,9 +1,0 @@
-server:
-  port: 8080
-
-spring:
-  application:
-    name: mydtt-plus-spring-boot-3-x
-
-  profiles:
-    active: h2

@@ -1,17 +1,17 @@
-# mydtt-plus-spring-boot-starter
+# dtt-spring-boot-starter
 
-## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter)
+## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-parent)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-parent)
 
 > `DTT`是一个面向对象的`Java`开发框架，领域驱动表是`DTT`的核心理念,
 > 它强调开发者在开发过程中应该更多关注领域而不是数据表，`DTT`可以根据你的域对象推断并创建数据库表,
 > 并保留元数据所有备注，这是`JPA`不具备的，这大概也是`JPA`在非英语母国家不被广泛使用的原因之一，同时`DTT`也支持`mybatis`
 > 懒惰地按需创建表，像`JPA`和`Hibernate`那样,  `DTT`支持 `0代码`集成`mybatis`生态的`ORM`框架, 将你从表设计工具中解放出来使你真正面向对象开发。
 
-此文档更新可能不及时，推荐使用[英文文档](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter)
+此文档更新可能不及时，推荐使用[英文文档](https://github.com/Weasley-J/dtt-spring-boot-parent)
 
 # 快速开始
 
-[See also](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/ae8a7327db01b5c31bd7a2ccd2bf0be62942c9d2/README.md#L245)
+[See also](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/ae8a7327db01b5c31bd7a2ccd2bf0be62942c9d2/README.md#L245)
 
 # 开发环境
 
@@ -105,11 +105,11 @@ alphahub:
 如果你的数据库是`mysql`，数据表里面如果列名包含：`phone`,`_tel`等字段时该列会被定义为`varchar(16)`,
 DTT会有一切默认长度的自动推断，你可以想示例里面的例子一样在你的`yaml`文件中覆盖它.
 
-[完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
+[完整的配置文件](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
 ### 6 配置高精度数据类型的精度
 
-[完整的配置文件](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
+[完整的配置文件](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
 
 - 以下是DTT内置的默认配置示例:
 
@@ -159,13 +159,13 @@ alphahub:
 alphahub:
   dtt:
     code-generator:
-      is-enable: on
+       is-enable: on
       show-code: false
       override-exists: false
       module-name: dtt
-      module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
-      base-package: com.example.domain.dtt
+       module-package: com.example
+       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
+       base-package: com.example.domain.dtt
       base-classes: ""
 ```
 
@@ -174,7 +174,7 @@ alphahub:
 `alphahub.dtt.code-generator.base-classes`属性支持生成单个域对象映射的表，`alphahub.dtt.code-generator.base-package`
 的范围要尽可能精准，如果配置范围过大，所有的子包将会被`DTT`类扫描器扫描,
 
-[代码生成器配置元数据解释参考这里](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
+[代码生成器配置元数据解释参考这里](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
 简单业务甚至你只用写个`Controller`就能完成业务功能
 
@@ -183,7 +183,7 @@ alphahub:
 提示:
 
 1. 该功能需用注解驱动开启，在你的启动类上添加`@EnableDtt`（如果你只是想开启`mybatis`
-   自动创建表），更多细节见源码[`@EnableDtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/annotations/EnableDtt.java#L51)
+   自动创建表），更多细节见源码[`@EnableDtt`](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/annotations/EnableDtt.java#L51)
    ，可以通过`yaml`配置在各个应用环境中禁用和启用状态（默认启用状态）
 2. 禁用的`yaml`配置示例：
 
@@ -195,8 +195,9 @@ alphahub:
 ```
 
 3.
-生产环境建议使用[`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
-注解标注你的域模型，域模型缺失[`@Dtt`](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+
+生产环境建议使用[`@Dtt`](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
+注解标注你的域模型，域模型缺失[`@Dtt`](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L23)
 注解会导致创建的表没有元数据注释, 和`Hibernate`
 创建的一样没有comment，如果你的英语很好，知道每个元数据的含义，不添加也行。下面是一个使用使用`@Dtt`的域对象示例：
 
@@ -301,7 +302,7 @@ public class DttMember implements Serializable {
 
 ### 11 支持调用API创建表
 
-`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
+`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/dtt-spring-boot-parent/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java#L57)
 
 1. 在你的`spring-boot`应用的启动类上添加注解`@EnableDtt`，示例：
 

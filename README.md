@@ -1,6 +1,6 @@
-# mydtt-plus-spring-boot-starter
+# dtt-spring-boot-starter
 
-## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/mydtt-plus-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter)
+## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-parent)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-parent)
 
 > - What is DTT?
 >
@@ -261,10 +261,10 @@
 ```xml
 
 <dependencies>
-  <!-- mydtt-plus-spring-boot-starter -->
+  <!-- dtt-spring-boot-starter -->
   <dependency>
     <groupId>io.github.weasley-j</groupId>
-          <artifactId>mydtt-plus-spring-boot-starter</artifactId>
+          <artifactId>dtt-spring-boot-starter</artifactId>
           <version>1.3.5</version>
         </dependency>
         <!-- javadoc-scribe start  -->
@@ -285,7 +285,7 @@
 - Clone this project into your dir.
 
 ```bash
-git clone https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git
+git clone https://github.com/Weasley-J/dtt-spring-boot-parent.git
 ```
 
 - CD to your work dir then you can run this maven command to install DTT and use it in you projects.
@@ -293,7 +293,7 @@ git clone https://github.com/Weasley-J/mydtt-plus-spring-boot-starter.git
 Tips: For this step, I mean your JDK and MAVEN environment are set correctly.
 
 ```shell
-mvn clean install -pl :mydtt-plus-spring-boot-starter -am
+mvn clean install -pl :dtt-spring-boot-starter -am
 ```
 
 - Add maven dependencies into your `pom.xml `(The pom's parent must be
@@ -303,10 +303,10 @@ mvn clean install -pl :mydtt-plus-spring-boot-starter -am
 
 ```xml
 <dependencies>
-        <!-- mydtt-plus-spring-boot-starter -->
+        <!-- dtt-spring-boot-starter -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
-          <artifactId>mydtt-plus-spring-boot-starter</artifactId>
+          <artifactId>dtt-spring-boot-starter</artifactId>
           <version>1.3.5</version>
         </dependency>
         <!-- javadoc-scribe start  -->
@@ -373,7 +373,7 @@ You can enable the required functions as needed. When your application started. 
 
 ```
 
-2022-07-17 22:15:13.894  INFO 12961 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created '1' tables for '0' seconds. detail: {"dttStartTime":"2022-07-17 22:15:13","dttEndTime":"2022-07-17 22:15:13"}, location: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/ALL_IN_ONE.SQL
+2022-07-17 22:15:13.894  INFO 12961 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Auto created '1' tables for '0' seconds. detail: {"dttStartTime":"2022-07-17 22:15:13","dttEndTime":"2022-07-17 22:15:13"}, location: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/ALL_IN_ONE.SQL
 
 ```
 
@@ -390,12 +390,12 @@ alphahub:
       override-exists: false
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
       base-package: com.example.domain.dtt
       base-classes: ""
 ```
 
-[Full meta data for `code-generator` configuration](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
+[Full meta data for `code-generator` configuration](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 ，the classes of `Service`,  `Mapper interface`, `Mapper.xml`, The directory structure is as follows:
 
 ![image-20220729171604994](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220729171604994.png)
@@ -478,7 +478,7 @@ Which can annotate on you Java modle class or property of modle，Usually used i
 You can easily use in prefix of `alphahub.tt` in your porject，Here the fully yaml property with default maybe you can
 reference it. you can override in you `application.yml` if you don't need one of them. i.e:
 
-[Or refere to source code](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L1-L512)
+[Or refere to source code](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L1-L512)
 
 Particularly. when `all-in-one-table` set enbled, DTT'll export a file with `all-in-one` type table DDL statements to
 the destination you set in your `application.yml` file.
@@ -521,7 +521,7 @@ DTT's parser support parsing the Java documentation.
 ### 5 Specifies the character length of the metadata
 
 You can configure for your configuration yaml like
-this, [Here is the link](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
+this, [Here is the link](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
 Example:
 
@@ -861,7 +861,7 @@ CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
 
 ### 7 Configure precision for high precision data types
 
-- [Here is the complete configurations](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
+- [Here is the complete configurations](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L248)
 - The following is an example of the default configuration built into DTT:
 
 ```yaml
@@ -913,12 +913,12 @@ alphahub:
       override-exists: false
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-3-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
       base-package: com.example.domain.dtt
       base-classes: ""
 ```
 
-[Here is the explaination for configuration meta-data](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
+[Here is the explaination for configuration meta-data](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/config/DttProperties.java#L122-L121)
 
 ### 10 Support `mybatis` create table automatically
 
@@ -937,9 +937,9 @@ alphahub:
 ```
 
 - It is recommended to
-  use [Dtt](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
+  use [Dtt](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
   annotation to annotate your domain model if your are none native English speaker, the domain model is
-  missing [Dtt](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
+  missing [Dtt](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/annotations/Dtt.java#L1-L64)
   annotation will cause the table to be created without column metadata comments like `Hibernate` created without
   comments. If your English is so well and you know the meaning of each metadata, it is fine not to add them.
 
@@ -1046,7 +1046,7 @@ to annotate your domain objects，you can you some `RDB` tools.
 
 ### 11 Support calling API to create table
 
-`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java)
+`API`: [cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService#manualCreate](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/java/cn/alphahub/dtt/plus/framework/miscellaneous/DttDefaultConditionalService.java)
 
 ```java
 /**
@@ -1120,7 +1120,7 @@ public class SomeApplication {
 
 DTT support `either create table lazily on demand`（depends on mybatis framework） or` eagerly on startup`. this chapter
 will explore the impact of enabling `DTT` on application performance from two
-perspectives. [Here is the tests project](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/tree/main/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x)
+perspectives. [Here is the tests project](https://github.com/Weasley-J/dtt-spring-boot-parent/tree/main/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x)
 
 ### Test platform & environment
 
@@ -1133,7 +1133,7 @@ perspectives. [Here is the tests project](https://github.com/Weasley-J/mydtt-plu
 | RDB                         | SQL Server        | version: 14.00.3451                                          |
 | JDK                         | 1.8.0_342 (arm64) | ["Azul Systems, Inc." - "Zulu 8.64.0.15"](https://www.azul.com/downloads/?version=java-8-lts&os=macos&architecture=arm-64-bit&package=jdk) |
 | Apache Maven                | 3.8.6             | https://maven.apache.org/download.cgi                        |
-| DTT                         | 1.3.5             | https://search.maven.org/artifact/io.github.weasley-j/mydtt-plus-spring-boot-starter |
+| DTT                         | 1.3.5             | https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-parent |
 | spring-boot                 | 2.7.3             | https://search.maven.org/artifact/org.springframework.boot/spring-boot-starter-parent/2.7.3/pom |
 | mybatis-plus-boot-starter   | 3.5.2             | https://search.maven.org/artifact/com.baomidou/mybatis-plus-boot-starter |
 | mybatis-spring-boot-starter | 2.2.2             | https://search.maven.org/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter |
@@ -1198,7 +1198,7 @@ alphahub:
       base-package: com.example.domain.order
       module-package: com.example
       module-name: order
-      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
 ```
 
 Note: The property `scanBasePackages`'s value of `@EnableDtt` is the same as the value
@@ -1229,7 +1229,7 @@ DTT has done two things in the logger:
 
 `DTT` takes `2` seconds to do what it's supposed to do, which means to use `DTT` based on your domain objects you just
 need to write some `Controller` to satisfy your business interface, for
-example: [SomeController](https://github.com/Weasley-J/mydtt-plus-spring-boot-starter/blob/main/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x/src/main/java/com/example/controller/SomeController.java)
+example: [SomeController](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x/src/main/java/com/example/controller/SomeController.java)
 
 2. Disable DTT for your application
 
@@ -1322,7 +1322,7 @@ alphahub:
         - com.example.domain.dtt.DttMember
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/mydtt-plus-spring-boot-parent/mydtt-plus-spring-boot-starter-tests/mydtt-plus-spring-boot-2-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
 
 ```
 
