@@ -1,5 +1,6 @@
 package cn.alphahub.dtt.plus.annotations;
 
+import javax.validation.Constraint;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
