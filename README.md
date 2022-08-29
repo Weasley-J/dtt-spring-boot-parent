@@ -246,7 +246,7 @@
 >
 >
 > You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance
-> them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you integrate with `0-Code` .
+> them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you can integrate with `0-Code` .
 >
 >
 
