@@ -146,15 +146,14 @@ public class InitDttClient {
      */
     @Bean
     public DatabaseProperty databaseProperty(DataSource dataSource,
-                                             DataSourceProperties dataSourceProperties,
                                              JdbcTemplate jdbcTemplate,
-                                             DatabaseHandler databaseHandler
+                                             DatabaseHandler databaseHandler,
+                                             DataSourceProperties dataSourceProperties
     ) {
         DatabaseProperty property = new DatabaseProperty();
         property.setDatabaseType(databaseHandler.getDbType());
         String databaseName = "";
-        if (databaseHandler.getDbType() == DatabaseType.ORACLE)
-            databaseName = dataSourceProperties.getUsername();
+        if (databaseHandler.getDbType() == DatabaseType.ORACLE) databaseName = dataSourceProperties.getUsername();
         if (databaseHandler.getDbType() == DatabaseType.DB2) {
             try {
                 databaseName = jdbcTemplate.queryForObject("SELECT CURRENT SERVER FROM SYSIBM.SYSDUMMY1", String.class);
@@ -167,17 +166,24 @@ public class InitDttClient {
         }
         try {
             @SuppressWarnings({"all"}) DatabaseMetaData metaData = dataSource.getConnection().getMetaData();
-            property.setDatabaseVersion(metaData.getDatabaseProductVersion());
-            property.setIntDatabaseVersion(metaData.getDatabaseMajorVersion());
             ResultSet result = metaData.getCatalogs();
             String dataURL = metaData.getURL();
-            while (result.next()) {
-                String databaseNameTemp = result.getString(1);
-                if (org.apache.commons.lang3.StringUtils.isNotBlank(databaseNameTemp)
-                        && !databaseHandler.getDbType().name().equalsIgnoreCase(databaseNameTemp)
-                        && dataURL.contains(databaseNameTemp)) {
-                    databaseName = databaseNameTemp;
-                    break;
+            property.setDatabaseVersion(metaData.getDatabaseProductVersion());
+            property.setIntDatabaseVersion(metaData.getDatabaseMajorVersion());
+            String currentCatalogName = metaData.getConnection().getCatalog();
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(currentCatalogName)
+                    && !databaseHandler.getDbType().name().equalsIgnoreCase(currentCatalogName)
+                    && dataURL.contains(currentCatalogName)) {
+                databaseName = currentCatalogName;
+            } else {
+                while (result.next()) {
+                    String databaseNameTemp = result.getString(1);
+                    if (org.apache.commons.lang3.StringUtils.isNotBlank(databaseNameTemp)
+                            && !databaseHandler.getDbType().name().equalsIgnoreCase(databaseNameTemp)
+                            && dataURL.contains(databaseNameTemp)) {
+                        databaseName = databaseNameTemp;
+                        break;
+                    }
                 }
             }
         } catch (SQLException e) {
