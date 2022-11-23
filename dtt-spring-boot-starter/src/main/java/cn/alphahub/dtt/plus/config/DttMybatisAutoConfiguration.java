@@ -101,6 +101,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        if (dttProperties.getIsEnable().equals(false)) return;
         if (dttMybatisOrmSupportProperties.getIsEnable().equals(false)) return;
         this.shardingSphereEnable = isShardingSphereEnable();
         sqlSessionFactories.forEach(sqlSessionFactory -> {
@@ -197,44 +198,22 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      * @return sql scripts
      */
     public List<String> getQueryTableExistsSqlScripts(String tableName, DatabaseType databaseType) {
-        List<String> sqlScripts = new ArrayList<>(4);
         Map<DatabaseType, TableExistsSqlMapperProperties> propertiesMap = dttProperties.getTableExistsSqlMapper();
         TableExistsSqlMapperProperties rawSql = propertiesMap.get(databaseType);
         if (null == rawSql) return Collections.emptyList();
 
-        String lcts = StringUtils.defaultIfBlank(rawSql.getScriptOfLowerCaseTableName(), "");
-        String usts = StringUtils.defaultIfBlank(rawSql.getScriptOfUpperCaseTableName(), "");
-        String dbNamePlaceHolder = "${databaseName}";
+        String realTableName = tableName;
+        List<String> scripts = new ArrayList<>(4);
 
-        switch (databaseType) {
-            case MYSQL:
-            case MARIADB:
-            case SQLSERVER:
-            case POSTGRESQL:
-                lcts = lcts.replace("${lowerCaseTableName}", tableName);
-                if (lcts.contains(dbNamePlaceHolder)) {
-                    lcts = lcts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                }
-                sqlScripts.add(lcts);
-                return sqlScripts;
-            case H2:
-            case DB2:
-            case ORACLE:
-            case DERBY:
-            case HSQL:
-                usts = usts.replace("${upperCaseTableName}", tableName.toUpperCase());
-                if (usts.contains(dbNamePlaceHolder))
-                    usts = usts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlScripts.add(usts);
+        if (rawSql.getTablenameUppercase().equals(true)) realTableName = tableName.toUpperCase();
+        String realScript = StringUtils.defaultIfBlank(rawSql.getScriptForTableExists(), "");
 
-                lcts = lcts.replace("${lowerCaseTableName}", tableName);
-                if (lcts.contains(dbNamePlaceHolder))
-                    lcts = lcts.replace(dbNamePlaceHolder, databaseProperty.getDatabaseName());
-                sqlScripts.add(lcts);
-
-                return sqlScripts;
-            default:
-                return sqlScripts;
+        realScript = realScript.replace("${tablename}", realTableName);
+        if (realScript.contains("${dbname}")) {
+            realScript = realScript.replace("${dbname}", databaseProperty.getDatabaseName());
         }
+        scripts.add(realScript);
+
+        return scripts;
     }
 }

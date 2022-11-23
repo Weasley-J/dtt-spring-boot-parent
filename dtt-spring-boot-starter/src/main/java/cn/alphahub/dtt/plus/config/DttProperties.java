@@ -483,25 +483,25 @@ public class DttProperties {
     @ConfigurationProperties(prefix = PREFIX + ".table-exists-sql-mapper")
     public static class TableExistsSqlMapperProperties {
         /**
-         * The SQL script to  query the given table whether exists, the table name format(underline),
+         * Optional. Take MySQL an example: If a classname is 'DttMember', When 'tablenameUppercase' set to 'false'.<br/>
+         * The 'scriptForTableExists' will be [SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = 'dtt_member'] Otherwise [SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = 'DTT_MEMBER']<br>
+         * <p>
+         * i.e: DTT_MEMBER, It's available to set 'tablenameUppercase = true' for getting a tablename with uppercase.
+         *
+         * @see DatabaseType#DB2
+         * @see DatabaseType#H2
+         * @see DatabaseType#ORACLE
          * <p>
          * i.e: dtt_member
-         *
          * @see DatabaseType#MYSQL
          * @see DatabaseType#SQLSERVER
          * @see DatabaseType#MARIADB
          * @see DatabaseType#POSTGRESQL
          */
-        private String scriptOfLowerCaseTableName;
+        private Boolean tablenameUppercase = false;
         /**
-         * The SQL script to  query the given table whether exists, the table name format(underline), Optional.
-         * <p>
-         * i.e: DTT_MEMBER
-         *
-         * @see DatabaseType#DB2
-         * @see DatabaseType#H2
-         * @see DatabaseType#ORACLE
+         * The SQL script to  query the given table whether exists
          */
-        private String scriptOfUpperCaseTableName;
+        private String scriptForTableExists;
     }
 }

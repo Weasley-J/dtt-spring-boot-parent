@@ -7,7 +7,7 @@ logging:
 spring:
   datasource:
     driver-class-name: com.ibm.db2.jcc.DB2Driver
-    url: jdbc:db2://192.168.31.23:50000/testdb
+    url: jdbc:db2://localhost:50000/testdb
     username: weasley
     password: 123456
 

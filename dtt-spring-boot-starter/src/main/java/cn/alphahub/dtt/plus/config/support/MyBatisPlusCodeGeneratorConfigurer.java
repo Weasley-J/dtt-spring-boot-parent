@@ -189,7 +189,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      *
      * @param cgProperties     MyBatis-Plus code generation configuration properties
      * @param codeWrapper      mybatis-plus code wrapper to integrate metadata
-     * @param templateResource A template resource of velocity（'.vm'）
+     * @param templateResource A template resource of velocity '.vm'
      * @return The Absolute Filename Of Source Code
      */
     private String getAbsoluteFilename(CodeGeneratorProperties cgProperties, MyBatisPlusCodeWrapper codeWrapper, String templateResource) {

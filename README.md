@@ -264,17 +264,17 @@
   <!-- dtt-spring-boot-starter -->
   <dependency>
     <groupId>io.github.weasley-j</groupId>
-          <artifactId>dtt-spring-boot-starter</artifactId>
-          <version>1.3.5</version>
-        </dependency>
-        <!-- javadoc-scribe start  -->
-        <dependency>
-            <groupId>com.github.therapi</groupId>
-            <artifactId>therapi-runtime-javadoc-scribe</artifactId>
-            <version>0.15.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- javadoc-scribe end  -->
+    <artifactId>dtt-spring-boot-starter</artifactId>
+    <version>1.3.6</version>
+  </dependency>
+  <!-- javadoc-scribe start  -->
+  <dependency>
+    <groupId>com.github.therapi</groupId>
+    <artifactId>therapi-runtime-javadoc-scribe</artifactId>
+    <version>0.15.0</version>
+    <scope>provided</scope>
+  </dependency>
+  <!-- javadoc-scribe end  -->
 </dependencies>
 ```
 
@@ -307,7 +307,7 @@ mvn clean install -pl :dtt-spring-boot-starter -am
         <dependency>
             <groupId>io.github.weasley-j</groupId>
           <artifactId>dtt-spring-boot-starter</artifactId>
-          <version>1.3.5</version>
+          <version>1.3.6</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>

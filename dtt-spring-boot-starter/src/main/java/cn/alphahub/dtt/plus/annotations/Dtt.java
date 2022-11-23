@@ -1,6 +1,5 @@
 package cn.alphahub.dtt.plus.annotations;
 
-import javax.validation.Constraint;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -50,7 +49,7 @@ public @interface Dtt {
      * The constraints condition for model of table.
      *
      * @return constraints condition
-     * @apiNote It is recommended enabling this property on Class to describe constraints information for the table
+     * @apiNote It is recommended enabling this property on Class to describe constraints information for tables
      * @see Index
      * @see UniqueKey
      */

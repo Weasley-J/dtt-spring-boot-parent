@@ -318,25 +318,29 @@ alphahub:
     #The properties of sql-script-mapper to query the given table whether exists
     table-exists-sql-mapper:
       mysql:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+        tablename-uppercase: false
+        script-for-table-exists: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${dbname}' AND TABLE_NAME = '${tablename}'"
       oracle:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '${lowerCaseTableName}'"
-        script-of-upper-case-table-name: "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '${upperCaseTableName}'"
+        tablename-uppercase: true
+        script-for-table-exists: "SELECT COUNT(*) FROM USER_TABLES WHERE TABLE_NAME = '${tablename}'"
       db2:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '${lowerCaseTableName}'"
-        script-of-upper-case-table-name: "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '${upperCaseTableName}'"
+        tablename-uppercase: true
+        script-for-table-exists: "SELECT COUNT(*) FROM syscat.tables WHERE TABNAME = '${tablename}'"
       sqlserver:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[${lowerCaseTableName}]' ) AND type IN ( 'U' )"
+        tablename-uppercase: false
+        script-for-table-exists: "SELECT COUNT(*) FROM sys.all_objects WHERE object_id = OBJECT_ID( N'[dbo].[${tablename}]' ) AND type IN ( 'U' )"
       mariadb:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${databaseName}' AND TABLE_NAME = '${lowerCaseTableName}'"
+        tablename-uppercase: false
+        script-for-table-exists: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '${dbname}' AND TABLE_NAME = '${tablename}'"
       postgresql:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM pg_class WHERE relname = '${lowerCaseTableName}'"
+        tablename-uppercase: false
+        script-for-table-exists: "SELECT COUNT(*) FROM pg_class WHERE relname = '${tablename}'"
       h2:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${lowerCaseTableName}'"
-        script-of-upper-case-table-name: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${upperCaseTableName}'"
+        tablename-uppercase: true
+        script-for-table-exists: "SELECT COUNT(*) FROM information_schema.tables WHERE table_name = '${tablename}'"
       hsql:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${lowerCaseTableName}'"
-        script-of-upper-case-table-name: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${upperCaseTableName}'"
+        tablename-uppercase: true
+        script-for-table-exists: "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${tablename}'"
       derby:
-        script-of-lower-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${lowerCaseTableName}' AND TABLETYPE = 'T'"
-        script-of-upper-case-table-name: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${upperCaseTableName}' AND TABLETYPE = 'T'"
+        tablename-uppercase: true
+        script-for-table-exists: "SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLENAME = '${tablename}' AND TABLETYPE = 'T'"
