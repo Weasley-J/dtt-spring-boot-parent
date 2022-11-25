@@ -1,10 +1,11 @@
 package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.alphahub.dtt.plus.framework.core.DefaultJavaDocParser;
+import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -78,10 +79,10 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      * @return The class of mybatis-plus code generator
      */
     @Bean
-    @ConditionalOnBean({VelocityEngine.class, DefaultJavaDocParser.class, ClassScanningProvider.class})
+    @ConditionalOnBean({VelocityEngine.class, ContextWrapper.class, ClassScanningProvider.class})
     public MyBatisPlusCodeGeneratorPlaceholder myBatisPlusCodeGeneratorPlaceholder(CodeGeneratorProperties cgProperties,
+                                                                                   ContextWrapper contextWrapper,
                                                                                    VelocityEngine velocityEngine,
-                                                                                   DefaultJavaDocParser javaDocParser,
                                                                                    ClassScanningProvider classScanningProvider
     ) {
         MyBatisPlusCodeGeneratorPlaceholder placeholder = new MyBatisPlusCodeGeneratorPlaceholder();
@@ -97,7 +98,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
             return placeholder;
         }
 
-        List<MyBatisPlusCodeWrapper> codeWrappers = getMyBatisPlusCodeWrappers(cgProperties, javaDocParser, classScanningProvider);
+        List<MyBatisPlusCodeWrapper> codeWrappers = getMyBatisPlusCodeWrappers(cgProperties, contextWrapper.getCommentParser(), classScanningProvider);
 
         if (CollectionUtils.isEmpty(codeWrappers)) return placeholder;
 
@@ -141,11 +142,11 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      * Get mybatis-plus code wrappers
      *
      * @param cgProperties          The given MyBatis-Plus code generation configuration properties
-     * @param javaDocParser         The java doc parser
+     * @param commentParser         The comment parser
      * @param classScanningProvider The Class scanning provider
      * @return mybatis-plus code wrappers
      */
-    private List<MyBatisPlusCodeWrapper> getMyBatisPlusCodeWrappers(CodeGeneratorProperties cgProperties, DefaultJavaDocParser javaDocParser, ClassScanningProvider classScanningProvider) {
+    private List<MyBatisPlusCodeWrapper> getMyBatisPlusCodeWrappers(CodeGeneratorProperties cgProperties, DttCommentParser<ModelEntity> commentParser, ClassScanningProvider classScanningProvider) {
         List<MyBatisPlusCodeWrapper> codeWrappers = new ArrayList<>();
 
         if (StringUtils.isNoneBlank(cgProperties.getBasePackage())) {
@@ -153,7 +154,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
                     .filter(className -> !className.getName().endsWith("Builder"))
                     .map(aClass -> {
                         String modelComment = "";
-                        ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
+                        ParseFactory<ModelEntity> parseFactory = commentParser.parse(aClass.getName());
                         if (null != parseFactory.getModel())
                             modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
                         return MyBatisPlusCodeWrapper.builder()
@@ -168,7 +169,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         if (ObjectUtils.isNotEmpty(cgProperties.getBaseClasses())) {
             for (Class<? extends Serializable> aClass : cgProperties.getBaseClasses()) {
                 String modelComment = "";
-                ParseFactory<ModelEntity> parseFactory = javaDocParser.parse(aClass.getName());
+                ParseFactory<ModelEntity> parseFactory = commentParser.parse(aClass.getName());
                 if (null != parseFactory.getModel())
                     modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
                 codeWrappers.add(MyBatisPlusCodeWrapper.builder()
