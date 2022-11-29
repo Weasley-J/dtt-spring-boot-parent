@@ -23,7 +23,7 @@
 >
 > - Chinese developer
 >
-> 1. Java domian
+> 1. Java domain
 >
 > ```java
 > import com.example.enums.MemberType;
