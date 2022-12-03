@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -75,11 +76,9 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
         return allDeclaredFields.stream().map(field -> {
             String javaDataType = field.getType().isEnum() ? Enum.class.getSimpleName() : field.getType().getSimpleName();
             String originalDbDataType = databaseHandler.getDbDataType(javaDataType);
-            Dtt[] dttAnnotations = field.getAnnotationsByType(Dtt.class);
+            Dtt dtt = field.getAnnotation(Dtt.class);
             ModelEntity.Detail detail = new ModelEntity.Detail();
-            if (ObjectUtils.isNotEmpty(dttAnnotations)) {
-                Dtt dtt = dttAnnotations[0];
-
+            if (ObjectUtils.isNotEmpty(dtt)) {
                 String initialValue;
                 if (StringUtils.equals(Enum.class.getSimpleName(), javaDataType) && StringUtils.isBlank(dtt.defaultValue()))
                     initialValue = parseDatabaseEnumTypes(field, originalDbDataType).getInitValue();
@@ -89,11 +88,18 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                     detail.setIsPrimaryKey(true);
                 else detail.setIsPrimaryKey(dtt.primaryKey());
 
-                detail.setDatabaseDataType(StringUtils.defaultIfBlank(dtt.dbDataType(), parseDbDataType(field, originalDbDataType)));
                 detail.setJavaDataType(javaDataType);
                 detail.setFiledName(camelToUnderline(field.getName()));
                 detail.setInitialValue(initialValue);
                 detail.setFiledComment(dtt.value());
+
+                if (dtt.length() > 0 && Objects.equals(String.class.getSimpleName(), javaDataType))
+                    detail.setDatabaseDataType(originalDbDataType + "(" + dtt.length() + ")");
+                else if ((dtt.precision() > 0 && dtt.scale() >= 0) && Objects.equals(BigDecimal.class.getSimpleName(), javaDataType))
+                    detail.setDatabaseDataType(originalDbDataType + "(" + dtt.precision() + "," + dtt.scale() + ")");
+                else
+                    detail.setDatabaseDataType(StringUtils.defaultIfBlank(dtt.dbDataType(), parseDbDataType(field, originalDbDataType)));
+
             } else {
                 logger.warn("模型'{}'里面的字段'{}'未添加 '@Dtt' 注解, 将不会解析模型描述信息.", aClass.getSimpleName(), field.getName());
                 String realDbDataType = parseDbDataType(field, originalDbDataType);

@@ -104,8 +104,10 @@ public interface DttTableHandler<T> extends DttContext<T> {
                         }
                     }
                 }
-                String inferPrecision = dbDataType + "(" + pdm.getDefaultIntegerLength() + "," + pdm.getDefaultDecimalLength() + ")";
-                detail.setDatabaseDataType(StringUtils.defaultIfBlank(inferDataType, inferPrecision));
+                if (!dbDataType.contains("(") && !dbDataType.contains(")")) {
+                    String inferPrecision = dbDataType + "(" + pdm.getDefaultIntegerLength() + "," + pdm.getDefaultDecimalLength() + ")";
+                    detail.setDatabaseDataType(StringUtils.defaultIfBlank(inferDataType, inferPrecision));
+                }
             }
         });
     }

@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 域模型、元数据的描述信息
+ * Information that describes the domain model, metadata
  * <ul>
  *     <li>When Dtt is annotated on the class, the actual value of 'value properties' will be used as the description of the model</li>
  * </ul>
@@ -22,14 +22,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Dtt {
     /**
-     * 模型描述信息，与表的comment属性对应
+     * The model description information corresponds to the comment property of the table
      *
-     * @return 描述信息
+     * @return the comment description
      */
     String value() default "";
 
     /**
-     * @return 是否主键
+     * @return Whether the column is the primary key
      */
     boolean primaryKey() default false;
 
@@ -41,15 +41,36 @@ public @interface Dtt {
     String dbDataType() default "";
 
     /**
-     * @return 默认值
+     * The default value for column
      */
     String defaultValue() default "";
+
+    /**
+     * The length for {@link String} type(The column datatype mapped to Java {@link String} type)
+     */
+    int length() default -1;
+
+    /**
+     * The precision for {@link java.math.BigDecimal} type(The column datatype mapped to Java {@link java.math.BigDecimal} type)
+     *
+     * @return precision for {@link java.math.BigDecimal} type
+     */
+    int precision() default -1;
+
+    /**
+     * The scale for {@link java.math.BigDecimal} type(The column datatype mapped to Java {@link java.math.BigDecimal} type)
+     *
+     * @return scale for {@link java.math.BigDecimal} type
+     */
+    int scale() default -1;
 
     /**
      * The constraints condition for model of table.
      *
      * @return constraints condition
      * @apiNote It is recommended enabling this property on Class to describe constraints information for tables
+     * @implNote Not yet implemented
+     * @implSpec
      * @see Index
      * @see UniqueKey
      */

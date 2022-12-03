@@ -26,17 +26,17 @@ public class DttPerson implements Serializable {
     @Dtt(value = "主键id")
     private Long id;
 
-    @Dtt(value = "用户openId")
+    @Dtt(value = "用户openId", length = 32)
     private String openId;
 
-    @Dtt(value = "用户昵称")
+    @Dtt(value = "用户昵称", length = 8)
     private String nickname;
 
     @Dtt(value = "是否启用, 默认：1")
     private Boolean isEnable = true;
 
-    @Dtt(value = "用户积分余额, 默认：0.00")
-    private BigDecimal balance = BigDecimal.valueOf(0L, 2);
+    @Dtt(value = "用户积分余额, 默认：0.00", precision = 10, scale = 2)
+    private BigDecimal balance;
 
     @Dtt(value = "出生日期，格式：yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;

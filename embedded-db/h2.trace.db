@@ -1,0 +1,2409 @@
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:45:56 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "STRING"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  String(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "STRING"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  String(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "STRING"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  String(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:47:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64)[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64)(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64)[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64)(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64)[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64)(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:52:16 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  null(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  null(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  null(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  null(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  null[*](32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  null(10,3)(10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  null(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  null(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:53:09 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:54:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 22:56:23 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  VARCHAR(64) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  VARCHAR(64) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:17:26 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:20:13 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:25:45 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS ""PUBLIC"".""DTT_PERSON""\000a(\000a    ""ID""  BIGINT NOT NULL AUTO_INCREMENT,\000a    ""OPEN_ID""  CHARACTER(32) DEFAULT NULL,\000a    ""NICKNAME""  VARCHAR(64) DEFAULT NULL,\000a    ""IS_ENABLE""  BOOLEAN DEFAULT NULL,\000a    ""BALANCE""  NUMERIC(10,3)[*](10,6) DEFAULT NULL,\000a    ""BIRTHDAY""  TIMESTAMP DEFAULT NULL,\000a    ""MEMBER_TYPE""  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',\000a    ""STATUS""  INTEGER DEFAULT NULL,\000a    ""DELETED""  INTEGER DEFAULT NULL,\000a    ""REGISTRAR_DATE""  DATE DEFAULT NULL,\000a    ""ACCELERATE_BEGIN_TIME""  TIME DEFAULT NULL,\000a    ""ACCELERATE_END_TIME""  TIME DEFAULT NULL,\000a    ""UPDATE_TIME""  TIMESTAMP DEFAULT NULL,\000aPRIMARY KEY (""ID"")\000a)"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, NULL, AS, DEFAULT, GENERATED, ON UPDATE, NOT NULL, NULL, AUTO_INCREMENT, DEFAULT ON NULL, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"  NUMERIC(10,3)(10,6) DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [42001-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:29:58 jdbc[9]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "DEFAULT"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"   DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "DEFAULT"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"   DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "DEFAULT"; SQL statement:
+CREATE TABLE IF NOT EXISTS "PUBLIC"."DTT_PERSON"
+(
+    "ID"  BIGINT NOT NULL AUTO_INCREMENT,
+    "OPEN_ID"  CHARACTER(32) DEFAULT NULL,
+    "NICKNAME"  VARCHAR(64) DEFAULT NULL,
+    "IS_ENABLE"  BOOLEAN DEFAULT NULL,
+    "BALANCE"   DEFAULT NULL,
+    "BIRTHDAY"  TIMESTAMP DEFAULT NULL,
+    "MEMBER_TYPE"  ENUM('ORDINARY','STUDENT','GUNMETAL','SILVER','GOLD','DIAMOND','SPORTS','PLUS') DEFAULT 'ORDINARY',
+    "STATUS"  INTEGER DEFAULT NULL,
+    "DELETED"  INTEGER DEFAULT NULL,
+    "REGISTRAR_DATE"  DATE DEFAULT NULL,
+    "ACCELERATE_BEGIN_TIME"  TIME DEFAULT NULL,
+    "ACCELERATE_END_TIME"  TIME DEFAULT NULL,
+    "UPDATE_TIME"  TIMESTAMP DEFAULT NULL,
+PRIMARY KEY ("ID")
+) [50004-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6249)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6087)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6069)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5948)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9331)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:237)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:223)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.springframework.jdbc.core.JdbcTemplate$1ExecuteStatementCallback.doInStatement(JdbcTemplate.java:422)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:381)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:431)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor.execute(DefaultTemplateExecutor.java:39)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$FastClassBySpringCGLIB$$8a931125.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at cn.alphahub.dtt.plus.framework.core.DefaultTemplateExecutor$$EnhancerBySpringCGLIB$$af80247b.execute(<generated>)
+	at cn.alphahub.dtt.plus.framework.core.DttAggregationRunner.execute(DttAggregationRunner.java:54)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.lambda$create$3(DefaultH2TableHandler.java:61)
+	at java.util.Arrays$ArrayList.forEach(Arrays.java:3880)
+	at cn.alphahub.dtt.plus.framework.core.DefaultH2TableHandler.create(DefaultH2TableHandler.java:57)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Iterator.forEachRemaining(Iterator.java:116)
+	at java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1801)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:747)
+	at java.util.stream.ReduceOps$ReduceTask.doLeaf(ReduceOps.java:721)
+	at java.util.stream.AbstractTask.compute(AbstractTask.java:327)
+	at java.util.concurrent.CountedCompleter.exec(CountedCompleter.java:731)
+	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java)
+	at java.util.concurrent.ForkJoinTask.doInvoke(ForkJoinTask.java:401)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:734)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateParallel(ReduceOps.java:714)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566)
+	at cn.alphahub.dtt.plus.framework.core.DttTableHandler.bulkOps(DttTableHandler.java:66)
+	at cn.alphahub.dtt.plus.framework.InitDttHandler.run(InitDttHandler.java:151)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:762)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at com.example.MydttPlus2xTestApp.main(MydttPlus2xTestApp.java:33)
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON TABLE "PUBLIC"."DTT_PERSON" IS '用户信息' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ID" IS '主键id' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."OPEN_ID" IS '用户openId' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."NICKNAME" IS '用户昵称' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."IS_ENABLE" IS '是否启用, 默认：1' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BALANCE" IS '用户积分余额, 默认：0.00' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."BIRTHDAY" IS '出生日期，格式：yyyy-MM-dd HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."MEMBER_TYPE" IS '会员类型，默认：ORDINARY' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."STATUS" IS '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."DELETED" IS '账户注销状态；0 未注销（默认），1 已销户' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."REGISTRAR_DATE" IS '注册时间，格式: yyyy-MM-dd' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_BEGIN_TIME" IS '会员加速开始时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."ACCELERATE_END_TIME" IS '会员加速结束时间, 格式：HH:mm:ss' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
+2022-12-03 23:30:16 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DTT_PERSON" not found; SQL statement:
+COMMENT ON COLUMN "PUBLIC"."DTT_PERSON"."UPDATE_TIME" IS '修改时间' [42102-214]
