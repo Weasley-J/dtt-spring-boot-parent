@@ -28,7 +28,7 @@ import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
- * 解析{{@code Dtt}}注解的注释
+ * 解析{@link  Dtt}注解的注释
  *
  * @author weasley
  * @version 1.0
