@@ -54,7 +54,7 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
-        <mybatis-spring.version>2.0.7</mybatis-spring.version>
+        <mybatis-spring.version>3.0.0</mybatis-spring.version>
         <mybatis.version>3.5.11</mybatis.version>
         <jsqlparser.version>4.5</jsqlparser.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>

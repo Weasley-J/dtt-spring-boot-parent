@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0-M3</version>
+        <version>3.0.0</version>
         <relativePath/>
     </parent>
 
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
+            <version>3.0.0</version>
         </dependency>
         <!-- mybatis-plus -->
         <dependency>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.6</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mybatis.spring.boot</groupId>
@@ -120,7 +120,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.6</version>
+            <version>42.3.8</version>
             <scope>runtime</scope>
         </dependency>
         <!-- embedded db start -->
@@ -137,6 +137,7 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+            <version>2.7.1</version>
             <scope>runtime</scope>
         </dependency>
         <!-- embedded db end -->

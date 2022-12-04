@@ -6,4 +6,5 @@ spring:
     name: dtt-spring-boot-3-x
 
   profiles:
-    active: h2
+    #db2|derby|h2|hsql|mariadb|mysql|oracle|postgresql|sqlserver
+    active: mysql
