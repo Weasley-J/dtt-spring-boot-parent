@@ -2,7 +2,7 @@ package com.example;
 
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import com.example.domain.dtt.DttPerson;
+import com.example.domain.javatag.CustomJavatagMember;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,10 +18,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 //"com.example.domain.promotion", "com.example.domain.shop", "com.example.domain.user",
         },
         scanBaseClasses = {
-                DttPerson.class,
+                //DttPerson.class,
                 //DttMember.class,
+                CustomJavatagMember.class
         },
-        parserType = ParserType.ANNOTATION,
+        parserType = ParserType.JAVA_DOC,
         dropTableBeforeCreate = true
 )
 //@EnableDtt

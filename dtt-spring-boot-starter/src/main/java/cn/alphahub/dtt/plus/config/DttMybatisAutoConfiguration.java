@@ -7,7 +7,6 @@ import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.interceptor.DefaultDttMybatisInterceptor;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import lombok.Getter;
 import org.apache.commons.lang3.ObjectUtils;
@@ -114,7 +113,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
             logger.info("Judging the existence of all tables for caching, it's will take a few seconds, if you want to disable dtt-mybatis-orm-support, please set 'alphahub.dtt.mybatis-orm-support.is-enable' to 'false'");
         }
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
-            String property = SpringUtil.getProperty(mybatisPropPrefix);
+            String property = applicationContext.getEnvironment().getProperty(mybatisPropPrefix);
             if (StringUtils.isBlank(property)) continue;
             String[] typeAliasesPackages = StringUtils.split(property, ",");
             Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());

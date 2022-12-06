@@ -6,7 +6,7 @@ package cn.alphahub.dtt.plus.util;
  * @author weasley
  * @version 1.0.0
  */
-public class SysUtil extends cn.hutool.system.SystemUtil {
+public final class SystemUtil {
     /**
      * 系统文件路径分隔符
      * <ul>
@@ -17,7 +17,7 @@ public class SysUtil extends cn.hutool.system.SystemUtil {
      * @return file.separator
      */
     public static String getFileSeparator() {
-        return getProps().get("file.separator").toString();
+        return System.getProperties().get("file.separator").toString();
     }
 
     /**
@@ -29,7 +29,7 @@ public class SysUtil extends cn.hutool.system.SystemUtil {
      * @return line.separator
      */
     public static String getLineSeparator() {
-        return getProps().get("line.separator").toString();
+        return System.getProperties().get("line.separator").toString();
     }
 
     /**
@@ -40,7 +40,7 @@ public class SysUtil extends cn.hutool.system.SystemUtil {
      * @return user.dir
      */
     public static String getUserDir() {
-        return getProps().get("user.dir").toString();
+        return System.getProperties().get("user.dir").toString();
     }
 
     /**
@@ -50,7 +50,6 @@ public class SysUtil extends cn.hutool.system.SystemUtil {
      * @return java.class.path
      */
     public static String getJarPath() {
-        return getProps().get("java.class.path").toString();
+        return System.getProperties().get("java.class.path").toString();
     }
-
 }

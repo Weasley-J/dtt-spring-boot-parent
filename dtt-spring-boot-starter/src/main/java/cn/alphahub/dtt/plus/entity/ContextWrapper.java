@@ -1,5 +1,7 @@
 package cn.alphahub.dtt.plus.entity;
 
+import cn.alphahub.dtt.plus.config.DttProperties;
+import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.DttTableHandler;
 import lombok.AllArgsConstructor;
@@ -31,29 +33,28 @@ import static cn.alphahub.dtt.plus.config.DttProperties.StringLengthMapper;
 @Accessors(chain = true)
 public class ContextWrapper implements Serializable {
     /**
-     * DTT工作线程
+     * Uptime statistics
+     */
+    private DttRunDetail dttRunDetail;
+    /**
+     * The config properties for dtt
+     */
+    private DttProperties dttProperties;
+    /**
+     * Database handler
+     */
+    private DatabaseHandler databaseHandler;
+    /**
+     * DTT work thread
      */
     private AtomicReference<Thread> threadReference;
-    /**
-     * 模型信息解析器的实例
-     */
     private transient DttCommentParser<ModelEntity> commentParser;
-    /**
-     * 数据库建表语处理器实例
-     */
     private transient DttTableHandler<ModelEntity> tableHandler;
     /**
      * text length handler
      */
     private TextLengthHandler textLengthHandler;
-    /**
-     * The high precision data  handler
-     */
     private HighPrecisionDataHandler highPrecisionDataHandler;
-    /**
-     * 运行时间统计
-     */
-    private DttRunDetail dttRunDetail;
 
     /**
      * 运行时间

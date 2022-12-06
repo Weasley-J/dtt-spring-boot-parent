@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.constant.Constants.GET;
+import static cn.alphahub.dtt.plus.constant.Constants.NULL_STRING;
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllDeclaredFields;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
@@ -82,7 +83,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                 String initialValue;
                 if (StringUtils.equals(Enum.class.getSimpleName(), javaDataType) && StringUtils.isBlank(dtt.defaultValue()))
                     initialValue = parseDatabaseEnumTypes(field, originalDbDataType).getInitValue();
-                else initialValue = StringUtils.defaultIfBlank(dtt.defaultValue(), "NULL");
+                else initialValue = StringUtils.defaultIfBlank(dtt.defaultValue(), NULL_STRING);
 
                 if (PRIMARY_KEY.equals(field.getName()) && Boolean.FALSE.equals(dtt.primaryKey()))
                     detail.setIsPrimaryKey(true);
@@ -115,7 +116,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                 detail.setDatabaseDataType(realDbDataType);
                 detail.setJavaDataType(javaDataType);
                 detail.setFiledName(camelToUnderline(field.getName()));
-                detail.setInitialValue(StringUtils.defaultIfBlank(String.valueOf(invoke), "NULL"));
+                detail.setInitialValue(StringUtils.defaultIfBlank(String.valueOf(invoke), NULL_STRING));
                 detail.setFiledComment("");
             }
             return detail;

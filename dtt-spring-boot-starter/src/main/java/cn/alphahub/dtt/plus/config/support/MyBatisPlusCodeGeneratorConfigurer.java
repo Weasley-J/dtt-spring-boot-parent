@@ -1,10 +1,12 @@
 package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.config.DttProperties;
-import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
+import cn.alphahub.dtt.plus.framework.InitDttClient;
+import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.core.DefaultJavadocParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import lombok.AllArgsConstructor;
@@ -21,9 +23,11 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -54,6 +58,7 @@ import static java.lang.System.out;
  * @version 1.0.0
  */
 @Component
+@AutoConfigureAfter({InitDttClient.class, InitDttHandler.class, DttCommentParser.class})
 @ConditionalOnBean(annotation = {EnableDtt.class})
 @EnableConfigurationProperties({CodeGeneratorProperties.class})
 @ConditionalOnProperty(prefix = DttProperties.PREFIX + ".code-generator", name = {"is-enable"}, havingValue = "true")
@@ -71,6 +76,11 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      * The template resources
      */
     private static final String[] TEMPLATE_RESOURCES = new String[]{"Service.java", "Mapper.java", "Mapper.xml",};
+    private final ApplicationContext applicationContext;
+
+    public MyBatisPlusCodeGeneratorConfigurer(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     /**
      * A bean what takes up a code generated space
@@ -79,26 +89,23 @@ public class MyBatisPlusCodeGeneratorConfigurer {
      * @return The class of mybatis-plus code generator
      */
     @Bean
-    @ConditionalOnBean({VelocityEngine.class, ContextWrapper.class, ClassScanningProvider.class})
+    @ConditionalOnBean({VelocityEngine.class, ClassScanningProvider.class})
     public MyBatisPlusCodeGeneratorPlaceholder myBatisPlusCodeGeneratorPlaceholder(CodeGeneratorProperties cgProperties,
-                                                                                   ContextWrapper contextWrapper,
                                                                                    VelocityEngine velocityEngine,
-                                                                                   ClassScanningProvider classScanningProvider
-    ) {
+                                                                                   ClassScanningProvider classScanningProvider) {
         MyBatisPlusCodeGeneratorPlaceholder placeholder = new MyBatisPlusCodeGeneratorPlaceholder();
 
         if (StringUtils.isAnyBlank(cgProperties.getModuleName(), cgProperties.getModulePath())) {
             log.warn("The properties of code generator cannot be null or empty: {}", toJson(cgProperties));
             return placeholder;
         }
-
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         if (ResourceUtils.isJarURL(location)) {
             log.warn("The code generator not support for application run type of '{}'!", location);
             return placeholder;
         }
 
-        List<MyBatisPlusCodeWrapper> codeWrappers = getMyBatisPlusCodeWrappers(cgProperties, contextWrapper.getCommentParser(), classScanningProvider);
+        List<MyBatisPlusCodeWrapper> codeWrappers = getMyBatisPlusCodeWrappers(cgProperties, applicationContext.getBean(DefaultJavadocParser.class), classScanningProvider);
 
         if (CollectionUtils.isEmpty(codeWrappers)) return placeholder;
 

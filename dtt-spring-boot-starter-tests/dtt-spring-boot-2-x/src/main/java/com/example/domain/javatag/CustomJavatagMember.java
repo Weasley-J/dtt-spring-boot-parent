@@ -1,4 +1,4 @@
-package com.example.domain.dtt;
+package com.example.domain.javatag;
 
 import com.example.enums.MemberType;
 import lombok.AllArgsConstructor;
@@ -21,14 +21,14 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class DttMember implements Serializable {
+public class CustomJavatagMember implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 主键id
      *
      * @primaryKey
      */
-    private Long id;
+    private Long memberId;
     /**
      * 用户openId
      *
@@ -42,9 +42,9 @@ public class DttMember implements Serializable {
     /**
      * 是否启用, 默认：1
      *
-     * @dbDataType tinyint
+     * @defaultValue true
      */
-    private Boolean isEnable = true;
+    private Boolean isEnable;
     /**
      * 用户积分余额, 默认：0.00
      *

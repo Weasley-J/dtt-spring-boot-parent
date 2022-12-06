@@ -21,5 +21,4 @@ public enum DatabaseType {
     H2,
     HSQL,
     DERBY,
-    ;
 }

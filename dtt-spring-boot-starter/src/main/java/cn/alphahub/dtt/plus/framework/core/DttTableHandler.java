@@ -2,8 +2,8 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
-import cn.alphahub.dtt.plus.util.SysUtil;
-import cn.hutool.extra.spring.SpringUtil;
+import cn.alphahub.dtt.plus.util.SpringUtil;
+import cn.alphahub.dtt.plus.util.SystemUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper;
 import static cn.alphahub.dtt.plus.config.DttProperties.HighPrecisionDataMapper.PrecisionConfigurationProperties;
+import static cn.alphahub.dtt.plus.constant.Constants.NULL_STRING;
 import static cn.alphahub.dtt.plus.entity.ContextWrapper.HighPrecisionDataHandler;
 
 /**
@@ -63,7 +64,7 @@ public interface DttTableHandler<T> extends DttContext<T> {
      */
     default String bulkOps(Set<ParseFactory<T>> modelSet) {
         if (CollectionUtils.isEmpty(modelSet)) return null;
-        return StringUtils.join(modelSet.parallelStream().map(this::create).collect(Collectors.toList()), SysUtil.getLineSeparator());
+        return StringUtils.join(modelSet.parallelStream().map(this::create).collect(Collectors.toList()), SystemUtil.getLineSeparator());
     }
 
     /**
@@ -142,15 +143,26 @@ public interface DttTableHandler<T> extends DttContext<T> {
      */
     default String[] parseTemplateToPureSQLScripts(String[] rawSqlArray) {
         return Arrays.stream(rawSqlArray).map(sql -> {
-            if (sql.startsWith(SysUtil.getLineSeparator()))
-                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
+            if (sql.startsWith(SystemUtil.getLineSeparator()))
+                return StringUtils.substring(sql, SystemUtil.getLineSeparator().length());
             else return sql;
         }).collect(Collectors.toList()).stream().map(sql -> {
-            if (sql.startsWith(SysUtil.getLineSeparator()))
-                return StringUtils.substring(sql, SysUtil.getLineSeparator().length());
-            else if (sql.endsWith(SysUtil.getLineSeparator()))
-                return StringUtils.removeEnd(sql, SysUtil.getLineSeparator());
+            if (sql.startsWith(SystemUtil.getLineSeparator()))
+                return StringUtils.substring(sql, SystemUtil.getLineSeparator().length());
+            else if (sql.endsWith(SystemUtil.getLineSeparator()))
+                return StringUtils.removeEnd(sql, SystemUtil.getLineSeparator());
             else return sql;
         }).filter(StringUtils::isNoneBlank).toArray(String[]::new);
+    }
+
+    /**
+     * Handle initial value for model
+     *
+     * @param detail model metadata detail
+     */
+    default void processInitialValue(ModelEntity.Detail detail) {
+        if (StringUtils.isNoneBlank(detail.getInitialValue()) && !NULL_STRING.equalsIgnoreCase(detail.getInitialValue())) {
+            detail.setInitialValue("'" + detail.getInitialValue() + "'");
+        }
     }
 }

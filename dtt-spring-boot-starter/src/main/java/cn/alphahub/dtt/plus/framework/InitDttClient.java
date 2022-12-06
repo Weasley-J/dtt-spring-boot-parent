@@ -10,7 +10,7 @@ import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.enums.ParserType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
-import cn.alphahub.dtt.plus.framework.core.DefaultJavaDocParser;
+import cn.alphahub.dtt.plus.framework.core.DefaultJavadocParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.DttTableHandler;
 import cn.alphahub.dtt.plus.util.ClassUtil;
@@ -75,7 +75,7 @@ public class InitDttClient {
                 client.put(ParserType.ANNOTATION, commentParserMap.get(DefaultAnnotationParser.class.getName()));
             }
             if (ParserType.JAVA_DOC == getEnableDtt().parserType()) {
-                client.put(ParserType.JAVA_DOC, commentParserMap.get(DefaultJavaDocParser.class.getName()));
+                client.put(ParserType.JAVA_DOC, commentParserMap.get(DefaultJavadocParser.class.getName()));
             }
         }
         return client;
@@ -123,6 +123,8 @@ public class InitDttClient {
 
         ContextWrapper wrapper = ContextWrapper.builder()
                 .threadReference(new AtomicReference<>(Thread.currentThread()))
+                .dttProperties(dttProperties)
+                .databaseHandler(databaseHandler)
                 .commentParser(commentParserClient.get(getEnableDtt().parserType()))
                 .tableHandler(tableHandlerClient.get(databaseHandler.getDbType()))
                 .dttRunDetail(new ContextWrapper.DttRunDetail(LocalDateTime.now()))

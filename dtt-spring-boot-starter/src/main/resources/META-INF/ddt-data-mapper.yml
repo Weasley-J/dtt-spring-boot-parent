@@ -133,7 +133,7 @@ alphahub:
       h2:
         enable-column-upper-case: true
         mapping-properties:
-          String: CHARACTER
+          String: VARCHAR
           Boolean: BOOLEAN
           Float: REAL
           Double: DOUBLE PRECISION

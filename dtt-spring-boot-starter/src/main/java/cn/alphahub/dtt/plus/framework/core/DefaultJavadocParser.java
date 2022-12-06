@@ -7,23 +7,30 @@ import cn.alphahub.dtt.plus.exception.ParseException;
 import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import cn.alphahub.dtt.plus.util.SysUtil;
+import cn.alphahub.dtt.plus.util.SystemUtil;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.therapi.runtimejavadoc.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
+import static cn.alphahub.dtt.plus.constant.Constants.*;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 
 /**
@@ -35,14 +42,12 @@ import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
-public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultJavaDocParser.class);
-
+public class DefaultJavadocParser implements DttCommentParser<ModelEntity> {
+    protected static final Logger logger = LoggerFactory.getLogger(DefaultJavadocParser.class);
     /**
      * formatters are reusable and thread-safe
      */
     private static final CommentFormatter formatter = new CommentFormatter();
-
     @Autowired
     private DatabaseHandler databaseHandler;
     @Autowired
@@ -81,7 +86,7 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
         }
 
         if (logger.isInfoEnabled()) {
-            logger.info("{}", SysUtil.getLineSeparator());
+            logger.info("{}", SystemUtil.getLineSeparator());
         }
     }
 
@@ -159,13 +164,20 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
                         }
                     }
 
-                    ModelEntity.Detail detail = new ModelEntity.Detail()
-                            .setIsPrimaryKey(PRIMARY_KEY.equals(fieldNameToUnderline))
-                            .setJavaDataType(javaDataType)
-                            .setDatabaseDataType(realDbDataType)
-                            .setFiledName(fieldNameToUnderline)
-                            .setFiledComment(getFiledComment(fieldJavadoc))
-                            .setInitialValue(null != invokeValue ? String.valueOf(invokeValue) : "NULL");
+                    ModelEntity.Detail detail = new ModelEntity.Detail();
+                    if (Objects.equals(PRIMARY_KEY.equals(fieldNameToUnderline), false))
+                        this.handleJavadocTagOfPrimaryKey(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
+                    else
+                        detail.setIsPrimaryKey(true);
+                    detail.setJavaDataType(javaDataType);
+                    detail.setDatabaseDataType(realDbDataType);
+                    detail.setFiledName(fieldNameToUnderline);
+                    detail.setFiledComment(getFiledComment(fieldJavadoc));
+                    detail.setInitialValue(null != invokeValue ? String.valueOf(invokeValue) : NULL_STRING);
+
+                    this.handleFrameworkDefinedJavadocIfExists(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
+                    this.handleJavadocTagOfDefaultValue(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
+                    this.handleJavadocTagOfDbDataType(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
 
                     details.add(detail);
                 }
@@ -207,4 +219,118 @@ public class DefaultJavaDocParser implements DttCommentParser<ModelEntity> {
         return filedComment;
     }
 
+    /**
+     * Handle framework-defined Javadoc tags
+     *
+     * @param wrapper framework-defined Javadoc tags
+     * @see Constants#CUSTOM_TAG_LENGTH
+     * @see Constants#CUSTOM_TAG_PRECISION
+     * @see Constants#CUSTOM_TAG_SCALE
+     */
+    public void handleFrameworkDefinedJavadocIfExists(FrameworkDefinedJavaTagWrapper wrapper) {
+        if (wrapper.getFieldJavadoc() == null || CollectionUtils.isEmpty(wrapper.getFieldJavadoc().getOther())) return;
+        ModelEntity.Detail detail = wrapper.getDetail();
+        if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(String.class.getSimpleName(), detail.getJavaDataType())) {
+            for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
+                String fieldName = wrapper.getFieldJavadoc().getName();
+                if (fieldName.equals(wrapper.getFieldName()) && CUSTOM_TAG_LENGTH.equals(javadoc.getName())) {
+                    detail.setDatabaseDataType(wrapper.getOriginalDbDataType() + "(" + javadoc.getComment() + ")");
+                    break;
+                }
+            }
+        }
+        if (org.apache.commons.lang3.StringUtils.equalsIgnoreCase(BigDecimal.class.getSimpleName(), detail.getJavaDataType())) {
+            int _precision = 10;
+            int _scale = 0;
+            for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
+                if (CUSTOM_TAG_PRECISION.equals(javadoc.getName())) {
+                    _precision = Integer.parseInt(String.valueOf(javadoc.getComment()));
+                }
+                if (CUSTOM_TAG_SCALE.equals(javadoc.getName())) {
+                    _scale = Integer.parseInt(String.valueOf(javadoc.getComment()));
+                }
+            }
+            detail.setDatabaseDataType(wrapper.getOriginalDbDataType() + "(" + _precision + "," + _scale + ")");
+        }
+    }
+
+    /**
+     * To handle javadoc wrapper of default value
+     *
+     * @param wrapper the wrapper of framework defined javadoc tag
+     * @see Constants#CUSTOM_TAG_DEFAULT_VALUE
+     */
+    public void handleJavadocTagOfDefaultValue(FrameworkDefinedJavaTagWrapper wrapper) {
+        if (wrapper.getFieldJavadoc() == null || CollectionUtils.isEmpty(wrapper.getFieldJavadoc().getOther())) return;
+        for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
+            String fieldName = wrapper.getFieldJavadoc().getName();
+            if (CUSTOM_TAG_DEFAULT_VALUE.equals(javadoc.getName()) && fieldName.equals(wrapper.getFieldName())) {
+                wrapper.getDetail().setInitialValue(String.valueOf(javadoc.getComment()));
+                break;
+            }
+        }
+    }
+
+    /**
+     * To handle javadoc wrapper of primary key
+     *
+     * @param wrapper the wrapper of framework defined javadoc tag
+     * @see Constants#CUSTOM_TAG_IS_PRIMARY_KEY
+     */
+    public void handleJavadocTagOfPrimaryKey(FrameworkDefinedJavaTagWrapper wrapper) {
+        if (wrapper.getFieldJavadoc() == null || CollectionUtils.isEmpty(wrapper.getFieldJavadoc().getOther())) return;
+        ModelEntity.Detail detail = wrapper.getDetail();
+        for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
+            String fieldName = wrapper.getFieldJavadoc().getName();
+            if (fieldName.equals(wrapper.getFieldName()) && CUSTOM_TAG_IS_PRIMARY_KEY.equals(javadoc.getName())) {
+                detail.setIsPrimaryKey(true);
+                break;
+            }
+        }
+    }
+
+    /**
+     * To handle javadoc wrapper of db data type
+     *
+     * @param wrapper the wrapper of framework defined javadoc tag
+     * @see Constants#CUSTOM_TAG_DB_DATA_TYPE
+     */
+    public void handleJavadocTagOfDbDataType(FrameworkDefinedJavaTagWrapper wrapper) {
+        if (wrapper.getFieldJavadoc() == null || CollectionUtils.isEmpty(wrapper.getFieldJavadoc().getOther())) return;
+        ModelEntity.Detail detail = wrapper.getDetail();
+        for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
+            String fieldName = wrapper.getFieldJavadoc().getName();
+            if (fieldName.equals(wrapper.getFieldName()) && CUSTOM_TAG_DB_DATA_TYPE.equals(javadoc.getName())) {
+                detail.setDatabaseDataType(String.valueOf(javadoc.getComment()));
+                break;
+            }
+        }
+    }
+
+    /**
+     * Framework Defined Javadoc Tag Wrapper
+     */
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Accessors(chain = true)
+    public static class FrameworkDefinedJavaTagWrapper implements Serializable {
+        /**
+         * The name for filed
+         */
+        private String fieldName;
+        /**
+         * The field javadoc
+         */
+        private FieldJavadoc fieldJavadoc;
+        /**
+         * The Meta-data from table
+         */
+        private ModelEntity.Detail detail;
+        /**
+         * original db data type, i.e: VARCHAR
+         */
+        private String originalDbDataType;
+    }
 }

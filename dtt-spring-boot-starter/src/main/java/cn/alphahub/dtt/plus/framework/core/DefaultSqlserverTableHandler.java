@@ -5,7 +5,7 @@ import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import cn.hutool.extra.spring.SpringUtil;
+import cn.alphahub.dtt.plus.util.SpringUtil;
 import org.apache.velocity.VelocityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

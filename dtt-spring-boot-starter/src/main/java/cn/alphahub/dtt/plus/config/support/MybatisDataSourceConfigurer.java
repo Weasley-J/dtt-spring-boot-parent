@@ -2,7 +2,6 @@ package cn.alphahub.dtt.plus.config.support;
 
 import cn.alphahub.dtt.plus.framework.InitDttHandler;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
-import cn.hutool.system.SystemUtil;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -133,8 +132,9 @@ public class MybatisDataSourceConfigurer {
             }
             String springVersionPrefix = SpringApplication.class.getPackage().getImplementationVersion().split("\\.")[0];
             if (StringUtils.hasText(springVersionPrefix)) {
-                int javaVersion = SystemUtil.getJavaInfo().getVersionInt();
-                return Integer.parseInt(springVersionPrefix) >= 3 && javaVersion >= 1700;
+                String _javaVersion = System.getProperty("java.version").split("\\.")[0];
+                int javaVersion = Integer.parseInt(_javaVersion);
+                return Integer.parseInt(springVersionPrefix) >= 3 && javaVersion >= 17;
             }
             return false;
         }

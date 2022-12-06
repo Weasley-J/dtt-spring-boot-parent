@@ -49,7 +49,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hutool.version>5.8.10</hutool.version>
         <commons-io.version>2.11.0</commons-io.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
@@ -110,12 +109,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-        <!--hutool-->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
         <!-- lang3 -->
         <dependency>

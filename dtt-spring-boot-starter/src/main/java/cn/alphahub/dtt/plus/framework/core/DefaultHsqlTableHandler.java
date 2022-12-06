@@ -52,8 +52,9 @@ public class DefaultHsqlTableHandler extends DttAggregationRunner implements Dtt
         if (StringUtils.isNotBlank(model.getDatabaseName())) {
             model.setDatabaseName("\"" + model.getDatabaseName() + "\".");
         }
+        ContextWrapper contextWrapper = applicationContext.getBean(ContextWrapper.class);
         deduceDecimalPrecision(model);
-        handlePropertiesOfModel(() -> model, applicationContext.getBean(ContextWrapper.class));
+        handlePropertiesOfModel(() -> model, contextWrapper);
         if (hsqlDataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
         String template = resolve(() -> model);
@@ -67,6 +68,7 @@ public class DefaultHsqlTableHandler extends DttAggregationRunner implements Dtt
         List<ModelEntity.Detail> details = model.getDetails();
         if (ObjectUtils.isNotEmpty(details)) {
             for (ModelEntity.Detail detail : details) {
+                processInitialValue(detail);
                 if (Enum.class.getSimpleName().compareToIgnoreCase(detail.getJavaDataType()) == 0) {
                     String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
                     handleEnumerationTypeToString(hsqlDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);

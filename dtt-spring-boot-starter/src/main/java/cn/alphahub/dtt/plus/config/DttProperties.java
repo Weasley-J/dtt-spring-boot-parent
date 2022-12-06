@@ -3,7 +3,7 @@ package cn.alphahub.dtt.plus.config;
 import cn.alphahub.dtt.plus.config.datamapper.*;
 import cn.alphahub.dtt.plus.enums.BannerMode;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
-import cn.alphahub.dtt.plus.util.SysUtil;
+import cn.alphahub.dtt.plus.util.SystemUtil;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -234,15 +234,15 @@ public class DttProperties {
         private String filepath;
 
         public String getFilepath() {
-            return StringUtils.isNoneBlank(filepath) ? filepath : SysUtil.getUserDir();
+            return StringUtils.isNoneBlank(filepath) ? filepath : SystemUtil.getUserDir();
         }
 
         /**
          * @return Absolute Filename of SQL
          */
         public String getAbsoluteFilename() {
-            if (getFilepath().endsWith(SysUtil.getFileSeparator())) return getFilepath() + filename;
-            else return getFilepath() + SysUtil.getFileSeparator() + filename;
+            if (getFilepath().endsWith(SystemUtil.getFileSeparator())) return getFilepath() + filename;
+            else return getFilepath() + SystemUtil.getFileSeparator() + filename;
         }
     }
 

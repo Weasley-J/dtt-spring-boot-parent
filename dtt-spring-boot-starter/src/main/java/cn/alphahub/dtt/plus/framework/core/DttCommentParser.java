@@ -5,7 +5,7 @@ import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import cn.hutool.extra.spring.SpringUtil;
+import cn.alphahub.dtt.plus.util.SpringUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;

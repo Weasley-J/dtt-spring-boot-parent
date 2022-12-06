@@ -4,7 +4,7 @@ import cn.alphahub.dtt.plus.config.DttProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.DatabaseHandler;
-import cn.hutool.extra.spring.SpringUtil;
+import cn.alphahub.dtt.plus.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 

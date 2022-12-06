@@ -10,8 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -27,9 +27,13 @@ import java.util.Arrays;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultH2TableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final ApplicationContext applicationContext;
+    private final H2DataMapperProperties h2DataMapperProperties;
 
-    @Autowired
-    private H2DataMapperProperties h2DataMapperProperties;
+    public DefaultH2TableHandler(ApplicationContext applicationContext, H2DataMapperProperties h2DataMapperProperties) {
+        this.applicationContext = applicationContext;
+        this.h2DataMapperProperties = h2DataMapperProperties;
+    }
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {
@@ -49,6 +53,7 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
 
         deduceDecimalPrecision(model);
         handlePropertiesOfModel(() -> model, null);
+
         if (h2DataMapperProperties.getEnableColumnUpperCase().equals(true)) modelPropertiesToUppercase(() -> model);
         if (logger.isInfoEnabled()) logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
 
@@ -73,6 +78,7 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
     @Override
     public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
         parseFactory.getModel().getDetails().forEach(detail -> {
+            processInitialValue(detail);
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             if (detail.getFiledComment().contains(";"))

@@ -14,6 +14,7 @@ import cn.alphahub.dtt.plus.framework.VelocityHandler;
 import cn.alphahub.dtt.plus.framework.core.*;
 import cn.alphahub.dtt.plus.framework.interceptor.DefaultDttMybatisInterceptor;
 import cn.alphahub.dtt.plus.framework.miscellaneous.DttDefaultConditionalService;
+import cn.alphahub.dtt.plus.util.SpringUtil;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
@@ -41,14 +42,14 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import({InitDttHandler.class, InitDttClient.class, DefaultAnnotationParser.class,
-        DefaultJavaDocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
+        DefaultJavadocParser.class, DefaultDb2TableHandler.class, DefaultMariadbTableHandler.class,
         DefaultMysqlTableHandler.class, DefaultOracleTableHandler.class, DefaultPostgresqlTableHandler.class,
         DefaultSqlserverTableHandler.class, DefaultH2TableHandler.class, DefaultHsqlTableHandler.class, DefaultDerbyTableHandler.class,
         DttDefaultConditionalService.class, VelocityHandler.class, ClassScanningProvider.class,
         MybatisDataSourceConfigurer.class, DefaultExtraPropertiesLoader.class, DefaultExtraYamlSourceLoader.class,
         DefaultTemplateExecutor.class, DefaultTemplateResolver.class, DttAggregationRunner.class,
         DatabaseHandler.class, MyBatisPlusCodeGeneratorConfigurer.class, DefaultDttMybatisInterceptor.class,
-        DttMybatisAutoConfiguration.class,
+        DttMybatisAutoConfiguration.class, SpringUtil.class
 })
 public @interface EnableDtt {
     /**
