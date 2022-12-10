@@ -9,12 +9,12 @@ import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.alphahub.dtt.plus.util.StringUtils;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.javassist.bytecode.analysis.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -92,7 +92,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         ContextWrapper contextWrapper = applicationContext.getBean(ContextWrapper.class);
 
-        if (ObjectUtils.isNull(contextWrapper)) return;
+        if (ObjectUtils.isEmpty(contextWrapper)) return;
 
         // if APP run with type of Jar environment dtt Comment Parser takes Default Annotation Parser
         if (ResourceUtils.isJarURL(location))
@@ -101,7 +101,7 @@ public class DefaultDttMybatisInterceptor implements Interceptor {
 
         DttMybatisAutoConfiguration dttMybatisAutoConfiguration = applicationContext.getBean(DttMybatisAutoConfiguration.class);
         Map<String, DttMbActWrapper> typeAliasesMap = dttMybatisAutoConfiguration.getTypeAliasesMap();
-        if (CollectionUtils.isEmpty(typeAliasesMap)) return;
+        if (ObjectUtils.isEmpty(typeAliasesMap)) return;
 
         boolean shardingSphereEnable = dttMybatisAutoConfiguration.getShardingSphereEnable();
 

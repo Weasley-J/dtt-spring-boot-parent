@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.config.datamapper.H2DataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -78,7 +79,7 @@ public class DefaultH2TableHandler extends DttAggregationRunner implements DttTa
     @Override
     public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
         parseFactory.getModel().getDetails().forEach(detail -> {
-            processInitialValue(detail);
+            processInitialValue(detail, DatabaseType.H2);
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             if (detail.getFiledComment().contains(";"))

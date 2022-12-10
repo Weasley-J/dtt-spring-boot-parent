@@ -10,9 +10,9 @@ import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.ParseFactory;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -85,7 +85,7 @@ public class DttDefaultConditionalService {
         DttCommentParser<ModelEntity> dttCommentParser;
         URL location = this.getClass().getProtectionDomain().getCodeSource().getLocation();
         ContextWrapper contextWrapper = applicationContext.getBean(ContextWrapper.class);
-        if (ObjectUtils.isNull(contextWrapper)) {
+        if (ObjectUtils.isEmpty(contextWrapper)) {
             logger.warn("'cn.alphahub.dtt.plus.entity.ContextWrapper' must be not null.");
             return Collections.emptyList();
         }

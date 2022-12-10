@@ -19,6 +19,7 @@ public interface Constants {
     /**
      * 内部 'properties' 元数据配置文件
      */
+    @SuppressWarnings({"all"})
     String[] PROPERTIES_FILES = {"META-INF/dtt-extra.properties",};
     /**
      * 内部 'ddt-data-mapper.yml' 元数据配置文件

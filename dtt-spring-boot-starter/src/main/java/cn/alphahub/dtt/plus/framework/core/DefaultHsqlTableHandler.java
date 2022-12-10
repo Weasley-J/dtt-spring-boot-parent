@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.core;
 import cn.alphahub.dtt.plus.config.datamapper.HsqlDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -68,7 +69,7 @@ public class DefaultHsqlTableHandler extends DttAggregationRunner implements Dtt
         List<ModelEntity.Detail> details = model.getDetails();
         if (ObjectUtils.isNotEmpty(details)) {
             for (ModelEntity.Detail detail : details) {
-                processInitialValue(detail);
+                processInitialValue(detail, DatabaseType.HSQL);
                 if (Enum.class.getSimpleName().compareToIgnoreCase(detail.getJavaDataType()) == 0) {
                     String actuallyDbDataType = contextWrapper.getCommentParser().deduceDbDataTypeWithLength(detail.getFiledName());
                     handleEnumerationTypeToString(hsqlDataMapperProperties.getMappingProperties(), detail, actuallyDbDataType);

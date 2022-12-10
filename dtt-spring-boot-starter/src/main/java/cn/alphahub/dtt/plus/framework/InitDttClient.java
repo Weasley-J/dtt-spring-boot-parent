@@ -14,8 +14,8 @@ import cn.alphahub.dtt.plus.framework.core.DefaultJavadocParser;
 import cn.alphahub.dtt.plus.framework.core.DttCommentParser;
 import cn.alphahub.dtt.plus.framework.core.DttTableHandler;
 import cn.alphahub.dtt.plus.util.ClassUtil;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.alphahub.dtt.plus.util.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +70,7 @@ public class InitDttClient {
     public Map<ParserType, DttCommentParser<ModelEntity>> commentParserClient(ApplicationContext applicationContext) {
         Map<ParserType, DttCommentParser<ModelEntity>> client = new ConcurrentHashMap<>(1);
         Map<String, DttCommentParser> commentParserMap = applicationContext.getBeansOfType(DttCommentParser.class);
-        if (CollectionUtils.isNotEmpty(commentParserMap)) {
+        if (ObjectUtils.isNotEmpty(commentParserMap)) {
             if (ParserType.ANNOTATION == getEnableDtt().parserType()) {
                 client.put(ParserType.ANNOTATION, commentParserMap.get(DefaultAnnotationParser.class.getName()));
             }
@@ -90,7 +90,7 @@ public class InitDttClient {
     public Map<DatabaseType, DttTableHandler<ModelEntity>> tableHandlerClient(ApplicationContext applicationContext, DatabaseHandler databaseHandler) {
         Map<DatabaseType, DttTableHandler<ModelEntity>> client = new ConcurrentHashMap<>(16);
         Map<String, DttTableHandler> tableHandlerMap = applicationContext.getBeansOfType(DttTableHandler.class);
-        if (CollectionUtils.isNotEmpty(tableHandlerMap)) {
+        if (ObjectUtils.isNotEmpty(tableHandlerMap)) {
             tableHandlerMap.forEach((key, value) -> {
                 String classNameUnderline = StringUtils.camelToUnderline(ClassUtil.loadClass(key).getSimpleName());
                 for (String dbType : databaseHandler.getLowerCaseDbTypes()) {

@@ -2,6 +2,7 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.config.datamapper.MariadbDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -39,6 +40,7 @@ public class DefaultMariadbTableHandler extends DttAggregationRunner implements 
             logger.warn("表结构元数据解析结果不能为空 {}", model);
             return null;
         }
+        model.getDetails().parallelStream().forEach(detail -> processInitialValue(detail, DatabaseType.MARIADB));
         deduceDecimalPrecision(model);
         logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
         if (StringUtils.isNoneBlank(model.getDatabaseName())) {

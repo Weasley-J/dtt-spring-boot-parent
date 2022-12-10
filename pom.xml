@@ -11,8 +11,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>dtt-annotation</module>
+        <module>dtt-util</module>
         <module>dtt-spring-boot-starter</module>
-        <module>dtt-spring-boot-starter-tests</module>
+        <module>dtt-spring-boot-tests</module>
     </modules>
 
 </project>

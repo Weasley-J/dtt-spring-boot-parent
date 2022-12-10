@@ -1,11 +1,10 @@
 package cn.alphahub.dtt.plus.exception;
 
 /**
- * class解析异常
+ * Parse exception
  */
 @SuppressWarnings("serial")
 public class ParseException extends RuntimeException {
-
 
     public ParseException() {
         super();

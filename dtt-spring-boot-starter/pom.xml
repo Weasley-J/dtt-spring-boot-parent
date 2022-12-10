@@ -50,22 +50,36 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <commons-io.version>2.11.0</commons-io.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
         <velocity-engine-core.version>2.3</velocity-engine-core.version>
         <mybatis-spring.version>3.0.0</mybatis-spring.version>
         <mybatis.version>3.5.11</mybatis.version>
         <jsqlparser.version>4.5</jsqlparser.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
         <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
+        <dtt.version>1.3.6</dtt.version>
         <!-- deploy start -->
         <nexus-staging.version>1.6.13</nexus-staging.version>
         <maven-javadoc.version>3.4.0</maven-javadoc.version>
         <maven-gpg.version>3.0.1</maven-gpg.version>
         <!-- deploy end -->
-        <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
 
     <dependencies>
+        <!-- dtt internal start -->
+        <dependency>
+            <groupId>io.github.weasley-j</groupId>
+            <artifactId>dtt-annotation</artifactId>
+            <version>${dtt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.weasley-j</groupId>
+            <artifactId>dtt-util</artifactId>
+            <version>${dtt.version}</version>
+        </dependency>
+        <!-- dtt internal end -->
         <!-- validation -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -115,6 +129,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
         <!-- commons-io  -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -138,20 +157,6 @@
         </dependency>
         -->
         <!-- javadoc-scribe end  -->
-        <!-- jackson start-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-        </dependency>
-        <!-- end jackson -->
         <!-- jdbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

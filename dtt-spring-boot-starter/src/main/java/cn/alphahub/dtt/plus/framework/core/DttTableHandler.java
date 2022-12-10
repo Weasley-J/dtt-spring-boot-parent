@@ -2,9 +2,11 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.util.SpringUtil;
 import cn.alphahub.dtt.plus.util.SystemUtil;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +99,7 @@ public interface DttTableHandler<T> extends DttContext<T> {
             if (pdm.getHighPrecisionDataType().compareToIgnoreCase(detail.getJavaDataType()) == 0) {
                 String dbDataType = detail.getDatabaseDataType();
                 String inferDataType = "";
-                if (CollectionUtils.isNotEmpty(pdh.getHighPrecisionDataConfigMap())) {
+                if (ObjectUtils.isNotEmpty(pdh.getHighPrecisionDataConfigMap())) {
                     for (Map.Entry<String, PrecisionConfigurationProperties> entry : pdh.getHighPrecisionDataConfigMap().entrySet()) {
                         if (detail.getFiledName().toLowerCase().contains(entry.getKey())) {
                             inferDataType = detail.getDatabaseDataType() + "(" + entry.getValue().getIntegerLength() + "," + entry.getValue().getDecimalLength() + ")";
@@ -160,9 +162,30 @@ public interface DttTableHandler<T> extends DttContext<T> {
      *
      * @param detail model metadata detail
      */
-    default void processInitialValue(ModelEntity.Detail detail) {
-        if (StringUtils.isNoneBlank(detail.getInitialValue()) && !NULL_STRING.equalsIgnoreCase(detail.getInitialValue())) {
-            detail.setInitialValue("'" + detail.getInitialValue() + "'");
+    default void processInitialValue(ModelEntity.Detail detail, DatabaseType dbType) {
+        if (StringUtils.isBlank(detail.getInitialValue()) || NULL_STRING.equalsIgnoreCase(detail.getInitialValue())) {
+            return;
+        }
+        switch (dbType) {
+            case H2:
+            case HSQL:
+                detail.setInitialValue("'" + detail.getInitialValue() + "'");
+                break;
+            case MARIADB:
+            case MYSQL:
+                if (detail.getJavaDataType().equals(Boolean.class.getSimpleName())) {
+                    detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
+                }
+                if (detail.getJavaDataType().equals(Enum.class.getSimpleName())) {
+                    detail.setInitialValue("'" + detail.getInitialValue() + "'");
+                }
+                break;
+            case ORACLE:
+            case DB2:
+            case POSTGRESQL:
+            case SQLSERVER:
+            default:
+                break;
         }
     }
 }
