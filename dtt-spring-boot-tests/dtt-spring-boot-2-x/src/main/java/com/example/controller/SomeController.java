@@ -148,4 +148,5 @@ public class SomeController {
     public List<DttManualActEntity> manualCreateTable(@RequestBody DttManualActRequest request) {
         return this.defaultConditionalService.manualCreate(request);
     }
+
 }

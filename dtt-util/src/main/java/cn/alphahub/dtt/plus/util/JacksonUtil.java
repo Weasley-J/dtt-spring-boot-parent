@@ -25,8 +25,17 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0.0
  */
 public final class JacksonUtil {
+    /**
+     * HH:mm:ss
+     */
     public static final String LOCAL_TIME_PATTERN = "HH:mm:ss";
+    /**
+     * yyyy-MM-dd
+     */
     public static final String LOCAL_DATE_PATTERN = "yyyy-MM-dd";
+    /**
+     * yyyy-MM-dd HH:mm:ss
+     */
     public static final String LOCAL_DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final ObjectWriter WRITER;
 

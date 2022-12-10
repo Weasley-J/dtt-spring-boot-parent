@@ -13,6 +13,7 @@
     <modules>
         <module>dtt-annotation</module>
         <module>dtt-util</module>
+        <module>dtt-core</module>
         <module>dtt-spring-boot-starter</module>
         <module>dtt-spring-boot-tests</module>
     </modules>
