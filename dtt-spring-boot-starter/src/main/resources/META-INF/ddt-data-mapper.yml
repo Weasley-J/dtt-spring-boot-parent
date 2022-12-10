@@ -107,7 +107,7 @@ alphahub:
           Double: FLOAT
           Integer: INTEGER
           Long: BIGINT
-          BigDecimal: money
+          BigDecimal: NUMERIC
           Date: TIMESTAMP
           LocalTime: TIME
           LocalDate: DATE
@@ -123,7 +123,7 @@ alphahub:
           Double: float
           Integer: int
           Long: bigint
-          BigDecimal: money
+          BigDecimal: decimal
           Date: datetime2
           LocalTime: time
           LocalDate: date
