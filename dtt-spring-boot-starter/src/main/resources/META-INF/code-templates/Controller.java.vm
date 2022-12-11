@@ -1,12 +1,9 @@
-package ${package}.${moduleName}.controller;
+package ${modulePackage}.controller;
 
 import ${mainPath}.common.core.domain.Result;
-import ${mainPath}.common.core.page.PageHandler;
-import ${mainPath}.common.core.page.PageParam;
-import ${mainPath}.common.core.page.PageWrapper;
 
-import ${package}.${moduleName}.domain.${className};
-import ${package}.${moduleName}.service.${className}Service;
+import ${domainFullyQualifiedClass};
+import ${modulePackage}.service.${domainSimpleClassName}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +11,9 @@ import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
- * ${comments}Controller
+ * ${domainDescription}
  *
  * @author ${author}
- * @email ${email}
- * @date ${datetime}
  */
 @Slf4j
 @RestController
@@ -27,20 +22,6 @@ public class ${className}Controller {
 
     @Resource
     private ${className}Service ${classname}Service;
-
-    /**
-     * 查询${comments}列表
-     *
-     * @param pageParam         分页参数
-     * @param ${classname} ${comments}, 查询字段选择性传入, 默认为等值查询
-     * @return ${comments}分页数据
-     */
-    @GetMapping("/list")
-    public Result<PageWrapper<${className}>> list(@ModelAttribute(name = "page") PageParam pageParam,
-                                                  @ModelAttribute(name = "${classname}") ${className} ${classname}
-    ) {
-        return Result.ok(${classname}Service.pages(pageParam, ${classname}));
-    }
 
     /**
      * 获取${comments}详情

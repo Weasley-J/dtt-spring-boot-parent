@@ -1,43 +1,19 @@
-package ${package}.${moduleName}.service.impl;
+package ${modulePackage}.service.impl;
 
-import ${mainPath}.common.core.page.PageHandler;
-import ${mainPath}.common.core.page.PageParam;
-import ${mainPath}.common.core.page.PageWrapper;
-
-import ${package}.${moduleName}.mapper.${className}Mapper;
-import ${package}.${moduleName}.domain.${className};
-import ${package}.${moduleName}.service.${className}Service;
+import ${domainFullyQualifiedClass};
+import ${modulePackage}.mapper.${domainSimpleClassName}Mapper;
+import ${modulePackage}.service.${className}Service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.page.PageMethod;
 
 import java.util.List;
 
 /**
- * ${comments}Service业务层处理
- *
- * @author ${author}
- * @email ${email}
- * @date ${datetime}
+ * ${domainDescription}Service实现
  */
 @Service
-public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}> implements ${className}Service {
-
-    /**
-     * 查询${comments}分页列表
-     *
-     * @param pageParam   分页参数
-     * @param ${classname} 分页对象
-     * @return ${comments}分页数据
-     */
-    @Override
-    public PageWrapper<${className}> pages(PageParam pageParam, ${className} ${classname}) {
-        Page<${className}> page = PageMethod.startPage(pageParam.getPageNum(), pageParam.getPageSize());
-        List<${className}> list = this.list(Wrappers.lambdaQuery(${classname}));
-        return PageHandler.render(page, list);
-    }
+public class ${domainSimpleClassName}ServiceImpl extends ServiceImpl<${domainSimpleClassName}Mapper, ${domainSimpleClassName}> implements ${domainSimpleClassName}Service {
 
 }

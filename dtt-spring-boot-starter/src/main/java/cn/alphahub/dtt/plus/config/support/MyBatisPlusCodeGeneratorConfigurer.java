@@ -49,6 +49,7 @@ import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
 import static cn.alphahub.dtt.plus.util.JacksonUtil.toJson;
+import static cn.alphahub.dtt.plus.util.StringUtils.firstToLowerCase;
 import static java.lang.System.out;
 
 /**
@@ -112,9 +113,10 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         for (MyBatisPlusCodeWrapper codeWrapper : codeWrappers) {
             VelocityContext context = new VelocityContext();
             context.put("modulePackage", codeWrapper.getModulePackage());
-            context.put("domainFullyQualifiedClass", codeWrapper.getDomainFullyQualifiedClass());
-            context.put("domainSimpleClassName", codeWrapper.getDomainSimpleClassName());
             context.put("domainDescription", codeWrapper.getDomainDescription());
+            context.put("domainCamelcaseName", codeWrapper.getDomainCamelcaseName());
+            context.put("domainSimpleClassName", codeWrapper.getDomainSimpleClassName());
+            context.put("domainFullyQualifiedClass", codeWrapper.getDomainFullyQualifiedClass());
             for (String templateResource : TEMPLATE_RESOURCES) {
                 String templateName = RESOURCE_PATH + "/" + templateResource + TEMPLATE_SUFFIX;
                 StringWriter writer = new StringWriter();
@@ -167,6 +169,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
                         return MyBatisPlusCodeWrapper.builder()
                                 .modulePackage(cgProperties.getModulePackage())
                                 .domainDescription(modelComment)
+                                .domainCamelcaseName(firstToLowerCase(aClass.getSimpleName()))
                                 .domainSimpleClassName(aClass.getSimpleName())
                                 .domainFullyQualifiedClass(aClass.getName())
                                 .build();
@@ -182,6 +185,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
                 codeWrappers.add(MyBatisPlusCodeWrapper.builder()
                         .modulePackage(cgProperties.getModulePackage())
                         .domainDescription(modelComment)
+                        .domainCamelcaseName(firstToLowerCase(aClass.getSimpleName()))
                         .domainSimpleClassName(aClass.getSimpleName())
                         .domainFullyQualifiedClass(aClass.getName())
                         .build());
@@ -258,11 +262,15 @@ public class MyBatisPlusCodeGeneratorConfigurer {
          */
         private String modulePackage;
         /**
-         * The simple class name of your domain object
+         * The simple class name of your domain object，i.e: myBatisPlusCodeWrapper
+         */
+        private String domainCamelcaseName;
+        /**
+         * The simple class name of your domain object, i.e: MyBatisPlusCodeWrapper
          */
         private String domainSimpleClassName;
         /**
-         * The fully qualified class name of your domain object
+         * The fully qualified class name of your domain object, i.e: cn.alphahub.dtt.plus.config.support.MyBatisPlusCodeGeneratorConfigurer.MyBatisPlusCodeWrapper
          */
         private String domainFullyQualifiedClass;
         /**
