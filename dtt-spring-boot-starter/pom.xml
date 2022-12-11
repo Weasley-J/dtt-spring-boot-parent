@@ -76,7 +76,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.weasley-j</groupId>
-            <artifactId>dtt-util</artifactId>
+            <artifactId>dtt-utils</artifactId>
             <version>${dtt.version}</version>
         </dependency>
         <!-- dtt internal end -->
