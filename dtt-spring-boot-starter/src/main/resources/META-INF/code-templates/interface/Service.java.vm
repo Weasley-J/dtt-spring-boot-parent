@@ -1,0 +1,21 @@
+package ${package}.${moduleName}.service;
+
+import ${mainPath}.common.core.page.PageParam;
+import ${mainPath}.common.core.page.PageWrapper;
+import ${package}.${moduleName}.domain.${className};
+import ${domainFullyQualifiedClass};
+import com.baomidou.mybatisplus.extension.service.IService;
+
+/**
+ * ${comments}Service接口
+ */
+public interface ${domainSimpleClassName}Service extends IService<${domainSimpleClassName}> {
+    /**
+     * 查询${comments}分页列表
+     *
+     * @param pageParam   分页参数
+     * @param ${classname} 分页对象
+     * @return ${comments} 分页数据
+     */
+    PageWrapper<${domainSimpleClassName}> pages(PageParam pageParam, ${domainSimpleClassName} ${classname})
+}

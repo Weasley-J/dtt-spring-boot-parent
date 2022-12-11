@@ -1,0 +1,95 @@
+package ${package}.${moduleName}.controller;
+
+import ${mainPath}.common.core.domain.Result;
+import ${mainPath}.common.core.page.PageHandler;
+import ${mainPath}.common.core.page.PageParam;
+import ${mainPath}.common.core.page.PageWrapper;
+
+import ${package}.${moduleName}.domain.${className};
+import ${package}.${moduleName}.service.${className}Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
+
+/**
+ * ${comments}Controller
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Slf4j
+@RestController
+@RequestMapping("/${moduleName}/${pathName}")
+public class ${className}Controller {
+
+    @Resource
+    private ${className}Service ${classname}Service;
+
+    /**
+     * 查询${comments}列表
+     *
+     * @param pageParam         分页参数
+     * @param ${classname} ${comments}, 查询字段选择性传入, 默认为等值查询
+     * @return ${comments}分页数据
+     */
+    @GetMapping("/list")
+    public Result<PageWrapper<${className}>> list(@ModelAttribute(name = "page") PageParam pageParam,
+                                                  @ModelAttribute(name = "${classname}") ${className} ${classname}
+    ) {
+        return Result.ok(${classname}Service.pages(pageParam, ${classname}));
+    }
+
+    /**
+     * 获取${comments}详情
+     *
+     * @param ${pk.attrname} ${comments}主键id
+     * @return ${comments}详细信息
+     */
+    @GetMapping("/info/{${pk.attrname}}")
+    public Result<${className}> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+        ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
+        return Result.ok(${classname});
+    }
+
+    /**
+     * 新增${comments}
+     *
+     * @param ${classname} ${comments}元数据
+     * @return 成功返回true,失败返回false
+     */
+    @PostMapping("/save")
+    @Transactional(rollbackFor = {Exception.class})
+    public Result<Boolean> save(@RequestBody ${className} ${classname}) {
+        boolean save = ${classname}Service.save(${classname});
+        return Result.ok(save);
+    }
+
+    /**
+     * 修改${comments}
+     *
+     * @param ${classname} ${comments}, 根据id选择性更新
+     * @return 成功返回true,失败返回false
+     */
+    @PutMapping("/update")
+    @Transactional(rollbackFor = {Exception.class})
+    public Result<Boolean> update(@RequestBody ${className} ${classname}) {
+        boolean update = ${classname}Service.updateById(${classname});
+        return Result.ok(update);
+    }
+
+    /**
+     * 批量删除${comments}
+     *
+     * @param ${pk.attrname}s ${comments}id集合
+     * @return 成功返回true, 失败返回false
+     */
+    @DeleteMapping("/delete/{${pk.attrname}s}")
+    @Transactional(rollbackFor = {Exception.class})
+    public Result<Boolean> delete(@PathVariable(name = "${pk.attrname}s") ${pk.attrType}[] ${pk.attrname}s){
+        boolean delete = ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+        return Result.ok(delete);
+    }
+}
