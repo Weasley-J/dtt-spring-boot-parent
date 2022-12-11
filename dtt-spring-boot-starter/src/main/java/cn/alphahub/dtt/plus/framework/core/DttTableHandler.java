@@ -167,19 +167,15 @@ public interface DttTableHandler<T> extends DttContext<T> {
             return;
         }
         switch (dbType) {
-            case H2:
-            case HSQL:
-                detail.setInitialValue("'" + detail.getInitialValue() + "'");
-                break;
             case MARIADB:
             case MYSQL:
                 if (detail.getJavaDataType().equals(Boolean.class.getSimpleName())) {
                     detail.setInitialValue(Boolean.parseBoolean(detail.getInitialValue()) ? "1" : "0");
                 }
-                if (detail.getJavaDataType().equals(Enum.class.getSimpleName())) {
-                    detail.setInitialValue("'" + detail.getInitialValue() + "'");
-                }
                 break;
+            case H2:
+            case DERBY:
+            case HSQL:
             case ORACLE:
             case DB2:
             case POSTGRESQL:

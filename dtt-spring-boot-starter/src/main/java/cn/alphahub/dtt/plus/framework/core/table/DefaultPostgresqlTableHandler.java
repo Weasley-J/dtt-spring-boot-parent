@@ -12,7 +12,6 @@ import cn.alphahub.dtt.plus.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
@@ -29,15 +28,17 @@ import java.util.stream.Collectors;
  *
  * @author weasley
  * @version 1.0
- * @date 2022/7/10
  */
 @Component
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultPostgresqlTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     protected static final Logger logger = LoggerFactory.getLogger(DefaultPostgresqlTableHandler.class);
 
-    @Autowired
-    private PostgresqlDataMapperProperties postgresqlDataMapperProperties;
+    private final PostgresqlDataMapperProperties postgresqlDataMapperProperties;
+
+    public DefaultPostgresqlTableHandler(PostgresqlDataMapperProperties postgresqlDataMapperProperties) {
+        this.postgresqlDataMapperProperties = postgresqlDataMapperProperties;
+    }
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {

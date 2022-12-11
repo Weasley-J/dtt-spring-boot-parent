@@ -1,0 +1,10 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: dtt-spring-boot-3.x-annotation
+
+  profiles:
+    #db2|derby|h2|hsql|mariadb|mysql|oracle|postgresql|sqlserver
+    active: mysql

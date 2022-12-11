@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dtt-spring-boot-2.x-annotation
+
+  profiles:
+    #derby|h2|hsql|mariadb|mysql|oracle|db2|postgresql|sqlserver
+    active: sqlserver
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    locale: zh_CN
+
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+      date: yyyy-MM-dd
+      time: HH:mm:ss

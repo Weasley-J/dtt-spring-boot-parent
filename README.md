@@ -265,7 +265,7 @@
   <dependency>
     <groupId>io.github.weasley-j</groupId>
     <artifactId>dtt-spring-boot-starter</artifactId>
-    <version>1.3.6</version>
+    <version>1.3.7</version>
   </dependency>
   <!-- javadoc-scribe start  -->
   <dependency>
@@ -307,7 +307,7 @@ mvn clean install -pl :dtt-spring-boot-starter -am
         <dependency>
             <groupId>io.github.weasley-j</groupId>
           <artifactId>dtt-spring-boot-starter</artifactId>
-          <version>1.3.6</version>
+          <version>1.3.7</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>
@@ -390,7 +390,7 @@ alphahub:
       override-exists: false
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-3-x
       base-package: com.example.domain.dtt
       base-classes: ""
 ```
@@ -913,7 +913,7 @@ alphahub:
       override-exists: false
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-3-x
       base-package: com.example.domain.dtt
       base-classes: ""
 ```
@@ -1120,7 +1120,7 @@ public class SomeApplication {
 
 DTT support `either create table lazily on demand`（depends on mybatis framework） or` eagerly on startup`. this chapter
 will explore the impact of enabling `DTT` on application performance from two
-perspectives. [Here is the tests project](https://github.com/Weasley-J/dtt-spring-boot-parent/tree/main/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x)
+perspectives. [Here is the tests project](https://github.com/Weasley-J/dtt-spring-boot-parent/tree/main/dtt-spring-boot-tests/dtt-spring-boot-2-x)
 
 ### Test platform & environment
 
@@ -1198,7 +1198,7 @@ alphahub:
       base-package: com.example.domain.order
       module-package: com.example
       module-name: order
-      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2-x
 ```
 
 Note: The property `scanBasePackages`'s value of `@EnableDtt` is the same as the value
@@ -1229,7 +1229,7 @@ DTT has done two things in the logger:
 
 `DTT` takes `2` seconds to do what it's supposed to do, which means to use `DTT` based on your domain objects you just
 need to write some `Controller` to satisfy your business interface, for
-example: [SomeController](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x/src/main/java/com/example/controller/SomeController.java)
+example: [SomeController](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-tests/dtt-spring-boot-2-x/src/main/java/com/example/controller/SomeController.java)
 
 2. Disable DTT for your application
 
@@ -1322,7 +1322,7 @@ alphahub:
         - com.example.domain.dtt.DttMember
       module-name: dtt
       module-package: com.example
-      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2-x
 
 ```
 
@@ -1331,7 +1331,7 @@ alphahub:
 ![image-20220819175802755](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819175802755.png)
 
 ```log
-2022-08-19 17:57:41.708  INFO 33463 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.873 seconds (JVM running for 2.129)
+2022-08-19 17:57:41.708  INFO 33463 --- [           main] com.example.DttPlus2xAnnotationTest           : Started MydttPlus2xTestApp in 1.873 seconds (JVM running for 2.129)
 ```
 
 Access the same interface twice, simulating DTT to build tables on demand, Here is the API
@@ -1342,7 +1342,7 @@ url: http://localhost:8080/api/member/save/no/params
 Create table if donest exists, The concrete DDL implementation delegates to the RDB implementation class.
 
 ```log
--08-19 18:10:12.339  INFO 38516 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 2.448 seconds (JVM running for 2.707)
+-08-19 18:10:12.339  INFO 38516 --- [           main] com.example.DttPlus2xAnnotationTest           : Started MydttPlus2xTestApp in 2.448 seconds (JVM running for 2.707)
 2022-08-19 18:10:12.344  WARN 38516 --- [           main] c.a.dtt.plus.framework.InitDttHandler    : Data model is empty. DTT cannot parse.
 2022-08-19 18:10:21.078  INFO 38516 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-08-19 18:10:21.078  INFO 38516 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
@@ -1504,7 +1504,7 @@ Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaul
 
 ![image-20220819175658344](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220819175658344.png)
 
-`2022-08-19 17:52:56.045  INFO 31535 --- [           main] com.example.MydttPlus2xTestApp           : Started MydttPlus2xTestApp in 1.293 seconds (JVM running for 1.55)`
+`2022-08-19 17:52:56.045  INFO 31535 --- [           main] com.example.DttPlus2xAnnotationTest           : Started MydttPlus2xTestApp in 1.293 seconds (JVM running for 1.55)`
 
 (3) Compare
 

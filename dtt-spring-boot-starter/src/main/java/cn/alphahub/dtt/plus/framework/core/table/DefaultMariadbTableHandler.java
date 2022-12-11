@@ -43,7 +43,7 @@ public class DefaultMariadbTableHandler extends DttAggregationRunner implements 
             logger.warn("表结构元数据解析结果不能为空 {}", model);
             return null;
         }
-        model.getDetails().parallelStream().forEach(detail -> processInitialValue(detail, DatabaseType.MARIADB));
+        model.getDetails().forEach(detail -> processInitialValue(detail, DatabaseType.MARIADB));
         deduceDecimalPrecision(model);
         logger.info("正在组建建表语句，模型数据: {}", JacksonUtil.toJson(model));
         if (StringUtils.isNoneBlank(model.getDatabaseName())) {

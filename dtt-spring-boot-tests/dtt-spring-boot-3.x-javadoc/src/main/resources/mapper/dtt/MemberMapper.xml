@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.dtt.MemberMapper">
+    <resultMap id="BaseResultMap" type="com.example.domain.dtt.DttMember">
+        <!--@mbg.generated-->
+        <!--@Table dtt_member-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="is_enable" jdbcType="TINYINT" property="isEnable"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="birthday" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="member_type" jdbcType="OTHER" property="memberType"/>
+        <result column="registrar_date" jdbcType="DATE" property="registrarDate"/>
+        <result column="accelerate_begin_time" jdbcType="TIME" property="accelerateBeginTime"/>
+        <result column="accelerate_end_time" jdbcType="TIME" property="accelerateEndTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="balance" jdbcType="DECIMAL" property="balance"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        is_enable,
+        nickname,
+        birthday,
+        member_type,
+        registrar_date,
+        accelerate_begin_time,
+        accelerate_end_time,
+        update_time,
+        `status`,
+        deleted,
+        open_id,
+        balance
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from dtt_member
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from dtt_member
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.domain.dtt.DttMember"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dtt_member (is_enable, nickname, birthday,
+                                member_type, registrar_date, accelerate_begin_time,
+                                accelerate_end_time, update_time, `status`,
+                                deleted, open_id, balance)
+        values (#{isEnable,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP},
+                #{memberType,jdbcType=OTHER}, #{registrarDate,jdbcType=DATE}, #{accelerateBeginTime,jdbcType=TIME},
+                #{accelerateEndTime,jdbcType=TIME}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
+                #{deleted,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.domain.dtt.DttMember"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dtt_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="isEnable != null">
+                is_enable,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="memberType != null">
+                member_type,
+            </if>
+            <if test="registrarDate != null">
+                registrar_date,
+            </if>
+            <if test="accelerateBeginTime != null">
+                accelerate_begin_time,
+            </if>
+            <if test="accelerateEndTime != null">
+                accelerate_end_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="isEnable != null">
+                #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberType != null">
+                #{memberType,jdbcType=OTHER},
+            </if>
+            <if test="registrarDate != null">
+                #{registrarDate,jdbcType=DATE},
+            </if>
+            <if test="accelerateBeginTime != null">
+                #{accelerateBeginTime,jdbcType=TIME},
+            </if>
+            <if test="accelerateEndTime != null">
+                #{accelerateEndTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.domain.dtt.DttMember">
+        <!--@mbg.generated-->
+        update dtt_member
+        <set>
+            <if test="isEnable != null">
+                is_enable = #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberType != null">
+                member_type = #{memberType,jdbcType=OTHER},
+            </if>
+            <if test="registrarDate != null">
+                registrar_date = #{registrarDate,jdbcType=DATE},
+            </if>
+            <if test="accelerateBeginTime != null">
+                accelerate_begin_time = #{accelerateBeginTime,jdbcType=TIME},
+            </if>
+            <if test="accelerateEndTime != null">
+                accelerate_end_time = #{accelerateEndTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.domain.dtt.DttMember">
+        <!--@mbg.generated-->
+        update dtt_member
+        set is_enable             = #{isEnable,jdbcType=TINYINT},
+            nickname              = #{nickname,jdbcType=VARCHAR},
+            birthday              = #{birthday,jdbcType=TIMESTAMP},
+            member_type           = #{memberType,jdbcType=OTHER},
+            registrar_date        = #{registrarDate,jdbcType=DATE},
+            accelerate_begin_time = #{accelerateBeginTime,jdbcType=TIME},
+            accelerate_end_time   = #{accelerateEndTime,jdbcType=TIME},
+            update_time           = #{updateTime,jdbcType=TIMESTAMP},
+            `status`              = #{status,jdbcType=INTEGER},
+            deleted               = #{deleted,jdbcType=INTEGER},
+            open_id               = #{openId,jdbcType=VARCHAR},
+            balance               = #{balance,jdbcType=DECIMAL}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateBatch" parameterType="java.util.List">
+        <!--@mbg.generated-->
+        update dtt_member
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="is_enable = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.isEnable,jdbcType=TINYINT}
+                </foreach>
+            </trim>
+            <trim prefix="nickname = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.nickname,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="birthday = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.birthday,jdbcType=TIMESTAMP}
+                </foreach>
+            </trim>
+            <trim prefix="member_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.memberType,jdbcType=OTHER}
+                </foreach>
+            </trim>
+            <trim prefix="registrar_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.registrarDate,jdbcType=DATE}
+                </foreach>
+            </trim>
+            <trim prefix="accelerate_begin_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.accelerateBeginTime,jdbcType=TIME}
+                </foreach>
+            </trim>
+            <trim prefix="accelerate_end_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.accelerateEndTime,jdbcType=TIME}
+                </foreach>
+            </trim>
+            <trim prefix="update_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+                </foreach>
+            </trim>
+            <trim prefix="`status` = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.status,jdbcType=INTEGER}
+                </foreach>
+            </trim>
+            <trim prefix="deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.deleted,jdbcType=INTEGER}
+                </foreach>
+            </trim>
+            <trim prefix="open_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.openId,jdbcType=VARCHAR}
+                </foreach>
+            </trim>
+            <trim prefix="balance = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    when id = #{item.id,jdbcType=BIGINT} then #{item.balance,jdbcType=DECIMAL}
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateBatchSelective" parameterType="java.util.List">
+        <!--@mbg.generated-->
+        update dtt_member
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="is_enable = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.isEnable != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.isEnable,jdbcType=TINYINT}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="nickname = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.nickname != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.nickname,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="birthday = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.birthday != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.birthday,jdbcType=TIMESTAMP}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="member_type = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.memberType != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.memberType,jdbcType=OTHER}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="registrar_date = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.registrarDate != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.registrarDate,jdbcType=DATE}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="accelerate_begin_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.accelerateBeginTime != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.accelerateBeginTime,jdbcType=TIME}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="accelerate_end_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.accelerateEndTime != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.accelerateEndTime,jdbcType=TIME}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_time = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.updateTime != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="`status` = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.status != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.status,jdbcType=INTEGER}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="deleted = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.deleted != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.deleted,jdbcType=INTEGER}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="open_id = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.openId != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.openId,jdbcType=VARCHAR}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="balance = case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.balance != null">
+                        when id = #{item.id,jdbcType=BIGINT} then #{item.balance,jdbcType=DECIMAL}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach close=")" collection="list" item="item" open="(" separator=", ">
+            #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dtt_member
+        (is_enable, nickname, birthday, member_type, registrar_date, accelerate_begin_time,
+         accelerate_end_time, update_time, `status`, deleted, open_id, balance)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.isEnable,jdbcType=TINYINT}, #{item.nickname,jdbcType=VARCHAR}, #{item.birthday,jdbcType=TIMESTAMP},
+             #{item.memberType,jdbcType=OTHER}, #{item.registrarDate,jdbcType=DATE},
+             #{item.accelerateBeginTime,jdbcType=TIME},
+             #{item.accelerateEndTime,jdbcType=TIME}, #{item.updateTime,jdbcType=TIMESTAMP},
+             #{item.status,jdbcType=INTEGER}, #{item.deleted,jdbcType=INTEGER}, #{item.openId,jdbcType=VARCHAR},
+             #{item.balance,jdbcType=DECIMAL})
+        </foreach>
+    </insert>
+    <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.example.domain.dtt.DttMember"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dtt_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            is_enable,
+            nickname,
+            birthday,
+            member_type,
+            registrar_date,
+            accelerate_begin_time,
+            accelerate_end_time,
+            update_time,
+            `status`,
+            deleted,
+            open_id,
+            balance,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            #{isEnable,jdbcType=TINYINT},
+            #{nickname,jdbcType=VARCHAR},
+            #{birthday,jdbcType=TIMESTAMP},
+            #{memberType,jdbcType=OTHER},
+            #{registrarDate,jdbcType=DATE},
+            #{accelerateBeginTime,jdbcType=TIME},
+            #{accelerateEndTime,jdbcType=TIME},
+            #{updateTime,jdbcType=TIMESTAMP},
+            #{status,jdbcType=INTEGER},
+            #{deleted,jdbcType=INTEGER},
+            #{openId,jdbcType=VARCHAR},
+            #{balance,jdbcType=DECIMAL},
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            is_enable             = #{isEnable,jdbcType=TINYINT},
+            nickname              = #{nickname,jdbcType=VARCHAR},
+            birthday              = #{birthday,jdbcType=TIMESTAMP},
+            member_type           = #{memberType,jdbcType=OTHER},
+            registrar_date        = #{registrarDate,jdbcType=DATE},
+            accelerate_begin_time = #{accelerateBeginTime,jdbcType=TIME},
+            accelerate_end_time   = #{accelerateEndTime,jdbcType=TIME},
+            update_time           = #{updateTime,jdbcType=TIMESTAMP},
+            `status`              = #{status,jdbcType=INTEGER},
+            deleted               = #{deleted,jdbcType=INTEGER},
+            open_id               = #{openId,jdbcType=VARCHAR},
+            balance               = #{balance,jdbcType=DECIMAL},
+        </trim>
+    </insert>
+    <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.example.domain.dtt.DttMember" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dtt_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="isEnable != null">
+                is_enable,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="memberType != null">
+                member_type,
+            </if>
+            <if test="registrarDate != null">
+                registrar_date,
+            </if>
+            <if test="accelerateBeginTime != null">
+                accelerate_begin_time,
+            </if>
+            <if test="accelerateEndTime != null">
+                accelerate_end_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="balance != null">
+                balance,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="isEnable != null">
+                #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberType != null">
+                #{memberType,jdbcType=OTHER},
+            </if>
+            <if test="registrarDate != null">
+                #{registrarDate,jdbcType=DATE},
+            </if>
+            <if test="accelerateBeginTime != null">
+                #{accelerateBeginTime,jdbcType=TIME},
+            </if>
+            <if test="accelerateEndTime != null">
+                #{accelerateEndTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                #{balance,jdbcType=DECIMAL},
+            </if>
+        </trim>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT},
+            </if>
+            <if test="isEnable != null">
+                is_enable = #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=TIMESTAMP},
+            </if>
+            <if test="memberType != null">
+                member_type = #{memberType,jdbcType=OTHER},
+            </if>
+            <if test="registrarDate != null">
+                registrar_date = #{registrarDate,jdbcType=DATE},
+            </if>
+            <if test="accelerateBeginTime != null">
+                accelerate_begin_time = #{accelerateBeginTime,jdbcType=TIME},
+            </if>
+            <if test="accelerateEndTime != null">
+                accelerate_end_time = #{accelerateEndTime,jdbcType=TIME},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="balance != null">
+                balance = #{balance,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+</mapper>

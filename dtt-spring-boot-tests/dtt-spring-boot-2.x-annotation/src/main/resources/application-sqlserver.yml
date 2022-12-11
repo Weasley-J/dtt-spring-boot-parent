@@ -1,0 +1,29 @@
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    jdbc.sqltiming: debug
+
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://192.168.31.23:1433;databaseName=dtt_demo;integratedSecurity=false;encrypt=false;
+    username: SA
+    password: weasley@dtt123
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alphahub:
+  dtt:
+    is-enable: on
+    code-generator:
+      is-enable: on
+      base-classes:
+        - com.example.domain.dtt.DttMember
+      module-name: dtt
+      module-package: com.example
+      module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2-x

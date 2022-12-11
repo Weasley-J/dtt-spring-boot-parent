@@ -268,6 +268,7 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         /**
          * The description for domain object
          */
+        @Builder.Default
         private String domainDescription = "";
 
         /**

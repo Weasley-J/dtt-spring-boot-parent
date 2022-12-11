@@ -13,8 +13,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dtt-spring-boot-2-x</module>
-        <module>dtt-spring-boot-3-x</module>
+        <module>dtt-spring-boot-2.x-annotation</module>
+        <module>dtt-spring-boot-2.x-javadoc</module>
+        <module>dtt-spring-boot-3.x-annotation</module>
+        <module>dtt-spring-boot-3.x-javadoc</module>
     </modules>
 
 </project>

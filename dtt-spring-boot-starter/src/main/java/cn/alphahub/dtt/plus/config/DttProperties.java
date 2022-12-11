@@ -186,7 +186,7 @@ public class DttProperties {
         private String modulePackage;
         /**
          * The absolute path location of your project<br>
-         * i.e: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
+         * i.e: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2-x
          */
         private String modulePath;
         /**
@@ -205,7 +205,7 @@ public class DttProperties {
          *       is-enable: on
          *       module-name: dtt
          *       module-package: com.example
-         *       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-2-x
+         *       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2-x
          *       base-classes:
          *         - com.example.domain.dtt.DttMember
          *         - com.example.domain.dtt.DttPerson

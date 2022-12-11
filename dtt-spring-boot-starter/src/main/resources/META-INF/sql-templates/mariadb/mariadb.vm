@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
         $detail.filedName.toLowerCase().contains("modified_time")))
     `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT NULL ON UPDATE current_timestamp() COMMENT '${detail.filedComment}',
     #else
-    `${detail.filedName}`  ${detail.databaseDataType}                                                  DEFAULT ${detail.initialValue} COMMENT '${detail.filedComment}',
+    `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT ${detail.initialValue} COMMENT '${detail.filedComment}',
     #end
 #end
 PRIMARY KEY (`${primaryKey}`)

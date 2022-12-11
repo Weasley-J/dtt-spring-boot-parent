@@ -54,7 +54,7 @@ public class ModelEntity implements Serializable {
         /**
          * 是否是主键
          */
-        private Boolean isPrimaryKey;
+        private Boolean isPrimaryKey = Boolean.FALSE;
         /**
          * 数据库数据类型
          */

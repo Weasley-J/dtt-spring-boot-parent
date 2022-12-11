@@ -178,8 +178,8 @@ public class DefaultJavadocParser implements DttCommentParser<ModelEntity> {
                     detail.setInitialValue(null != invokeValue ? String.valueOf(invokeValue) : NULL_STRING);
 
                     this.handleFrameworkDefinedJavadocIfExists(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
-                    this.handleJavadocTagOfDefaultValue(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
                     this.handleJavadocTagOfDbDataType(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
+                    this.handleJavadocTagOfDefaultValue(new FrameworkDefinedJavaTagWrapper(fieldName, fieldJavadoc, detail, originalDbDataType));
 
                     details.add(detail);
                 }
@@ -284,7 +284,7 @@ public class DefaultJavadocParser implements DttCommentParser<ModelEntity> {
         ModelEntity.Detail detail = wrapper.getDetail();
         for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
             String fieldName = wrapper.getFieldJavadoc().getName();
-            if (fieldName.equals(wrapper.getFieldName()) && CUSTOM_TAG_IS_PRIMARY_KEY.equals(javadoc.getName())) {
+            if (CUSTOM_TAG_IS_PRIMARY_KEY.equals(javadoc.getName()) && fieldName.equals(wrapper.getFieldName())) {
                 detail.setIsPrimaryKey(true);
                 break;
             }
@@ -302,7 +302,7 @@ public class DefaultJavadocParser implements DttCommentParser<ModelEntity> {
         ModelEntity.Detail detail = wrapper.getDetail();
         for (OtherJavadoc javadoc : wrapper.getFieldJavadoc().getOther()) {
             String fieldName = wrapper.getFieldJavadoc().getName();
-            if (fieldName.equals(wrapper.getFieldName()) && CUSTOM_TAG_DB_DATA_TYPE.equals(javadoc.getName())) {
+            if (CUSTOM_TAG_DB_DATA_TYPE.equals(javadoc.getName()) && fieldName.equals(wrapper.getFieldName())) {
                 detail.setDatabaseDataType(String.valueOf(javadoc.getComment()));
                 break;
             }

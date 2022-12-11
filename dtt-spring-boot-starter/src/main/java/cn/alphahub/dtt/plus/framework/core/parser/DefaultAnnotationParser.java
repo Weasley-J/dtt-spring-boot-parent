@@ -28,7 +28,8 @@ import static cn.alphahub.dtt.plus.constant.Constants.NULL_STRING;
 import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllDeclaredFields;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
-import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
+import static cn.alphahub.dtt.plus.util.StringUtils.camelToUnderline;
+import static cn.alphahub.dtt.plus.util.StringUtils.firstToLowerCase;
 
 /**
  * 解析{@link  Dtt}注解的注释
@@ -108,7 +109,7 @@ public class DefaultAnnotationParser implements DttCommentParser<ModelEntity> {
                 String realDbDataType = parseDbDataType(field, originalDbDataType);
                 Object invoke = null;
                 for (Method method : getAllPublicGetterMethods(aClass)) {
-                    String fieldProps = com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(method.getName().substring(GET.length()));
+                    String fieldProps = firstToLowerCase(method.getName().substring(GET.length()));
                     if (Objects.equals(fieldProps, field.getName())) {
                         invoke = ClassUtil.invoke(method, aClass);
                         break;

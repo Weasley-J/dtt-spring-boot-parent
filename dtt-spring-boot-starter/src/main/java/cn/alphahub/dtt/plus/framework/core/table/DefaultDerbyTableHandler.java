@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.framework.core.table;
 import cn.alphahub.dtt.plus.config.datamapper.DerbyDataMapperProperties;
 import cn.alphahub.dtt.plus.entity.ContextWrapper;
 import cn.alphahub.dtt.plus.entity.ModelEntity;
+import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.core.DttAggregationRunner;
 import cn.alphahub.dtt.plus.framework.core.DttTableHandler;
@@ -17,10 +18,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-
-import static cn.alphahub.dtt.plus.constant.Constants.NULL_STRING;
 
 /**
  * The default table creation implementation of DERBY database
@@ -84,14 +82,7 @@ public class DefaultDerbyTableHandler extends DttAggregationRunner implements Dt
     @Override
     public void handlePropertiesOfModel(ParseFactory<ModelEntity> parseFactory, ContextWrapper contextWrapper) {
         parseFactory.getModel().getDetails().forEach(detail -> {
-            if (StringUtils.isNoneBlank(detail.getInitialValue())
-                    && !NULL_STRING.equalsIgnoreCase(detail.getInitialValue())
-                    && !Boolean.class.getSimpleName().equalsIgnoreCase(detail.getJavaDataType())
-                    && !BigDecimal.class.getSimpleName().equalsIgnoreCase(detail.getJavaDataType())
-                    && !Integer.class.getSimpleName().equalsIgnoreCase(detail.getJavaDataType())
-                    && !Double.class.getSimpleName().equalsIgnoreCase(detail.getJavaDataType())) {
-                detail.setInitialValue("'" + detail.getInitialValue() + "'");
-            }
+            processInitialValue(detail, DatabaseType.DERBY);
             if (detail.getFiledComment().startsWith("\\'") || detail.getFiledComment().endsWith("\\'"))
                 detail.setFiledComment(detail.getFiledComment().replace("\\'", ""));
             if (detail.getFiledComment().contains(";"))

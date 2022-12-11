@@ -1,0 +1,30 @@
+logging:
+  level:
+    #cn.alphahub.dtt.plus.framework.core.template.DefaultTemplateResolver: debug
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    jdbc.sqltiming: debug
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.31.23:5432/dtt_demo
+    username: root
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alphahub:
+  dtt:
+    show-sql: on
+    all-in-one-table:
+      enable: true
+      filename: AllInOne-postgresql.sql
+      filepath: /Users/weasley/Downloads

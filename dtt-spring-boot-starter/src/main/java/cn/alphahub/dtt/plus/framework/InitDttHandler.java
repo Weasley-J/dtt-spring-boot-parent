@@ -30,6 +30,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -153,10 +154,11 @@ public class InitDttHandler implements ApplicationRunner {
 
         if (infoEnabled) {
             contextWrapper.getDttRunDetail().setDttEndTime(LocalDateTime.now());
+            Duration duration = Duration.between(contextWrapper.getDttRunDetail().getDttStartTime(), contextWrapper.getDttRunDetail().getDttEndTime());
             if (allInOneProperties.getEnable().equals(true))
-                logger.info("Auto created tables for '{}' seconds. detail: {}, location: {}", JacksonUtil.toJson(contextWrapper.getDttRunDetail()), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
+                logger.info("Auto created tables for '{}' seconds. detail: {}, location: {}", duration.getSeconds(), JacksonUtil.toJson(contextWrapper.getDttRunDetail()), allInOneProperties.getAbsoluteFilename());
             else
-                logger.info("Auto created tables for '{}' seconds. detail: {}", JacksonUtil.toJson(contextWrapper.getDttRunDetail()), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
+                logger.info("Auto created tables for '{}' seconds. detail: {}", duration.getSeconds(), JacksonUtil.toJson(contextWrapper.getDttRunDetail()));
         }
 
     }

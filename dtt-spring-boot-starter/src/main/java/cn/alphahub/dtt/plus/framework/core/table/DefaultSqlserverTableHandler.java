@@ -12,7 +12,6 @@ import cn.alphahub.dtt.plus.util.SpringUtil;
 import org.apache.velocity.VelocityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -34,8 +33,12 @@ import java.util.Properties;
 @ConditionalOnBean(annotation = {EnableDtt.class})
 public class DefaultSqlserverTableHandler extends DttAggregationRunner implements DttTableHandler<ModelEntity> {
     protected static final Logger logger = LoggerFactory.getLogger(DefaultSqlserverTableHandler.class);
-    @Autowired
-    private SqlserverDataMapperProperties sqlserverDataMapperProperties;
+
+    private final SqlserverDataMapperProperties sqlserverDataMapperProperties;
+
+    public DefaultSqlserverTableHandler(SqlserverDataMapperProperties sqlserverDataMapperProperties) {
+        this.sqlserverDataMapperProperties = sqlserverDataMapperProperties;
+    }
 
     @Override
     public String create(ParseFactory<ModelEntity> parseFactory) {

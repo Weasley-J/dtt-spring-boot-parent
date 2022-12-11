@@ -46,7 +46,7 @@ public class DefaultMysqlTableHandler extends DttAggregationRunner implements Dt
             return null;
         }
 
-        model.getDetails().parallelStream().forEach(detail -> processInitialValue(detail, DatabaseType.MYSQL));
+        model.getDetails().forEach(detail -> processInitialValue(detail, DatabaseType.MYSQL));
         deduceDecimalPrecision(model);
 
         if (logger.isInfoEnabled()) {

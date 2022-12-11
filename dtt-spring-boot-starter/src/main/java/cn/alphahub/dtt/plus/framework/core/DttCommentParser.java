@@ -25,7 +25,7 @@ import static cn.alphahub.dtt.plus.constant.Constants.PRIMARY_KEY;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllDeclaredFields;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getAllPublicGetterMethods;
 import static cn.alphahub.dtt.plus.util.ClassUtil.getEnumTypeStringValues;
-import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
+import static cn.alphahub.dtt.plus.util.StringUtils.camelToUnderline;
 
 /**
  * 解析模型注释、模型描述

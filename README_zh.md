@@ -164,7 +164,7 @@ alphahub:
       override-exists: false
       module-name: dtt
        module-package: com.example
-       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-starter-tests/dtt-spring-boot-3-x
+       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-3-x
        base-package: com.example.domain.dtt
       base-classes: ""
 ```

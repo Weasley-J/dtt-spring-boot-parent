@@ -79,7 +79,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
         StringWriter writer = new StringWriter();
         Template template = velocityEngine.getTemplate(getTemplate(), StandardCharsets.UTF_8.name());
         template.merge(context, writer);
-        if (logger.isDebugEnabled() || dttProperties.getShowSql().equals(true)) {
+        if (dttProperties.getShowSql().equals(true)) {
             logger.info("数据库建表语句: \n{}", writer);
         }
         return writer;

@@ -1,0 +1,33 @@
+logging:
+  level:
+    #cn.alphahub.dtt.plus.framework.core.template.DefaultTemplateResolver: debug
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    jdbc.sqltiming: debug
+
+spring:
+  datasource:
+    driver-class-name: com.ibm.db2.jcc.DB2Driver
+    url: jdbc:db2://192.168.31.23:50000/testdb
+    username: weasley
+    password: 123456
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*Mapper.xml,mapper/**/*Dao.xml
+  type-aliases-package: com.example.domain.dtt,com.example.domain.order
+  global-config:
+    db-config:
+      id-type: input
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alphahub:
+  dtt:
+    show-sql: on
+    all-in-one-table:
+      enable: true
+      filename: AllInOne.sql
+      filepath: /Users/weasley/Downloads
+    data-type-mapper:
+      db2:
+        enable-column-upper-case: on
