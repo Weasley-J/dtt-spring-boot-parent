@@ -2,6 +2,8 @@ package cn.alphahub.dtt.plus.framework.core;
 
 import cn.alphahub.dtt.plus.entity.ModelEntity;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
+import cn.alphahub.dtt.plus.framework.core.template.DefaultTemplateExecutor;
+import cn.alphahub.dtt.plus.framework.core.template.DefaultTemplateResolver;
 import org.apache.velocity.VelocityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

@@ -71,7 +71,7 @@
         <!-- dtt internal start -->
         <dependency>
             <groupId>io.github.weasley-j</groupId>
-            <artifactId>dtt-annotation</artifactId>
+            <artifactId>dtt-annotations</artifactId>
             <version>${dtt.version}</version>
         </dependency>
         <dependency>

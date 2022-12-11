@@ -1,6 +1,6 @@
 package com.example.framework;
 
-import cn.alphahub.dtt.plus.framework.core.DefaultAnnotationParser;
+import cn.alphahub.dtt.plus.framework.core.parser.DefaultAnnotationParser;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

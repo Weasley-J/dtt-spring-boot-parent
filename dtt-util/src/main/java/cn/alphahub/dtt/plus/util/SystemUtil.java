@@ -7,6 +7,10 @@ package cn.alphahub.dtt.plus.util;
  * @version 1.0.0
  */
 public final class SystemUtil {
+
+    private SystemUtil() {
+    }
+
     /**
      * 系统文件路径分隔符
      * <ul>

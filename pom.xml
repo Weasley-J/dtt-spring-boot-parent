@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dtt-annotation</module>
+        <module>dtt-annotations</module>
         <module>dtt-util</module>
         <module>dtt-core</module>
         <module>dtt-spring-boot-starter</module>

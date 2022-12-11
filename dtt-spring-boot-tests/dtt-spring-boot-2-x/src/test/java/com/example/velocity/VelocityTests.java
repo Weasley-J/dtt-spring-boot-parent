@@ -1,7 +1,7 @@
 package com.example.velocity;
 
 import cn.alphahub.dtt.plus.enums.DatabaseType;
-import cn.alphahub.dtt.plus.framework.core.DefaultTemplateResolver;
+import cn.alphahub.dtt.plus.framework.core.template.DefaultTemplateResolver;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import org.apache.velocity.Template;
