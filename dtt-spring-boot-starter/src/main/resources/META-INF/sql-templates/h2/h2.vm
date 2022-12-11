@@ -7,13 +7,10 @@ CREATE TABLE IF NOT EXISTS $databaseName"$modelName"
     #if($detail.isPrimaryKey)
     "$detail.filedName"  $detail.databaseDataType NOT NULL AUTO_INCREMENT,
     #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'String')
-    "$detail.filedName"  $detail.databaseDataType DEFAULT #if($detail.initialValue.compareToIgnoreCase(
-        "NULL") != 0)'$detail.initialValue'#else$detail.initialValue#end,
-    #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum' && !$detail.initialValue.startsWith(
-        "'"))
+    "$detail.filedName"  $detail.databaseDataType DEFAULT #if($detail.initialValue.compareToIgnoreCase("NULL") != 0)'$detail.initialValue'#else$detail.initialValue#end,
+    #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum' && !$detail.initialValue.startsWith("'"))
     "$detail.filedName"  $detail.databaseDataType DEFAULT '$detail.initialValue',
-    #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum' && $detail.initialValue.startsWith(
-        "'"))
+    #elseif(${detail.isPrimaryKey} == 'false' && ${detail.javaDataType} == 'Enum' && $detail.initialValue.startsWith("'"))
     "$detail.filedName"  $detail.databaseDataType DEFAULT $detail.initialValue,
     #else
     "$detail.filedName"  $detail.databaseDataType DEFAULT $detail.initialValue,
