@@ -31,7 +31,7 @@ alphahub:
       filename: AllInOne.sql
       filepath: /Users/weasley/Downloads
     code-generator:
-      is-enable: on
+      is-enable: off
       include-controller: on
       include-interface: on
       override-exists: off
