@@ -44,13 +44,19 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static cn.alphahub.dtt.plus.config.DttProperties.CodeGeneratorProperties;
 import static cn.alphahub.dtt.plus.util.JacksonUtil.toJson;
+import static cn.alphahub.dtt.plus.util.StringUtils.camelToUnderline;
 import static cn.alphahub.dtt.plus.util.StringUtils.firstToLowerCase;
+import static cn.alphahub.dtt.plus.util.StringUtils.firstToUpperCase;
+import static cn.alphahub.dtt.plus.util.StringUtils.isNotBlank;
+import static cn.alphahub.dtt.plus.util.StringUtils.underlineToCamel;
 import static java.lang.System.out;
+import static org.apache.commons.lang3.StringUtils.defaultIfBlank;
+import static org.apache.commons.lang3.StringUtils.removeIgnoreCase;
+import static org.apache.commons.lang3.StringUtils.removeStartIgnoreCase;
 
 /**
  * The configurer of  mybatis-plus code generator
@@ -76,7 +82,8 @@ public class MyBatisPlusCodeGeneratorConfigurer {
     /**
      * The template resources
      */
-    private static final String[] TEMPLATE_RESOURCES = new String[]{"Service.java", "Mapper.java", "Mapper.xml",};
+    @SuppressWarnings({"all"})
+    private static final String[] TEMPLATE_RESOURCES = new String[]{"IService.java", "ServiceImpl.java", "Controller.java", "Service.java", "Mapper.java", "Mapper.xml",};
     private final ApplicationContext applicationContext;
 
     public MyBatisPlusCodeGeneratorConfigurer(ApplicationContext applicationContext) {
@@ -113,29 +120,37 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         for (MyBatisPlusCodeWrapper codeWrapper : codeWrappers) {
             VelocityContext context = new VelocityContext();
             context.put("modulePackage", codeWrapper.getModulePackage());
+            context.put("apiPathPrefix", camelToUnderline(codeWrapper.getDomainCamelcaseName()).replaceAll("_", "/"));
+            context.put("author", firstToUpperCase(System.getProperty("user.name")));
+            context.put("primaryKeyAttrType", codeWrapper.getPrimaryKeyAttrType());
+            context.put("primaryKeyAttrName", codeWrapper.getPrimaryKeyAttrName());
             context.put("domainDescription", codeWrapper.getDomainDescription());
+            context.put("modelEntityName", codeWrapper.getModelEntityName());
             context.put("domainCamelcaseName", codeWrapper.getDomainCamelcaseName());
             context.put("domainSimpleClassName", codeWrapper.getDomainSimpleClassName());
             context.put("domainFullyQualifiedClass", codeWrapper.getDomainFullyQualifiedClass());
             for (String templateResource : TEMPLATE_RESOURCES) {
+                if (shouldSkipCurrent(cgProperties, templateResource)) continue;
                 String templateName = RESOURCE_PATH + "/" + templateResource + TEMPLATE_SUFFIX;
                 StringWriter writer = new StringWriter();
                 Template template = velocityEngine.getTemplate(templateName, StandardCharsets.UTF_8.name());
                 template.merge(context, writer);
-                if (cgProperties.getShowCode().equals(true)) {
+                if (Boolean.TRUE.equals(cgProperties.getShowCode())) {
                     log.info("/* -------------- Source code of '{}' -------------- */\n{}", codeWrapper.getDomainFullyQualifiedClass(), writer);
                 }
                 String absoluteFilename = getAbsoluteFilename(cgProperties, codeWrapper, templateResource);
                 try {
+                    boolean overrideExists = cgProperties.getOverrideExists();
                     File file = new File(absoluteFilename);
                     if (!file.getParentFile().exists()) {
                         FileUtils.forceMkdirParent(file);
                     }
-                    if (cgProperties.getOverrideExists().equals(true)) {
+                    if (overrideExists) {
                         IOUtils.write(writer.toString(), new FileOutputStream(absoluteFilename, false), StandardCharsets.UTF_8);
-                    }
-                    if (cgProperties.getOverrideExists().equals(false) && !file.exists()) {
-                        IOUtils.write(writer.toString(), new FileOutputStream(absoluteFilename, false), StandardCharsets.UTF_8);
+                    } else {
+                        if (!file.exists()) {
+                            IOUtils.write(writer.toString(), new FileOutputStream(absoluteFilename, false), StandardCharsets.UTF_8);
+                        }
                     }
                 } catch (IOException ex) {
                     log.error("{}", ex.getLocalizedMessage(), ex);
@@ -145,6 +160,21 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         }
 
         return placeholder;
+    }
+
+    /**
+     * should skip current turn
+     *
+     * @param cgProperties     MyBatis-Plus code generation configuration properties
+     * @param templateResource the template resource
+     * @return true: should skip current
+     */
+    protected boolean shouldSkipCurrent(CodeGeneratorProperties cgProperties, String templateResource) {
+        if (cgProperties.getIncludeInterface().equals(false) && "IService.java".equals(templateResource))
+            return true;
+        if (cgProperties.getIncludeInterface().equals(false) && "ServiceImpl.java".equals(templateResource))
+            return true;
+        return cgProperties.getIncludeController().equals(false) && "Controller.java".equals(templateResource);
     }
 
     /**
@@ -161,40 +191,56 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         if (StringUtils.isNoneBlank(cgProperties.getBasePackage())) {
             codeWrappers = classScanningProvider.scanBasePackage(cgProperties.getBasePackage()).stream()
                     .filter(className -> !className.getName().endsWith("Builder"))
-                    .map(aClass -> {
-                        String modelComment = "";
-                        ParseFactory<ModelEntity> parseFactory = commentParser.parse(aClass.getName());
-                        if (null != parseFactory.getModel())
-                            modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
-                        return MyBatisPlusCodeWrapper.builder()
-                                .modulePackage(cgProperties.getModulePackage())
-                                .domainDescription(modelComment)
-                                .domainCamelcaseName(firstToLowerCase(aClass.getSimpleName()))
-                                .domainSimpleClassName(aClass.getSimpleName())
-                                .domainFullyQualifiedClass(aClass.getName())
-                                .build();
-                    }).collect(Collectors.toList());
+                    .map(aClass -> this.processCodeWrapper(cgProperties, commentParser, aClass))
+                    .collect(Collectors.toList());
         }
 
         if (ObjectUtils.isNotEmpty(cgProperties.getBaseClasses())) {
             for (Class<? extends Serializable> aClass : cgProperties.getBaseClasses()) {
-                String modelComment = "";
-                ParseFactory<ModelEntity> parseFactory = commentParser.parse(aClass.getName());
-                if (null != parseFactory.getModel())
-                    modelComment = StringUtils.defaultIfBlank(parseFactory.getModel().getModelComment(), "");
-                codeWrappers.add(MyBatisPlusCodeWrapper.builder()
-                        .modulePackage(cgProperties.getModulePackage())
-                        .domainDescription(modelComment)
-                        .domainCamelcaseName(firstToLowerCase(aClass.getSimpleName()))
-                        .domainSimpleClassName(aClass.getSimpleName())
-                        .domainFullyQualifiedClass(aClass.getName())
-                        .build());
+                codeWrappers.add(this.processCodeWrapper(cgProperties, commentParser, aClass));
             }
         }
 
         return codeWrappers;
     }
 
+    /**
+     * Process code wrapper for code-generator
+     *
+     * @param cgProperties  MyBatis-Plus code generation configuration properties
+     * @param commentParser Analyze model and model descriptions
+     * @param aClass        The class of model
+     * @return code wrapper for code-generator
+     */
+    public MyBatisPlusCodeWrapper processCodeWrapper(CodeGeneratorProperties cgProperties, DttCommentParser<ModelEntity> commentParser, Class<?> aClass) {
+        String modelComment = "";
+        ParseFactory<ModelEntity> parseFactory = commentParser.parse(aClass.getName());
+        if (null != parseFactory.getModel()) {
+            modelComment = defaultIfBlank(parseFactory.getModel().getModelComment(), "");
+        }
+        MyBatisPlusCodeWrapper codeWrapper = MyBatisPlusCodeWrapper.builder()
+                .modelEntityName(aClass.getSimpleName())
+                .modulePackage(cgProperties.getModulePackage())
+                .domainDescription(modelComment)
+                .domainCamelcaseName(firstToLowerCase(aClass.getSimpleName()))
+                .domainSimpleClassName(aClass.getSimpleName())
+                .domainFullyQualifiedClass(aClass.getName())
+                .build();
+        for (ModelEntity.Detail detail : parseFactory.getModel().getDetails()) {
+            if (Boolean.TRUE.equals(detail.getIsPrimaryKey())) {
+                codeWrapper.setPrimaryKeyAttrType(detail.getJavaDataType());
+                codeWrapper.setPrimaryKeyAttrName(underlineToCamel(detail.getFiledName()));
+                break;
+            }
+        }
+        if (isNotBlank(cgProperties.getRemovePrefix()) && cgProperties.getRemovePrefix().length() > 0) {
+            String domainSimpleClassName = removeIgnoreCase(codeWrapper.getDomainSimpleClassName(), cgProperties.getRemovePrefix());
+            String domainCamelcaseName = removeIgnoreCase(codeWrapper.getDomainCamelcaseName(), cgProperties.getRemovePrefix());
+            codeWrapper.setDomainSimpleClassName(domainSimpleClassName);
+            codeWrapper.setDomainCamelcaseName(firstToLowerCase(domainCamelcaseName));
+        }
+        return codeWrapper;
+    }
 
     /**
      * The Absolute Filename Of Source Code
@@ -214,7 +260,16 @@ public class MyBatisPlusCodeGeneratorConfigurer {
         String javaSuffix = ".java";
         String xmlSuffix = ".xml";
 
-        String fileParentPathname = templateResource.split("\\.")[0].toLowerCase(Locale.ROOT);
+        String fileParentPathname;
+        if ("Controller.java".equals(templateResource) && cgProperties.getIncludeController().equals(true))
+            fileParentPathname = "controller";
+        else if ("IService.java".equals(templateResource) && cgProperties.getIncludeInterface().equals(true)) {
+            fileParentPathname = "service";
+            templateResource = StringUtils.removeStartIgnoreCase(templateResource, "I");
+        } else if ("ServiceImpl.java".equals(templateResource) && cgProperties.getIncludeInterface().equals(true))
+            fileParentPathname = "service/impl";
+        else
+            fileParentPathname = templateResource.split("\\.")[0].toLowerCase();
 
         if (modulePath.endsWith("/")) {
             if (templateResource.endsWith(javaSuffix)) {
@@ -232,11 +287,16 @@ public class MyBatisPlusCodeGeneratorConfigurer {
             }
         }
 
+        String domainSimpleClassName = codeWrapper.getDomainSimpleClassName();
+        if (isNotBlank(cgProperties.getRemovePrefix()) && cgProperties.getRemovePrefix().length() > 0) {
+            domainSimpleClassName = removeStartIgnoreCase(domainSimpleClassName, cgProperties.getRemovePrefix());
+        }
+
         if (templateResource.endsWith(javaSuffix))
-            absoluteFilename = MessageFormat.format("{0}/{1}/{2}{3}", basicPath, fileParentPathname, codeWrapper.getDomainSimpleClassName(), templateResource);
+            absoluteFilename = MessageFormat.format("{0}/{1}/{2}{3}", basicPath, fileParentPathname, domainSimpleClassName, templateResource);
 
         if (templateResource.endsWith(xmlSuffix))
-            absoluteFilename = MessageFormat.format("{0}/{1}{2}", basicPath, codeWrapper.getDomainSimpleClassName(), templateResource);
+            absoluteFilename = MessageFormat.format("{0}/{1}{2}", basicPath, domainSimpleClassName, templateResource);
 
         return absoluteFilename;
     }
@@ -258,6 +318,10 @@ public class MyBatisPlusCodeGeneratorConfigurer {
     @Accessors(chain = true)
     public static class MyBatisPlusCodeWrapper {
         /**
+         * The model class name of your domain object, i.e: MyBatisPlusCodeWrapper
+         */
+        private String modelEntityName;
+        /**
          * The package name of your module
          */
         private String modulePackage;
@@ -278,6 +342,14 @@ public class MyBatisPlusCodeGeneratorConfigurer {
          */
         @Builder.Default
         private String domainDescription = "";
+        /**
+         * The java type of primary key
+         */
+        private String primaryKeyAttrType;
+        /**
+         * The name of primary key
+         */
+        private String primaryKeyAttrName;
 
         /**
          * @return If the module Package Name is missing, the parent package name of the module Package Name will be returned

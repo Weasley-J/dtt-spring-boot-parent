@@ -1,13 +1,18 @@
 package ${modulePackage}.controller;
 
-import ${mainPath}.common.core.domain.Result;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 
 import ${domainFullyQualifiedClass};
 import ${modulePackage}.service.${domainSimpleClassName}Service;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -17,60 +22,76 @@ import java.util.Arrays;
  */
 @Slf4j
 @RestController
-@RequestMapping("/${moduleName}/${pathName}")
-public class ${className}Controller {
+@RequestMapping("/api/${apiPathPrefix}")
+public class ${domainSimpleClassName}Controller {
 
-    @Resource
-    private ${className}Service ${classname}Service;
+    @Autowired
+    private ${domainSimpleClassName}Service ${domainCamelcaseName}Service;
 
     /**
-     * 获取${comments}详情
+     * ${domainDescription}分页查询
      *
-     * @param ${pk.attrname} ${comments}主键id
-     * @return ${comments}详细信息
+     * @param pageParam 分页参数: current(当前页码,默认1), size(每页显示条数，默认10)
+     * @param ${domainCamelcaseName}     ${domainDescription}查询参数
+     * @return ${domainDescription}分页数据
+     * @see <a href="https://mp.baomidou.com/guide/page.html">Mybatis Plus官方分页插件配置示例</a>
      */
-    @GetMapping("/info/{${pk.attrname}}")
-    public Result<${className}> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
-        ${className} ${classname} = ${classname}Service.getById(${pk.attrname});
-        return Result.ok(${classname});
+    @GetMapping("/page")
+    public Page<${modelEntityName}> page(@ModelAttribute("pageParam") PageDTO<${modelEntityName}> pageParam, @ModelAttribute("${domainCamelcaseName}") ${modelEntityName} ${domainCamelcaseName}) {
+        Page<${modelEntityName}> params = new Page<>();
+        params.setSize(pageParam.getSize());
+        params.setCurrent(pageParam.getCurrent());
+        return ${domainCamelcaseName}Service.page(params, Wrappers.lambdaQuery(${domainCamelcaseName}));
     }
 
     /**
-     * 新增${comments}
+     * 获取${domainDescription}详情
      *
-     * @param ${classname} ${comments}元数据
+     * @param ${primaryKeyAttrName} ${domainDescription}主键id
+     * @return ${domainDescription}详细信息
+     */
+    @GetMapping("/info/{${primaryKeyAttrName}}")
+    public ResponseEntity<${modelEntityName}> info(@PathVariable("${primaryKeyAttrName}") ${primaryKeyAttrType} ${primaryKeyAttrName}){
+        ${modelEntityName} ${domainCamelcaseName} = ${domainCamelcaseName}Service.getById(${primaryKeyAttrName});
+        return ResponseEntity.ok(${domainCamelcaseName});
+    }
+
+    /**
+     * 新增${domainDescription}
+     *
+     * @param ${domainCamelcaseName} ${domainDescription}元数据
      * @return 成功返回true,失败返回false
      */
     @PostMapping("/save")
     @Transactional(rollbackFor = {Exception.class})
-    public Result<Boolean> save(@RequestBody ${className} ${classname}) {
-        boolean save = ${classname}Service.save(${classname});
-        return Result.ok(save);
+    public ResponseEntity<Boolean> save(@RequestBody @Validated ${modelEntityName} ${domainCamelcaseName}) {
+        boolean save = ${domainCamelcaseName}Service.save(${domainCamelcaseName});
+        return ResponseEntity.ok(save);
     }
 
     /**
-     * 修改${comments}
+     * 修改${domainDescription}
      *
-     * @param ${classname} ${comments}, 根据id选择性更新
+     * @param ${domainCamelcaseName} ${domainDescription}, 根据id选择性更新
      * @return 成功返回true,失败返回false
      */
     @PutMapping("/update")
     @Transactional(rollbackFor = {Exception.class})
-    public Result<Boolean> update(@RequestBody ${className} ${classname}) {
-        boolean update = ${classname}Service.updateById(${classname});
-        return Result.ok(update);
+    public ResponseEntity<Boolean> update(@RequestBody @Validated ${modelEntityName} ${domainCamelcaseName}) {
+        boolean update = ${domainCamelcaseName}Service.updateById(${domainCamelcaseName});
+        return ResponseEntity.ok(update);
     }
 
     /**
-     * 批量删除${comments}
+     * 批量删除${domainDescription}
      *
-     * @param ${pk.attrname}s ${comments}id集合
+     * @param ${primaryKeyAttrName}s ${domainDescription}id集合
      * @return 成功返回true, 失败返回false
      */
-    @DeleteMapping("/delete/{${pk.attrname}s}")
+    @DeleteMapping("/delete/{${primaryKeyAttrName}s}")
     @Transactional(rollbackFor = {Exception.class})
-    public Result<Boolean> delete(@PathVariable(name = "${pk.attrname}s") ${pk.attrType}[] ${pk.attrname}s){
-        boolean delete = ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
-        return Result.ok(delete);
+    public ResponseEntity<Boolean> delete(@PathVariable("${primaryKeyAttrName}s") ${primaryKeyAttrType}[] ${primaryKeyAttrName}s){
+        boolean delete = ${domainCamelcaseName}Service.removeByIds(Arrays.asList(${primaryKeyAttrName}s));
+        return ResponseEntity.ok(delete);
     }
 }

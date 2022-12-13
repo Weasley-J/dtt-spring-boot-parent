@@ -1,12 +1,11 @@
 package ${modulePackage}.service;
 
 import ${domainFullyQualifiedClass};
-import ${package}.${moduleName}.domain.${domainSimpleClassName};
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * ${domainDescription}Service接口
  */
-public interface ${domainSimpleClassName}Service extends IService<${domainSimpleClassName}> {
+public interface ${domainSimpleClassName}Service extends IService<${modelEntityName}> {
 
 }

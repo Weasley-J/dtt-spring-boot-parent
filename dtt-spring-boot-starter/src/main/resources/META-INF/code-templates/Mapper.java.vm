@@ -5,9 +5,9 @@ import ${domainFullyQualifiedClass};
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * The mybatis mapper interface of #if($domainDescription.length() > 0)${domainDescription}#else${domainSimpleClassName}#end
+ * The mybatis mapper interface of #if($domainDescription.length() > 0)${domainDescription}#else${modelEntityName}#end
  */
 @Mapper
-public interface ${domainSimpleClassName}Mapper extends BaseMapper<${domainSimpleClassName}> {
+public interface ${domainSimpleClassName}Mapper extends BaseMapper<${modelEntityName}> {
 
 }

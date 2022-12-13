@@ -39,8 +39,12 @@ alphahub:
       filepath: /Users/weasley/Downloads
     code-generator:
       is-enable: on
+      include-controller: on
+      include-interface: on
+      override-exists: off
+      remove-prefix: dtt
       base-classes:
-      #- com.example.domain.dtt.DttMember
+        - com.example.domain.dtt.DttMember
       module-name: dtt
       module-package: com.example
       module-path: /Users/weasley/Development/IdeaProjects/dtt-spring-boot-parent/dtt-spring-boot-tests/dtt-spring-boot-2.x-javadoc

@@ -2,11 +2,12 @@ package ${modulePackage}.service.impl;
 
 import ${domainFullyQualifiedClass};
 import ${modulePackage}.mapper.${domainSimpleClassName}Mapper;
-import ${modulePackage}.service.${className}Service;
+import ${modulePackage}.service.${domainSimpleClassName}Service;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
  * ${domainDescription}Service实现
  */
 @Service
-public class ${domainSimpleClassName}ServiceImpl extends ServiceImpl<${domainSimpleClassName}Mapper, ${domainSimpleClassName}> implements ${domainSimpleClassName}Service {
+public class ${domainSimpleClassName}ServiceImpl extends ServiceImpl<${domainSimpleClassName}Mapper, ${modelEntityName}> implements ${domainSimpleClassName}Service {
 
 }

@@ -7,7 +7,7 @@ spring:
 
   profiles:
     #derby|h2|hsql|mariadb|mysql|oracle|db2|postgresql|sqlserver
-    active: sqlserver
+    active: oracle
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

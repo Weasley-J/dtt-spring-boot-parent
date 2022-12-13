@@ -183,6 +183,20 @@ public final class StringUtils {
         return sb.toString();
     }
 
+
+    /**
+     * 首字母转换大写
+     *
+     * @param param 需要转换的字符串
+     * @return 转换好的字符串
+     */
+    public static String firstToUpperCase(String param) {
+        if (isBlank(param)) {
+            return StringPool.EMPTY;
+        }
+        return param.substring(0, 1).toUpperCase() + param.substring(1);
+    }
+
     /**
      * 首字母转换小写
      *

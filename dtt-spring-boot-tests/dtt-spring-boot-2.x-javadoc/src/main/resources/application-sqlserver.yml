@@ -21,7 +21,7 @@ alphahub:
   dtt:
     is-enable: on
     code-generator:
-      is-enable: on
+      is-enable: off
       base-classes:
         - com.example.domain.dtt.DttMember
       module-name: dtt

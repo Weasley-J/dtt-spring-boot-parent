@@ -22,35 +22,37 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class DttMember implements Serializable {
-    private static final long serialVersionUID = 1L;
     /**
      * 主键id
      *
      * @primaryKey
      */
-    private Long id;
+    private Long memberId;
     /**
      * 用户openId
      *
+     * @defaultValue e1be63305
      * @length 16
      */
     private String openId;
     /**
      * 用户昵称
+     *
+     * @length 32
      */
     private String nickname;
     /**
      * 是否启用, 默认：1
      *
-     * @dbDataType tinyint
+     * @defaultValue true
      */
-    private Boolean isEnable = true;
+    private Boolean isEnable;
     /**
      * 用户积分余额, 默认：0.00
      *
      * @precision 10
-     * @scale 2
-     * @defaultValue 0.00
+     * @scale 4
+     * @defaultValue 0.01
      */
     private BigDecimal balance;
     /**
@@ -59,8 +61,10 @@ public class DttMember implements Serializable {
     private LocalDateTime birthday;
     /**
      * 会员类型，默认：ORDINARY
+     *
+     * @defaultValue SPORTS
      */
-    private MemberType memberType = MemberType.ORDINARY;
+    private MemberType memberType;
     /**
      * 用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常
      *
@@ -70,9 +74,10 @@ public class DttMember implements Serializable {
     /**
      * 账户注销状态；0 未注销（默认），1 已销户
      *
-     * @defaultValue 0
+     * @defaultValue 1
+     * @dbDataType SMALLINT
      */
-    private Integer deleted = 0;
+    private Integer deleted;
     /**
      * 注册时间，格式: yyyy-MM-dd
      */

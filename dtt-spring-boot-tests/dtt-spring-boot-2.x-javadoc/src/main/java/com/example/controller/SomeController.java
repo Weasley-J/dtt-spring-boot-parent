@@ -29,9 +29,9 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/member")
+@RequestMapping("/api/some/member")
 public class SomeController {
-    @Autowired
+    @Autowired(required = false)
     private DttMemberService memberService;
     @Autowired(required = false)
     private DttDefaultConditionalService defaultConditionalService;
@@ -69,10 +69,10 @@ public class SomeController {
         member.setUpdateTime(LocalDateTime.now());
         member.setAccelerateBeginTime(LocalTime.now());
         member.setAccelerateEndTime(LocalTime.now());
-        DttMember dttMember = memberService.getOne(new QueryWrapper<DttMember>().select("MAX(ID) id"));
+        DttMember dttMember = memberService.getOne(new QueryWrapper<DttMember>().select("MAX(member_id) memberId"));
         if (null != dttMember) {
-            member.setId(dttMember.getId() + 1);
-        } else member.setId(1L);
+            member.setMemberId(dttMember.getMemberId()+ 1);
+        } else member.setMemberId(1L);
         boolean save = memberService.saveBatch(Arrays.asList(member));
         log.info("{}", JacksonUtil.toJson(member));
         return ResponseEntity.ok(save);
