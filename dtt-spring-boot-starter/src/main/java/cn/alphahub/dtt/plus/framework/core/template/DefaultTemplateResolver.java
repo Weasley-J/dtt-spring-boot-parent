@@ -73,7 +73,7 @@ public class DefaultTemplateResolver implements DttTemplateHandler<ModelEntity> 
     protected StringWriter processTemplate(VelocityContext context, ModelEntity model) {
         context.put("dropTableBeforeCreate", InitDttHandler.getEnableDtt().dropTableBeforeCreate());
         context.put("databaseName", model.getDatabaseName());
-        context.put("modelEntityName", model.getModelName());
+        context.put("modelName", model.getModelName());
         context.put("modelComment", model.getModelComment());
         context.put("details", model.getDetails());
         StringWriter writer = new StringWriter();

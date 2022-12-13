@@ -44,7 +44,7 @@ class VelocityTests {
     @Test
     void renderTemplate() {
         VelocityContext context = new VelocityContext();
-        context.put("modelEntityName", "member");
+        context.put("modelName", "member");
         context.put("filedName", "id");
         context.put("primaryKey", "id");
         //渲染模板
@@ -58,7 +58,7 @@ class VelocityTests {
     @Test
     void generateSqlTemplate() {
         VelocityContext context = new VelocityContext();
-        context.put("modelEntityName", "member");
+        context.put("modelName", "member");
         context.put("filedName", "id");
         context.put("primaryKey", "id");
         //渲染模板
