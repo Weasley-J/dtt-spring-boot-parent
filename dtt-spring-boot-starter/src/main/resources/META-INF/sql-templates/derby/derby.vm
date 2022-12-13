@@ -14,5 +14,5 @@ CREATE TABLE $databaseName"APP"."$modelName"
     "$detail.filedName"  $detail.databaseDataType  DEFAULT $detail.initialValue,
     #end
 #end
-PRIMARY KEY ("$primaryKey")
+    PRIMARY KEY ("$primaryKey")
 );

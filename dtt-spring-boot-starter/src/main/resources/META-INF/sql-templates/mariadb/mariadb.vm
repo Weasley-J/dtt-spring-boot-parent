@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS ${databaseName}.`${modelName}`
     `${detail.filedName}`  ${detail.databaseDataType}                                                 DEFAULT ${detail.initialValue} COMMENT '${detail.filedComment}',
     #end
 #end
-PRIMARY KEY (`${primaryKey}`)
+    PRIMARY KEY (`${primaryKey}`)
 ) ENGINE = ${defaultEngine}
 DEFAULT CHARSET = ${defaultCharset}
 COLLATE = ${defaultCollate} COMMENT ='${modelComment}';

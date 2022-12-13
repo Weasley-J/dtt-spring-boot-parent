@@ -33,14 +33,16 @@ public class DttMemberController {
      * @param pageParam 分页参数: current(当前页码,默认1), size(每页显示条数，默认10)
      * @param dttMember     用户信息查询参数
      * @return 用户信息分页数据
+     * @apiNote 请求示例: <a href="http://localhost:8080/api/dtt/member/page?current=1&size=3">请求示例</a>
      * @see <a href="https://mp.baomidou.com/guide/page.html">Mybatis Plus官方分页插件配置示例</a>
      */
     @GetMapping("/page")
-    public Page<DttMember> page(@ModelAttribute("pageParam") PageDTO<DttMember> pageParam, @ModelAttribute("dttMember") DttMember dttMember) {
+    public ResponseEntity<Page<DttMember>> page(@ModelAttribute("pageParam") PageDTO<DttMember> pageParam, @ModelAttribute("dttMember") DttMember dttMember) {
         Page<DttMember> params = new Page<>();
         params.setSize(pageParam.getSize());
         params.setCurrent(pageParam.getCurrent());
-        return dttMemberService.page(params, Wrappers.lambdaQuery(dttMember));
+        Page<DttMember> page = dttMemberService.page(params, Wrappers.lambdaQuery(dttMember));
+        return ResponseEntity.ok(page);
     }
 
     /**

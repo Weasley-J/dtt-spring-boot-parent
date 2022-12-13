@@ -21,7 +21,7 @@ CREATE TABLE ${databaseName}"${modelName}"
     "$detail.filedName"    $detail.databaseDataType DEFAULT $detail.initialValue,
     #end
 #end
-PRIMARY KEY ("${primaryKey}")
+    PRIMARY KEY ("${primaryKey}")
 );
 COMMENT ON TABLE ${databaseName}"${modelName}" IS '${modelComment}';
 #foreach(${detail} in ${details})
