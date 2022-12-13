@@ -35,7 +35,7 @@ alphahub:
       include-controller: on
       include-interface: on
       override-exists: off
-      remove-prefix: dtt
+      remove-prefix: ''
       base-classes:
         - com.example.domain.dtt.DttMember
       module-name: dtt
