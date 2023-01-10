@@ -1,6 +1,6 @@
 ## Customize Java tags support
 
-`@length`, `@precision`, `@scale`, `@defaultValue`, `@primaryKey`, `@dbDataType`
+Java tag: `@length`, `@precision`, `@scale`, `@defaultValue`, `@primaryKey`, `@dbDataType`
 
 ## Usage
 
