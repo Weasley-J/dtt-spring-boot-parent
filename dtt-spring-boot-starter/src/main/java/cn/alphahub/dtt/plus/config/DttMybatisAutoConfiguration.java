@@ -7,10 +7,10 @@ import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.ClassScanningProvider;
 import cn.alphahub.dtt.plus.framework.annotations.EnableDtt;
 import cn.alphahub.dtt.plus.framework.interceptor.DefaultDttMybatisInterceptor;
+import cn.alphahub.dtt.plus.util.StringUtils;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
@@ -115,17 +115,17 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
         for (String mybatisPropPrefix : MYBATIS_PROP_PREFIX) {
             String property = applicationContext.getEnvironment().getProperty(mybatisPropPrefix);
             if (StringUtils.isBlank(property)) continue;
-            String[] typeAliasesPackages = StringUtils.split(property, ",");
+            String[] typeAliasesPackages = org.apache.commons.lang3.StringUtils.split(property, ",");
             Set<Class<?>> classes = classScanningProvider.scanBasePackage(typeAliasesPackages).stream().filter(aClass -> !aClass.getSimpleName().endsWith(Constants.BUILDER_SUFFIX)).collect(Collectors.toSet());
             if (CollectionUtils.isEmpty(classes)) {
                 logger.warn("The entity class is empty, Please check your configuration of mybatis, type-aliases-package: {}", mybatisPropPrefix);
                 return;
             }
-            ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
+            ConcurrentMap<String, DttMbActWrapper> classConcurrentMap = classes.parallelStream().collect(Collectors.toConcurrentMap((key -> StringUtils.firstToLowerCase(key.getSimpleName())), (value -> {
                 DttMbActWrapper wrapper = new DttMbActWrapper();
-                wrapper.setDomainName(com.baomidou.mybatisplus.core.toolkit.StringUtils.firstToLowerCase(value.getSimpleName()));
+                wrapper.setDomainName(StringUtils.firstToLowerCase(value.getSimpleName()));
                 wrapper.setDomainClass(value);
-                String tableName = com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(value.getSimpleName());
+                String tableName = StringUtils.camelToUnderline(value.getSimpleName());
                 if (shardingSphereEnable.equals(false)) {
                     wrapper.setTableNotExists(isTableNotExists(tableName));
                 }
@@ -170,7 +170,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
      * @return If table not exists, return true
      */
     public boolean isTableNotExists(String tableName) {
-        if (com.baomidou.mybatisplus.core.toolkit.StringUtils.isBlank(tableName)) return false;
+        if (StringUtils.isBlank(tableName)) return false;
         if (null == databaseProperty.getDatabaseType()) return false;
         List<String> sqlScripts = getQueryTableExistsSqlScripts(tableName, databaseProperty.getDatabaseType());
         if (CollectionUtils.isEmpty(sqlScripts)) return false;
@@ -205,7 +205,7 @@ public class DttMybatisAutoConfiguration implements InitializingBean {
         List<String> scripts = new ArrayList<>(4);
 
         if (rawSql.getTablenameUppercase().equals(true)) realTableName = tableName.toUpperCase();
-        String realScript = StringUtils.defaultIfBlank(rawSql.getScriptForTableExists(), "");
+        String realScript = org.apache.commons.lang3.StringUtils.defaultIfBlank(rawSql.getScriptForTableExists(), "");
 
         realScript = realScript.replace("${tablename}", realTableName);
         if (realScript.contains("${dbname}")) {
