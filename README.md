@@ -4,7 +4,7 @@
 
 > - What is DTT?
 >
-> It's means  `domain-to-table`, aims to make it easy for you to automatically create DB tables based on your Java
+> It's means  `domain-to-table`, aims to make it easy for user to automatically create DB tables based on your Java
 > domain object model, domain driven table is the concept of `DTT`;
 >
 > - What can DTT do?
@@ -19,7 +19,7 @@
 >
 > (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
 >
-> here is an example for the  `0-code` injection way to parse Java document to a table DDL statements.
+> here is an example for the way of `0-code` injection to parse Java document to a table DDL statements.
 >
 > - Chinese developer
 >
@@ -245,8 +245,8 @@
 >
 >
 >
-> You can easily use DTT integrate with spring's ecosystem(mybatis-plus, mybatis, ... ) and enhance
-> them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus) you can integrate with `0-Code` .
+> It's easily to use DTT to integrate with Spring's ecosystem (mybatis-plus, mybatis, ... ) and enhance
+> them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus)  can be `0-Code` .
 >
 >
 
@@ -288,9 +288,9 @@
 git clone https://github.com/Weasley-J/dtt-spring-boot-parent.git
 ```
 
-- CD to your work dir then you can run this maven command to install DTT and use it in you projects.
+- `CD` to your work `DIR` then you can run this maven command to install DTT and use it in you projects.
 
-Tips: For this step, I mean your JDK and MAVEN environment are set correctly.
+Tips: For this step, I mean your `JDK` and `MAVEN` environment are set correctly.
 
 ```shell
 mvn clean install -pl :dtt-spring-boot-starter -am
@@ -321,7 +321,7 @@ mvn clean install -pl :dtt-spring-boot-starter -am
 
 ```
 
-- Config your projects datasource in `application.yml`, like this:
+- Configure your projects datasource in `application.yml`, e.g
 
 ```yaml
 spring:
@@ -332,7 +332,7 @@ spring:
     password: your_password
 ```
 
-- Using JAVA annotation `@EnableDtt` to enable DTT to your projects Main class, As follow:
+- Using Java annotation `@EnableDtt` to enable DTT to your projects Main class, As follow:
 
 ```java
 import cn.alphahub.dtt.plus.enums.ParserType;
@@ -509,19 +509,18 @@ takes about 20 seconds.
 Which means DTT do nothing for your source code, you can specify `parserType = ParserType.JAVA_DOC` in `EnableDtt`
 annotation. you can also make `parserType = ParserType.ANNOTATION` optional.
 
-### 3 Export `SQL` for table's `DDL`  statement to local file
+### 3 Export `SQL` for table's `DDL`  statement to local filesystem
 
 `DTT` can Export `SQL` for table's `DDL`  statement to local file thorough yaml configuration optional that you can
 modify those DLL statements.
 
 ### 4 Preserve all meta comments for database tables
 
-DTT's parser support parsing the Java documentation.
+DTT's parser support parsing the Java documentation also.
 
 ### 5 Specifies the character length of the metadata
 
-You can configure for your configuration yaml like
-this, [Here is the link](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
+You can configure for your configuration yaml like this, [Here is the link](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/dtt-spring-boot-starter/src/main/resources/META-INF/ddt-data-mapper.yml#L130)
 
 Example:
 
@@ -551,7 +550,7 @@ Which means when your database is `MySQL`, A column contains filed of  `phone`, 
 of `varchar(16)`,if the `alphahub.dttstring-length-mapper.length-configs` list is not configured, the data type of the
 column will be defined as: `varchar(256)`;
 
-### 6 Automatically infer default values for database table columns
+### 6 Infer default values automatically for database table columns
 
 i.e:
 
@@ -587,7 +586,7 @@ public enum MemberType {
 }
 ```
 
-- An domain class to infer diffrent table structure between `DTT` supported `RDB`
+- A domain class to infer diffrent table structure between `DTT` supported `RDB`
 
 ```java
 /**
