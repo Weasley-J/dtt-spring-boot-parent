@@ -2,34 +2,31 @@
 
 ## [![Maven Central](https://img.shields.io/maven-central/v/io.github.weasley-j/dtt-spring-boot-starter)](https://search.maven.org/artifact/io.github.weasley-j/dtt-spring-boot-starter)|[中文文档](https://github.com/Weasley-J/dtt-spring-boot-parent/blob/main/README_zh.md)
 
-> - What is DTT?
->
-> It's means  `domain-to-table`, aims to make it easy for user to automatically create DB tables based on your Java
-> domain object model, domain driven table is the concept of `DTT`;
->
+`DTT` is an object-oriented Java framework that enables developers to automatically create database tables based on domain models through annotation-driven development, increasing productivity for developers. The core concept of `DTT` is domain-driven table, which makes you focus more on domain objects rather than database tables.
+
 > - What can DTT do?
 >
 > Tips: Read about DDT's features to learn more.
->
-> (a) Converts your Java domain object to `RDB` table `DDL` statements and auto create them.
->
-> (b) Supports the ability for `mybatis` to create table lazily on demand just like `hibernate` and `spring-data-jpa`  can do.
->
-> (c) Exports an `all-in-one` DDL statements for all tables as local file.
->
-> (d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
->
-> here is an example for the way of `0-code` injection to parse Java document to a table DDL statements.
->
-> - Chinese developer
->
-> 1. Java domain
->
-> ```java
+> 
+>(a) Converts your Java domain object to `RDB` table `DDL` statements and auto create them.
+> 
+>(b) Supports the ability for `mybatis` to create table lazily on demand just like `hibernate` and `spring-data-jpa`  can do.
+> 
+>(c) Exports an `all-in-one` DDL statements for all tables as local file.
+> 
+>(d) Retains comments for columns of data tables for the Java developers who is non-native English speaker.
+> 
+>here is an example for the way of `0-code` injection to parse Java document to a table DDL statements.
+> 
+>- Chinese developer
+> 
+>1. Java domain
+> 
+>```java
 > import com.example.enums.MemberType;
-> import lombok.AllArgsConstructor;
+>import lombok.AllArgsConstructor;
 > import lombok.Builder;
-> import lombok.Data;
+>import lombok.Data;
 > import lombok.NoArgsConstructor;
 > import lombok.experimental.Accessors;
 > 
@@ -103,14 +100,14 @@
 >     private LocalDateTime updateTime;
 > }
 > ```
->
+> 
 > 2. Table statements
->
+> 
 > ```mysql
 > DROP TABLE IF EXISTS `db_demo`.`dtt_member`;
-> CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
+>CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
 > (
->     `id`                    bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+>    `id`                    bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
 >     `status`                int                                                                                                                               DEFAULT 3 COMMENT '用户状态；0 正常(默认)，1 已冻结，2 账号已封，3 账号异常',
 >     `deleted`               int                                                                                                                               DEFAULT 0 COMMENT '账户注销状态；0 未注销（默认），1 已销户',
 >     `open_id`               varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci                                                                      DEFAULT NULL COMMENT '用户openId',
@@ -128,22 +125,22 @@
 >   DEFAULT CHARSET = utf8mb4
 >   COLLATE = utf8mb4_general_ci COMMENT ='用户信息';
 > ```
->
+> 
 > 3.  As you can see，In your DB:
->
+> 
 > ![image-20220713190051773](https://alphahub-test-bucket.oss-cn-shanghai.aliyuncs.com/image/image-20220713190051773.png)
->
 > 
 >
-> - Korean developer
->
-> 1. Java domain
->
-> ```java
+> 
+>- Korean developer
+> 
+>1. Java domain
+> 
+>```java
 > import com.example.enums.MemberType;
-> import lombok.AllArgsConstructor;
+>import lombok.AllArgsConstructor;
 > import lombok.Builder;
-> import lombok.Data;
+>import lombok.Data;
 > import lombok.NoArgsConstructor;
 > import lombok.experimental.Accessors;
 > 
@@ -217,14 +214,14 @@
 >     private LocalDateTime updateTime;
 > }
 > ```
->
+> 
 > 2. DB table
->
+> 
 > ```mysql
 > DROP TABLE IF EXISTS `db_demo`.`dtt_member`;
-> CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
+>CREATE TABLE IF NOT EXISTS `db_demo`.`dtt_member`
 > (
->     `id`  bigint NOT NULL AUTO_INCREMENT COMMENT '기본 키 ID',
+>    `id`  bigint NOT NULL AUTO_INCREMENT COMMENT '기본 키 ID',
 >     `status`  int                                                  DEFAULT 3 COMMENT '사용자 상태: 0 정상(기본값), 1 동결, 2 계정 차단, 3 계정 비정상',
 >     `is_enable`  tinyint                                                  DEFAULT true COMMENT '활성화 여부, 기본값: 1',
 >     `nickname`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '사용자 닉네임 사용자 닉네임',
@@ -242,9 +239,9 @@
 > DEFAULT CHARSET = utf8mb4
 > COLLATE = utf8mb4_general_ci COMMENT ='사용자 정보';
 > ```
->
->
->
+> 
+> 
+> 
 > It's easily to use DTT to integrate with Spring's ecosystem (mybatis-plus, mybatis, ... ) and enhance
 > them，For [mybatis-plus](https://github.com/baomidou/mybatis-plus)  can be `0-Code` .
 >

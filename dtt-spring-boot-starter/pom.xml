@@ -13,13 +13,10 @@
     <artifactId>dtt-spring-boot-starter</artifactId>
     <version>1.3.9</version>
     <name>dtt-spring-boot-starter</name>
-    <description>
-        DTT is an object-oriented Java framework that helps developers increase productivity, Domain driven table is the
-        concept of DTT which makes you focus more on domain objects rather than tables. Aims to make it's easy to create
-        database tables automatically based on Java model with annotation driven. It's also support the ability of
-        creating table lazily on demand for MyBatis and optionally exports all tables DDL to local file, It can work
-        with some ORM-Frameworks(MyBatis, MyBatis-Plus) with little learning and usage costs, DTT support databases
-        server for MYSQL, ORACLE, DB2, SQLSERVER, MARIADB, POSTGRESQL and embedded database for H2, HSQL, DERBY.
+    <description>DTT is an object-oriented Java framework that enables developers to automatically create database
+        tables based on domain models through annotation-driven development, increasing productivity for developers. The
+        core concept of DTT is domain-driven table, which makes you focus more on domain objects rather than database
+        tables.
     </description>
     <url>https://github.com/Weasley-J/dtt-spring-boot-parent</url>
 

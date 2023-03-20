@@ -7,7 +7,7 @@
     <artifactId>dtt-spring-boot-parent</artifactId>
     <version>1.0.0</version>
     <name>dtt-spring-boot-parent</name>
-    <description>DTT is a Java framework to handle Java domain to table statement of SQL database</description>
+    <description>DTT is a Java framework to handle Java domain to table statement of RDB</description>
     <packaging>pom</packaging>
 
     <modules>
