@@ -9,6 +9,7 @@ package cn.alphahub.dtt.plus.util;
 public final class SystemUtil {
 
     private SystemUtil() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**

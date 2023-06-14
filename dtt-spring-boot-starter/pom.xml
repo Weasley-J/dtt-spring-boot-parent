@@ -11,7 +11,7 @@
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>dtt-spring-boot-starter</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <name>dtt-spring-boot-starter</name>
     <description>DTT is an object-oriented Java framework that enables developers to automatically create database
         tables based on domain models through annotation-driven development, increasing productivity for developers. The
@@ -44,7 +44,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-collections4.version>4.4</commons-collections4.version>

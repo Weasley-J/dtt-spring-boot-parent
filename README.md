@@ -262,7 +262,7 @@
   <dependency>
     <groupId>io.github.weasley-j</groupId>
     <artifactId>dtt-spring-boot-starter</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
   </dependency>
   <!-- javadoc-scribe start  -->
   <dependency>
@@ -304,7 +304,7 @@ mvn clean install -pl :dtt-spring-boot-starter -am
         <dependency>
             <groupId>io.github.weasley-j</groupId>
           <artifactId>dtt-spring-boot-starter</artifactId>
-          <version>1.4.0</version>
+          <version>1.4.1</version>
         </dependency>
         <!-- javadoc-scribe start  -->
         <dependency>

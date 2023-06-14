@@ -3,7 +3,7 @@ package com.example;
 import cn.alphahub.dtt.plus.enums.DatabaseType;
 import cn.alphahub.dtt.plus.framework.DatabaseHandler;
 import cn.alphahub.dtt.plus.util.JacksonUtil;
-import cn.alphahub.dtt.plus.util.YamlToPropsUtil;
+import cn.alphahub.dtt.plus.util.YamlUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.hutool.system.SystemUtil;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class DttPlus2XTestAppTests {
     void toProperties() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Properties props = SystemUtil.getProps();
-        Properties properties = YamlToPropsUtil.toProperties("application-db-MAPPER.yml");
+        Properties properties = YamlUtil.toProperties("application-db-MAPPER.yml");
         System.out.println(JacksonUtil.toPrettyJson(properties));
     }
 

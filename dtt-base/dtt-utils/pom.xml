@@ -6,12 +6,12 @@
     <parent>
         <groupId>io.github.weasley-j</groupId>
         <artifactId>dtt-base</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1</version>
     </parent>
 
     <groupId>io.github.weasley-j</groupId>
     <artifactId>dtt-utils</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <packaging>jar</packaging>
     <name>dtt-utils</name>
     <description>The util module for dtt</description>
@@ -43,15 +43,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jackson.version>2.14.1</jackson.version>
+        <jackson.version>2.15.2</jackson.version>
         <jackson.version.annotations>${jackson.version}</jackson.version.annotations>
         <jackson.version.core>${jackson.version}</jackson.version.core>
         <jackson.version.datatype>${jackson.version}</jackson.version.datatype>
         <jackson.version.databind>${jackson.version}</jackson.version.databind>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <slf4j-api.version>2.0.5</slf4j-api.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
-        <spring-context.version>5.3.24</spring-context.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
+        <spring-context.version>5.3.27</spring-context.version>
         <spring-beans.version>5.3.24</spring-beans.version>
     </properties>
 

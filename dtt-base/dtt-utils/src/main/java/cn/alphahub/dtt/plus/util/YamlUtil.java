@@ -15,11 +15,11 @@ import java.util.TreeMap;
  * Yaml to Java Properties
  */
 @SuppressWarnings({"unchecked"})
-public final class YamlToPropsUtil {
+public final class YamlUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(YamlToPropsUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(YamlUtil.class);
 
-    private YamlToPropsUtil() {
+    private YamlUtil() {
         throw new IllegalStateException("Utility class");
     }
 
@@ -29,6 +29,7 @@ public final class YamlToPropsUtil {
      * @param in yaml文件的输入流
      * @return Properties
      * @apiNote 使用Yaml InputStream读取，只能读一个yml文件
+     * @see YamlUtil#toProperties(String...)
      */
     public static Properties toProperties(InputStream in) {
         Yaml yaml = new Yaml();
@@ -40,24 +41,24 @@ public final class YamlToPropsUtil {
     /**
      * Converts Yaml to Properties
      *
-     * @param yamlFiles classpath下的yaml文件名，相对路径: "application.yml","application-dev.yml"
+     * @param yaml classpath下的yaml文件名，相对路径: "application.yml","application-dev.yml"
      * @return Properties
      * @apiNote 使用YamlPropertiesFactoryBean读取，支持多个yml文件
      */
-    public static Properties toProperties(String... yamlFiles) {
-        if (yamlFiles == null || yamlFiles.length == 0) {
+    public static Properties toProperties(String... yaml) {
+        if (yaml == null || yaml.length == 0) {
             if (logger.isWarnEnabled()) {
                 logger.warn("yaml name of classpath cannot be null!");
             }
             return new Properties();
         }
-        ClassPathResource[] resources = new ClassPathResource[yamlFiles.length];
-        for (int i = 0; i < yamlFiles.length; i++) {
-            resources[i] = new ClassPathResource(yamlFiles[i]);
+        ClassPathResource[] resources = new ClassPathResource[yaml.length];
+        for (int i = 0; i < yaml.length; i++) {
+            resources[i] = new ClassPathResource(yaml[i]);
         }
-        YamlPropertiesFactoryBean yamlMapFactoryBean = new YamlPropertiesFactoryBean();
-        yamlMapFactoryBean.setResources(resources);
-        return yamlMapFactoryBean.getObject();
+        YamlPropertiesFactoryBean factoryBean = new YamlPropertiesFactoryBean();
+        factoryBean.setResources(resources);
+        return factoryBean.getObject();
     }
 
     private static String toPropertiesString(TreeMap<String, Map<String, Object>> config) {
@@ -79,7 +80,6 @@ public final class YamlToPropsUtil {
         }
         return properties;
     }
-
 
     private static String toString(String key, Map<String, Object> map) {
         StringBuilder sb = new StringBuilder();

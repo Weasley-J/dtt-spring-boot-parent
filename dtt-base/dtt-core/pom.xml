@@ -6,7 +6,7 @@
     <groupId>io.github.weasley-j</groupId>
     <artifactId>dtt-core</artifactId>
     <packaging>jar</packaging>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <name>dtt-core</name>
     <description>The core module for dtt</description>
     <url>https://github.com/Weasley-J/dtt-spring-boot-parent</url>

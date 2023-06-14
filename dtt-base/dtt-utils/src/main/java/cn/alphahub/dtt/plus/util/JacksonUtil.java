@@ -3,6 +3,7 @@ package cn.alphahub.dtt.plus.util;
 import cn.alphahub.dtt.plus.util.exception.UtilException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -23,8 +24,9 @@ import java.time.format.DateTimeFormatter;
  *
  * @author weasley
  * @version 1.0.0
+ * @apiNote 反序列化时忽略在JSON字符串中存在而在Java中不存在的字段属性
  */
-public final class JacksonUtil {
+public class JacksonUtil {
     /**
      * HH:mm:ss
      */
@@ -47,7 +49,6 @@ public final class JacksonUtil {
     public static final ObjectMapper MAPPER;
 
     static {
-        MAPPER = new ObjectMapper();
         JavaTimeModule timeModule = new JavaTimeModule();
         timeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(LOCAL_TIME_PATTERN)));
         timeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(LOCAL_DATE_PATTERN)));
@@ -55,11 +56,14 @@ public final class JacksonUtil {
         timeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(LOCAL_TIME_PATTERN)));
         timeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_PATTERN)));
         timeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(LOCAL_DATE_TIME_PATTERN)));
+        MAPPER = new ObjectMapper();
+        MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         MAPPER.registerModule(timeModule).findAndRegisterModules();
         WRITER = MAPPER.writerWithDefaultPrettyPrinter();
     }
 
     private JacksonUtil() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**
