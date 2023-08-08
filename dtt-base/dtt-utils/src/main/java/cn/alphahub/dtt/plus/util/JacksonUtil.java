@@ -136,7 +136,7 @@ public class JacksonUtil {
     }
 
     /**
-     * Jackson original property naming strategy
+     * The Jackson original property naming strategy
      *
      * @author weasley
      * @since 1.1.0
